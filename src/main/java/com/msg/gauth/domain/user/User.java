@@ -28,7 +28,9 @@ public class User {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "Role", joinColumns = @JoinColumn(name = "id"))
+    private List<Role> roles = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private UserState state;
