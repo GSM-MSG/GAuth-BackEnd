@@ -22,9 +22,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-        String bearer = jwtTokenProvider.resolveToken(request);
-        if (bearer != null) {
-            Authentication authentication = jwtTokenProvider.authentication(bearer);
+        String token = jwtTokenProvider.resolveToken(request);
+        if (token != null) {
+            Authentication authentication = jwtTokenProvider.authentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
