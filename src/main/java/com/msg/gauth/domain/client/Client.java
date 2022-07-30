@@ -21,9 +21,9 @@ public class Client {
     @Column(length = 60)
     private String clientSecret;
 
-    private String serviceName;
-
     private String redirectUri;
+
+    private String serviceName;
 
     private String serviceUri;
 
