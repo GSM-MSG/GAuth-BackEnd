@@ -29,7 +29,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "Role", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "UserRole", joinColumns = @JoinColumn(name = "id"))
     private List<UserRole> roles = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
