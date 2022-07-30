@@ -1,5 +1,6 @@
-package com.msg.gauth.global.security.jwt;
+package com.msg.gauth.global.security.filter;
 
+import com.msg.gauth.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
