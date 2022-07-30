@@ -30,7 +30,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "Role", joinColumns = @JoinColumn(name = "id"))
-    private List<Role> roles = new ArrayList<>();
+    private List<UserRole> roles = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private UserState state;
