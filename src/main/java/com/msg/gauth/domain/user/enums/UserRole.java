@@ -1,4 +1,4 @@
-package com.msg.gauth.domain.enums;
+package com.msg.gauth.domain.user.enums;
 
 import org.springframework.security.core.GrantedAuthority;
 

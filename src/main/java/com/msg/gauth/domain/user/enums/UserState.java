@@ -1,4 +1,4 @@
-package com.msg.gauth.domain.enums;
+package com.msg.gauth.domain.user.enums;
 
 public enum UserState {
     PENDING, CREATED

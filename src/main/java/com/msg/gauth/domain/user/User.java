@@ -1,8 +1,8 @@
 package com.msg.gauth.domain.user;
 
-import com.msg.gauth.domain.enums.Gender;
-import com.msg.gauth.domain.enums.UserRole;
-import com.msg.gauth.domain.enums.UserState;
+import com.msg.gauth.domain.user.enums.Gender;
+import com.msg.gauth.domain.user.enums.UserRole;
+import com.msg.gauth.domain.user.enums.UserState;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
