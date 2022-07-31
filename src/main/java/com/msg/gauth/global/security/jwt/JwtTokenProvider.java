@@ -1,6 +1,8 @@
 package com.msg.gauth.global.security.jwt;
 
 import com.msg.gauth.global.security.auth.AuthDetailsService;
+import com.msg.gauth.global.security.exception.ExpiredTokenException;
+import com.msg.gauth.global.security.exception.InvalidTokenException;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -74,11 +76,9 @@ public class JwtTokenProvider {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
-            // TODO: throw Expired Token Exception
-            throw new RuntimeException();
+            throw new ExpiredTokenException();
         } catch (Exception e) {
-            // TODO: throw Invalid Token Exception
-            throw new RuntimeException();
+            throw new InvalidTokenException();
         }
     }
 
