@@ -1,7 +1,7 @@
 package com.msg.gauth.global.security.auth;
 
-import com.msg.gauth.domain.enums.UserState;
 import com.msg.gauth.domain.user.User;
+import com.msg.gauth.domain.user.enums.UserState;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
