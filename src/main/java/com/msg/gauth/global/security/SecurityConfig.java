@@ -1,6 +1,7 @@
 package com.msg.gauth.global.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.msg.gauth.global.security.config.FilterConfig;
 import com.msg.gauth.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

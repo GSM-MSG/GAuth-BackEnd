@@ -1,4 +1,4 @@
-package com.msg.gauth.global.security;
+package com.msg.gauth.global.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.msg.gauth.global.security.filter.ExceptionFilter;
