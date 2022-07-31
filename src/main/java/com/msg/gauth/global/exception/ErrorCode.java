@@ -11,6 +11,7 @@ public enum ErrorCode {
     BAD_REQUEST("잘못된 요청", 400),
     UNAUTHORIZED("권한 없음", 401),
     NOT_FOUND("리소스를 찾을수 없음", 404),
+    DUPLICATE_EMAIL("중복되는 이메일입니다.", 400),
     ;
 
     private String msg;
