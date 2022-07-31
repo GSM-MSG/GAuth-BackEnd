@@ -4,6 +4,7 @@ import com.msg.gauth.domain.user.enums.Gender;
 import com.msg.gauth.domain.user.enums.UserRole;
 import com.msg.gauth.domain.user.enums.UserState;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
