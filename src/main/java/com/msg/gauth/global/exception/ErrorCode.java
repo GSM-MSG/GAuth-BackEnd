@@ -17,6 +17,8 @@ public enum ErrorCode {
 
     NOT_FOUND("리소스를 찾을수 없음", 404),
     USER_NOT_FOUND("해당 유저를 찾을 수 없음", 404),
+    
+    DUPLICATE_EMAIL("중복되는 이메일입니다.", 409),
     ;
 
     private String msg;
