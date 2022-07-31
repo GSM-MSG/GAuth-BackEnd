@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Collections;
 
@@ -16,8 +18,11 @@ import java.util.Collections;
 @AllArgsConstructor @NoArgsConstructor
 public class SignUpDto {
 
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z0-9]+@gsm.hs.kr$")
     private String email;
 
+    @NotBlank
     @Size(min = 8, max = 72)
     private String password;
 
