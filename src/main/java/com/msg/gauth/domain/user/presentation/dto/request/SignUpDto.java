@@ -18,7 +18,7 @@ public class SignUpDto {
 
     private String email;
 
-    @Size(max = 60)
+    @Size(min = 8, max = 72)
     private String password;
 
     public User toEntity(String password){
