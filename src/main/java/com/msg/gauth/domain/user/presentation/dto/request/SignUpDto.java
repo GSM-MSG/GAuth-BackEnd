@@ -15,30 +15,17 @@ import java.util.Collections;
 @Getter
 @AllArgsConstructor @NoArgsConstructor
 public class SignUpDto {
-    private Integer grade;
 
-    private Integer classNum;
-
-    private Integer num;
-
-    @Column(unique = true)
     private String email;
 
     @Size(max = 60)
     private String password;
 
-    private Gender gender;
-
     public User toEntity(String password){
         return User.builder()
-                .grade(grade)
-                .classNum(classNum)
-                .num(num)
                 .email(email)
                 .password(password)
-                .gender(gender)
                 .roles(Collections.singletonList(UserRole.ROLE_STUDENT))
-                .gender(gender)
                 .state(UserState.PENDING)
                 .build();
     }

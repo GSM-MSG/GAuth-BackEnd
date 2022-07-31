@@ -1,11 +1,9 @@
 package com.msg.gauth.domain.user.services;
 
 import com.msg.gauth.domain.user.User;
-import com.msg.gauth.domain.user.enums.UserRole;
 import com.msg.gauth.domain.user.presentation.dto.request.SignUpDto;
 import com.msg.gauth.domain.user.repository.UserRepository;
 import com.msg.gauth.global.exception.ErrorCode;
-import com.msg.gauth.global.exception.exceptions.BasicException;
 import com.msg.gauth.global.exception.exceptions.DuplicateEmailException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
