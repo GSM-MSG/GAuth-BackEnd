@@ -1,5 +1,6 @@
 package com.msg.gauth.global.security.auth;
 
+import com.msg.gauth.domain.user.exception.UserNotFoundException;
 import com.msg.gauth.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,6 @@ public class AuthDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username)
                 .map(AuthDetails::new)
-                .orElseThrow(); // TODO: throw User Not Found Exception
+                .orElseThrow(UserNotFoundException::new);
     }
 }
