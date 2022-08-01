@@ -12,6 +12,7 @@ import com.msg.gauth.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
 
@@ -23,6 +24,7 @@ public class SigninService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     SigninResponseDto execute(SigninRequestDto dto) {
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(UserNotFoundException::new);
@@ -35,7 +37,7 @@ public class SigninService {
         String refresh = jwtTokenProvider.generateRefreshToken(dto.getEmail());
         ZonedDateTime expiresAt = jwtTokenProvider.getAccessExpiredTime();
 
-        refreshTokenRepository.save(new RefreshToken(user.getId(), refresh, jwtTokenProvider.getAccessTimeToLive()));
+        refreshTokenRepository.save(new RefreshToken(user.getId(), refresh, jwtTokenProvider.getRefreshTimeToLive()));
 
         return new SigninResponseDto(access, refresh, expiresAt);
     }
