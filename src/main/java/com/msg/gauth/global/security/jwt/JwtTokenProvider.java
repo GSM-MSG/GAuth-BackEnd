@@ -39,9 +39,8 @@ public class JwtTokenProvider {
         return parseToken(token);
     }
 
-    public String resolveRefreshToken(HttpServletRequest req) {
-        String token = req.getHeader("Refresh-Token");
-        return parseToken(token);
+    public String exactEmailFromRefreshToken(String refresh) {
+        return getTokenSubject(refresh, jwtProperties.getRefreshSecret());
     }
 
     public Authentication authentication(String token) {
@@ -59,8 +58,8 @@ public class JwtTokenProvider {
         return ZonedDateTime.now().plusSeconds(ACCESS_EXP);
     }
 
-    public Long getAccessTimeToLive() {
-        return ACCESS_EXP;
+    public Long getRefreshTimeToLive() {
+        return REFRESH_EXP;
     }
 
     public String generateToken(String sub, String type, String secret, Long exp) {
