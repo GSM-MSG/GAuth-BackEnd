@@ -59,6 +59,10 @@ public class JwtTokenProvider {
         return ZonedDateTime.now().plusSeconds(ACCESS_EXP);
     }
 
+    public Long getAccessTimeToLive() {
+        return ACCESS_EXP;
+    }
+
     public String generateToken(String sub, String type, String secret, Long exp) {
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS256, secret)
