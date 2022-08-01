@@ -25,7 +25,7 @@ public class SigninService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    SigninResponseDto execute(SigninRequestDto dto) {
+    public SigninResponseDto execute(SigninRequestDto dto) {
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(UserNotFoundException::new);
 

@@ -13,7 +13,7 @@ public class LogoutService {
     private final UserUtil userUtil;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    void execute() {
+    public void execute() {
         User currentUser = userUtil.fetchCurrentUser();
         refreshTokenRepository.findById(currentUser.getId())
                 .ifPresent(refreshTokenRepository::delete);
