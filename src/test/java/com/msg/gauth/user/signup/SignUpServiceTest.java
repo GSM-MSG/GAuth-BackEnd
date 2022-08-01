@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -24,6 +25,8 @@ import java.util.Set;
 @SpringBootTest
 public class SignUpServiceTest {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private SignUpService signUpService;
     @Autowired
@@ -79,5 +82,6 @@ public class SignUpServiceTest {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException());
         Assertions.assertThat(user.getPassword()).isNotEqualTo(signUpDto.getPassword());
+        Assertions.assertThat(passwordEncoder.matches(signUpDto.getPassword(), user.getPassword())).isTrue();
     }
 }
