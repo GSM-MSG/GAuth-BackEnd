@@ -15,6 +15,8 @@ public enum ErrorCode {
     UNAUTHORIZED("권한 없음", 401),
     EXPIRED_TOKEN("토큰 만료", 401),
     INVALID_TOKEN("토큰 변질", 401),
+    EXPIRED_REFRESH_TOKEN("리프레시 토큰이 만료되었습니다", 401),
+    INVALID_REFRESH_TOKEN("리프레시 토큰이 변질되었습니다", 401),
 
     NOT_FOUND("리소스를 찾을수 없음", 404),
     USER_NOT_FOUND("해당 유저를 찾을 수 없습니다.", 404),
