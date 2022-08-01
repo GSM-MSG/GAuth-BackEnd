@@ -30,7 +30,9 @@ jobs:
         distribution: 'temurin'
     - name: generate application.yml
       run: |
-        cd ./src/main/resources
+        cd ./src/main
+        mkdir resources
+        cd resources
         touch application.yml
         echo "${{ secrets.APPLICATION }}" > .application.yml
       shell: bash
