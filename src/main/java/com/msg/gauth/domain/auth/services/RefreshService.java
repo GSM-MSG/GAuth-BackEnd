@@ -24,7 +24,7 @@ public class RefreshService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    RefreshResponseDto execute(String refreshToken) {
+    public RefreshResponseDto execute(String refreshToken) {
         String email = jwtTokenProvider.exactEmailFromRefreshToken(refreshToken);
         User user = userRepository.findByEmail(email)
                 .orElseThrow(UserNotFoundException::new);
