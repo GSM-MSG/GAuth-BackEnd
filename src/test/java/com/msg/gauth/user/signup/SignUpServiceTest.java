@@ -7,6 +7,8 @@ import com.msg.gauth.domain.user.repository.UserRepository;
 import com.msg.gauth.domain.user.services.SignUpService;
 import com.msg.gauth.global.exception.exceptions.DuplicateEmailException;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,11 @@ public class SignUpServiceTest {
     public static void init() {
         validatorFactory = Validation.buildDefaultValidatorFactory();
         validatorFromFactory = validatorFactory.getValidator();
+    }
+
+    @AfterEach
+    public void deleteTestData(){
+        userRepository.deleteAll();
     }
 
     @Test
@@ -63,5 +70,14 @@ public class SignUpServiceTest {
         SignUpDto signUpDto = new SignUpDto("s21053hs.kr", "123219081");
         Set<ConstraintViolation<SignUpDto>> validate = validatorFromFactory.validate(signUpDto);
         Assertions.assertThat(validate).isNotEmpty();
+    }
+    
+    @Test
+    public void PasswordEncodeTest(){
+        SignUpDto signUpDto = new SignUpDto("s21053@gsm.hs.kr", "123456789999");
+        Long id = signUpService.execute(signUpDto);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException());
+        Assertions.assertThat(user.getPassword()).isNotEqualTo(signUpDto.getPassword());
     }
 }
