@@ -17,5 +17,5 @@ public class EmailAuthEntity {
     @Id
     private String email;
     private String randomValue;
-    private Boolean Authentication;
+    private Boolean authentication;
 }
