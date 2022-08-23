@@ -1,5 +1,6 @@
 package com.msg.gauth.domain.email.services;
 
+import com.msg.gauth.domain.email.repository.EmailAuthRepository;
 import com.msg.gauth.domain.user.presentation.dto.request.EmailSendDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,13 @@ import javax.mail.MessagingException;
 class MailSendServiceTest {
     @Autowired
     MailSendService mailSendService;
+    @Autowired
+    EmailAuthRepository emailAuthRepository;
+
     @Test
     public void test() throws MessagingException {
-        EmailSendDto emailSendDto = new EmailSendDto("k01066624566@gmail.com");
+        EmailSendDto emailSendDto = new EmailSendDto("baegteun@gmail.com");
         mailSendService.execute(emailSendDto);
+        emailAuthRepository.deleteById(emailSendDto.getEmail());
     }
 }

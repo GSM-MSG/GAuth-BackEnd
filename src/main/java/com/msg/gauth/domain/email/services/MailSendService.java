@@ -40,14 +40,16 @@ public class MailSendService {
 
         if (authEntity.getAttemptCount() >= 3)
             throw new ManyRequestEmailAuthException();
+        authEntity.updateRandomValue(value);
         authEntity.increaseAttemptCount();
 
         emailAuthRepository.save(authEntity);
         try{
             MimeMessage message = mailSender.createMimeMessage();
+            String msg = "<form action=\"http://localhost:8080/v1/email/authentication\"?email=" + email + "&uuid=" + value + "><input type=\"submit\" value=\"인증하기\" style=\"padding: 10px; border: none; color: white; background-color: skyblue; border-radius: 8px; align-self: center; text-align: center;\" /></form>";
             message.addRecipients(RecipientType.TO,emailSendDto.getEmail());
             message.setSubject("[Gauth] 이메일 인즘");
-            message.setText("<form action=\"http://localhost:8080/v1/email/authentication?email="+emailSendDto.getEmail()+"&uuid="+value+"\"><input type=\"submit\"></input></form>", "utf-8", "html");
+            message.setText(msg, "utf-8", "html");
             mailSender.send(message);
         }catch (MessagingException ex){
             throw new MessageSendFailException(ErrorCode.MAIL_SEND_FAIL);
