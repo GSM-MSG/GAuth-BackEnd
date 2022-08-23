@@ -42,7 +42,7 @@ public class MailSendService {
             message.setText("<form action=\"http://localhost:8080/v1/email/authentication?email="+emailSendDto.getEmail()+"&uuid="+value+"\"><input type=\"submit\"></input></form>", "utf-8", "html");
             mailSender.send(message);
         }catch (MessagingException ex){
-
+            throw new MessageSendFailException(ErrorCode.MAIL_SEND_FAIL);
         }
     }
 }

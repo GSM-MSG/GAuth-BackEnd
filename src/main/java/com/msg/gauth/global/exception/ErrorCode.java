@@ -22,6 +22,8 @@ public enum ErrorCode {
     USER_NOT_FOUND("해당 유저를 찾을 수 없습니다.", 404),
     
     DUPLICATE_EMAIL("중복되는 이메일입니다.", 409),
+
+    MAIL_SEND_FAIL("메일을 보내는데 실패했습니다.", 500),
     ;
 
     private String msg;
