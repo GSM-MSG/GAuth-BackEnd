@@ -33,21 +33,17 @@ public class MailSendService {
     public void execute(EmailSendDto emailSendDto){
         String email = emailSendDto.getEmail();
         String value = UUID.randomUUID().toString();
-        EmailAuthEntity authEntity;
-        if (emailAuthRepository.existsById(email)) {
-            authEntity = emailAuthRepository.findById(email)
-                    .orElseThrow(AuthCodeExpiredException::new);
-            authEntity.increaseAttemptCount();
-        } else {
-            authEntity = EmailAuthEntity.builder()
-                    .authentication(false)
-                    .randomValue(value)
-                    .email(email)
-                    .attemptCount(1)
-                    .build();
-        }
-        if (authEntity.getAttemptCount() >= 4)
+        EmailAuthEntity authEntity = emailAuthRepository.findById(email)
+                .orElse(EmailAuthEntity.builder()
+                        .authentication(false)
+                        .randomValue(value)
+                        .email(email)
+                        .attemptCount(0)
+                        .build());
+
+        if (authEntity.getAttemptCount() >= 3)
             throw new ManyRequestEmailAuthException();
+        authEntity.increaseAttemptCount();
 
         emailAuthRepository.save(authEntity);
         try{
