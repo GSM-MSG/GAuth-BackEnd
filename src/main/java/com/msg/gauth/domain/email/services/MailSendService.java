@@ -2,14 +2,12 @@ package com.msg.gauth.domain.email.services;
 
 import javax.mail.Message.RecipientType;
 import com.msg.gauth.domain.email.EmailAuthEntity;
-import com.msg.gauth.domain.email.exception.AuthCodeExpiredException;
 import com.msg.gauth.domain.email.exception.ManyRequestEmailAuthException;
 import com.msg.gauth.domain.user.presentation.dto.request.EmailSendDto;
 import com.msg.gauth.domain.email.repository.EmailAuthRepository;
 import com.msg.gauth.global.exception.ErrorCode;
 import com.msg.gauth.global.exception.exceptions.MessageSendFailException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -21,7 +19,6 @@ import javax.mail.internet.MimeMessage;
 import java.util.UUID;
 
 @Service
-@Slf4j
 @EnableAsync
 @RequiredArgsConstructor
 public class MailSendService {
