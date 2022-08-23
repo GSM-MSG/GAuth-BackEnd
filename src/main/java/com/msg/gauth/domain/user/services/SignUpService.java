@@ -1,6 +1,9 @@
 package com.msg.gauth.domain.user.services;
 
+import com.msg.gauth.domain.email.EmailAuthEntity;
+import com.msg.gauth.domain.email.repository.EmailAuthRepository;
 import com.msg.gauth.domain.user.User;
+import com.msg.gauth.domain.user.exception.EmailNotVerifiedException;
 import com.msg.gauth.domain.user.presentation.dto.request.SignUpDto;
 import com.msg.gauth.domain.user.repository.UserRepository;
 import com.msg.gauth.global.exception.ErrorCode;
@@ -16,6 +19,7 @@ public class SignUpService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailAuthRepository emailAuthRepository;
 
     @Transactional
     public Long execute(SignUpDto signUpDto){
@@ -24,6 +28,10 @@ public class SignUpService {
         }
         String password = signUpDto.getPassword();
         User user = signUpDto.toEntity(passwordEncoder.encode(password));
+        EmailAuthEntity emailAuth = emailAuthRepository.findById(signUpDto.getEmail())
+                .orElseThrow(EmailNotVerifiedException::new);
+        if (!emailAuth.getAuthentication())
+            throw new EmailNotVerifiedException();
         return userRepository.save(user).getId();
     }
 }
