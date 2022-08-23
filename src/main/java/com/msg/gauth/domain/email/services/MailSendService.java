@@ -1,9 +1,11 @@
-package com.msg.gauth.domain.user.services;
+package com.msg.gauth.domain.email.services;
 
 import javax.mail.Message.RecipientType;
-import com.msg.gauth.domain.user.EmailAuthEntity;
+import com.msg.gauth.domain.email.EmailAuthEntity;
+import com.msg.gauth.domain.email.exception.AuthCodeExpiredException;
+import com.msg.gauth.domain.email.exception.ManyRequestEmailAuthException;
 import com.msg.gauth.domain.user.presentation.dto.request.EmailSendDto;
-import com.msg.gauth.domain.user.repository.EmailAuthRepository;
+import com.msg.gauth.domain.email.repository.EmailAuthRepository;
 import com.msg.gauth.global.exception.ErrorCode;
 import com.msg.gauth.global.exception.exceptions.MessageSendFailException;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -26,14 +29,26 @@ public class MailSendService {
     private final EmailAuthRepository emailAuthRepository;
 
     @Async
+    @Transactional
     public void execute(EmailSendDto emailSendDto){
         String email = emailSendDto.getEmail();
         String value = UUID.randomUUID().toString();
-        EmailAuthEntity authEntity = EmailAuthEntity.builder()
-                .authentication(false)
-                .randomValue(value)
-                .email(email)
-                .build();
+        EmailAuthEntity authEntity;
+        if (emailAuthRepository.existsById(email)) {
+            authEntity = emailAuthRepository.findById(email)
+                    .orElseThrow(AuthCodeExpiredException::new);
+            if (authEntity.getAttemptCount() >= 3)
+                throw new ManyRequestEmailAuthException();
+            authEntity.increaseAttemptCount();
+        } else {
+            authEntity = EmailAuthEntity.builder()
+                    .authentication(false)
+                    .randomValue(value)
+                    .email(email)
+                    .attemptCount(1)
+                    .build();
+        }
+
         emailAuthRepository.save(authEntity);
         try{
             MimeMessage message = mailSender.createMimeMessage();
