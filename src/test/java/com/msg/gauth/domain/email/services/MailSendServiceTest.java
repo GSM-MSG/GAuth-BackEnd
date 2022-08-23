@@ -1,4 +1,4 @@
-package com.msg.gauth.domain.user.services;
+package com.msg.gauth.domain.email.services;
 
 import com.msg.gauth.domain.user.presentation.dto.request.EmailSendDto;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,8 @@ import javax.mail.MessagingException;
 
 @SpringBootTest
 class MailSendServiceTest {
-    @Autowired MailSendService mailSendService;
+    @Autowired
+    MailSendService mailSendService;
     @Test
     public void test() throws MessagingException {
         EmailSendDto emailSendDto = new EmailSendDto("k01066624566@gmail.com");
