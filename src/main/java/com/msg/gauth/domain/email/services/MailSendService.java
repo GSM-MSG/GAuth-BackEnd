@@ -37,8 +37,6 @@ public class MailSendService {
         if (emailAuthRepository.existsById(email)) {
             authEntity = emailAuthRepository.findById(email)
                     .orElseThrow(AuthCodeExpiredException::new);
-            if (authEntity.getAttemptCount() >= 3)
-                throw new ManyRequestEmailAuthException();
             authEntity.increaseAttemptCount();
         } else {
             authEntity = EmailAuthEntity.builder()
@@ -48,6 +46,8 @@ public class MailSendService {
                     .attemptCount(1)
                     .build();
         }
+        if (authEntity.getAttemptCount() >= 4)
+            throw new ManyRequestEmailAuthException();
 
         emailAuthRepository.save(authEntity);
         try{
