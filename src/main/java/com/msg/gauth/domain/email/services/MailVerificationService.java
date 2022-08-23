@@ -11,10 +11,10 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class MailVerificationService {
     private final EmailAuthRepository emailAuthRepository;
 
+    @Transactional
     public void execute(String email, String uuid) {
         EmailAuthEntity emailAuth = emailAuthRepository.findById(email)
                 .orElseThrow(AuthCodeExpiredException::new);
