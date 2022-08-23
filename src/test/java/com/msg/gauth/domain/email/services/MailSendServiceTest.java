@@ -1,6 +1,5 @@
-package com.msg.gauth.domain.user.services;
+package com.msg.gauth.domain.email.services;
 
-import com.msg.gauth.domain.email.services.MailSendService;
 import com.msg.gauth.domain.user.presentation.dto.request.EmailSendDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

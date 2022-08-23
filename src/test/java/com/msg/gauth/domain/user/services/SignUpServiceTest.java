@@ -1,4 +1,4 @@
-package com.msg.gauth.user.signup;
+package com.msg.gauth.domain.user.services;
 
 import com.msg.gauth.domain.user.User;
 import com.msg.gauth.domain.user.exception.UserNotFoundException;
