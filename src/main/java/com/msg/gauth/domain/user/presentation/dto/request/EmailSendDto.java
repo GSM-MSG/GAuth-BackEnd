@@ -1,4 +1,4 @@
-package com.msg.gauth.domain.user.dto;
+package com.msg.gauth.domain.user.presentation.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
