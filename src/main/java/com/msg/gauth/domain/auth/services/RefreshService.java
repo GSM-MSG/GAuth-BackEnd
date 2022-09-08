@@ -30,7 +30,7 @@ public class RefreshService {
                 .orElseThrow(UserNotFoundException::new);
         RefreshToken redisRefreshToken = refreshTokenRepository.findById(user.getId())
                 .orElseThrow(ExpiredRefreshTokenException::new);
-        if (Objects.equals(redisRefreshToken.getToken(), refreshToken)) {
+        if (!Objects.equals(redisRefreshToken.getToken(), refreshToken)) {
             throw new InvalidRefreshTokenException();
         }
         String access = jwtTokenProvider.generateAccessToken(email);
