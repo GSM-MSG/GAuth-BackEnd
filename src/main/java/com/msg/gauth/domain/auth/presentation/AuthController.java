@@ -6,6 +6,8 @@ import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto;
 import com.msg.gauth.domain.auth.services.LogoutService;
 import com.msg.gauth.domain.auth.services.RefreshService;
 import com.msg.gauth.domain.auth.services.SigninService;
+import com.msg.gauth.domain.user.presentation.dto.request.SignUpDto;
+import com.msg.gauth.domain.user.services.SignUpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,8 @@ public class AuthController {
     private final LogoutService logoutService;
 
     private final SigninService signinService;
+    
+    private final SignUpService signUpService;
 
     @PostMapping("/refresh")
     public ResponseEntity<RefreshResponseDto> refresh(@RequestHeader String refreshToken){
@@ -35,5 +39,11 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<SigninResponseDto> signin(@RequestBody @Valid SigninRequestDto signinRequestDto){
         return ResponseEntity.ok(signinService.execute(signinRequestDto));
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<Void> signUpMember(@RequestBody @Valid SignUpDto signUpDto){
+        signUpService.execute(signUpDto);
+        return ResponseEntity.ok().build();
     }
 }
