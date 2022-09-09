@@ -25,18 +25,18 @@ public class AuthController {
     
     private final SignUpService signUpService;
 
-    @PostMapping("/refresh")
+    @PatchMapping
     public ResponseEntity<RefreshResponseDto> refresh(@RequestHeader String refreshToken){
         return ResponseEntity.ok(refreshService.execute(refreshToken));
     }
 
-    @PostMapping("/logout")
+    @DeleteMapping
     public ResponseEntity<Void> logout(){
         logoutService.execute();
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/signin")
+    @PostMapping
     public ResponseEntity<SigninResponseDto> signin(@RequestBody @Valid SigninRequestDto signinRequestDto){
         return ResponseEntity.ok(signinService.execute(signinRequestDto));
     }

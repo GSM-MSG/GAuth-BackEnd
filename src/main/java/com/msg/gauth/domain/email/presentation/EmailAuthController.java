@@ -14,7 +14,7 @@ public class EmailAuthController {
     private final MailSendService mailSendService;
     private final MailVerificationService mailVerificationService;
 
-    @PostMapping("/send")
+    @PostMapping
     public ResponseEntity<Void> emailSend(@RequestBody EmailSendDto emailSendDto){
         mailSendService.execute(emailSendDto);
         return ResponseEntity.ok().build();
