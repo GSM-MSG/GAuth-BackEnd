@@ -17,13 +17,13 @@ public class EmailAuthController {
     @PostMapping
     public ResponseEntity<Void> emailSend(@RequestBody EmailSendDto emailSendDto){
         mailSendService.execute(emailSendDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/authentication")
     public ResponseEntity<Void> emailVerification(@RequestParam String email, @RequestParam String uuid){
         mailVerificationService.execute(email, uuid);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }

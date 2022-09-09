@@ -1,6 +1,6 @@
 package com.msg.gauth.domain.auth.presentation;
 
-import com.msg.gauth.domain.auth.presentation.dto.reqeust.SigninRequestDto;
+import com.msg.gauth.domain.auth.presentation.dto.request.SigninRequestDto;
 import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto;
 import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto;
 import com.msg.gauth.domain.auth.services.LogoutService;
@@ -33,7 +33,7 @@ public class AuthController {
     @DeleteMapping
     public ResponseEntity<Void> logout(){
         logoutService.execute();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping
@@ -44,6 +44,6 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<Void> signUpMember(@RequestBody @Valid SignUpDto signUpDto){
         signUpService.execute(signUpDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
