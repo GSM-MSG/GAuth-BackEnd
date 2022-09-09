@@ -20,7 +20,7 @@ public class EmailAuthController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/authentication")
+    @GetMapping("/authentication")
     public ResponseEntity<Void> emailVerification(@RequestParam String email, @RequestParam String uuid){
         mailVerificationService.execute(email, uuid);
         return ResponseEntity.ok().build();

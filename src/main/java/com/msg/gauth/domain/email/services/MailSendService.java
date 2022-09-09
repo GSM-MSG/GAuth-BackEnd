@@ -46,7 +46,7 @@ public class MailSendService {
         emailAuthRepository.save(authEntity);
         try{
             MimeMessage message = mailSender.createMimeMessage();
-            String msg = "<form action=\"http://localhost:8080/email/authentication?email=" + email + "&uuid=" + value + "\" method=\"post\"><input type=\"submit\" value=\"인증하기\" style=\"padding: 10px; border: none; color: white; background-color: skyblue; border-radius: 8px; align-self: center; text-align: center;\" /></form>";
+            String msg = "<form action=\"http://localhost:8080/email/authentication?email=" + email + "&uuid=" + value + "\"><input type=\"submit\" value=\"인증하기\" style=\"padding: 10px; border: none; color: white; background-color: skyblue; border-radius: 8px; align-self: center; text-align: center;\" /></form>";
             message.addRecipients(RecipientType.TO,emailSendDto.getEmail());
             message.setSubject("[Gauth] 이메일 인즘");
             message.setText(msg, "utf-8", "html");
