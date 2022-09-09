@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,8 +44,8 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Void> signUpMember(@RequestBody @Valid SignUpDto signUpDto){
+    public ResponseEntity<Void> signUpMember(@RequestBody @Valid SignUpDto signUpDto) throws URISyntaxException {
         signUpService.execute(signUpDto);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.created(new URI("/signup")).build();
     }
 }
