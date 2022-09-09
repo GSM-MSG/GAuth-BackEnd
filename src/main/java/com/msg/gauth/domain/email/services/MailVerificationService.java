@@ -21,5 +21,6 @@ public class MailVerificationService {
         if (!Objects.equals(emailAuth.getRandomValue(), uuid))
             throw new AuthCodeExpiredException();
         emailAuth.updateAuthentication(true);
+        emailAuthRepository.save(emailAuth);
     }
 }

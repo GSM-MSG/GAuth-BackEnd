@@ -2,7 +2,7 @@ package com.msg.gauth.domain.auth.services;
 
 import com.msg.gauth.domain.auth.RefreshToken;
 import com.msg.gauth.domain.auth.exception.PasswordMismatchException;
-import com.msg.gauth.domain.auth.presentation.dto.reqeust.SigninRequestDto;
+import com.msg.gauth.domain.auth.presentation.dto.request.SigninRequestDto;
 import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto;
 import com.msg.gauth.domain.auth.repository.RefreshTokenRepository;
 import com.msg.gauth.domain.user.User;

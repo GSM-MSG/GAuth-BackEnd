@@ -1,4 +1,4 @@
-package com.msg.gauth.domain.auth.presentation.dto.reqeust;
+package com.msg.gauth.domain.auth.presentation.dto.request;
 
 import lombok.Getter;
 
