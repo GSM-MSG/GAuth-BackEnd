@@ -23,9 +23,7 @@ import java.net.URISyntaxException;
 public class AuthController {
     private final RefreshService refreshService;
     private final LogoutService logoutService;
-
     private final SigninService signinService;
-    
     private final SignUpService signUpService;
 
     @PatchMapping
