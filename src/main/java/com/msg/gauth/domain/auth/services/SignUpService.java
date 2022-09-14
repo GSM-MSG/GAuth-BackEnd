@@ -1,4 +1,4 @@
-package com.msg.gauth.domain.user.services;
+package com.msg.gauth.domain.auth.services;
 
 import com.msg.gauth.domain.email.EmailAuthEntity;
 import com.msg.gauth.domain.email.repository.EmailAuthRepository;

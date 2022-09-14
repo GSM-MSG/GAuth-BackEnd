@@ -7,8 +7,9 @@ import com.msg.gauth.domain.auth.services.LogoutService;
 import com.msg.gauth.domain.auth.services.RefreshService;
 import com.msg.gauth.domain.auth.services.SigninService;
 import com.msg.gauth.domain.user.presentation.dto.request.SignUpDto;
-import com.msg.gauth.domain.user.services.SignUpService;
+import com.msg.gauth.domain.auth.services.SignUpService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +47,6 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<Void> signUpMember(@RequestBody @Valid SignUpDto signUpDto) throws URISyntaxException {
         signUpService.execute(signUpDto);
-        return ResponseEntity.created(new URI("/signup")).build();
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
