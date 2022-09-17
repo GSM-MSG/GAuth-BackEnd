@@ -15,11 +15,11 @@ public class InjectionLogger implements ApplicationListener<ApplicationStartedEv
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
         ConfigurableApplicationContext ac = event.getApplicationContext();
-        Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
         String[] beanDefinitionNames = ac.getBeanDefinitionNames();
         for (String name : beanDefinitionNames) {
             Object bean = ac.getBean(name);
             String classPath = bean.getClass().getName();
+            Logger log = LoggerFactory.getLogger(classPath);
             try {
                 if(!classPath.contains("gauth")){
                     continue;
