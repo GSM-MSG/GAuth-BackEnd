@@ -20,7 +20,6 @@ class JwtTokenFilter(
     ) {
         val token: String? = jwtTokenProvider.resolveToken(request)
         token?.let {
-            print(it)
             val authentication = jwtTokenProvider.authentication(token)
             SecurityContextHolder.getContext().authentication = authentication
         }
