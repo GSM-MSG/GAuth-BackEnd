@@ -11,21 +11,20 @@ class MailConfig(
     private val mailProperties: MailProperties
 ) {
     @Bean
-    fun getJavaMailSender(): JavaMailSender {
-        var sender = JavaMailSenderImpl()
-        sender.host = mailProperties.host
-        sender.port = mailProperties.port
-        sender.username = mailProperties.username
-        sender.password = mailProperties.password
+    fun getJavaMailSender(): JavaMailSender =
+        JavaMailSenderImpl().apply {
+            this.host = mailProperties.host
+            this.port = mailProperties.port
+            this.username = mailProperties.username
+            this.password = mailProperties.password
 
-        sender.javaMailProperties["mail.smtp.auth"] = true
-        sender.javaMailProperties["mail.smtp.connectiontimeout"] = 5000
-        sender.javaMailProperties["mail.smtp.timeout"] = 5000
-        sender.javaMailProperties["mail.smtp.writetimeout"] = 5000
-        sender.javaMailProperties["mail.transport.protocol"] = "smtp"
-        sender.javaMailProperties["mail.smtp.starttls.enable"] = true
-        sender.javaMailProperties["mail.smtp.starttls.required"] = true
+            this.javaMailProperties["mail.smtp.auth"] = true
+            this.javaMailProperties["mail.smtp.connectiontimeout"] = 5000
+            this.javaMailProperties["mail.smtp.timeout"] = 5000
+            this.javaMailProperties["mail.smtp.writetimeout"] = 5000
+            this.javaMailProperties["mail.transport.protocol"] = "smtp"
+            this.javaMailProperties["mail.smtp.starttls.enable"] = true
+            this.javaMailProperties["mail.smtp.starttls.required"] = true
+        }
 
-        return sender
-    }
 }
