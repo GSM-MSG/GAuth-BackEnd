@@ -38,5 +38,5 @@ out/
 
 /src/main/resources
 
-### docker ##3
+### docker ###
 docker-compose.yml
