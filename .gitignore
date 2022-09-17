@@ -37,3 +37,6 @@ out/
 .vscode/
 
 /src/main/resources
+
+### docker ###
+docker-compose.yml
