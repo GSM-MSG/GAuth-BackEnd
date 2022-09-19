@@ -23,7 +23,7 @@ class AuthController(
 ) {
 
     @PatchMapping
-    fun refresh(@RequestHeader refreshToken: String): ResponseEntity<RefreshResponseDto> =
+    fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> =
         ResponseEntity.ok(refreshService.execute(refreshToken))
 
     @DeleteMapping
