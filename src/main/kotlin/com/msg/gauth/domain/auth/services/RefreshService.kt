@@ -19,7 +19,7 @@ class RefreshService(
 ) {
     @Transactional
     fun execute(refreshToken: String): RefreshResponseDto {
-        val email = jwtTokenProvider.exactEmailFromRefreshToken(refreshToken!!)
+        val email = jwtTokenProvider.exactEmailFromRefreshToken(refreshToken)
         val user: User = userRepository.findByEmail(email) ?: throw UserNotFoundException()
         val redisRefreshToken = refreshTokenRepository.findById(user.id)
             .orElseThrow { ExpiredRefreshTokenException() }
