@@ -34,13 +34,13 @@ class ClientController(
     }
 
     @GetMapping
-    fun  getAllClients(): ResponseEntity<List<ClientAllResDto>>{
+    fun  getMyAllClients(): ResponseEntity<List<ClientAllResDto>>{
         val result = getAllClientsService.execute()
         return ResponseEntity.ok(result)
     }
 
     @GetMapping("/{id}")
-    fun getOneClient(@PathVariable id:String): ResponseEntity<ClientOneResDto>{
+    fun getMyOneClient(@PathVariable id:String): ResponseEntity<ClientOneResDto>{
         val clientOneResDto = getOneClientService.execute(id)
         return ResponseEntity.ok(clientOneResDto)
     }

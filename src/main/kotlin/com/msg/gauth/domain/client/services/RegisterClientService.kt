@@ -13,10 +13,12 @@ class RegisterClientService(
     private val currentUserUtil: CurrentUserUtil,
 ){
     fun execute(clientRegisterDto: ClientRegisterReqDto): ClientRegisterResDto {
-        val clientSecret = UUID.randomUUID().toString().replace("-", "") + UUID.randomUUID().toString().replace("-", "")
-        val clientId = UUID.randomUUID().toString().replace("-", "") + UUID.randomUUID().toString().replace("-", "")
+        val clientSecret = createUUID()
+        val clientId = createUUID()
         val user = currentUserUtil.getCurrentUser()
         val client = clientRegisterDto.toEntity(user, clientSecret, clientId)
         return ClientRegisterResDto(clientRepository.save(client))
     }
+
+    private fun createUUID() = (UUID.randomUUID().toString() + UUID.randomUUID().toString()).replace("-", "")
 }
