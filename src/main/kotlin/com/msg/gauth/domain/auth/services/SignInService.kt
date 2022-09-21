@@ -23,20 +23,15 @@ class SignInService(
     private val refreshTokenRepository: RefreshTokenRepository,
     private val passwordEncoder: PasswordEncoder
 ) {
-    @log4k
-    var logger: Logger? = null
 
     @Transactional
     fun execute(dto: SigninRequestDto): SigninResponseDto {
-        logger?.info("a")
-        println("1")
         val user: User = userRepository.findByEmail(dto.email) ?: throw UserNotFoundException()
         if (!passwordEncoder.matches(dto.password, user.password))
             throw PasswordMismatchException()
+
         val access = jwtTokenProvider.generateAccessToken(dto.email)
-        println("2")
         val refresh = jwtTokenProvider.generateRefreshToken(dto.email)
-        println("3")
         val expiresAt = jwtTokenProvider.accessExpiredTime
         refreshTokenRepository.save(RefreshToken(user.id, refresh, JwtTokenProvider.REFRESH_EXP))
         return SigninResponseDto(access, refresh, expiresAt)
