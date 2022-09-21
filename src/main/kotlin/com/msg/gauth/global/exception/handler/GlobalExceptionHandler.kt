@@ -6,6 +6,7 @@ import com.msg.gauth.global.exception.exceptions.BasicException
 import org.slf4j.Logger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.BindException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import javax.servlet.http.HttpServletRequest
@@ -21,5 +22,14 @@ class GlobalExceptionHandler {
         log?.error(ex.message)
         val errorResponse = ErrorResponse(ex.errorCode)
         return ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.valueOf(ex.errorCode.code))
+    }
+
+    @ExceptionHandler(BindException::class)
+    fun bindExceptionHandler(e: BindException): ResponseEntity<*> {
+        val errorMap: MutableMap<String, String?> = HashMap()
+        for (error in e.fieldErrors) {
+            errorMap[error.field] = error.defaultMessage
+        }
+        return ResponseEntity<Map<String, String?>>(errorMap, HttpStatus.BAD_REQUEST)
     }
 }
