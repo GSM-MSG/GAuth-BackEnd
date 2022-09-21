@@ -17,7 +17,6 @@ class RegisterClientService(
         val clientId = UUID.randomUUID().toString().replace("-", "") + UUID.randomUUID().toString().replace("-", "")
         val user = currentUserUtil.getCurrentUser()
         val client = clientRegisterDto.toEntity(user, clientSecret, clientId)
-        clientRepository.save(client)
-        return ClientRegisterResDto(client)
+        return ClientRegisterResDto(clientRepository.save(client))
     }
 }

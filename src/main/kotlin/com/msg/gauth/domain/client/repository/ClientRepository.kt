@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface ClientRepository: JpaRepository<Client, Long> {
     fun findAllByCreatedBy(createdBy: User): List<Client>
-    fun findClientByClientId(clientId: String): Client?
+    fun findByClientIdAndCreatedBy(clientId: String, createdBy: User): Client?
 }
