@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 class GetOneClientService(
     private val clientRepository: ClientRepository,
     private val currentUserUtil: CurrentUserUtil,
-){
+) {
     fun execute(clientId: String): ClientOneResDto{
         val client = clientRepository.findByClientIdAndCreatedBy(clientId, currentUserUtil.getCurrentUser()) ?: throw ClientNotFindException()
         return ClientOneResDto(client)

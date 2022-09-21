@@ -11,7 +11,7 @@ import java.util.UUID
 class RegisterClientService(
     private val clientRepository: ClientRepository,
     private val currentUserUtil: CurrentUserUtil,
-){
+) {
     fun execute(clientRegisterDto: ClientRegisterReqDto): ClientRegisterResDto {
         val clientSecret = createUUID()
         val clientId = createUUID()

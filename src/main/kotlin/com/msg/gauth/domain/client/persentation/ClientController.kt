@@ -25,7 +25,7 @@ class ClientController(
     private val updateClientService: UpdateClientService,
     private val getOneClientService: GetOneClientService,
     private val registerClientService: RegisterClientService,
-){
+) {
 
     @PostMapping
     fun registerClient(@RequestBody clientRegisterReqDto: ClientRegisterReqDto):ResponseEntity<ClientRegisterResDto>{
@@ -40,14 +40,14 @@ class ClientController(
     }
 
     @GetMapping("/{id}")
-    fun getMyOneClient(@PathVariable id:String): ResponseEntity<ClientOneResDto>{
+    fun getMyOneClient(@PathVariable id: String): ResponseEntity<ClientOneResDto>{
         val clientOneResDto = getOneClientService.execute(id)
         return ResponseEntity.ok(clientOneResDto)
     }
 
     @PatchMapping("/{id}")
-    fun updateClient(@PathVariable id:String, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
+    fun updateClient(@PathVariable id: String, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
         updateClientService.updateClient(id, clientUpdateDto)
-        return ResponseEntity.ok().build()
+        return ResponseEntity.noContent().build()
     }
 }

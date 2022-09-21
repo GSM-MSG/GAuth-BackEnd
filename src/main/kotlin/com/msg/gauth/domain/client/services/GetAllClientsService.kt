@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 class GetAllClientsService(
     private val clientRepository: ClientRepository,
     private val currentUserUtil: CurrentUserUtil,
-){
+) {
     fun execute(): List<ClientAllResDto> =
         clientRepository.findAllByCreatedBy(currentUserUtil.getCurrentUser())
             .map { ClientAllResDto(it) }

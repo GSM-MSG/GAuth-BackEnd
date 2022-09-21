@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 class UpdateClientService(
     private val clientRepository: ClientRepository,
     private val currentUserUtil: CurrentUserUtil,
-){
+) {
     @Transactional
     fun updateClient(clientId: String, clientUpdateReqDto: ClientUpdateReqDto){
         val client = clientRepository.findByClientIdAndCreatedBy(clientId, currentUserUtil.getCurrentUser()) ?: throw ClientNotFindException()
