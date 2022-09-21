@@ -34,7 +34,7 @@ class ClientController(
     }
 
     @GetMapping
-    fun  getMyAllClients(): ResponseEntity<List<ClientAllResDto>>{
+    fun getMyAllClients(): ResponseEntity<List<ClientAllResDto>>{
         val result = getAllClientsService.execute()
         return ResponseEntity.ok(result)
     }
