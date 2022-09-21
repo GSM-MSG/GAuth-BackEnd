@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class GetAllClientsService(
-    val clientRepository: ClientRepository,
-    val currentUserUtil: CurrentUserUtil,
+    private val clientRepository: ClientRepository,
+    private val currentUserUtil: CurrentUserUtil,
 ){
     fun execute():List<ClientAllResDto>{
         val findAllByCreatedBy = clientRepository.findAllByCreatedBy(currentUserUtil.getCurrentUser())

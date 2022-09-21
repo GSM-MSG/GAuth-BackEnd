@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class GetOneClientService(
-    val clientRepository: ClientRepository,
-    val currentUserUtil: CurrentUserUtil,
+    private val clientRepository: ClientRepository,
+    private val currentUserUtil: CurrentUserUtil,
 ){
     fun execute(clientId: String): ClientOneResDto{
         val client = clientRepository.findClientByClientId(clientId)!!

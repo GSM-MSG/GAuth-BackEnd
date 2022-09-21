@@ -9,8 +9,8 @@ import java.util.UUID
 
 @Service
 class RegisterClientService(
-    val clientRepository: ClientRepository,
-    val currentUserUtil: CurrentUserUtil,
+    private val clientRepository: ClientRepository,
+    private val currentUserUtil: CurrentUserUtil,
 ){
     fun execute(clientRegisterDto: ClientRegisterReqDto): ClientRegisterResDto {
         val clientSecret = UUID.randomUUID().toString().replace("-", "") + UUID.randomUUID().toString().replace("-", "")

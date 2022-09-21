@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UpdateClientService(
-    val clientRepository: ClientRepository,
-    val currentUserUtil: CurrentUserUtil,
+    private val clientRepository: ClientRepository,
+    private val currentUserUtil: CurrentUserUtil,
 ){
     @Transactional
     fun updateClient(clientId: String, clientUpdateReqDto: ClientUpdateReqDto){
