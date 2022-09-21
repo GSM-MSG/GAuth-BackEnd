@@ -8,6 +8,8 @@ import com.msg.gauth.domain.auth.services.LogoutService
 import com.msg.gauth.domain.auth.services.RefreshService
 import com.msg.gauth.domain.auth.services.SignUpService
 import com.msg.gauth.domain.auth.services.SignInService
+import com.msg.gauth.global.annotation.logger.log4k
+import org.slf4j.Logger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -21,7 +23,6 @@ class AuthController(
     private val signInService: SignInService,
     private val signUpService: SignUpService
 ) {
-
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> =
         ResponseEntity.ok(refreshService.execute(refreshToken))
@@ -35,6 +36,7 @@ class AuthController(
     @PostMapping
     fun signin(@Valid @RequestBody signinRequestDto: SigninRequestDto): ResponseEntity<SigninResponseDto> =
         ResponseEntity.ok(signInService.execute(signinRequestDto))
+
 
     @PostMapping("/signup")
     fun signUpMember(@Valid @RequestBody signUpDto: SignUpDto): ResponseEntity<Void> {
