@@ -16,7 +16,7 @@ class Client(
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     val createdBy: User
-): BaseIdEntity(){
+): BaseIdEntity() {
     fun update(clientUpdateReqDto: ClientUpdateReqDto){
         this.redirectUri = clientUpdateReqDto.redirectUri
         this.serviceName = clientUpdateReqDto.serviceName

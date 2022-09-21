@@ -10,12 +10,7 @@ class GetAllClientsService(
     private val clientRepository: ClientRepository,
     private val currentUserUtil: CurrentUserUtil,
 ){
-    fun execute():List<ClientAllResDto>{
-        val findAllByCreatedBy = clientRepository.findAllByCreatedBy(currentUserUtil.getCurrentUser())
-        val list = mutableListOf<ClientAllResDto>()
-        findAllByCreatedBy.forEach {
-            list.add(ClientAllResDto(it))
-        }
-        return list
-    }
+    fun execute(): List<ClientAllResDto> =
+        clientRepository.findAllByCreatedBy(currentUserUtil.getCurrentUser())
+            .map { ClientAllResDto(it) }
 }
