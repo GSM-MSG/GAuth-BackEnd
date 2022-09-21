@@ -23,8 +23,6 @@ class AuthController(
     private val signInService: SignInService,
     private val signUpService: SignUpService
 ) {
-    @log4k
-    var logger: Logger? = null
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> =
         ResponseEntity.ok(refreshService.execute(refreshToken))
@@ -36,9 +34,9 @@ class AuthController(
     }
 
     @PostMapping
-    fun signin(@Valid @RequestBody signinRequestDto: SigninRequestDto): ResponseEntity<SigninResponseDto> {
-        return ResponseEntity.ok(signInService.execute(signinRequestDto))
-    }
+    fun signin(@Valid @RequestBody signinRequestDto: SigninRequestDto): ResponseEntity<SigninResponseDto> =
+        ResponseEntity.ok(signInService.execute(signinRequestDto))
+
 
     @PostMapping("/signup")
     fun signUpMember(@Valid @RequestBody signUpDto: SignUpDto): ResponseEntity<Void> {
