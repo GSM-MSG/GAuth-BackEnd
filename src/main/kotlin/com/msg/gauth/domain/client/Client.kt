@@ -1,5 +1,6 @@
 package com.msg.gauth.domain.client
 
+import com.msg.gauth.domain.client.persentation.dto.request.ClientUpdateReqDto
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.global.entity.BaseIdEntity
 import javax.persistence.*
@@ -8,11 +9,17 @@ import javax.persistence.*
 class Client(
     val clientId: String,
     val clientSecret: String,
-    val redirectUri: String,
-    val serviceName: String,
-    val serviceUri: String,
+    var redirectUri: String,
+    var serviceName: String,
+    var serviceUri: String,
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     val createdBy: User
-): BaseIdEntity()
+): BaseIdEntity(){
+    fun update(clientUpdateReqDto: ClientUpdateReqDto){
+        this.redirectUri = clientUpdateReqDto.redirectUri
+        this.serviceName = clientUpdateReqDto.serviceName
+        this.serviceUri = clientUpdateReqDto.serviceUri
+    }
+}

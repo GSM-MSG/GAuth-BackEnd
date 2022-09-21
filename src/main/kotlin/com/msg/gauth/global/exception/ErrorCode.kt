@@ -14,6 +14,7 @@ enum class ErrorCode(
     EXPIRED_REFRESH_TOKEN("리프레시 토큰이 만료되었습니다", 401),
     INVALID_REFRESH_TOKEN("리프레시 토큰이 변질되었습니다", 401),
     EMAIL_NOT_VERIFIED("인증된 이메일이 아닙니다.", 401),
+    USER_NOT_SAME("유저가 일치하지 않습니다", 401),
 
     NOT_FOUND("리소스를 찾을수 없음", 404),
     USER_NOT_FOUND("해당 유저를 찾을 수 없습니다.", 404),
@@ -24,5 +25,6 @@ enum class ErrorCode(
 
     MAIL_SEND_FAIL("메일을 보내는데 실패했습니다.", 500),
     INTERNAL_SERVER_ERROR("서버 내부 에러", 500)
+
     ;
 }
