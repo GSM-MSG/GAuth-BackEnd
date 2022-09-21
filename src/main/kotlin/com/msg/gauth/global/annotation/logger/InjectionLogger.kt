@@ -12,12 +12,13 @@ class InjectionLogger: ApplicationListener<ApplicationStartedEvent> {
         val beanDefinitionNames = ac.beanDefinitionNames
         for (name in beanDefinitionNames) {
             val bean = ac.getBean(name!!)
-            val classPath = bean.javaClass.name
-            val log = LoggerFactory.getLogger(classPath)
+            var classPath = bean.javaClass.name
             try {
-                if (!classPath.contains("gauth")) {
+                if (!classPath.contains("gauth"))
                     continue
-                }
+                if(classPath.contains("$"))
+                    classPath = classPath.substring(0,classPath.indexOf("$"))
+                val log = LoggerFactory.getLogger(classPath)
                 val beanClass = Class.forName(classPath)
                 val fields = beanClass.declaredFields
                 for (field in fields) {
