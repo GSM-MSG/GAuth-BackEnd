@@ -18,12 +18,12 @@ class InjectionLogger: ApplicationListener<ApplicationStartedEvent> {
                     continue
                 if(classPath.contains("$"))
                     classPath = classPath.substring(0,classPath.indexOf("$"))
-                val log = LoggerFactory.getLogger(classPath)
                 val beanClass = Class.forName(classPath)
                 val fields = beanClass.declaredFields
                 for (field in fields) {
                     val log4k = field.getDeclaredAnnotation(log4k::class.java)
                     if (log4k != null) {
+                        val log = LoggerFactory.getLogger(classPath)
                         field.isAccessible = true
                         field[bean] = log
                     }
