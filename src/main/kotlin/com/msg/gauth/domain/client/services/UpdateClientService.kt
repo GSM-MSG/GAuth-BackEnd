@@ -13,8 +13,8 @@ class UpdateClientService(
     private val currentUserUtil: CurrentUserUtil,
 ) {
     @Transactional
-    fun updateClient(clientId: String, clientUpdateReqDto: ClientUpdateReqDto){
-        val client = clientRepository.findByClientIdAndCreatedBy(clientId, currentUserUtil.getCurrentUser()) ?: throw ClientNotFindException()
+    fun updateClient(id: Long, clientUpdateReqDto: ClientUpdateReqDto){
+        val client = clientRepository.findByIdAndCreatedBy(id, currentUserUtil.getCurrentUser()) ?: throw ClientNotFindException()
         client.update(clientUpdateReqDto)
     }
 }
