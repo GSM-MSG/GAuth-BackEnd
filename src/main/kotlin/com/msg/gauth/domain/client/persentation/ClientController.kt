@@ -2,8 +2,8 @@ package com.msg.gauth.domain.client.persentation
 
 import com.msg.gauth.domain.client.persentation.dto.request.ClientRegisterReqDto
 import com.msg.gauth.domain.client.persentation.dto.request.ClientUpdateReqDto
-import com.msg.gauth.domain.client.persentation.dto.response.ClientAllResDto
 import com.msg.gauth.domain.client.persentation.dto.response.ClientOneResDto
+import com.msg.gauth.domain.client.persentation.dto.response.ClientDetailResDto
 import com.msg.gauth.domain.client.persentation.dto.response.ClientRegisterResDto
 import com.msg.gauth.domain.client.services.GetAllClientsService
 import com.msg.gauth.domain.client.services.GetOneClientService
@@ -34,19 +34,19 @@ class ClientController(
     }
 
     @GetMapping
-    fun getMyAllClients(): ResponseEntity<List<ClientAllResDto>>{
+    fun getMyAllClients(): ResponseEntity<List<ClientOneResDto>>{
         val result = getAllClientsService.execute()
         return ResponseEntity.ok(result)
     }
 
     @GetMapping("/{id}")
-    fun getMyOneClient(@PathVariable id: String): ResponseEntity<ClientOneResDto>{
+    fun getMyOneClient(@PathVariable id: Long): ResponseEntity<ClientDetailResDto>{
         val clientOneResDto = getOneClientService.execute(id)
         return ResponseEntity.ok(clientOneResDto)
     }
 
     @PatchMapping("/{id}")
-    fun updateClient(@PathVariable id: String, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
+    fun updateClient(@PathVariable id: Long, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
         updateClientService.updateClient(id, clientUpdateDto)
         return ResponseEntity.noContent().build()
     }
