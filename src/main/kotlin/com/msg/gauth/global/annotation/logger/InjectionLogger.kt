@@ -4,6 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.boot.context.event.ApplicationStartedEvent
 import org.springframework.context.ApplicationListener
 import org.springframework.stereotype.Component
+import java.lang.Exception
 
 @Component
 class InjectionLogger: ApplicationListener<ApplicationStartedEvent> {
@@ -28,9 +29,7 @@ class InjectionLogger: ApplicationListener<ApplicationStartedEvent> {
                         field[bean] = log
                     }
                 }
-            } catch (e: ClassNotFoundException) {
-                throw RuntimeException(e)
-            } catch (e: IllegalAccessException) {
+            } catch (e: Exception) {
                 throw RuntimeException(e)
             }
         }
