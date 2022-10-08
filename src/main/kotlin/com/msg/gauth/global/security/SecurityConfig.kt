@@ -48,6 +48,12 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/email").permitAll()
             .antMatchers(HttpMethod.GET, "/email/authentication").permitAll()
 
+            // Client
+            .antMatchers(HttpMethod.GET, "/client").authenticated()
+            .antMatchers(HttpMethod.POST, "/client").authenticated()
+            .antMatchers(HttpMethod.GET, "/client/{id}").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/client/{id}").authenticated()
+
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
