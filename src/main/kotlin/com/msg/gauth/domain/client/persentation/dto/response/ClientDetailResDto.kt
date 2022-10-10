@@ -3,6 +3,7 @@ package com.msg.gauth.domain.client.persentation.dto.response
 import com.msg.gauth.domain.client.Client
 
 data class ClientDetailResDto(
+    val id: Long,
     val clientId: String,
     val clientSecret: String,
     val redirectUri: String,
@@ -10,6 +11,7 @@ data class ClientDetailResDto(
     val serviceUri: String,
 ){
     constructor(client: Client): this(
+        id = client.id,
         clientId = client.clientId,
         clientSecret = client.clientSecret,
         redirectUri = client.redirectUri,
