@@ -8,6 +8,7 @@ import com.msg.gauth.domain.user.repository.UserRepository
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
@@ -16,6 +17,7 @@ class OauthLoginService(
     private val passwordEncoder: PasswordEncoder,
     private val redisTemplate: RedisTemplate<String, String>,
 ){
+    @Transactional(readOnly = true)
     fun execute(oauthLoginRequestDto: OauthLoginRequestDto): OauthLoginResponseDto {
         val valueOperation = redisTemplate.opsForValue()
         val user = userRepository.findByEmail(oauthLoginRequestDto.email) ?: throw UserNotFoundException()
