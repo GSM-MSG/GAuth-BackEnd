@@ -23,7 +23,7 @@ class OauthLoginService(
             throw PasswordMismatchException()
         }
         val code = UUID.randomUUID().toString().split(".")[0]
-        valueOperation.set(user.email, code, 1000L * 60 * 5)
+        valueOperation.set(code, user.email, 1000L * 60 * 5)
         return OauthLoginResponseDto(
             code = code,
         )
