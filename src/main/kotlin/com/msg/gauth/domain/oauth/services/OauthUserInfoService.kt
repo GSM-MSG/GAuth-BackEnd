@@ -4,8 +4,10 @@ import com.msg.gauth.domain.client.exception.ClientNotFindException
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.oauth.exception.ClientSecretMismatchException
 import com.msg.gauth.domain.oauth.exception.OauthCodeExpiredException
+import com.msg.gauth.domain.oauth.exception.UserStatePendingException
 import com.msg.gauth.domain.oauth.presentation.dto.request.UserInfoRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.UserInfoResponseDto
+import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.exception.exceptions.BasicException
@@ -27,6 +29,8 @@ class OauthUserInfoService(
             throw ClientSecretMismatchException()
         val email = valueOperation.get(userInfoRequestDto.code) ?: throw OauthCodeExpiredException()
         val user = userRepository.findByEmail(email) ?: throw UserNotFoundException()
+        if(user.state == UserState.PENDING)
+            throw UserStatePendingException()
         return UserInfoResponseDto(
             email = user.email,
             grade = user.grade,

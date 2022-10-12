@@ -18,6 +18,8 @@ enum class ErrorCode(
     USER_NOT_SAME("유저가 일치하지 않습니다", 401),
     OAUTH_CODE_EXPIRED("oauth 코드가 만료되었습니다.", 401),
 
+    USER_STATE_PENDING("유저가 보류중 입니다.", 403),
+
     NOT_FOUND("리소스를 찾을수 없음", 404),
     USER_NOT_FOUND("해당 유저를 찾을 수 없습니다.", 404),
     CLIENT_NOT_FOUND("해당 클라이언트를 찾을 수 없습니다.", 404),
