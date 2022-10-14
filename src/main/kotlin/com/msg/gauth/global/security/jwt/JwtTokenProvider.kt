@@ -28,6 +28,9 @@ class JwtTokenProvider(
         const val TOKEN_PREFIX = "Bearer "
     }
 
+    val accessExpiredTime: ZonedDateTime
+        get() = ZonedDateTime.now().plusSeconds(ACCESS_EXP)
+
     fun generateAccessToken(email: String): String =
         generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, ACCESS_EXP)
 
@@ -50,10 +53,6 @@ class JwtTokenProvider(
 
     fun parseToken(token: String): String? =
         if (token.startsWith(TOKEN_PREFIX)) token.replace(TOKEN_PREFIX, "") else null
-
-    val accessExpiredTime: ZonedDateTime
-        get() = ZonedDateTime.now().plusSeconds(ACCESS_EXP)
-
 
     fun generateToken(sub: String, type: String, secret: Key, exp: Long): String {
         return Jwts.builder()
