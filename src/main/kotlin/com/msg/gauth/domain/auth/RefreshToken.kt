@@ -9,13 +9,16 @@ import org.springframework.data.redis.core.index.Indexed
 class RefreshToken(
     @Id
     val userId: Long,
-
+    token: String,
+    timeToLive: Long,
+) {
     @Indexed
-    var token: String,
+    var token: String = token
+    private set
 
     @TimeToLive
-    var timeToLive: Long
-) {
+    var timeToLive: Long = timeToLive
+    private set
     fun updateToken(token: String, timeToLive: Long) {
         this.token = token
         this.timeToLive = timeToLive

@@ -9,20 +9,11 @@ import javax.validation.constraints.Size
 
 @Entity
 class User(
-    @Column(nullable = true)
-    var grade: Int? = null,
-
-    @Column(nullable = true)
-    var classNum: Int? = null,
-
-    @Column(nullable = true)
-    var num: Int? = null,
 
     @Column(unique = true)
     val email: String,
 
-    @field:Size(max = 60)
-    var password: String,
+    password: String,
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
@@ -32,6 +23,24 @@ class User(
     @Enumerated(EnumType.STRING)
     var state: UserState,
 
+): BaseIdEntity(){
     @Enumerated(EnumType.STRING)
     var gender: Gender? = null
-): BaseIdEntity()
+    private set
+
+    @field:Size(max = 60)
+    var password: String = password
+    private set
+
+    @Column(nullable = true)
+    var grade: Int? = null
+    private set
+
+    @Column(nullable = true)
+    var classNum: Int? = null
+    private set
+
+    @Column(nullable = true)
+    var num: Int? = null
+    private set
+}

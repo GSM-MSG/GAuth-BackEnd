@@ -10,14 +10,21 @@ class EmailAuthEntity(
     @Id
     val email: String,
 
-    var randomValue: @Length(max = 36) String,
+    randomValue: String,
 
+    authentication: Boolean,
 
-    var authentication: Boolean,
-
-    @ColumnDefault("1")
-    var attemptCount: Int
+    attemptCount: Int
 ) {
+
+    var randomValue: @Length(max = 36) String = randomValue
+    private set
+    var authentication: Boolean = authentication
+    private set
+    @ColumnDefault("1")
+    var attemptCount: Int = attemptCount
+    private set
+
     fun updateAuthentication(authentication: Boolean) {
         this.authentication = authentication
     }

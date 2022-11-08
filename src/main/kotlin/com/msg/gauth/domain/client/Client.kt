@@ -9,14 +9,20 @@ import javax.persistence.*
 class Client(
     val clientId: String,
     val clientSecret: String,
-    var redirectUri: String,
-    var serviceName: String,
-    var serviceUri: String,
+    redirectUri: String,
+    serviceName: String,
+    serviceUri: String,
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     val createdBy: User
 ): BaseIdEntity() {
+    var redirectUri: String = redirectUri
+    private set
+    var serviceName: String = serviceName
+    private set
+    var serviceUri: String = serviceUri
+    private set
     fun update(clientUpdateReqDto: ClientUpdateReqDto){
         this.redirectUri = clientUpdateReqDto.redirectUri
         this.serviceName = clientUpdateReqDto.serviceName
