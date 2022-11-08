@@ -17,7 +17,7 @@ class RefreshService(
     private val userRepository: UserRepository,
     private val refreshTokenRepository: RefreshTokenRepository
 ) {
-    @Transactional
+    @Transactional(rollbackFor = [Exception::class])
     fun execute(refreshToken: String): RefreshResponseDto {
         val email = jwtTokenProvider.exactEmailFromRefreshToken(refreshToken)
         val user: User = userRepository.findByEmail(email) ?: throw UserNotFoundException()

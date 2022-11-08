@@ -5,6 +5,7 @@ import com.msg.gauth.domain.email.exception.ManyRequestEmailAuthException
 import com.msg.gauth.domain.email.presentation.dto.EmailSendDto
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
 import com.msg.gauth.global.exception.ErrorCode
+import com.msg.gauth.global.exception.exceptions.BasicException
 import com.msg.gauth.global.exception.exceptions.MessageSendFailException
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.JavaMailSenderImpl
@@ -24,7 +25,7 @@ class MailSendService(
 ) {
 
     @Async
-    @Transactional
+    @Transactional(rollbackFor = [Exception::class])
     fun execute(emailSendDto: EmailSendDto) {
         val email: String = emailSendDto.email
         val value = UUID.randomUUID().toString()
