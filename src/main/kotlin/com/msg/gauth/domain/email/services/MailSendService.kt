@@ -35,7 +35,7 @@ class MailSendService(
                 )
             )
         if (authEntity.attemptCount >= 3) throw ManyRequestEmailAuthException()
-        val updateEmailAuth = authEntity.updateEmailAuth(value)
+        val updateEmailAuth = authEntity.resendEmailAuth(value)
         emailAuthRepository.save(updateEmailAuth)
         try {
             val message = mailSender.createMimeMessage()

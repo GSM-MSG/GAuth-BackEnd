@@ -23,7 +23,7 @@ class EmailAuthEntity(
         )
     }
 
-    fun updateEmailAuth(uuid: String): EmailAuthEntity{
+    fun resendEmailAuth(uuid: String): EmailAuthEntity{
         return EmailAuthEntity(
             email = this.email,
             authentication = this.authentication,
