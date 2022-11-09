@@ -9,31 +9,26 @@ import org.springframework.data.redis.core.RedisHash
 class EmailAuthEntity(
     @Id
     val email: String,
-
-    randomValue: String,
-
-    authentication: Boolean,
-
-    attemptCount: Int
-) {
-
-    var randomValue: @Length(max = 36) String = randomValue
-    private set
-    var authentication: Boolean = authentication
-    private set
+    val randomValue: @Length(max = 36) String,
+    val authentication: Boolean,
     @ColumnDefault("1")
-    var attemptCount: Int = attemptCount
-    private set
-
-    fun updateAuthentication(authentication: Boolean) {
-        this.authentication = authentication
+    val attemptCount: Int,
+) {
+    fun updateAuthentication(authentication: Boolean): EmailAuthEntity {
+        return EmailAuthEntity(
+            email = this.email,
+            attemptCount = this.attemptCount,
+            randomValue = this.randomValue,
+            authentication = authentication,
+        )
     }
 
-    fun updateRandomValue(uuid: String) {
-        randomValue = uuid
-    }
-
-    fun increaseAttemptCount() {
-        attemptCount += 1
+    fun updateEmailAuth(uuid: String): EmailAuthEntity{
+        return EmailAuthEntity(
+            email = this.email,
+            authentication = this.authentication,
+            attemptCount = this.attemptCount+1,
+            randomValue = uuid,
+        )
     }
 }

@@ -13,34 +13,27 @@ class User(
     @Column(unique = true)
     val email: String,
 
-    password: String,
+    @field:Size(max = 60)
+    val password: String,
+
+    @Enumerated(EnumType.STRING)
+    val gender: Gender? = null,
+
+    @Column(nullable = true)
+    val grade: Int? = null,
+
+    @Column(nullable = true)
+    val classNum: Int? = null,
+
+    @Column(nullable = true)
+    val num: Int? = null,
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "UserRole", joinColumns = [JoinColumn(name = "id")])
-    var roles: MutableList<UserRole> = mutableListOf(),
+    val roles: MutableList<UserRole> = mutableListOf(),
 
     @Enumerated(EnumType.STRING)
-    var state: UserState,
+    val state: UserState,
 
-): BaseIdEntity(){
-    @Enumerated(EnumType.STRING)
-    var gender: Gender? = null
-    private set
-
-    @field:Size(max = 60)
-    var password: String = password
-    private set
-
-    @Column(nullable = true)
-    var grade: Int? = null
-    private set
-
-    @Column(nullable = true)
-    var classNum: Int? = null
-    private set
-
-    @Column(nullable = true)
-    var num: Int? = null
-    private set
-}
+): BaseIdEntity()

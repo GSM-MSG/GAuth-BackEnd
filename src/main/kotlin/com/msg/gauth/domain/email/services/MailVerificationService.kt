@@ -15,7 +15,7 @@ class MailVerificationService(
         val emailAuth = emailAuthRepository.findById(email)
             .orElseThrow { AuthCodeExpiredException() }
         if (emailAuth.randomValue != uuid) throw AuthCodeExpiredException()
-        emailAuth.updateAuthentication(true)
-        emailAuthRepository.save(emailAuth)
+        val updateEmailAuth = emailAuth.updateAuthentication(true)
+        emailAuthRepository.save(updateEmailAuth)
     }
 }
