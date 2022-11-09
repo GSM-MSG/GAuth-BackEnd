@@ -30,7 +30,7 @@ class SignInService(
         val access = jwtTokenProvider.generateAccessToken(dto.email)
         val refresh = jwtTokenProvider.generateRefreshToken(dto.email)
         val expiresAt = jwtTokenProvider.accessExpiredTime
-        refreshTokenRepository.save(RefreshToken(user.id, refresh, JwtTokenProvider.REFRESH_EXP))
+        refreshTokenRepository.save(RefreshToken(user.id, refresh))
         return SigninResponseDto(access, refresh, expiresAt)
     }
 }
