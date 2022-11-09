@@ -13,7 +13,7 @@ class RegisterClientService(
     private val clientRepository: ClientRepository,
     private val userUtil: UserUtil
 ) {
-    @Transactional
+    @Transactional(rollbackFor = [Exception::class])
     fun execute(clientRegisterDto: ClientRegisterReqDto): ClientRegisterResDto {
         val clientSecret = createUUID()
         val clientId = createUUID()

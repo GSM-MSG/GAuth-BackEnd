@@ -12,9 +12,9 @@ class UpdateClientService(
     private val clientRepository: ClientRepository,
     private val userUtil: UserUtil
 ) {
-    @Transactional
+    @Transactional(rollbackFor = [Exception::class])
     fun updateClient(id: Long, clientUpdateReqDto: ClientUpdateReqDto){
         val client = clientRepository.findByIdAndCreatedBy(id, userUtil.fetchCurrentUser()) ?: throw ClientNotFindException()
-        client.update(clientUpdateReqDto)
+        clientRepository.save(client.updateClient(clientUpdateReqDto))
     }
 }

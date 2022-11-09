@@ -17,7 +17,7 @@ class OauthLoginService(
     private val passwordEncoder: PasswordEncoder,
     private val redisTemplate: RedisTemplate<String, String>,
 ){
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, rollbackFor = [Exception::class])
     fun execute(oauthLoginRequestDto: OauthLoginRequestDto): OauthLoginResponseDto {
         val valueOperation = redisTemplate.opsForValue()
         val user = userRepository.findByEmail(oauthLoginRequestDto.email) ?: throw UserNotFoundException()

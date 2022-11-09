@@ -10,12 +10,12 @@ class MailVerificationService(
     private val emailAuthRepository: EmailAuthRepository
 ) {
 
-    @Transactional
+    @Transactional(rollbackFor = [Exception::class])
     fun execute(email: String, uuid: String) {
         val emailAuth = emailAuthRepository.findById(email)
             .orElseThrow { AuthCodeExpiredException() }
         if (emailAuth.randomValue != uuid) throw AuthCodeExpiredException()
-        emailAuth.updateAuthentication(true)
-        emailAuthRepository.save(emailAuth)
+        val updateEmailAuth = emailAuth.updateAuthentication(true)
+        emailAuthRepository.save(updateEmailAuth)
     }
 }

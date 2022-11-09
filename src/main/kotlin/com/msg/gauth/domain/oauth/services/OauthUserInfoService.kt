@@ -10,7 +10,6 @@ import com.msg.gauth.domain.oauth.presentation.dto.response.UserInfoResponseDto
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
-import com.msg.gauth.global.exception.exceptions.BasicException
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -21,7 +20,7 @@ class OauthUserInfoService(
     private val clientRepository: ClientRepository,
     private val userRepository: UserRepository,
 ){
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, rollbackFor = [Exception::class])
     fun execute(userInfoRequestDto: UserInfoRequestDto): UserInfoResponseDto{
         val valueOperation = redisTemplate.opsForValue()
         val client = clientRepository.findByClientId(userInfoRequestDto.clientId) ?: throw ClientNotFindException()

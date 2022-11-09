@@ -16,7 +16,7 @@ class SignUpService(
     private val passwordEncoder: PasswordEncoder,
     private val emailAuthRepository: EmailAuthRepository
 ) {
-    @Transactional
+    @Transactional(rollbackFor = [Exception::class])
     fun execute(signUpDto: SignUpDto): Long {
         if (userRepository.existsByEmail(signUpDto.email)) {
             throw DuplicateEmailException()

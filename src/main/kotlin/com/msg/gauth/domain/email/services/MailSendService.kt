@@ -4,10 +4,8 @@ import com.msg.gauth.domain.email.EmailAuthEntity
 import com.msg.gauth.domain.email.exception.ManyRequestEmailAuthException
 import com.msg.gauth.domain.email.presentation.dto.EmailSendDto
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
-import com.msg.gauth.global.exception.ErrorCode
 import com.msg.gauth.global.exception.exceptions.MessageSendFailException
 import org.springframework.mail.javamail.JavaMailSender
-import org.springframework.mail.javamail.JavaMailSenderImpl
 import org.springframework.scheduling.annotation.Async
 import org.springframework.scheduling.annotation.EnableAsync
 import org.springframework.stereotype.Service
@@ -24,7 +22,6 @@ class MailSendService(
 ) {
 
     @Async
-    @Transactional
     fun execute(emailSendDto: EmailSendDto) {
         val email: String = emailSendDto.email
         val value = UUID.randomUUID().toString()
@@ -38,9 +35,8 @@ class MailSendService(
                 )
             )
         if (authEntity.attemptCount >= 3) throw ManyRequestEmailAuthException()
-        authEntity.updateRandomValue(value)
-        authEntity.increaseAttemptCount()
-        emailAuthRepository.save(authEntity)
+        val updateEmailAuth = authEntity.resendEmailAuth(value)
+        emailAuthRepository.save(updateEmailAuth)
         try {
             val message = mailSender.createMimeMessage()
             val msg =
