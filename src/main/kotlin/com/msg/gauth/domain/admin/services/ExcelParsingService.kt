@@ -32,7 +32,7 @@ class ExcelParsingService(
                 HSSFWorkbook(file.inputStream)
         val workSheet:Sheet = workBook.getSheetAt(0)
         val allEmail = userRepository.findAllEmail()
-        for(i:Int in 1 until workSheet.physicalNumberOfRows){
+        for(i in 1 until workSheet.physicalNumberOfRows){
             val row = workSheet.getRow(i)
             val email = row.getCell(4).stringCellValue
             if(!allEmail.contains(email))
