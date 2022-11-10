@@ -7,6 +7,7 @@ enum class ErrorCode(
     BAD_REQUEST("잘못된 요청", 400),
     PASSWORD_MISMATCH("비밀번호가 일치하지 않습니다.", 400),
     CLIENT_SECRET_MISMATCH("클라이언트 시크릿이 일치하지 않습니다.", 400),
+    FILE_EXTENSION_INVALID("파일 확장자가 유효하지 않습니다.", 400),
 
     AUTH_CODE_EXPIRED("메일 인증이 만료되었습니다.", 401),
     UNAUTHORIZED("권한 없음", 401),

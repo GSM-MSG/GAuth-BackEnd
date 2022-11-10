@@ -1,6 +1,7 @@
 package com.msg.gauth.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.msg.gauth.domain.user.enums.UserRole
 import com.msg.gauth.global.security.config.FilterConfig
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
 import org.springframework.context.annotation.Bean
@@ -53,6 +54,9 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/client").authenticated()
             .antMatchers(HttpMethod.GET, "/client/{id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/client/{id}").authenticated()
+
+            // Admin
+            .antMatchers("/admin/**").hasRole("ADMIN")
 
             .anyRequest().denyAll()
             .and()
