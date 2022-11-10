@@ -42,6 +42,10 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    implementation("org.apache.poi:poi:5.2.2")
+    implementation("org.apache.poi:poi-ooxml:5.2.2")
+    implementation("commons-io:commons-io:2.11.0")
+    implementation("org.apache.tika:tika-core:2.6.0")
 }
 
 tasks.withType<KotlinCompile> {
