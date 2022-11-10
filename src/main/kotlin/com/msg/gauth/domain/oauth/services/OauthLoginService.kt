@@ -15,13 +15,13 @@ import java.util.*
 class OauthLoginService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
-    private val redisTemplate: RedisTemplate<String, String>,
+    private val redisTemplate: RedisTemplate<String, Any>,
 ){
     @Transactional(readOnly = true, rollbackFor = [Exception::class])
     fun execute(oauthLoginRequestDto: OauthLoginRequestDto): OauthLoginResponseDto {
         val valueOperation = redisTemplate.opsForValue()
         val user = userRepository.findByEmail(oauthLoginRequestDto.email) ?: throw UserNotFoundException()
-        if (passwordEncoder.matches(oauthLoginRequestDto.password, user.password)) {
+        if (!passwordEncoder.matches(oauthLoginRequestDto.password, user.password)) {
             throw PasswordMismatchException()
         }
         val code = UUID.randomUUID().toString().split(".")[0]

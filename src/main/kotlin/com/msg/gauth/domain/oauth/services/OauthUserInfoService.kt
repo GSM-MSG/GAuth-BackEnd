@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class OauthUserInfoService(
-    private val redisTemplate: RedisTemplate<String, String>,
+    private val redisTemplate: RedisTemplate<String, Any>,
     private val clientRepository: ClientRepository,
     private val userRepository: UserRepository,
 ){
@@ -27,7 +27,7 @@ class OauthUserInfoService(
         if(client.clientSecret != userInfoRequestDto.clientSecret)
             throw ClientSecretMismatchException()
         val email = valueOperation.get(userInfoRequestDto.code) ?: throw OauthCodeExpiredException()
-        val user = userRepository.findByEmail(email) ?: throw UserNotFoundException()
+        val user = userRepository.findByEmail(email.toString()) ?: throw UserNotFoundException()
         if(user.state == UserState.PENDING)
             throw UserStatePendingException()
         return UserInfoResponseDto(
