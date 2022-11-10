@@ -31,12 +31,15 @@ class ExcelParsingService(
             else
                 HSSFWorkbook(file.inputStream)
         val workSheet:Sheet = workBook.getSheetAt(0)
+        val allEmail = userRepository.findAllEmail()
         for(i:Int in 1 until workSheet.physicalNumberOfRows){
             val row = workSheet.getRow(i)
+            val email = row.getCell(4).stringCellValue
+            if(!allEmail.contains(email))
+                continue
             val grade = row.getCell(0).numericCellValue.toInt()
             val classNum = row.getCell(1).numericCellValue.toInt()
             val num = row.getCell(2).numericCellValue.toInt()
-            val email = row.getCell(4).stringCellValue
             val gender = Gender.valueOf(row.getCell(5).stringCellValue)
             val user = userRepository.findByEmail(email) ?: continue
             val update = user.update(grade, classNum, num, gender)
