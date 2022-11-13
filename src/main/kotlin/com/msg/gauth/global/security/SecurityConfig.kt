@@ -58,6 +58,9 @@ class SecurityConfig(
             // Admin
             .antMatchers("/admin/**").hasRole("ADMIN")
 
+            // OAuth
+            .antMatchers("/oauth/**").permitAll()
+
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
