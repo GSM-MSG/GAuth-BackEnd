@@ -1,11 +1,11 @@
 package com.msg.gauth.domain.oauth.presentation
 
-import com.msg.gauth.domain.oauth.presentation.dto.request.OauthLoginRequestDto
-import com.msg.gauth.domain.oauth.presentation.dto.request.UserInfoRequestDto
-import com.msg.gauth.domain.oauth.presentation.dto.response.OauthLoginResponseDto
-import com.msg.gauth.domain.oauth.presentation.dto.response.UserInfoResponseDto
+import com.msg.gauth.domain.oauth.presentation.dto.request.OauthCodeRequestDto
+import com.msg.gauth.domain.oauth.presentation.dto.request.UserTokenRequestDto
+import com.msg.gauth.domain.oauth.presentation.dto.response.OauthCodeResponseDto
+import com.msg.gauth.domain.oauth.presentation.dto.response.UserTokenResponseDto
 import com.msg.gauth.domain.oauth.services.OauthLoginService
-import com.msg.gauth.domain.oauth.services.OauthUserInfoService
+import com.msg.gauth.domain.oauth.services.OauthTokenService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -17,13 +17,13 @@ import javax.validation.Valid
 @RequestMapping("/oauth")
 class OauthController(
     val oauthLoginService: OauthLoginService,
-    val oauthUserInfoService: OauthUserInfoService,
+    val oauthTokenService: OauthTokenService,
 ){
-    @PostMapping("/login")
-    fun oauthLogin(@Valid @RequestBody oauthLoginRequestDto : OauthLoginRequestDto): ResponseEntity<OauthLoginResponseDto> =
-        ResponseEntity.ok(oauthLoginService.execute(oauthLoginRequestDto))
+    @PostMapping("/code")
+    fun oauthLogin(@Valid @RequestBody oauthCodeRequestDto : OauthCodeRequestDto): ResponseEntity<OauthCodeResponseDto> =
+        ResponseEntity.ok(oauthLoginService.execute(oauthCodeRequestDto))
 
-    @PostMapping("/user")
-    fun getUserInfo(@RequestBody userInfoRequestDto: UserInfoRequestDto): ResponseEntity<UserInfoResponseDto> =
-        ResponseEntity.ok(oauthUserInfoService.execute(userInfoRequestDto))
+    @PostMapping("/token")
+    fun execute(@RequestBody userTokenRequestDto: UserTokenRequestDto): ResponseEntity<UserTokenResponseDto> =
+        ResponseEntity.ok(oauthTokenService.execute(userTokenRequestDto))
 }
