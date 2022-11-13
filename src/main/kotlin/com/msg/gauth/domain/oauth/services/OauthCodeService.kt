@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
-class OauthLoginService(
+class OauthCodeService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
     private val redisTemplate: RedisTemplate<String, String>,
