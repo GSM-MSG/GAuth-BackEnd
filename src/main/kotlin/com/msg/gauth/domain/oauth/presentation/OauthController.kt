@@ -1,6 +1,5 @@
 package com.msg.gauth.domain.oauth.presentation
 
-import com.msg.gauth.domain.oauth.OauthRefreshToken
 import com.msg.gauth.domain.oauth.presentation.dto.request.OauthCodeRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.request.UserTokenRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.OauthCodeResponseDto

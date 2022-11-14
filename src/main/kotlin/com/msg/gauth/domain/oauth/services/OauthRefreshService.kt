@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service
 
 @Service
 class OauthRefreshService(
-    val tokenRepository: OauthRefreshTokenRepository,
-    val tokenProvider: JwtTokenProvider,
-    val userRepository: UserRepository,
+    private val tokenRepository: OauthRefreshTokenRepository,
+    private val tokenProvider: JwtTokenProvider,
+    private val userRepository: UserRepository,
 ){
     fun execute(refreshToken: String): UserTokenResponseDto{
         val refreshToken = tokenProvider.parseToken(refreshToken) ?: throw InvalidRefreshTokenException()
