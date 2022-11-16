@@ -13,7 +13,7 @@ data class SignUpDto(
     val email: String,
 
     @field:NotBlank
-    @field:Size(min = 8, max = 72)
+    @field:Pattern(regexp = "^(?=.[a-zA-Z])(?=.\\d)(?=.*\\W).{8,20}$")
     val password: String
 ) {
     fun toEntity(password: String): User =
