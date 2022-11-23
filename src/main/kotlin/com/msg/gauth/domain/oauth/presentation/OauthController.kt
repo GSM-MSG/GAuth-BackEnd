@@ -3,24 +3,23 @@ package com.msg.gauth.domain.oauth.presentation
 import com.msg.gauth.domain.oauth.presentation.dto.request.OauthCodeRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.request.UserTokenRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.OauthCodeResponseDto
+import com.msg.gauth.domain.oauth.presentation.dto.response.ServiceNameResponseDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.UserTokenResponseDto
+import com.msg.gauth.domain.oauth.services.GetServiceNameService
 import com.msg.gauth.domain.oauth.services.OauthCodeService
 import com.msg.gauth.domain.oauth.services.OauthRefreshService
 import com.msg.gauth.domain.oauth.services.OauthTokenService
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestHeader
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
 @RequestMapping("/oauth")
 class OauthController(
-    val oauthCodeService: OauthCodeService,
-    val oauthTokenService: OauthTokenService,
-    val oauthRefreshService: OauthRefreshService,
+    private val oauthCodeService: OauthCodeService,
+    private val oauthTokenService: OauthTokenService,
+    private val oauthRefreshService: OauthRefreshService,
+    private val getServiceNameService: GetServiceNameService,
 ){
     @PostMapping("/code")
     fun generateOauthCode(@Valid @RequestBody oauthCodeRequestDto : OauthCodeRequestDto): ResponseEntity<OauthCodeResponseDto> =
@@ -33,4 +32,8 @@ class OauthController(
     @PostMapping("/refresh")
     fun refreshOauthToken(@RequestHeader refreshToken: String): ResponseEntity<UserTokenResponseDto> =
         ResponseEntity.ok(oauthRefreshService.execute(refreshToken))
+
+    @GetMapping("/{clientId}")
+    fun getServiceName(@PathVariable clientId: String): ResponseEntity<ServiceNameResponseDto> =
+        ResponseEntity.ok(getServiceNameService.execute(clientId))
 }
