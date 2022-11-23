@@ -3,13 +3,9 @@ package com.msg.gauth.domain.auth.presentation
 import com.msg.gauth.domain.auth.presentation.dto.request.SignUpDto
 import com.msg.gauth.domain.auth.presentation.dto.request.SigninRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto
+import com.msg.gauth.domain.auth.presentation.dto.response.ServiceNameResponseDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto
-import com.msg.gauth.domain.auth.services.LogoutService
-import com.msg.gauth.domain.auth.services.RefreshService
-import com.msg.gauth.domain.auth.services.SignUpService
-import com.msg.gauth.domain.auth.services.SignInService
-import com.msg.gauth.global.annotation.logger.log4k
-import org.slf4j.Logger
+import com.msg.gauth.domain.auth.services.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -21,7 +17,8 @@ class AuthController(
     private val refreshService: RefreshService,
     private val logoutService: LogoutService,
     private val signInService: SignInService,
-    private val signUpService: SignUpService
+    private val signUpService: SignUpService,
+    private val getServiceNameService: GetServiceNameService,
 ) {
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> =
@@ -43,4 +40,8 @@ class AuthController(
         signUpService.execute(signUpDto)
         return ResponseEntity(HttpStatus.CREATED)
     }
+
+    @GetMapping("/{clientId}")
+    fun getServiceName(@PathVariable clientId: String): ResponseEntity<ServiceNameResponseDto> =
+        ResponseEntity.ok(getServiceNameService.execute(clientId))
 }
