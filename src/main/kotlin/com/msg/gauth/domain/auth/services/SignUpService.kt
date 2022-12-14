@@ -26,6 +26,7 @@ class SignUpService(
         val emailAuth = emailAuthRepository.findById(signUpDto.email)
             .orElseThrow { EmailNotVerifiedException() }
         if (!emailAuth.authentication) throw EmailNotVerifiedException()
+        emailAuthRepository.delete(emailAuth)
         return userRepository.save(user).id
     }
 }
