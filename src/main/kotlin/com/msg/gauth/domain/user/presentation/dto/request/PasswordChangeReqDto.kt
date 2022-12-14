@@ -1,5 +1,5 @@
 package com.msg.gauth.domain.user.presentation.dto.request
 
-class PasswordChangeReqDto(
+data class PasswordChangeReqDto(
     val password: String,
 )
