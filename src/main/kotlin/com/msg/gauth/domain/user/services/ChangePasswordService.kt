@@ -24,8 +24,6 @@ class ChangePasswordService(
             .orElseThrow{ throw EmailNotVerifiedException() }
         if(!emailAuth.authentication)
             throw EmailNotVerifiedException()
-        if(!userRepository.existsByEmail(currentUser.email))
-            throw UserNotFoundException()
         val update = currentUser.update(passwordEncoder.encode(passwordChangeReqDto.password))
         userRepository.save(update)
         emailAuthRepository.delete(emailAuth)
