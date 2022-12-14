@@ -61,6 +61,9 @@ class SecurityConfig(
             // OAuth
             .antMatchers("/oauth/**").permitAll()
 
+            //User
+            .antMatchers("/user/**").authenticated()
+
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()

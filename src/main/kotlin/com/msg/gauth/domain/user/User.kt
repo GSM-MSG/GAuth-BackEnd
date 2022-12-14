@@ -51,4 +51,19 @@ class User(
         user.id = this.id
         return user
     }
+
+    fun update(password: String): User{
+        val user = User(
+            email = this.email,
+            grade = this.grade,
+            classNum = this.classNum,
+            num = this.num,
+            gender = this.gender,
+            password = password,
+            roles = this.roles,
+            state = this.state
+        )
+        user.id = this.id
+        return user
+    }
 }
