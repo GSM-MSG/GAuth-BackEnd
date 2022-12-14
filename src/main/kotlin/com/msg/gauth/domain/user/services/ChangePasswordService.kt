@@ -2,6 +2,7 @@ package com.msg.gauth.domain.user.services
 
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
 import com.msg.gauth.domain.user.exception.EmailNotVerifiedException
+import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.presentation.dto.request.PasswordChangeReqDto
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.domain.user.utils.UserUtil
@@ -18,13 +19,14 @@ class ChangePasswordService(
 ){
     @Transactional(rollbackFor = [Exception::class])
     fun execute(passwordChangeReqDto: PasswordChangeReqDto){
-        val emailAuth = emailAuthRepository.findById(userUtil.fetchCurrentUser().email)
+        val currentUser = userUtil.fetchCurrentUser()
+        val emailAuth = emailAuthRepository.findById(currentUser.email)
             .orElseThrow{ throw EmailNotVerifiedException() }
         if(!emailAuth.authentication)
             throw EmailNotVerifiedException()
-        val user = (userRepository.findByEmail(emailAuth.email)
-            ?: throw EmailNotVerifiedException())
-        val update = user.update(passwordEncoder.encode(passwordChangeReqDto.password))
+        if(!userRepository.existsByEmail(currentUser.email))
+            throw UserNotFoundException()
+        val update = currentUser.update(passwordEncoder.encode(passwordChangeReqDto.password))
         userRepository.save(update)
         emailAuthRepository.delete(emailAuth)
     }
