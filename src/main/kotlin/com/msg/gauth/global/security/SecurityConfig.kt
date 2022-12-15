@@ -44,6 +44,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
             .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/auth/password/initialize").permitAll()
 
             // Email
             .antMatchers(HttpMethod.POST, "/email").permitAll()
