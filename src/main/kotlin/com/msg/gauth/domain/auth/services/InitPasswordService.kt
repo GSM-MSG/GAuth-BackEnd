@@ -25,5 +25,6 @@ class InitPasswordService(
             ?: throw UserNotFoundException()
         val update = user.update(passwordEncoder.encode(passwordInitReqDto.newPassword))
         userRepository.save(update)
+        emailAuthRepository.delete(emailAuth)
     }
 }
