@@ -5,6 +5,7 @@ import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.oauth.OauthRefreshToken
 import com.msg.gauth.domain.oauth.exception.ClientSecretMismatchException
 import com.msg.gauth.domain.oauth.exception.OauthCodeExpiredException
+import com.msg.gauth.domain.oauth.presentation.dto.request.OauthLoginReqDto
 import com.msg.gauth.domain.oauth.presentation.dto.request.UserTokenRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.UserTokenResponseDto
 import com.msg.gauth.domain.oauth.repository.OauthCodeRepository
@@ -32,6 +33,18 @@ class OauthTokenService(
         val email = oauthCodeRepository.findById(userTokenRequestDto.code)
             .orElseThrow { throw OauthCodeExpiredException() }
             .email
+        return createTokenResponseDto(email)
+    }
+
+    @Transactional(rollbackFor = [Exception::class], readOnly = true)
+    fun execute(oauthLoginReqDto: OauthLoginReqDto): UserTokenResponseDto{
+        val client = (clientRepository.findByClientId(oauthLoginReqDto.clientId)
+            ?: throw ClientNotFindException())
+        val email = oauthLoginReqDto.email
+        return createTokenResponseDto(email)
+    }
+
+    private fun createTokenResponseDto(email: String): UserTokenResponseDto {
         val user = (userRepository.findByEmail(email)
             ?: throw UserNotFoundException())
         val accessToken = tokenProvider.generateAccessToken(email)
