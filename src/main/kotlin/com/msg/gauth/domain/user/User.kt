@@ -36,6 +36,8 @@ class User(
     @Enumerated(EnumType.STRING)
     val state: UserState,
 
+    @Column(nullable = true)
+    val profileUrl: String?,
 ): BaseIdEntity(){
     fun update(grade: Int, classNum: Int, num: Int, gender: Gender): User{
         val user = User(
@@ -46,7 +48,8 @@ class User(
             gender = gender,
             password = this.password,
             roles = this.roles,
-            state = UserState.CREATED
+            state = UserState.CREATED,
+            profileUrl = this.profileUrl
         )
         user.id = this.id
         return user
@@ -61,9 +64,27 @@ class User(
             gender = this.gender,
             password = password,
             roles = this.roles,
-            state = this.state
+            state = this.state,
+            profileUrl = this.profileUrl
         )
         user.id = this.id
         return user
     }
+
+    fun updateProfile(profileUrl: String): User{
+        val user = User(
+            email = this.email,
+            grade = this.grade,
+            classNum = this.classNum,
+            num = this.num,
+            gender = this.gender,
+            password = this.password,
+            roles = this.roles,
+            state = this.state,
+            profileUrl = profileUrl
+        )
+        user.id = this.id
+        return user
+    }
+
 }
