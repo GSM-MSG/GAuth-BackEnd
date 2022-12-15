@@ -44,8 +44,8 @@ class AuthController(
 
 
     @PatchMapping("/password/initialize")
-    fun initPassword(@RequestBody passwordInitReqDto: PasswordInitReqDto): ResponseEntity<Void>{
+    fun initPassword(@Valid @RequestBody passwordInitReqDto: PasswordInitReqDto): ResponseEntity<Void> {
         initPasswordService.execute(passwordInitReqDto)
-        return ResponseEntity.ok().build()
+        return ResponseEntity.noContent().build()
     }
 }
