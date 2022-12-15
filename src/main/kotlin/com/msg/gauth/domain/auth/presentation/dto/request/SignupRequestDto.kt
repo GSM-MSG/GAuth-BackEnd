@@ -21,6 +21,7 @@ data class SignUpDto(
             email = email,
             password = password,
             roles = mutableListOf(UserRole.ROLE_STUDENT),
-            state = UserState.PENDING
+            state = UserState.PENDING,
+            profileUrl = null,
         )
 }
