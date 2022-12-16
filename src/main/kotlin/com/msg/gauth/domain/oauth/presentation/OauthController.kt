@@ -1,6 +1,7 @@
 package com.msg.gauth.domain.oauth.presentation
 
 import com.msg.gauth.domain.oauth.presentation.dto.request.OauthCodeRequestDto
+import com.msg.gauth.domain.oauth.presentation.dto.request.OauthLoginReqDto
 import com.msg.gauth.domain.oauth.presentation.dto.request.UserTokenRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.OauthCodeResponseDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.ServiceNameResponseDto
@@ -36,4 +37,8 @@ class OauthController(
     @GetMapping("/{clientId}")
     fun getServiceName(@PathVariable clientId: String): ResponseEntity<ServiceNameResponseDto> =
         ResponseEntity.ok(getServiceNameService.execute(clientId))
+
+    @PostMapping("/signin")
+    fun oauthSignin(@RequestBody oauthLoginReqDto: OauthLoginReqDto): ResponseEntity<UserTokenResponseDto> =
+        ResponseEntity.ok(oauthTokenService.execute(oauthLoginReqDto))
 }
