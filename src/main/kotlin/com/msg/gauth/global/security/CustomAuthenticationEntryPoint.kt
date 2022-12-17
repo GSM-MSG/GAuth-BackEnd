@@ -22,6 +22,7 @@ class CustomAuthenticationEntryPoint(
     ) {
         val errorCode = ErrorCode.UNAUTHORIZED
         val responseString = objectMapper.writeValueAsString(ErrorResponse(errorCode))
+        response.characterEncoding = "UTF-8"
         response.status = errorCode.code
         response.contentType = MediaType.APPLICATION_JSON_VALUE
         response.writer.write(responseString)
