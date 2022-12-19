@@ -37,6 +37,23 @@ class JwtTokenProvider(
     fun generateRefreshToken(email: String): String =
         generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, REFRESH_EXP)
 
+    fun generateOauthAccessToken(email: String, clientId: String): String =
+        generateOauthToken(email, ACCESS_TYPE, clientId, jwtProperties.oauthSecret, ACCESS_EXP)
+
+    fun generateOauthRefreshToken(email: String, clientId: String): String =
+        generateOauthToken(email, REFRESH_TYPE, clientId, jwtProperties.oauthSecret, REFRESH_EXP)
+
+
+    private fun generateOauthToken(sub: String, type: String, clientId: String, secret: Key, exp: Long): String =
+        Jwts.builder()
+            .signWith(secret, SignatureAlgorithm.HS256)
+            .setSubject(sub)
+            .claim("clientId", clientId)
+            .claim("type", type)
+            .setIssuedAt(Date())
+            .setExpiration(Date(System.currentTimeMillis() + exp * 1000))
+            .compact()
+
     fun resolveToken(req: HttpServletRequest): String? {
         val token = req.getHeader("Authorization") ?: return null
         return parseToken(token)
@@ -45,6 +62,12 @@ class JwtTokenProvider(
     fun exactEmailFromRefreshToken(refresh: String): String {
         return getTokenSubject(refresh, jwtProperties.refreshSecret)
     }
+
+    fun exactEmailFromOauthRefreshToken(refresh: String): String =
+        getTokenSubject(refresh, jwtProperties.oauthSecret)
+
+    fun exactClientIdFromOauthRefreshToken(refresh: String): String =
+        getTokenBody(refresh, jwtProperties.oauthSecret)["clientId"].toString()
 
     fun authentication(token: String): Authentication {
         val userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))

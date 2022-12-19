@@ -10,13 +10,16 @@ import java.security.Key
 @ConfigurationProperties(prefix = "jwt")
 class JwtProperties(
     accessSecret: String,
-    refreshSecret: String
+    refreshSecret: String,
+    oauthSecret: String,
 ) {
     val accessSecret: Key
     val refreshSecret: Key
+    val oauthSecret: Key
 
     init {
         this.accessSecret = Keys.hmacShaKeyFor(accessSecret.toByteArray(StandardCharsets.UTF_8))
         this.refreshSecret = Keys.hmacShaKeyFor(refreshSecret.toByteArray(StandardCharsets.UTF_8))
+        this.oauthSecret = Keys.hmacShaKeyFor(oauthSecret.toByteArray(StandardCharsets.UTF_8))
     }
 }
