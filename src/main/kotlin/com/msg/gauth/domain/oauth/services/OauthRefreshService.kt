@@ -18,12 +18,13 @@ class OauthRefreshService(
 ){
     fun execute(refreshToken: String): UserTokenResponseDto{
         val refreshToken = tokenProvider.parseToken(refreshToken) ?: throw InvalidRefreshTokenException()
-        val email = tokenProvider.exactEmailFromRefreshToken(refreshToken)
+        val email = tokenProvider.exactEmailFromOauthRefreshToken(refreshToken)
         val user = userRepository.findByEmail(email) ?: throw UserNotFoundException()
         if(!tokenRepository.existsById(user.id))
             throw ExpiredRefreshTokenException()
-        val access = tokenProvider.generateAccessToken(email)
-        val refresh = tokenProvider.generateRefreshToken(email)
+        val clientId = tokenProvider.exactClientIdFromOauthRefreshToken(refreshToken)
+        val access = tokenProvider.generateOauthAccessToken(email, clientId)
+        val refresh = tokenProvider.generateOauthRefreshToken(email, clientId)
         val expiresAt = tokenProvider.accessExpiredTime
         val newRefreshToken = OauthRefreshToken(
             userId = user.id,

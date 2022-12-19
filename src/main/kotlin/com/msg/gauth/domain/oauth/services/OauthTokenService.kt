@@ -1,6 +1,7 @@
 package com.msg.gauth.domain.oauth.services
 
 import com.msg.gauth.domain.auth.exception.PasswordMismatchException
+import com.msg.gauth.domain.client.Client
 import com.msg.gauth.domain.client.exception.ClientNotFindException
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.oauth.OauthRefreshToken
@@ -11,6 +12,7 @@ import com.msg.gauth.domain.oauth.presentation.dto.request.UserTokenRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.UserTokenResponseDto
 import com.msg.gauth.domain.oauth.repository.OauthCodeRepository
 import com.msg.gauth.domain.oauth.repository.OauthRefreshTokenRepository
+import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
@@ -38,15 +40,7 @@ class OauthTokenService(
             .email
         val user = (userRepository.findByEmail(email)
             ?: throw UserNotFoundException())
-        val accessToken = tokenProvider.generateAccessToken(email)
-        val refreshToken = tokenProvider.generateRefreshToken(email)
-        val expiresAt = tokenProvider.accessExpiredTime
-        refreshTokenRepository.save(OauthRefreshToken(user.id, refreshToken))
-        return UserTokenResponseDto(
-            accessToken = accessToken,
-            refreshToken = refreshToken,
-            expiresAt = expiresAt
-        )
+        return tokenResponseDto(email, client, user)
     }
 
     @Transactional(rollbackFor = [Exception::class], readOnly = true)
@@ -58,8 +52,16 @@ class OauthTokenService(
             ?: throw UserNotFoundException())
         if(!passwordEncoder.matches(oauthLoginReqDto.password, user.password))
             throw PasswordMismatchException()
-        val accessToken = tokenProvider.generateAccessToken(email)
-        val refreshToken = tokenProvider.generateRefreshToken(email)
+        return tokenResponseDto(email, client, user)
+    }
+
+    private fun tokenResponseDto(
+        email: String,
+        client: Client,
+        user: User
+    ): UserTokenResponseDto {
+        val accessToken = tokenProvider.generateOauthAccessToken(email, client.clientId)
+        val refreshToken = tokenProvider.generateOauthRefreshToken(email, client.clientId)
         val expiresAt = tokenProvider.accessExpiredTime
         refreshTokenRepository.save(OauthRefreshToken(user.id, refreshToken))
         return UserTokenResponseDto(
