@@ -20,4 +20,9 @@ class S3Util(
         amazonS3.putObject(bucket, profileName, file.inputStream, metadata)
         return amazonS3.getUrl(bucket, profileName).toString()
     }
+
+    fun deleteImage(url: String){
+        val key = url.split("/")[3]
+        amazonS3.deleteObject(bucket, key)
+    }
 }
