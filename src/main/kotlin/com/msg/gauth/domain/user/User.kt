@@ -36,7 +36,7 @@ class User(
     @Enumerated(EnumType.STRING)
     val state: UserState,
 
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "TEXT")
     val profileUrl: String?,
 ): BaseIdEntity(){
     fun update(grade: Int, classNum: Int, num: Int, gender: Gender): User{
