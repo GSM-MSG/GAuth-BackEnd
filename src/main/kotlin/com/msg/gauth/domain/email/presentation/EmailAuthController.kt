@@ -2,6 +2,7 @@ package com.msg.gauth.domain.email.presentation
 
 import com.msg.gauth.domain.email.presentation.dto.EmailSendDto
 import com.msg.gauth.domain.email.services.MailSendService
+import com.msg.gauth.domain.email.services.MailVerificationCheckService
 import com.msg.gauth.domain.email.services.MailVerificationService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/email")
 class EmailAuthController(
     private val mailSendService: MailSendService,
-    private val mailVerificationService: MailVerificationService
+    private val mailVerificationService: MailVerificationService,
+    private val mailVerificationCheckService: MailVerificationCheckService,
 ) {
     @PostMapping
     fun emailSend(@RequestBody emailSendDto: EmailSendDto): ResponseEntity<Void> {
@@ -23,4 +25,11 @@ class EmailAuthController(
         mailVerificationService.execute(email, uuid)
         return ResponseEntity.noContent().build()
     }
+
+    @GetMapping
+    fun checkEmailVerification(@RequestParam email: String): ResponseEntity<Void>{
+        mailVerificationCheckService.execute(email)
+        return ResponseEntity.ok().build()
+    }
+
 }
