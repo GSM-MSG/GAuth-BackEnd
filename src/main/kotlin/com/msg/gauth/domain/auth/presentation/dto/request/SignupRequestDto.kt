@@ -14,7 +14,9 @@ data class SignUpDto(
 
     @field:NotBlank
     @field:Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\$@\$!%*#?&])[A-Za-z[0-9]\$@\$!%*#?&]{8,20}$")
-    val password: String
+    val password: String,
+
+    val profileUrl: String?,
 ) {
     fun toEntity(password: String): User =
         User(
@@ -22,6 +24,6 @@ data class SignUpDto(
             password = password,
             roles = mutableListOf(UserRole.ROLE_STUDENT),
             state = UserState.PENDING,
-            profileUrl = null,
+            profileUrl = profileUrl?: null,
         )
 }

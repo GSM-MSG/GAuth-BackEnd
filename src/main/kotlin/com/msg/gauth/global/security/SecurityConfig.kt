@@ -1,7 +1,6 @@
 package com.msg.gauth.global.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.msg.gauth.domain.user.enums.UserRole
 import com.msg.gauth.global.security.config.FilterConfig
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
 import org.springframework.context.annotation.Bean
@@ -15,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.util.matcher.RequestMatcher
 import org.springframework.web.cors.CorsUtils
-import javax.servlet.http.HttpServletRequest
 
 @Configuration
 @EnableWebSecurity
@@ -45,6 +43,8 @@ class SecurityConfig(
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
             .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
             .antMatchers(HttpMethod.PATCH, "/auth/password/initialize").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/auth/image").permitAll()
+            .antMatchers(HttpMethod.DELETE, "/auth/image").permitAll()
 
             // Email
             .antMatchers(HttpMethod.POST, "/email").permitAll()
