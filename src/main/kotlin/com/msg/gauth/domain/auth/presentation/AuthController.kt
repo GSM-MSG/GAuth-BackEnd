@@ -6,7 +6,6 @@ import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto
 import com.msg.gauth.domain.auth.services.*
 import com.msg.gauth.domain.auth.presentation.dto.request.PasswordInitReqDto
-import com.msg.gauth.domain.auth.presentation.dto.request.SignupImageDeleteReqDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SignupImageResDto
 import com.msg.gauth.domain.auth.services.InitPasswordService
 import org.springframework.http.HttpStatus

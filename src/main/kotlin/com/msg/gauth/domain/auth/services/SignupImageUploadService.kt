@@ -1,6 +1,5 @@
 package com.msg.gauth.domain.auth.services
 
-import com.msg.gauth.domain.auth.presentation.dto.request.SignupImageDeleteReqDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SignupImageResDto
 import com.msg.gauth.global.aws.s3.S3Util
 import org.springframework.stereotype.Service
