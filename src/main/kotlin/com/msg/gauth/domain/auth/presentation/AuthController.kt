@@ -24,7 +24,6 @@ class AuthController(
     private val signUpService: SignUpService,
     private val initPasswordService: InitPasswordService,
     private val signupImageUploadService: SignupImageUploadService,
-    private val signupImageDeleteService: SignupImageDeleteService,
 ) {
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> =
@@ -48,14 +47,8 @@ class AuthController(
     }
 
     @PatchMapping("/image")
-    fun uploadSignupImage(@RequestParam("image") image: MultipartFile): ResponseEntity<SignupImageResDto> =
-        ResponseEntity.ok(signupImageUploadService.execute(image))
-
-    @DeleteMapping("/image")
-    fun deleteSignupImage(@RequestBody signupImageDeleteReqDto: SignupImageDeleteReqDto): ResponseEntity<Void>{
-        signupImageDeleteService.execute(signupImageDeleteReqDto)
-        return ResponseEntity.ok().build()
-    }
+    fun uploadSignupImage(@RequestParam("image") image: MultipartFile, @RequestBody signupImageDeleteReqDto: SignupImageDeleteReqDto): ResponseEntity<SignupImageResDto> =
+        ResponseEntity.ok(signupImageUploadService.execute(image, signupImageDeleteReqDto))
 
 
     @PatchMapping("/password/initialize")
