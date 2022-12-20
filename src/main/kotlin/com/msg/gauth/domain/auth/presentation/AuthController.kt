@@ -46,8 +46,8 @@ class AuthController(
     }
 
     @PatchMapping("/image")
-    fun uploadSignupImage(@RequestPart("image") image: MultipartFile, @RequestPart("imageUrl") previousUrl: String?): ResponseEntity<SignupImageResDto> =
-        ResponseEntity.ok(signupImageUploadService.execute(image, previousUrl))
+    fun uploadSignupImage(@RequestPart("image") image: MultipartFile, @RequestPart("imageUrl") previousUrl: String?, @RequestPart email: String): ResponseEntity<SignupImageResDto> =
+        ResponseEntity.ok(signupImageUploadService.execute(image, previousUrl, email))
 
 
     @PatchMapping("/password/initialize")
