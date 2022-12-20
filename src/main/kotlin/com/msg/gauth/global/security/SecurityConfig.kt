@@ -49,6 +49,7 @@ class SecurityConfig(
             // Email
             .antMatchers(HttpMethod.POST, "/email").permitAll()
             .antMatchers(HttpMethod.GET, "/email/authentication").permitAll()
+            .antMatchers(HttpMethod.GET, "/email").permitAll()
 
             // Client
             .antMatchers(HttpMethod.GET, "/client").authenticated()
