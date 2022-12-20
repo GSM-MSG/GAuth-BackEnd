@@ -10,9 +10,9 @@ import org.springframework.web.multipart.MultipartFile
 class SignupImageUploadService(
     private val s3Util: S3Util,
 ){
-    fun execute(image: MultipartFile, signupImageDeleteReqDto: SignupImageDeleteReqDto): SignupImageResDto{
-        if(signupImageDeleteReqDto.imageUrl != null)
-            s3Util.deleteImage(signupImageDeleteReqDto.imageUrl)
+    fun execute(image: MultipartFile, previousUrl: String?): SignupImageResDto{
+        if(previousUrl != null)
+            s3Util.deleteImage(previousUrl)
         return SignupImageResDto(s3Util.upload(image))
     }
 }

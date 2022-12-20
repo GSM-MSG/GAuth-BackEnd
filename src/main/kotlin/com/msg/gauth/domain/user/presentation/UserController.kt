@@ -4,11 +4,7 @@ import com.msg.gauth.domain.user.presentation.dto.request.PasswordChangeReqDto
 import com.msg.gauth.domain.user.services.ChangePasswordService
 import com.msg.gauth.domain.user.services.UploadProfileService
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import javax.validation.Valid
 
@@ -25,7 +21,7 @@ class UserController(
     }
 
     @PatchMapping("/image")
-    fun uploadProfile(@RequestParam("image") image: MultipartFile): ResponseEntity<Void>{
+    fun uploadProfile(@RequestPart("image") image: MultipartFile): ResponseEntity<Void>{
         uploadProfileService.execute(image)
         return ResponseEntity.noContent().build()
     }
