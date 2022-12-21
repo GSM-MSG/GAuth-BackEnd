@@ -37,8 +37,4 @@ class OauthController(
     @GetMapping("/{clientId}")
     fun getServiceName(@PathVariable clientId: String): ResponseEntity<ServiceNameResponseDto> =
         ResponseEntity.ok(getServiceNameService.execute(clientId))
-
-    @PostMapping("/signin")
-    fun oauthSignin(@RequestBody oauthLoginReqDto: OauthLoginReqDto): ResponseEntity<UserTokenResponseDto> =
-        ResponseEntity.ok(oauthTokenService.execute(oauthLoginReqDto))
 }
