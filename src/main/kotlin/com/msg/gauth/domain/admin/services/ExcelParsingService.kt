@@ -40,9 +40,10 @@ class ExcelParsingService(
             val grade = row.getCell(0).numericCellValue.toInt()
             val classNum = row.getCell(1).numericCellValue.toInt()
             val num = row.getCell(2).numericCellValue.toInt()
+            val name = row.getCell(3).stringCellValue.toString()
             val gender = Gender.valueOf(row.getCell(5).stringCellValue)
             val user = userRepository.findByEmail(email) ?: continue
-            val update = user.update(grade, classNum, num, gender)
+            val update = user.update(name, grade, classNum, num, gender)
             userRepository.save(update)
         }
     }

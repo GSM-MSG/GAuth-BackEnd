@@ -20,6 +20,9 @@ class User(
     val gender: Gender? = null,
 
     @Column(nullable = true)
+    val name: String? = null,
+
+    @Column(nullable = true)
     val grade: Int? = null,
 
     @Column(nullable = true)
@@ -39,8 +42,9 @@ class User(
     @Column(nullable = true, columnDefinition = "TEXT")
     val profileUrl: String?,
 ): BaseIdEntity(){
-    fun update(grade: Int, classNum: Int, num: Int, gender: Gender): User{
+    fun update(name: String, grade: Int, classNum: Int, num: Int, gender: Gender): User{
         val user = User(
+            name = name,
             email = this.email,
             grade = grade,
             classNum = classNum,
@@ -57,6 +61,7 @@ class User(
 
     fun update(password: String): User{
         val user = User(
+            name = this.name,
             email = this.email,
             grade = this.grade,
             classNum = this.classNum,
@@ -73,6 +78,7 @@ class User(
 
     fun updateProfile(profileUrl: String): User{
         val user = User(
+            name = this.name,
             email = this.email,
             grade = this.grade,
             classNum = this.classNum,
