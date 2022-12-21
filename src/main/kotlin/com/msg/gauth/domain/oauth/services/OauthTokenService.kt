@@ -43,18 +43,6 @@ class OauthTokenService(
         return tokenResponseDto(email, client, user)
     }
 
-    @Transactional(rollbackFor = [Exception::class], readOnly = true)
-    fun execute(oauthLoginReqDto: OauthLoginReqDto): UserTokenResponseDto{
-        val client = (clientRepository.findByClientId(oauthLoginReqDto.clientId)
-            ?: throw ClientNotFindException())
-        val email = oauthLoginReqDto.email
-        val user = (userRepository.findByEmail(email)
-            ?: throw UserNotFoundException())
-        if(!passwordEncoder.matches(oauthLoginReqDto.password, user.password))
-            throw PasswordMismatchException()
-        return tokenResponseDto(email, client, user)
-    }
-
     private fun tokenResponseDto(
         email: String,
         client: Client,
@@ -62,12 +50,10 @@ class OauthTokenService(
     ): UserTokenResponseDto {
         val accessToken = tokenProvider.generateOauthAccessToken(email, client.clientId)
         val refreshToken = tokenProvider.generateOauthRefreshToken(email, client.clientId)
-        val expiresAt = tokenProvider.accessExpiredTime
         refreshTokenRepository.save(OauthRefreshToken(user.id, refreshToken))
         return UserTokenResponseDto(
             accessToken = accessToken,
-            refreshToken = refreshToken,
-            expiresAt = expiresAt
+            refreshToken = refreshToken
         )
     }
 }
