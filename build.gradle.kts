@@ -38,6 +38,7 @@ dependencies {
     implementation("com.amazonaws:aws-java-sdk-s3:1.12.364")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("mysql:mysql-connector-java")
+    runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
