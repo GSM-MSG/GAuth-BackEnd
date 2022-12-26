@@ -44,7 +44,7 @@ class MailSendService(
         try {
             val message = mailSender.createMimeMessage()
             val msg =
-                "<a href=\"http://localhost:8080/email/authentication?email=$email&uuid=$value\" style=\"padding: 10px; border: none; color: white; background-color: skyblue; border-radius: 8px; align-self: center; text-align: center;\">인증하기</a>"
+                "<a href=\"https://server.gauth.co.kr/email/authentication?email=$email&uuid=$value\" style=\"padding: 10px; border: none; color: white; background-color: skyblue; border-radius: 8px; align-self: center; text-align: center;\">인증하기</a>"
             message.addRecipients(Message.RecipientType.TO, emailSendDto.email)
             message.subject = "[Gauth] 이메일 인증"
             message.setText(msg, "utf-8", "html")
