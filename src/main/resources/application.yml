@@ -6,20 +6,20 @@ spring:
       ddl-auto: create
 
   datasource:
-    url: jdbc:mariadb://{DB_URL}/{DB_NAME}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
-    username: {DB_UESR}
-    password: {DB_PASSWORD}
+    url: jdbc:mariadb://${DB_URL}/${DB_NAME}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+    username: ${DB_UESR}
+    password: ${DB_PASSWORD}
     driver-class-name: org.mariadb.jdbc.Driver
 
 
   redis:
-    host: {REDIS_HOST}
-    port: {REDIS_PORT}
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
   mail:
     host: smtp.gmail.com
     port: 587
-    username: {MAIL_USERNAME}
-    password: {MAIL_PASSWORD}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -34,12 +34,12 @@ spring:
 cloud:
   aws:
     credentials:
-      access-key: {AWS_ACCESS}
-      secret-key: {AWS_SECRET}
+      access-key: ${AWS_ACCESS}
+      secret-key: ${AWS_SECRET}
     region:
-      static: {AWS_REGION}
+      static: ${AWS_REGION}
     s3:
-      bucket: {AWS_BUCKET}
+      bucket: ${AWS_BUCKET}
     stack:
       auto: false
 
@@ -49,6 +49,6 @@ messages:
   encoding: UTF-8
 
 jwt:
-  accessSecret: {JWT_ACCESS}
-  refreshSecret: {JWT_REFRESH}
-  oauthSecret: {JWT_OAUTH}
+  accessSecret: ${JWT_ACCESS}
+  refreshSecret: ${JWT_REFRESH}
+  oauthSecret: ${JWT_OAUTH}
