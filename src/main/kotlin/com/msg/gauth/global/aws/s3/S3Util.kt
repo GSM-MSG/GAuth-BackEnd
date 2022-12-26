@@ -14,7 +14,7 @@ class S3Util(
     @Value("\${cloud.aws.s3.bucket}")
     private val bucket: String? = null
     fun upload(file: MultipartFile): String {
-        val profileName = UUID.randomUUID().toString() + "-" + file.originalFilename
+        val profileName = "${bucket}/${UUID.randomUUID()}${file.originalFilename}"
         val metadata = ObjectMetadata()
         metadata.contentLength = file.inputStream.available().toLong()
         amazonS3.putObject(bucket, profileName, file.inputStream, metadata)

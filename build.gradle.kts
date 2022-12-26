@@ -60,7 +60,3 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
-application {
-    mainClass.set("MainKt")
-}
