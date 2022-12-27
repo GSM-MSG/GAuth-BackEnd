@@ -21,9 +21,9 @@ class EmailAuthController(
     }
 
     @GetMapping("/authentication")
-    fun emailVerification(@RequestParam email: String, @RequestParam uuid: String): ResponseEntity<Void> {
+    fun emailVerification(@RequestParam email: String, @RequestParam uuid: String): ResponseEntity<String> {
         mailVerificationService.execute(email, uuid)
-        return ResponseEntity.noContent().build()
+        return ResponseEntity.ok("완료되었습니다!<br> 회원가입을 진행해주세요.")
     }
 
     @GetMapping
