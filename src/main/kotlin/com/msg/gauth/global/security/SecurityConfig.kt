@@ -66,7 +66,7 @@ class SecurityConfig(
             //User
             .antMatchers("/user/**").authenticated()
 
-            .anyRequest().denyAll()
+            .anyRequest().permitAll()
             .and()
             .exceptionHandling()
             .authenticationEntryPoint(CustomAuthenticationEntryPoint(objectMapper))
