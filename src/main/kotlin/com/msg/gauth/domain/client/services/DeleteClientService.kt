@@ -4,6 +4,7 @@ import com.msg.gauth.domain.client.exception.ClientNotFindException
 import com.msg.gauth.domain.client.exception.UserNotMatchException
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.user.utils.UserUtil
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -14,8 +15,8 @@ class DeleteClientService(
 ){
     @Transactional(rollbackFor = [Exception::class])
     fun execute(id: Long){
-        val client = clientRepository.findById(id)
-            .orElseThrow { throw ClientNotFindException() }
+        val client = clientRepository.findByIdOrNull(id)
+            ?: throw ClientNotFindException()
         if(client.createdBy != userUtil.fetchCurrentUser())
             throw UserNotMatchException()
         clientRepository.delete(client)
