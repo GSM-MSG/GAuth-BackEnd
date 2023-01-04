@@ -9,19 +9,16 @@ import com.msg.gauth.domain.oauth.repository.OauthCodeRepository
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
-import org.springframework.data.redis.core.RedisTemplate
+import com.msg.gauth.global.annotation.service.ReadOnlyService
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
-@Service
+@ReadOnlyService
 class OauthCodeService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
     private val oauthCodeRepository: OauthCodeRepository,
 ){
-    @Transactional(readOnly = true, rollbackFor = [Exception::class])
     fun execute(oauthLoginRequestDto: OauthCodeRequestDto): OauthCodeResponseDto {
         val user = userRepository.findByEmail(oauthLoginRequestDto.email) ?: throw UserNotFoundException()
         if (!passwordEncoder.matches(oauthLoginRequestDto.password, user.password))

@@ -4,11 +4,9 @@ import com.msg.gauth.domain.client.exception.ClientNotFindException
 import com.msg.gauth.domain.client.persentation.dto.response.ClientDetailResDto
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.user.utils.UserUtil
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
+import com.msg.gauth.global.annotation.service.ReadOnlyService
 
-@Service
-@Transactional(readOnly = true, rollbackFor = [Exception::class])
+@ReadOnlyService
 class GetMyDetailClientService(
     private val clientRepository: ClientRepository,
     private val userUtil: UserUtil

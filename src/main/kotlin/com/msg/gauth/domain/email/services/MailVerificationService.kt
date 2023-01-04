@@ -2,15 +2,12 @@ package com.msg.gauth.domain.email.services
 
 import com.msg.gauth.domain.email.exception.AuthCodeExpiredException
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
+import com.msg.gauth.global.annotation.service.TransactionalService
 
-@Service
+@TransactionalService
 class MailVerificationService(
     private val emailAuthRepository: EmailAuthRepository
 ) {
-
-    @Transactional(rollbackFor = [Exception::class])
     fun execute(email: String, uuid: String) {
         val emailAuth = emailAuthRepository.findById(email)
             .orElseThrow { AuthCodeExpiredException() }

@@ -5,18 +5,16 @@ import com.msg.gauth.domain.email.repository.EmailAuthRepository
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.exception.EmailNotVerifiedException
 import com.msg.gauth.domain.user.repository.UserRepository
+import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.exception.exceptions.DuplicateEmailException
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-@Service
+@TransactionalService
 class SignUpService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
     private val emailAuthRepository: EmailAuthRepository
 ) {
-    @Transactional(rollbackFor = [Exception::class])
     fun execute(signUpDto: SignUpDto): Long {
         if (userRepository.existsByEmail(signUpDto.email)) {
             throw DuplicateEmailException()

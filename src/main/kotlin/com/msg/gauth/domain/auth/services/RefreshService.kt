@@ -5,16 +5,14 @@ import com.msg.gauth.domain.auth.exception.ExpiredRefreshTokenException
 import com.msg.gauth.domain.auth.exception.InvalidRefreshTokenException
 import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto
 import com.msg.gauth.domain.auth.repository.RefreshTokenRepository
+import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-@Service
+@TransactionalService
 class RefreshService(
     private val jwtTokenProvider: JwtTokenProvider,
     private val refreshTokenRepository: RefreshTokenRepository
 ) {
-    @Transactional(rollbackFor = [Exception::class])
     fun execute(refreshToken: String): RefreshResponseDto {
         val refreshToken = jwtTokenProvider.parseToken(refreshToken) ?: throw InvalidRefreshTokenException()
         val email = jwtTokenProvider.exactEmailFromRefreshToken(refreshToken)
