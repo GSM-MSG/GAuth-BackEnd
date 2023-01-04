@@ -53,6 +53,6 @@ class ClientController(
     @DeleteMapping("/{id}")
     fun deleteClient(@PathVariable id: Long): ResponseEntity<Void>{
         deleteClientService.execute(id)
-        return ResponseEntity.ok().build()
+        return ResponseEntity.noContent().build()
     }
 }
