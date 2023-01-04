@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/client")
 class ClientController(
-    private val getMyAllClientsService: GetMyAllClientsService,
+    private val getAllClientsService: GetAllClientsService,
     private val updateClientService: UpdateClientService,
     private val getMyDetailClientService: GetMyDetailClientService,
     private val registerClientService: RegisterClientService,
@@ -33,8 +33,8 @@ class ClientController(
     }
 
     @GetMapping
-    fun getMyAllClients(): ResponseEntity<List<SingleClientResDto>>{
-        val result = getMyAllClientsService.execute()
+    fun getAllClients(): ResponseEntity<List<SingleClientResDto>>{
+        val result = getAllClientsService.execute()
         return ResponseEntity.ok(result)
     }
 

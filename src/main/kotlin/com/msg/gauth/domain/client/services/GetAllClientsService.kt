@@ -8,11 +8,10 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional(readOnly = true, rollbackFor = [Exception::class])
-class GetMyAllClientsService(
-    private val clientRepository: ClientRepository,
-    private val userUtil: UserUtil,
+class GetAllClientsService(
+    private val clientRepository: ClientRepository
 ) {
     fun execute(): List<SingleClientResDto> =
-        clientRepository.findAllByCreatedBy(userUtil.fetchCurrentUser())
+        clientRepository.findAll()
             .map { SingleClientResDto(it) }
 }
