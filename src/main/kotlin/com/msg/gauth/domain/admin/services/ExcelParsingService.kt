@@ -3,6 +3,7 @@ package com.msg.gauth.domain.admin.services
 import com.msg.gauth.domain.admin.exception.FileExtensionInvalidException
 import com.msg.gauth.domain.user.enums.Gender
 import com.msg.gauth.domain.user.repository.UserRepository
+import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.util.ExcelUtil
 import org.apache.commons.compress.utils.FileNameUtils
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
@@ -10,15 +11,12 @@ import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.apache.tika.Tika
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.multipart.MultipartFile
 
-@Service
+@TransactionalService
 class ExcelParsingService(
     private val userRepository: UserRepository,
 ){
-    @Transactional(rollbackFor = [Exception::class])
     fun execute(file: MultipartFile){
         val tika = Tika()
         val detect = tika.detect(file.bytes)

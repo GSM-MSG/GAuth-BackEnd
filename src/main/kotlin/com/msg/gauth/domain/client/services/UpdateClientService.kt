@@ -4,15 +4,13 @@ import com.msg.gauth.domain.client.exception.ClientNotFindException
 import com.msg.gauth.domain.client.persentation.dto.request.ClientUpdateReqDto
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.user.utils.UserUtil
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
+import com.msg.gauth.global.annotation.service.TransactionalService
 
-@Service
+@TransactionalService
 class UpdateClientService(
     private val clientRepository: ClientRepository,
     private val userUtil: UserUtil
 ) {
-    @Transactional(rollbackFor = [Exception::class])
     fun updateClient(id: Long, clientUpdateReqDto: ClientUpdateReqDto){
         val client = clientRepository.findByIdAndCreatedBy(id, userUtil.fetchCurrentUser()) ?: throw ClientNotFindException()
         clientRepository.save(client.updateClient(clientUpdateReqDto))

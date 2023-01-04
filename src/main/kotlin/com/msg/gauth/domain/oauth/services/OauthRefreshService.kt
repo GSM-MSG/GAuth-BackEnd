@@ -7,10 +7,11 @@ import com.msg.gauth.domain.oauth.presentation.dto.response.UserTokenResponseDto
 import com.msg.gauth.domain.oauth.repository.OauthRefreshTokenRepository
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
+import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
 import org.springframework.stereotype.Service
 
-@Service
+@TransactionalService
 class OauthRefreshService(
     private val tokenRepository: OauthRefreshTokenRepository,
     private val tokenProvider: JwtTokenProvider,

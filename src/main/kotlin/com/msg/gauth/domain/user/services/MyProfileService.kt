@@ -3,9 +3,9 @@ package com.msg.gauth.domain.user.services
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.user.presentation.dto.response.MyProfileResDto
 import com.msg.gauth.domain.user.utils.UserUtil
-import org.springframework.stereotype.Service
+import com.msg.gauth.global.annotation.service.ReadOnlyService
 
-@Service
+@ReadOnlyService
 class MyProfileService(
     private val userUtil: UserUtil,
     private val clientRepository: ClientRepository
