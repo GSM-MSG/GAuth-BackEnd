@@ -5,11 +5,9 @@ import com.msg.gauth.domain.client.persentation.dto.request.ClientUpdateReqDto
 import com.msg.gauth.domain.client.persentation.dto.response.SingleClientResDto
 import com.msg.gauth.domain.client.persentation.dto.response.ClientDetailResDto
 import com.msg.gauth.domain.client.persentation.dto.response.ClientRegisterResDto
-import com.msg.gauth.domain.client.services.GetMyAllClientsService
-import com.msg.gauth.domain.client.services.GetMyDetailClientService
-import com.msg.gauth.domain.client.services.RegisterClientService
-import com.msg.gauth.domain.client.services.UpdateClientService
+import com.msg.gauth.domain.client.services.*
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -25,6 +23,7 @@ class ClientController(
     private val updateClientService: UpdateClientService,
     private val getMyDetailClientService: GetMyDetailClientService,
     private val registerClientService: RegisterClientService,
+    private val deleteClientService: DeleteClientService,
 ) {
 
     @PostMapping
@@ -48,6 +47,12 @@ class ClientController(
     @PatchMapping("/{id}")
     fun updateClient(@PathVariable id: Long, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
         updateClientService.updateClient(id, clientUpdateDto)
+        return ResponseEntity.noContent().build()
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteClient(@PathVariable id: Long): ResponseEntity<Void>{
+        deleteClientService.execute(id)
         return ResponseEntity.noContent().build()
     }
 }
