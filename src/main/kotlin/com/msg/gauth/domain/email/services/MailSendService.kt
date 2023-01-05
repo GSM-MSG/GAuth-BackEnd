@@ -17,13 +17,11 @@ import javax.mail.Message
 import javax.mail.MessagingException
 
 @Service
-@EnableAsync
 class MailSendService(
     private val mailSender: JavaMailSender,
     private val emailAuthRepository: EmailAuthRepository
 ) {
 
-    @Async
     fun execute(emailSendDto: EmailSendDto) {
         val email: String = emailSendDto.email
         val value = UUID.randomUUID().toString()
