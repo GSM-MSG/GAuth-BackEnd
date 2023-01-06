@@ -17,13 +17,17 @@ class SignUpService(
 ) {
     fun execute(signUpDto: SignUpDto): Long {
         if (userRepository.existsByEmail(signUpDto.email)) {
+            emailAuthRepository.deleteById(signUpDto.email)
             throw DuplicateEmailException()
         }
         val password: String = signUpDto.password
         val user: User = signUpDto.toEntity(passwordEncoder.encode(password))
         val emailAuth = emailAuthRepository.findById(signUpDto.email)
             .orElseThrow { EmailNotVerifiedException() }
-        if (!emailAuth.authentication) throw EmailNotVerifiedException()
+        if (!emailAuth.authentication) {
+            emailAuthRepository.delete(emailAuth)
+            throw EmailNotVerifiedException()
+        }
         emailAuthRepository.delete(emailAuth)
         return userRepository.save(user).id
     }
