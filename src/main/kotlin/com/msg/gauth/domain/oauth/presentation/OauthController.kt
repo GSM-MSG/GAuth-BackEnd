@@ -30,7 +30,7 @@ class OauthController(
     fun generateOauthToken(@RequestBody userTokenRequestDto: UserTokenRequestDto): ResponseEntity<UserTokenResponseDto> =
         ResponseEntity.ok(oauthTokenService.execute(userTokenRequestDto))
 
-    @PostMapping("/refresh")
+    @PatchMapping("/token")
     fun refreshOauthToken(@RequestHeader refreshToken: String): ResponseEntity<UserTokenResponseDto> =
         ResponseEntity.ok(oauthRefreshService.execute(refreshToken))
 
