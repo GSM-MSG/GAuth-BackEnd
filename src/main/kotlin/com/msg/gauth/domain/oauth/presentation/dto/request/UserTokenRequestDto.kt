@@ -11,4 +11,7 @@ data class UserTokenRequestDto(
 
     @field:NotBlank
     val clientSecret: String,
+
+    @field:NotBlank
+    val redirectUri: String,
 )
