@@ -1,6 +1,8 @@
 package com.msg.gauth.domain.oauth.services
 
 import com.msg.gauth.domain.auth.exception.PasswordMismatchException
+import com.msg.gauth.domain.client.exception.ClientNotFindException
+import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.oauth.OauthCode
 import com.msg.gauth.domain.oauth.exception.UserStatePendingException
 import com.msg.gauth.domain.oauth.presentation.dto.request.OauthCodeRequestDto
@@ -18,8 +20,11 @@ class OauthCodeService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
     private val oauthCodeRepository: OauthCodeRepository,
+    private val clientRepository: ClientRepository,
 ){
     fun execute(oauthLoginRequestDto: OauthCodeRequestDto): OauthCodeResponseDto {
+        if(!clientRepository.existsByRedirectUri(oauthLoginRequestDto.redirectUri))
+            throw ClientNotFindException()
         val user = userRepository.findByEmail(oauthLoginRequestDto.email) ?: throw UserNotFoundException()
         if (!passwordEncoder.matches(oauthLoginRequestDto.password, user.password))
             throw PasswordMismatchException()

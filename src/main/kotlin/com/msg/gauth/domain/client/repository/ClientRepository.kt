@@ -8,4 +8,5 @@ interface ClientRepository: JpaRepository<Client, Long> {
     fun findAllByCreatedBy(createdBy: User): List<Client>
     fun findByIdAndCreatedBy(clientId: Long, createdBy: User): Client?
     fun findByClientId(clientId: String): Client?
+    fun existsByRedirectUri(redirectUri: String): Boolean
 }
