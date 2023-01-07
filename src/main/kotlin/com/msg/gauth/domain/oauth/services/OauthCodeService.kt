@@ -20,11 +20,8 @@ class OauthCodeService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
     private val oauthCodeRepository: OauthCodeRepository,
-    private val clientRepository: ClientRepository,
 ){
     fun execute(oauthLoginRequestDto: OauthCodeRequestDto): OauthCodeResponseDto {
-        if(!clientRepository.existsByRedirectUri(oauthLoginRequestDto.redirectUri))
-            throw ClientNotFindException()
         val user = userRepository.findByEmail(oauthLoginRequestDto.email) ?: throw UserNotFoundException()
         if (!passwordEncoder.matches(oauthLoginRequestDto.password, user.password))
             throw PasswordMismatchException()

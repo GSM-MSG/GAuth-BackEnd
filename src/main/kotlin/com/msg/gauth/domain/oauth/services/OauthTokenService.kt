@@ -27,7 +27,7 @@ class OauthTokenService(
     private val passwordEncoder: PasswordEncoder,
 ){
     fun execute(userTokenRequestDto: UserTokenRequestDto): UserTokenResponseDto{
-        val client = (clientRepository.findByClientId(userTokenRequestDto.clientId)
+        val client = (clientRepository.findByClientIdAndRedirectUri(userTokenRequestDto.clientId, userTokenRequestDto.redirectUri)
             ?: throw ClientNotFindException())
         if(client.clientSecret != userTokenRequestDto.clientSecret)
             throw ClientSecretMismatchException()

@@ -10,7 +10,4 @@ data class OauthCodeRequestDto(
 
     @field:NotBlank
     val password: String,
-
-    @field:NotBlank
-    val redirectUri: String,
 )
