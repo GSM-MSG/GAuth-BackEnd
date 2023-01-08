@@ -38,33 +38,33 @@ class SecurityConfig(
             }).permitAll()
 
             // Auth
-            .antMatchers(HttpMethod.POST, "/auth").permitAll()
-            .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
-            .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
-            .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
-            .antMatchers(HttpMethod.PATCH, "/auth/password/initialize").permitAll()
-            .antMatchers(HttpMethod.PATCH, "/auth/image").permitAll()
-            .antMatchers(HttpMethod.DELETE, "/auth/image").permitAll()
+            .mvcMatchers(HttpMethod.POST, "/auth").permitAll()
+            .mvcMatchers(HttpMethod.PATCH, "/auth").permitAll()
+            .mvcMatchers(HttpMethod.DELETE, "/auth").authenticated()
+            .mvcMatchers(HttpMethod.POST, "/auth/signup").permitAll()
+            .mvcMatchers(HttpMethod.PATCH, "/auth/password/initialize").permitAll()
+            .mvcMatchers(HttpMethod.PATCH, "/auth/image").permitAll()
+            .mvcMatchers(HttpMethod.DELETE, "/auth/image").permitAll()
 
             // Email
-            .antMatchers(HttpMethod.POST, "/email").permitAll()
-            .antMatchers(HttpMethod.GET, "/email/authentication").permitAll()
-            .antMatchers(HttpMethod.GET, "/email").permitAll()
+            .mvcMatchers(HttpMethod.POST, "/email").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/email/authentication").permitAll()
+            .mvcMatchers(HttpMethod.GET, "/email").permitAll()
 
             // Client
-            .antMatchers(HttpMethod.GET, "/client").authenticated()
-            .antMatchers(HttpMethod.POST, "/client").authenticated()
-            .antMatchers(HttpMethod.GET, "/client/{id}").authenticated()
-            .antMatchers(HttpMethod.PATCH, "/client/{id}").authenticated()
+            .mvcMatchers(HttpMethod.GET, "/client").authenticated()
+            .mvcMatchers(HttpMethod.POST, "/client").authenticated()
+            .mvcMatchers(HttpMethod.GET, "/client/{id}").authenticated()
+            .mvcMatchers(HttpMethod.PATCH, "/client/{id}").authenticated()
 
             // Admin
-            .antMatchers("/admin/**").hasRole("ADMIN")
+            .mvcMatchers("/admin/**").hasRole("ADMIN")
 
             // OAuth
-            .antMatchers("/oauth/**").permitAll()
+            .mvcMatchers("/oauth/**").permitAll()
 
             //User
-            .antMatchers("/user/**").authenticated()
+            .mvcMatchers("/user/**").authenticated()
 
             .anyRequest().permitAll()
             .and()
