@@ -1,7 +1,6 @@
 package com.msg.gauth.domain.oauth.presentation
 
 import com.msg.gauth.domain.oauth.presentation.dto.request.OauthCodeRequestDto
-import com.msg.gauth.domain.oauth.presentation.dto.request.OauthLoginReqDto
 import com.msg.gauth.domain.oauth.presentation.dto.request.UserTokenRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.OauthCodeResponseDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.ServiceNameResponseDto
@@ -23,35 +22,14 @@ class OauthController(
     private val getServiceNameService: GetServiceNameService,
 ){
     @PostMapping("/code")
-    @CrossOrigin(
-        origins = ["http://localhost:3000"],
-        originPatterns = ["*"],
-        allowedHeaders = ["append", "delete", "entries", "foreach", "get", "has", "keys", "set", "values", "Authorization"],
-        allowCredentials = "true",
-        methods = [RequestMethod.OPTIONS, RequestMethod.POST]
-    )
     fun generateOauthCode(@Valid @RequestBody oauthCodeRequestDto : OauthCodeRequestDto): ResponseEntity<OauthCodeResponseDto> =
         ResponseEntity.ok(oauthCodeService.execute(oauthCodeRequestDto))
 
     @PostMapping("/token")
-    @CrossOrigin(
-        origins = ["http://localhost:3000"],
-        originPatterns = ["*"],
-        allowedHeaders = ["append", "delete", "entries", "foreach", "get", "has", "keys", "set", "values", "Authorization"],
-        allowCredentials = "true",
-        methods = [RequestMethod.OPTIONS, RequestMethod.POST]
-    )
     fun generateOauthToken(@Valid @RequestBody userTokenRequestDto: UserTokenRequestDto): ResponseEntity<UserTokenResponseDto> =
         ResponseEntity.ok(oauthTokenService.execute(userTokenRequestDto))
 
     @PatchMapping("/token")
-    @CrossOrigin(
-        origins = ["http://localhost:3000"],
-        originPatterns = ["*"],
-        allowedHeaders = ["append", "delete", "entries", "foreach", "get", "has", "keys", "set", "values", "Authorization"],
-        allowCredentials = "true",
-        methods = [RequestMethod.OPTIONS, RequestMethod.PATCH]
-    )
     fun refreshOauthToken(@RequestHeader refreshToken: String): ResponseEntity<UserTokenResponseDto> =
         ResponseEntity.ok(oauthRefreshService.execute(refreshToken))
 
