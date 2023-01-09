@@ -25,7 +25,6 @@ class OauthController(
     @PostMapping("/code")
     @CrossOrigin(
         originPatterns = ["*"],
-        allowedHeaders = ["*"],
         exposedHeaders = ["Authorization"],
         allowCredentials = "true",
         methods = [RequestMethod.OPTIONS, RequestMethod.POST]
@@ -36,7 +35,6 @@ class OauthController(
     @PostMapping("/token")
     @CrossOrigin(
         originPatterns = ["*"],
-        allowedHeaders = ["*"],
         exposedHeaders = ["Authorization"],
         allowCredentials = "true",
         methods = [RequestMethod.OPTIONS, RequestMethod.POST]
@@ -47,7 +45,6 @@ class OauthController(
     @PatchMapping("/token")
     @CrossOrigin(
         originPatterns = ["*"],
-        allowedHeaders = ["*"],
         exposedHeaders = ["Authorization"],
         allowCredentials = "true",
         methods = [RequestMethod.OPTIONS, RequestMethod.PATCH]
