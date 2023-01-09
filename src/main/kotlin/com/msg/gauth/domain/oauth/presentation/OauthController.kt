@@ -24,8 +24,8 @@ class OauthController(
 ){
     @PostMapping("/code")
     @CrossOrigin(
+        origins = ["http://localhost:3000"],
         originPatterns = ["*"],
-        exposedHeaders = ["Authorization"],
         allowCredentials = "true",
         methods = [RequestMethod.OPTIONS, RequestMethod.POST]
     )
@@ -34,8 +34,8 @@ class OauthController(
 
     @PostMapping("/token")
     @CrossOrigin(
+        origins = ["http://localhost:3000"],
         originPatterns = ["*"],
-        exposedHeaders = ["Authorization"],
         allowCredentials = "true",
         methods = [RequestMethod.OPTIONS, RequestMethod.POST]
     )
@@ -44,8 +44,8 @@ class OauthController(
 
     @PatchMapping("/token")
     @CrossOrigin(
+        origins = ["http://localhost:3000"],
         originPatterns = ["*"],
-        exposedHeaders = ["Authorization"],
         allowCredentials = "true",
         methods = [RequestMethod.OPTIONS, RequestMethod.PATCH]
     )
