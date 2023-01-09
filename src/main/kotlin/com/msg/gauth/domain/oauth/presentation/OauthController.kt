@@ -23,17 +23,17 @@ class OauthController(
     private val getServiceNameService: GetServiceNameService,
 ){
     @PostMapping("/code")
-    @CrossOrigin("*")
+    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
     fun generateOauthCode(@Valid @RequestBody oauthCodeRequestDto : OauthCodeRequestDto): ResponseEntity<OauthCodeResponseDto> =
         ResponseEntity.ok(oauthCodeService.execute(oauthCodeRequestDto))
 
     @PostMapping("/token")
-    @CrossOrigin("*")
+    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
     fun generateOauthToken(@RequestBody userTokenRequestDto: UserTokenRequestDto): ResponseEntity<UserTokenResponseDto> =
         ResponseEntity.ok(oauthTokenService.execute(userTokenRequestDto))
 
     @PatchMapping("/token")
-    @CrossOrigin("*")
+    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
     fun refreshOauthToken(@RequestHeader refreshToken: String): ResponseEntity<UserTokenResponseDto> =
         ResponseEntity.ok(oauthRefreshService.execute(refreshToken))
 

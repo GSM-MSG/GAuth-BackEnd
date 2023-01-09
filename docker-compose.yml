@@ -3,7 +3,7 @@ version: '2.2'
 
 services:
   db:
-    image: mysql
+    image: mariadb
     environment:
       MYSQL_USER: baek
       MYSQL_PASSWORD: 1234
