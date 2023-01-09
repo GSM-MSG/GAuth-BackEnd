@@ -23,17 +23,35 @@ class OauthController(
     private val getServiceNameService: GetServiceNameService,
 ){
     @PostMapping("/code")
-    @CrossOrigin(originPatterns = ["*"], allowedHeaders = ["*"], allowCredentials = "true", methods = [RequestMethod.OPTIONS, RequestMethod.POST])
+    @CrossOrigin(
+        originPatterns = ["*"],
+        allowedHeaders = ["*"],
+        exposedHeaders = ["Authorization"],
+        allowCredentials = "true",
+        methods = [RequestMethod.OPTIONS, RequestMethod.POST]
+    )
     fun generateOauthCode(@Valid @RequestBody oauthCodeRequestDto : OauthCodeRequestDto): ResponseEntity<OauthCodeResponseDto> =
         ResponseEntity.ok(oauthCodeService.execute(oauthCodeRequestDto))
 
     @PostMapping("/token")
-    @CrossOrigin(originPatterns = ["*"], allowedHeaders = ["*"], allowCredentials = "true", methods = [RequestMethod.OPTIONS, RequestMethod.POST])
-    fun generateOauthToken(@RequestBody userTokenRequestDto: UserTokenRequestDto): ResponseEntity<UserTokenResponseDto> =
+    @CrossOrigin(
+        originPatterns = ["*"],
+        allowedHeaders = ["*"],
+        exposedHeaders = ["Authorization"],
+        allowCredentials = "true",
+        methods = [RequestMethod.OPTIONS, RequestMethod.POST]
+    )
+    fun generateOauthToken(@Valid @RequestBody userTokenRequestDto: UserTokenRequestDto): ResponseEntity<UserTokenResponseDto> =
         ResponseEntity.ok(oauthTokenService.execute(userTokenRequestDto))
 
     @PatchMapping("/token")
-    @CrossOrigin(originPatterns = ["*"], allowedHeaders = ["*"], allowCredentials = "true", methods = [RequestMethod.OPTIONS, RequestMethod.PATCH])
+    @CrossOrigin(
+        originPatterns = ["*"],
+        allowedHeaders = ["*"],
+        exposedHeaders = ["Authorization"],
+        allowCredentials = "true",
+        methods = [RequestMethod.OPTIONS, RequestMethod.PATCH]
+    )
     fun refreshOauthToken(@RequestHeader refreshToken: String): ResponseEntity<UserTokenResponseDto> =
         ResponseEntity.ok(oauthRefreshService.execute(refreshToken))
 
