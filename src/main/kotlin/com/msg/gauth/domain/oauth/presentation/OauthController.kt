@@ -23,17 +23,17 @@ class OauthController(
     private val getServiceNameService: GetServiceNameService,
 ){
     @PostMapping("/code")
-    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
+    @CrossOrigin(originPatterns = ["*"], allowedHeaders = ["*"], allowCredentials = "true", methods = [RequestMethod.OPTIONS, RequestMethod.POST])
     fun generateOauthCode(@Valid @RequestBody oauthCodeRequestDto : OauthCodeRequestDto): ResponseEntity<OauthCodeResponseDto> =
         ResponseEntity.ok(oauthCodeService.execute(oauthCodeRequestDto))
 
     @PostMapping("/token")
-    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
+    @CrossOrigin(originPatterns = ["*"], allowedHeaders = ["*"], allowCredentials = "true", methods = [RequestMethod.OPTIONS, RequestMethod.POST])
     fun generateOauthToken(@RequestBody userTokenRequestDto: UserTokenRequestDto): ResponseEntity<UserTokenResponseDto> =
         ResponseEntity.ok(oauthTokenService.execute(userTokenRequestDto))
 
     @PatchMapping("/token")
-    @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
+    @CrossOrigin(originPatterns = ["*"], allowedHeaders = ["*"], allowCredentials = "true", methods = [RequestMethod.OPTIONS, RequestMethod.PATCH])
     fun refreshOauthToken(@RequestHeader refreshToken: String): ResponseEntity<UserTokenResponseDto> =
         ResponseEntity.ok(oauthRefreshService.execute(refreshToken))
 
