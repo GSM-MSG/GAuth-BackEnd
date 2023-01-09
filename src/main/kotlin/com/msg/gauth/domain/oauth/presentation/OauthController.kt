@@ -26,7 +26,7 @@ class OauthController(
     @CrossOrigin(
         origins = ["http://localhost:3000"],
         originPatterns = ["*"],
-        allowedHeaders = ["append,delete,entries,foreach,get,has,keys,set,values,Authorization"],
+        allowedHeaders = ["append", "delete", "entries", "foreach", "get", "has", "keys", "set", "values", "Authorization"],
         allowCredentials = "true",
         methods = [RequestMethod.OPTIONS, RequestMethod.POST]
     )
@@ -37,7 +37,7 @@ class OauthController(
     @CrossOrigin(
         origins = ["http://localhost:3000"],
         originPatterns = ["*"],
-        allowedHeaders = ["append,delete,entries,foreach,get,has,keys,set,values,Authorization"],
+        allowedHeaders = ["append", "delete", "entries", "foreach", "get", "has", "keys", "set", "values", "Authorization"],
         allowCredentials = "true",
         methods = [RequestMethod.OPTIONS, RequestMethod.POST]
     )
@@ -48,7 +48,7 @@ class OauthController(
     @CrossOrigin(
         origins = ["http://localhost:3000"],
         originPatterns = ["*"],
-        allowedHeaders = ["append,delete,entries,foreach,get,has,keys,set,values,Authorization"],
+        allowedHeaders = ["append", "delete", "entries", "foreach", "get", "has", "keys", "set", "values", "Authorization"],
         allowCredentials = "true",
         methods = [RequestMethod.OPTIONS, RequestMethod.PATCH]
     )
