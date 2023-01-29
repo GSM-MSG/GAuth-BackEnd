@@ -66,7 +66,7 @@ class SecurityConfig(
             //User
             .mvcMatchers("/user/**").authenticated()
 
-            .anyRequest().permitAll()
+            .anyRequest().denyAll()
             .and()
             .exceptionHandling()
             .authenticationEntryPoint(CustomAuthenticationEntryPoint(objectMapper))
