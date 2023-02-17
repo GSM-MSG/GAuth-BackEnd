@@ -17,7 +17,7 @@ class UserController(
     private val changePasswordService: ChangePasswordService,
     private val uploadProfileService: UploadProfileService,
     private val myProfileService: MyProfileService,
-){
+) {
     @GetMapping
     fun myProfile(): ResponseEntity<MyProfileResDto> =
         ResponseEntity(myProfileService.execute(), HttpStatus.OK)

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/email")
-class EmailAuthController(
+class EmailController(
     private val mailSendService: MailSendService,
     private val mailVerificationService: MailVerificationService,
     private val mailVerificationCheckService: MailVerificationCheckService,
