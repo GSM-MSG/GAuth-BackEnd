@@ -4,7 +4,7 @@ import subprocess
 
 def make_new_api(api_domain: str, api_name: str, api_method: str, mapping_path: str, has_request: bool, has_response: bool):
     register_presentation(api_domain, api_name, api_method, mapping_path, has_request, has_response)
-    pass
+    register_service(api_domain, api_name, has_request, has_response)
 
 def write_code_in_file(file_path: str, codes: str):
     if not os.path.isfile(file_path):
