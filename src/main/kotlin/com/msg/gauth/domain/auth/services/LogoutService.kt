@@ -11,8 +11,6 @@ class LogoutService(
 ) {
     fun execute() {
         val currentUser = userUtil.fetchCurrentUser()
-        refreshTokenRepository.findByUserId(currentUser.id)?.let {
-            refreshTokenRepository.delete(it)
-        }
+        refreshTokenRepository.deleteById(currentUser.id)
     }
 }
