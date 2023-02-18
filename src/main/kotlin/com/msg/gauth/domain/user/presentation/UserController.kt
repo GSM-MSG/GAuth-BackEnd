@@ -19,13 +19,15 @@ class UserController(
     private val myProfileService: MyProfileService,
 ) {
     @GetMapping
-    fun myProfile(): ResponseEntity<MyProfileResDto> =
-        ResponseEntity(myProfileService.execute(), HttpStatus.OK)
+    fun myProfile(): ResponseEntity<MyProfileResDto> {
+        val result = myProfileService.execute()
+        return ResponseEntity.ok(result)
+    }
 
     @PatchMapping("/password")
     fun changePassword(@Valid @RequestBody passwordChangeReqDto: PasswordChangeReqDto): ResponseEntity<Void>{
         changePasswordService.execute(passwordChangeReqDto)
-        return ResponseEntity.ok().build()
+        return ResponseEntity.noContent().build()
     }
 
     @PatchMapping("/image")

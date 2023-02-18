@@ -22,18 +22,26 @@ class OauthController(
     private val getServiceNameService: GetServiceNameService,
 ) {
     @PostMapping("/code")
-    fun generateOauthCode(@Valid @RequestBody oauthCodeRequestDto : OauthCodeRequestDto): ResponseEntity<OauthCodeResponseDto> =
-        ResponseEntity.ok(oauthCodeService.execute(oauthCodeRequestDto))
+    fun generateOauthCode(@Valid @RequestBody oauthCodeRequestDto : OauthCodeRequestDto): ResponseEntity<OauthCodeResponseDto> {
+        val result = oauthCodeService.execute(oauthCodeRequestDto)
+        return ResponseEntity.ok(result)
+    }
 
     @PostMapping("/token")
-    fun generateOauthToken(@Valid @RequestBody userTokenRequestDto: UserTokenRequestDto): ResponseEntity<UserTokenResponseDto> =
-        ResponseEntity.ok(oauthTokenService.execute(userTokenRequestDto))
+    fun generateOauthToken(@Valid @RequestBody userTokenRequestDto: UserTokenRequestDto): ResponseEntity<UserTokenResponseDto> {
+        val result = oauthTokenService.execute(userTokenRequestDto)
+        return ResponseEntity.ok(result)
+    }
 
     @PatchMapping("/token")
-    fun refreshOauthToken(@RequestHeader refreshToken: String): ResponseEntity<UserTokenResponseDto> =
-        ResponseEntity.ok(oauthRefreshService.execute(refreshToken))
+    fun refreshOauthToken(@RequestHeader refreshToken: String): ResponseEntity<UserTokenResponseDto> {
+        val result = oauthRefreshService.execute(refreshToken)
+        return ResponseEntity.ok(result)
+    }
 
     @GetMapping("/{clientId}")
-    fun getServiceName(@PathVariable clientId: String): ResponseEntity<ServiceNameResponseDto> =
-        ResponseEntity.ok(getServiceNameService.execute(clientId))
+    fun getServiceName(@PathVariable clientId: String): ResponseEntity<ServiceNameResponseDto> {
+        val result = getServiceNameService.execute(clientId)
+        return ResponseEntity.ok(result)
+    }
 }
