@@ -25,8 +25,10 @@ class AuthController(
     private val signupImageUploadService: SignupImageUploadService,
 ) {
     @PatchMapping
-    fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> =
-        ResponseEntity.ok(refreshService.execute(refreshToken))
+    fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> {
+        val result = refreshService.execute(refreshToken)
+        return ResponseEntity.ok(result)
+    }
 
     @DeleteMapping
     fun logout(): ResponseEntity<Void> {
@@ -35,9 +37,10 @@ class AuthController(
     }
 
     @PostMapping
-    fun signin(@Valid @RequestBody signinRequestDto: SigninRequestDto): ResponseEntity<SigninResponseDto> =
-        ResponseEntity.ok(signInService.execute(signinRequestDto))
-
+    fun signin(@Valid @RequestBody signinRequestDto: SigninRequestDto): ResponseEntity<SigninResponseDto> {
+        val result = signInService.execute(signinRequestDto)
+        return ResponseEntity.ok(result)
+    }
 
     @PostMapping("/signup")
     fun signUpMember(@Valid @RequestBody signUpDto: SignUpDto): ResponseEntity<Void> {
@@ -46,8 +49,10 @@ class AuthController(
     }
 
     @PatchMapping("/image")
-    fun uploadSignupImage(@RequestPart("image") image: MultipartFile, @RequestPart("imageUrl") previousUrl: String?, @RequestPart email: String): ResponseEntity<SignupImageResDto> =
-        ResponseEntity.ok(signupImageUploadService.execute(image, previousUrl, email))
+    fun uploadSignupImage(@RequestPart("image") image: MultipartFile, @RequestPart("imageUrl") previousUrl: String?, @RequestPart email: String): ResponseEntity<SignupImageResDto> {
+        val result = signupImageUploadService.execute(image, previousUrl, email)
+        return ResponseEntity.ok(result)
+    }
 
 
     @PatchMapping("/password/initialize")
