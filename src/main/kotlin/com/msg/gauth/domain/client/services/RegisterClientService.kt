@@ -1,7 +1,7 @@
 package com.msg.gauth.domain.client.services
 
-import com.msg.gauth.domain.client.persentation.dto.request.ClientRegisterReqDto
-import com.msg.gauth.domain.client.persentation.dto.response.ClientRegisterResDto
+import com.msg.gauth.domain.client.presentation.dto.request.ClientRegisterReqDto
+import com.msg.gauth.domain.client.presentation.dto.response.ClientRegisterResDto
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.user.utils.UserUtil
 import com.msg.gauth.global.annotation.service.TransactionalService

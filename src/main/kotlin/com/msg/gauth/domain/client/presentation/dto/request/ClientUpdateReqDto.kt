@@ -1,4 +1,4 @@
-package com.msg.gauth.domain.client.persentation.dto.request
+package com.msg.gauth.domain.client.presentation.dto.request
 
 import javax.validation.constraints.Size
 

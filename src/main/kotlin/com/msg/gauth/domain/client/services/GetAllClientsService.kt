@@ -1,6 +1,6 @@
 package com.msg.gauth.domain.client.services
 
-import com.msg.gauth.domain.client.persentation.dto.response.SingleClientResDto
+import com.msg.gauth.domain.client.presentation.dto.response.SingleClientResDto
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.global.annotation.service.ReadOnlyService
 
