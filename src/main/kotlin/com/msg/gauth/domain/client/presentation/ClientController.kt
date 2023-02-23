@@ -1,10 +1,10 @@
-package com.msg.gauth.domain.client.persentation
+package com.msg.gauth.domain.client.presentation
 
-import com.msg.gauth.domain.client.persentation.dto.request.ClientRegisterReqDto
-import com.msg.gauth.domain.client.persentation.dto.request.ClientUpdateReqDto
-import com.msg.gauth.domain.client.persentation.dto.response.SingleClientResDto
-import com.msg.gauth.domain.client.persentation.dto.response.ClientDetailResDto
-import com.msg.gauth.domain.client.persentation.dto.response.ClientRegisterResDto
+import com.msg.gauth.domain.client.presentation.dto.request.ClientRegisterReqDto
+import com.msg.gauth.domain.client.presentation.dto.request.ClientUpdateReqDto
+import com.msg.gauth.domain.client.presentation.dto.response.SingleClientResDto
+import com.msg.gauth.domain.client.presentation.dto.response.ClientDetailResDto
+import com.msg.gauth.domain.client.presentation.dto.response.ClientRegisterResDto
 import com.msg.gauth.domain.client.services.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
