@@ -25,7 +25,7 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-
+.DS_Store
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
