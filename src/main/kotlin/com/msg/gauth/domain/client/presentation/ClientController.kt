@@ -54,8 +54,8 @@ class ClientController(
     }
 
     @GetMapping
-    fun getClientsByServiceName(pageable: Pageable, @RequestParam serviceName: String): ResponseEntity<Page<ClientResDto>> {
-        val result = getClientsByServiceNameService.execute(pageable, serviceName)
+    fun getClientsByServiceName(@RequestParam page: Int, @RequestParam size: Int, @RequestParam serviceName: String): ResponseEntity<Page<ClientResDto>> {
+        val result = getClientsByServiceNameService.execute(page, size, serviceName)
         return ResponseEntity.ok(result)
     }
 }
