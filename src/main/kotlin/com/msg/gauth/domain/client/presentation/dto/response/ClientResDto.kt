@@ -13,6 +13,6 @@ data class ClientResDto(
         clientId = client.id,
         serviceName = client.serviceName,
         serviceUri = client.serviceUri,
-        ownerName = client.createdBy.name?:""
+        ownerName = client.createdBy.name ?: ""
     )
 }
