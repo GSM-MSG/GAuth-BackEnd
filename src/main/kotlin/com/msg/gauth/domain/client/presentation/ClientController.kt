@@ -53,7 +53,7 @@ class ClientController(
     }
 
     @GetMapping("/search")
-    fun getClientsByServiceName(@RequestParam page: Int, @RequestParam size: Int, @RequestParam serviceName: String): ResponseEntity<Page<ClientResDto>> {
+    fun getClientsByServiceName(@RequestParam(defaultValue = "0") page: Int, @RequestParam(defaultValue = "10") size: Int, @RequestParam serviceName: String): ResponseEntity<Page<ClientResDto>> {
         val result = getClientsByServiceNameService.execute(page, size, serviceName)
         return ResponseEntity.ok(result)
     }
