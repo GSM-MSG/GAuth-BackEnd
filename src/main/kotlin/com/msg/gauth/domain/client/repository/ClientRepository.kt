@@ -2,6 +2,8 @@ package com.msg.gauth.domain.client.repository
 
 import com.msg.gauth.domain.client.Client
 import com.msg.gauth.domain.user.User
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface ClientRepository: JpaRepository<Client, Long> {
@@ -9,4 +11,5 @@ interface ClientRepository: JpaRepository<Client, Long> {
     fun findByIdAndCreatedBy(clientId: Long, createdBy: User): Client?
     fun findByClientId(clientId: String): Client?
     fun findByClientIdAndRedirectUri(clientId: String, redirectUri: String): Client?
+    fun findByServiceNameContaining(serviceName: String, pageable: Pageable): Page<Client>
 }
