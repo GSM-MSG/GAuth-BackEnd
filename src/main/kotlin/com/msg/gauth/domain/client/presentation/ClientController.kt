@@ -1,20 +1,16 @@
 package com.msg.gauth.domain.client.presentation
 
+import com.msg.gauth.domain.admin.presentation.dto.ClientResDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientRegisterReqDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientUpdateReqDto
 import com.msg.gauth.domain.client.presentation.dto.response.SingleClientResDto
 import com.msg.gauth.domain.client.presentation.dto.response.ClientDetailResDto
 import com.msg.gauth.domain.client.presentation.dto.response.ClientRegisterResDto
 import com.msg.gauth.domain.client.services.*
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/client")
@@ -24,6 +20,7 @@ class ClientController(
     private val getMyDetailClientService: GetMyDetailClientService,
     private val registerClientService: RegisterClientService,
     private val deleteClientService: DeleteClientService,
+    private val getClientsByServiceNameService: GetClientsByServiceNameService
 ) {
 
     @PostMapping
@@ -54,5 +51,11 @@ class ClientController(
     fun deleteClient(@PathVariable id: Long): ResponseEntity<Void>{
         deleteClientService.execute(id)
         return ResponseEntity.noContent().build()
+    }
+
+    @GetMapping
+    fun getClientsByServiceName(pageable: Pageable, @RequestParam serviceName: String): ResponseEntity<Page<ClientResDto>> {
+        val result = getClientsByServiceNameService.execute(pageable, serviceName)
+        return ResponseEntity.ok(result)
     }
 }

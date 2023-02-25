@@ -1,4 +1,4 @@
-package com.msg.gauth.domain.admin.services
+package com.msg.gauth.domain.client.services
 
 import com.msg.gauth.domain.admin.presentation.dto.ClientResDto
 import com.msg.gauth.domain.client.Client
