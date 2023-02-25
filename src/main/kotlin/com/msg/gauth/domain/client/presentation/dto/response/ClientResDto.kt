@@ -1,4 +1,4 @@
-package com.msg.gauth.domain.admin.presentation.dto
+package com.msg.gauth.domain.client.presentation.dto.response
 
 import com.msg.gauth.domain.client.Client
 
@@ -6,13 +6,13 @@ data class ClientResDto(
     val clientId: Long,
     val serviceName: String,
     val serviceUri: String,
-    val ownerName: String?
+    val ownerName: String
 ) {
 
     constructor(client: Client): this(
         clientId = client.id,
         serviceName = client.serviceName,
         serviceUri = client.serviceUri,
-        ownerName = client.createdBy.name
+        ownerName = client.createdBy.name?:""
     )
 }

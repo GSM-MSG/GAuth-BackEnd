@@ -1,6 +1,6 @@
 package com.msg.gauth.domain.client.presentation
 
-import com.msg.gauth.domain.admin.presentation.dto.ClientResDto
+import com.msg.gauth.domain.client.presentation.dto.response.ClientResDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientRegisterReqDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientUpdateReqDto
 import com.msg.gauth.domain.client.presentation.dto.response.SingleClientResDto
@@ -8,7 +8,6 @@ import com.msg.gauth.domain.client.presentation.dto.response.ClientDetailResDto
 import com.msg.gauth.domain.client.presentation.dto.response.ClientRegisterResDto
 import com.msg.gauth.domain.client.services.*
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
