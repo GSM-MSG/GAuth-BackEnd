@@ -9,8 +9,7 @@ import org.springframework.web.multipart.MultipartFile
 @RequestMapping("/admin")
 class AdminController(
     private val excelParsingService: ExcelParsingService
-    ) {
-
+) {
 
     @PostMapping("/parsing-member")
     fun parseMember(@RequestParam("studentInfo") file: MultipartFile): ResponseEntity<Void>{
