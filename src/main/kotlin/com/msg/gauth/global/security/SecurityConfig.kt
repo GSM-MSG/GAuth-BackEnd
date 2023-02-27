@@ -57,6 +57,7 @@ class SecurityConfig(
             .mvcMatchers(HttpMethod.GET, "/client/{id}").authenticated()
             .mvcMatchers(HttpMethod.PATCH, "/client/{id}").authenticated()
             .mvcMatchers(HttpMethod.GET, "/client/search").hasRole("ADMIN")
+            .mvcMatchers(HttpMethod.PATCH, "/client/{id}}/patch").hasRole("ADMIN")
 
             // Admin
             .mvcMatchers("/admin/**").hasRole("ADMIN")
