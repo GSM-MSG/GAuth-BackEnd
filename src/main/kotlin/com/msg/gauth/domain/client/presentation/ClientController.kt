@@ -59,7 +59,7 @@ class ClientController(
         return ResponseEntity.ok(result)
     }
 
-    @PatchMapping("{id}/patch")
+    @PatchMapping("/{id}/patch")
     fun updateAnyClient(@PathVariable id: Long, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
         updateAnyClientService.execute(id, clientUpdateDto)
         return ResponseEntity.noContent().build()
