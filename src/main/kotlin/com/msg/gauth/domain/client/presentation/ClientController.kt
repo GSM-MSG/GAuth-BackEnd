@@ -19,7 +19,8 @@ class ClientController(
     private val getMyDetailClientService: GetMyDetailClientService,
     private val registerClientService: RegisterClientService,
     private val deleteClientService: DeleteClientService,
-    private val getClientsByServiceNameService: GetClientsByServiceNameService
+    private val getClientsByServiceNameService: GetClientsByServiceNameService,
+    private val updateAnyClientService: UpdateAnyClientService
 ) {
 
     @PostMapping
@@ -56,5 +57,11 @@ class ClientController(
     fun getClientsByServiceName(@RequestParam(defaultValue = "0") page: Int, @RequestParam(defaultValue = "10") size: Int, @RequestParam serviceName: String): ResponseEntity<Page<ClientResDto>> {
         val result = getClientsByServiceNameService.execute(page, size, serviceName)
         return ResponseEntity.ok(result)
+    }
+
+    @PatchMapping("{id}/patch")
+    fun updateAnyClient(@PathVariable id: Long, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
+        updateAnyClientService.execute(id, clientUpdateDto)
+        return ResponseEntity.noContent().build()
     }
 }
