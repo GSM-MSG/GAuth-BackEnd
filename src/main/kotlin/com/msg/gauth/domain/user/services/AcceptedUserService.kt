@@ -2,7 +2,6 @@ package com.msg.gauth.domain.user.services
 
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserRole
-import com.msg.gauth.domain.user.presentation.dto.request.AcceptedUserReqDto
 import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.domain.user.specification.UserSpecification
@@ -16,13 +15,13 @@ import javax.persistence.criteria.Root
 class AcceptedUserService(
     private val userRepository: UserRepository,
 ) {
-    fun execute(acceptedUserReqDto: AcceptedUserReqDto): List<SingleAcceptedUserResDto> {
+    fun execute(grade: Int, classNum: Int, keyword: String): List<SingleAcceptedUserResDto> {
 
         val users: List<User>
-        = if(acceptedUserReqDto.grade == 0 && acceptedUserReqDto.classNum == 0 && acceptedUserReqDto.keyword == "0")
+        = if(grade == 0 && classNum == 0 && keyword == "0")
             listAll()
         else {
-            search(acceptedUserReqDto.grade, acceptedUserReqDto.classNum, acceptedUserReqDto.keyword)
+            search(grade, classNum, keyword)
         }
 
        return users.filter { user -> user.roles.equals(UserRole.ROLE_STUDENT) }
