@@ -49,7 +49,7 @@ class AcceptedUserService(
         if(grade != 0)
             spec.and(UserSpecification.equalGrade(grade))
         if(classNum != 0)
-            spec.and(UserSpecification.equalGrade(classNum))
+            spec.and(UserSpecification.equalClassNum(classNum))
         if(keyword != "0")
             spec.and(UserSpecification.containKeyword(keyword))
 
