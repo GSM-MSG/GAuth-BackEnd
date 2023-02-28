@@ -2,6 +2,7 @@ package com.msg.gauth.domain.user.services
 
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.domain.user.specification.UserSpecification
@@ -18,13 +19,14 @@ class AcceptedUserService(
     fun execute(grade: Int, classNum: Int, keyword: String): List<SingleAcceptedUserResDto> {
 
         val users: List<User>
-        = if(grade == 0 && classNum == 0 && keyword == "0")
-            listAll()
+                = if(grade == 0 && classNum == 0 && keyword == "0")
+            listAcceptedUser()
         else {
-            search(grade, classNum, keyword)
+            searchUser(grade, classNum, keyword)
         }
 
-       return users.filter { user -> user.roles.equals(UserRole.ROLE_STUDENT) }
+
+       return users.filter { user -> user.roles.equals(UserRole.ROLE_STUDENT) && user.state == UserState.CREATED }
             .map { user ->
                 SingleAcceptedUserResDto(
                     user.id,
@@ -39,10 +41,10 @@ class AcceptedUserService(
 
     }
 
-    private fun listAll(): List<User> =
-        userRepository.findAll()
+    private fun listAcceptedUser(): List<User> =
+        userRepository.findAllByState(UserState.CREATED)
 
-    private fun search(grade: Int, classNum: Int, keyword: String): List<User> {
+    private fun searchUser(grade: Int, classNum: Int, keyword: String): List<User> {
         val spec: Specification<User> =
             Specification { _: Root<User>?, _: CriteriaQuery<*>?, _: CriteriaBuilder? -> null }
 
