@@ -1,7 +1,10 @@
 package com.msg.gauth.domain.user.presentation
 
+import com.msg.gauth.domain.user.presentation.dto.request.AcceptedUserReqDto
 import com.msg.gauth.domain.user.presentation.dto.request.PasswordChangeReqDto
 import com.msg.gauth.domain.user.presentation.dto.response.MyProfileResDto
+import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
+import com.msg.gauth.domain.user.services.AcceptedUserService
 import com.msg.gauth.domain.user.services.ChangePasswordService
 import com.msg.gauth.domain.user.services.MyProfileService
 import com.msg.gauth.domain.user.services.UploadProfileService
@@ -17,6 +20,7 @@ class UserController(
     private val changePasswordService: ChangePasswordService,
     private val uploadProfileService: UploadProfileService,
     private val myProfileService: MyProfileService,
+    private val acceptedUserService: AcceptedUserService,
 ) {
     @GetMapping
     fun myProfile(): ResponseEntity<MyProfileResDto> {
@@ -34,5 +38,11 @@ class UserController(
     fun uploadProfile(@RequestPart("image") image: MultipartFile): ResponseEntity<Void>{
         uploadProfileService.execute(image)
         return ResponseEntity.noContent().build()
+    }
+
+    @GetMapping("/user-list")
+    fun acceptedUserList(@Valid @RequestBody acceptedUserReqDto: AcceptedUserReqDto): ResponseEntity<List<SingleAcceptedUserResDto>> {
+        val result = acceptedUserService.execute(acceptedUserReqDto)
+        return ResponseEntity.ok(result)
     }
 }
