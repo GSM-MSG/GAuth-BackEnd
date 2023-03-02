@@ -1,17 +1,21 @@
 package com.msg.gauth.domain.user.services
 
+import com.msg.gauth.domain.user.User
+import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserState
+import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.presentation.dto.request.AcceptTeacherReqDto
 import com.msg.gauth.domain.user.repository.UserRepository
-import com.msg.gauth.domain.user.utils.UserUtil
 import com.msg.gauth.global.annotation.service.TransactionalService
 
 @TransactionalService
 class AcceptTeacherSignUpService(
-    userUtil: UserUtil,
-    userRepository: UserRepository
+    private val userRepository: UserRepository
 ) {
 
     fun execute(acceptTeacherReqDto: AcceptTeacherReqDto) {
-        
+        val user: User = userRepository.findByIdAndStateAndRoles(acceptTeacherReqDto.id, UserState.PENDING, mutableListOf(UserRole.ROLE_TEACHER))
+            ?: throw UserNotFoundException()
+        userRepository.save(user.update(acceptTeacherReqDto.name, acceptTeacherReqDto.gender))
     }
 }

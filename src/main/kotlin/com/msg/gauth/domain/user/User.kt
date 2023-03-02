@@ -59,6 +59,23 @@ class User(
         return user
     }
 
+    fun update(name: String, gender: Gender): User {
+        val user = User(
+            name = name,
+            email = this.email,
+            grade = this.grade,
+            classNum = this.classNum,
+            num = this.num,
+            gender = gender,
+            password = this.password,
+            roles = this.roles,
+            state = UserState.CREATED,
+            profileUrl = this.profileUrl
+        )
+        user.id = this.id
+        return user
+    }
+
     fun update(password: String): User{
         val user = User(
             name = this.name,
