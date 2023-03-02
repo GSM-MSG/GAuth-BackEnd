@@ -8,6 +8,6 @@ data class PasswordInitReqDto(
     @field:Pattern(regexp = "^[a-zA-Z0-9]+@gsm.hs.kr$")
     val email: String,
     @field:NotBlank
-    @field:Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\$@\$!%*#?&])[A-Za-z[0-9]\$@\$!%*#?&]{8,20}$")
+    @field:Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[!@#\$%^*+=-?<>])(?=.*[0-9]).{8,20}\$")
     val newPassword: String,
 )
