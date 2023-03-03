@@ -65,8 +65,9 @@ class SecurityConfig(
             // OAuth
             .mvcMatchers("/oauth/**").permitAll()
 
-            //User
+            // User
             .mvcMatchers("/user/**").authenticated()
+            .mvcMatchers(HttpMethod.PATCH, "/user/accept-teacher")
 
             .anyRequest().denyAll()
             .and()
