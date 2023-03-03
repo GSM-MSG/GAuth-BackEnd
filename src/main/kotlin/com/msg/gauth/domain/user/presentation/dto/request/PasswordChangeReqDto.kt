@@ -5,6 +5,6 @@ import javax.validation.constraints.Pattern
 
 data class PasswordChangeReqDto(
     @field:NotBlank
-    @field:Pattern(regexp = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\$@\$!%*#?&])[A-Za-z[0-9]\$@\$!%*#?&]{8,20}$")
+    @field:Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[!@#\$%^*+=-?<>])(?=.*[0-9]).{8,20}\$")
     val password: String,
 )
