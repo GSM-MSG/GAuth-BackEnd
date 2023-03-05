@@ -1,6 +1,6 @@
 package com.msg.gauth.domain.user.presentation.dto.response
 
-class SingleAcceptedUserResDto(
+data class SingleAcceptedUserResDto(
     val id: Long,
     val name: String,
     val email: String,
