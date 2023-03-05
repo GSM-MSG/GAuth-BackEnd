@@ -10,7 +10,7 @@ import com.msg.gauth.global.exception.exceptions.DuplicateEmailException
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @TransactionalService
-class  SignUpService(
+class SignUpService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
     private val emailAuthRepository: EmailAuthRepository
