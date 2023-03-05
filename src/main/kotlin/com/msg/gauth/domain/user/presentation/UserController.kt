@@ -1,7 +1,9 @@
 package com.msg.gauth.domain.user.presentation
 
+import com.msg.gauth.domain.user.presentation.dto.request.AcceptTeacherReqDto
 import com.msg.gauth.domain.user.presentation.dto.request.PasswordChangeReqDto
 import com.msg.gauth.domain.user.presentation.dto.response.MyProfileResDto
+import com.msg.gauth.domain.user.services.AcceptTeacherSignUpService
 import com.msg.gauth.domain.user.services.ChangePasswordService
 import com.msg.gauth.domain.user.services.MyProfileService
 import com.msg.gauth.domain.user.services.UploadProfileService
@@ -17,6 +19,7 @@ class UserController(
     private val changePasswordService: ChangePasswordService,
     private val uploadProfileService: UploadProfileService,
     private val myProfileService: MyProfileService,
+    private val acceptTeacherSignUpService: AcceptTeacherSignUpService
 ) {
     @GetMapping
     fun myProfile(): ResponseEntity<MyProfileResDto> {
@@ -33,6 +36,12 @@ class UserController(
     @PatchMapping("/image")
     fun uploadProfile(@RequestPart("image") image: MultipartFile): ResponseEntity<Void>{
         uploadProfileService.execute(image)
+        return ResponseEntity.noContent().build()
+    }
+
+    @PatchMapping("/accept-teacher")
+    fun acceptTeacher(@RequestBody @Valid acceptTeacherReqDto: AcceptTeacherReqDto): ResponseEntity<Void>{
+        acceptTeacherSignUpService.execute(acceptTeacherReqDto)
         return ResponseEntity.noContent().build()
     }
 }
