@@ -11,5 +11,6 @@ interface UserRepository: JpaRepository<User, Long> {
     fun existsByEmail(email: String): Boolean
     @Query("select user.email from User user")
     fun findAllEmail(): List<String>
+    @Query("select user from User user where user.id = :id and user.state = :state and user.roles = :roles")
     fun findByIdAndStateAndRoles(id: Long, state: UserState, roles: MutableList<UserRole>): User?
 }
