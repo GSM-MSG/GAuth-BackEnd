@@ -1,9 +1,11 @@
 package com.msg.gauth.domain.user.presentation
 
+import com.msg.gauth.domain.user.presentation.dto.request.AcceptTeacherReqDto
 import com.msg.gauth.domain.user.presentation.dto.request.PasswordChangeReqDto
 import com.msg.gauth.domain.user.presentation.dto.response.MyProfileResDto
 import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
 import com.msg.gauth.domain.user.services.AcceptedUserService
+import com.msg.gauth.domain.user.services.AcceptTeacherSignUpService
 import com.msg.gauth.domain.user.services.ChangePasswordService
 import com.msg.gauth.domain.user.services.MyProfileService
 import com.msg.gauth.domain.user.services.UploadProfileService
@@ -19,6 +21,7 @@ class UserController(
     private val uploadProfileService: UploadProfileService,
     private val myProfileService: MyProfileService,
     private val acceptedUserService: AcceptedUserService,
+    private val acceptTeacherSignUpService: AcceptTeacherSignUpService
 ) {
     @GetMapping
     fun myProfile(): ResponseEntity<MyProfileResDto> {
@@ -42,5 +45,11 @@ class UserController(
     fun acceptedUserList(@RequestParam grade: Int, @RequestParam classNum: Int, @RequestParam keyword: String): ResponseEntity<List<SingleAcceptedUserResDto>> {
         val result = acceptedUserService.execute(grade, classNum, keyword)
         return ResponseEntity.ok(result)
+    }
+
+    @PatchMapping("/accept-teacher")
+    fun acceptTeacher(@RequestBody @Valid acceptTeacherReqDto: AcceptTeacherReqDto): ResponseEntity<Void>{
+        acceptTeacherSignUpService.execute(acceptTeacherReqDto)
+        return ResponseEntity.noContent().build()
     }
 }
