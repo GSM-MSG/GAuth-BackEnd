@@ -68,6 +68,7 @@ class SecurityConfig(
             // User
             .mvcMatchers("/user/**").authenticated()
             .mvcMatchers(HttpMethod.PATCH, "/user/accept-teacher").hasRole("ADMIN")
+            .mvcMatchers(HttpMethod.GET, "/user/pending").hasRole("ADMIN")
 
             .anyRequest().denyAll()
             .and()

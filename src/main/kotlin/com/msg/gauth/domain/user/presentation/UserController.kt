@@ -4,11 +4,8 @@ import com.msg.gauth.domain.user.presentation.dto.request.AcceptTeacherReqDto
 import com.msg.gauth.domain.user.presentation.dto.request.PasswordChangeReqDto
 import com.msg.gauth.domain.user.presentation.dto.response.MyProfileResDto
 import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
-import com.msg.gauth.domain.user.services.AcceptedUserService
-import com.msg.gauth.domain.user.services.AcceptTeacherSignUpService
-import com.msg.gauth.domain.user.services.ChangePasswordService
-import com.msg.gauth.domain.user.services.MyProfileService
-import com.msg.gauth.domain.user.services.UploadProfileService
+import com.msg.gauth.domain.user.presentation.dto.response.SinglePendingListResDto
+import com.msg.gauth.domain.user.services.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -21,7 +18,8 @@ class UserController(
     private val uploadProfileService: UploadProfileService,
     private val myProfileService: MyProfileService,
     private val acceptedUserService: AcceptedUserService,
-    private val acceptTeacherSignUpService: AcceptTeacherSignUpService
+    private val acceptTeacherSignUpService: AcceptTeacherSignUpService,
+    private val pendingListService: PendingListService
 ) {
     @GetMapping
     fun myProfile(): ResponseEntity<MyProfileResDto> {
@@ -51,5 +49,11 @@ class UserController(
     fun acceptTeacher(@RequestBody @Valid acceptTeacherReqDto: AcceptTeacherReqDto): ResponseEntity<Void>{
         acceptTeacherSignUpService.execute(acceptTeacherReqDto)
         return ResponseEntity.noContent().build()
+    }
+
+    @GetMapping("/pending")
+    fun pendingList(): ResponseEntity<List<SinglePendingListResDto>> {
+        val result = pendingListService.execute()
+        return ResponseEntity.ok(result)
     }
 }
