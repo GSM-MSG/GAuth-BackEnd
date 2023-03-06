@@ -6,7 +6,7 @@ data class AcceptStudentReqDto(
     val id: Long,
     val name: String,
     val gender: Gender,
-    val grade: Int?,
-    val classNum: Int?,
-    val num: Int?
+    val grade: Int,
+    val classNum: Int,
+    val num: Int
 )
