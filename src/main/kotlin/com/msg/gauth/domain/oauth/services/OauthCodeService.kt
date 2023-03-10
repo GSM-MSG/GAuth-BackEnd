@@ -27,7 +27,7 @@ class OauthCodeService(
         val user = userRepository.findByEmail(oauthLoginRequestDto.email) ?: throw UserNotFoundException()
         if (!passwordEncoder.matches(oauthLoginRequestDto.password, user.password))
             throw PasswordMismatchException()
-        if(user.state != UserState.CREATED)
+        if(user.state == UserState.PENDING)
             throw UserStatePendingException()
         val code = UUID.randomUUID().toString().split(".")[0]
         oauthCodeRepository.save(OauthCode(code, user.email))
@@ -38,7 +38,7 @@ class OauthCodeService(
 
     fun execute(): OauthCodeResponseDto{
         val user = userUtil.fetchCurrentUser()
-        if(user.state != UserState.CREATED)
+        if(user.state == UserState.PENDING)
             throw UserStatePendingException()
         val code = UUID.randomUUID().toString().split(".")[0]
         oauthCodeRepository.save(OauthCode(code, user.email))
