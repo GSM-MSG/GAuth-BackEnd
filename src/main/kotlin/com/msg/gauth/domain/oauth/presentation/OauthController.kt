@@ -27,6 +27,12 @@ class OauthController(
         return ResponseEntity.ok(result)
     }
 
+    @PostMapping("/code/access")
+    fun generateOauthCode(): ResponseEntity<OauthCodeResponseDto>{
+        val result = oauthCodeService.execute()
+        return ResponseEntity.ok(result)
+    }
+
     @PostMapping("/token")
     fun generateOauthToken(@Valid @RequestBody userTokenRequestDto: UserTokenRequestDto): ResponseEntity<UserTokenResponseDto> {
         val result = oauthTokenService.execute(userTokenRequestDto)
