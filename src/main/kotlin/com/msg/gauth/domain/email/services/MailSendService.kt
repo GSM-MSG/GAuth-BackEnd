@@ -12,6 +12,9 @@ import org.springframework.scheduling.annotation.Async
 import org.springframework.scheduling.annotation.EnableAsync
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.thymeleaf.TemplateEngine
+import org.thymeleaf.context.Context
+import org.thymeleaf.spring5.SpringTemplateEngine
 import java.util.*
 import javax.mail.Message
 import javax.mail.MessagingException
@@ -19,7 +22,8 @@ import javax.mail.MessagingException
 @Service
 class MailSendService(
     private val mailSender: JavaMailSender,
-    private val emailAuthRepository: EmailAuthRepository
+    private val emailAuthRepository: EmailAuthRepository,
+    private val templateEngine: TemplateEngine
 ) {
 
     fun execute(emailSendDto: EmailSendDto) {
@@ -36,19 +40,27 @@ class MailSendService(
             )
         if(authEntity.authentication)
             throw AlreadyAuthenticatedEmailException()
-        if (authEntity.attemptCount >= 3) throw ManyRequestEmailAuthException()
+        if (authEntity.attemptCount >= 5) throw ManyRequestEmailAuthException()
         val updateEmailAuth = authEntity.resendEmailAuth(value)
         emailAuthRepository.save(updateEmailAuth)
         try {
             val message = mailSender.createMimeMessage()
-            val msg =
-                "<a href=\"https://server.gauth.co.kr/email/authentication?email=$email&uuid=$value\" style=\"padding: 10px; border: none; color: white; background-color: skyblue; border-radius: 8px; align-self: center; text-align: center;\">인증하기</a>"
+            val mailTemplate = createMailTemplate(email, value)
             message.addRecipients(Message.RecipientType.TO, emailSendDto.email)
             message.subject = "[GAuth] 이메일 인증"
-            message.setText(msg, "utf-8", "html")
+            message.setText(mailTemplate, "utf-8", "html")
             mailSender.send(message)
         } catch (ex: MessagingException) {
             throw MessageSendFailException()
         }
+    }
+
+    private fun createMailTemplate(email: String, code: String): String {
+        val context = Context()
+        context.setVariables(mapOf(
+            "email" to email,
+            "code" to code
+        ))
+        return templateEngine.process("mail", context)
     }
 }
