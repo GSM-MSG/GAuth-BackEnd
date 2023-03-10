@@ -67,6 +67,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
             .antMatchers(HttpMethod.PATCH, "/oauth/code").permitAll()
             .antMatchers(HttpMethod.GET, "/oauth/{clientId}").permitAll()
+            .antMatchers(HttpMethod.POST, "/oauth/code/access").authenticated()
 
             // User
             .antMatchers("/user/**").authenticated()

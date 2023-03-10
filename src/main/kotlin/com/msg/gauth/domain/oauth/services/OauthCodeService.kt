@@ -11,6 +11,7 @@ import com.msg.gauth.domain.oauth.repository.OauthCodeRepository
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
+import com.msg.gauth.domain.user.utils.UserUtil
 import com.msg.gauth.global.annotation.service.ReadOnlyService
 import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.*
@@ -20,11 +21,23 @@ class OauthCodeService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
     private val oauthCodeRepository: OauthCodeRepository,
+    private val userUtil: UserUtil
 ){
     fun execute(oauthLoginRequestDto: OauthCodeRequestDto): OauthCodeResponseDto {
         val user = userRepository.findByEmail(oauthLoginRequestDto.email) ?: throw UserNotFoundException()
         if (!passwordEncoder.matches(oauthLoginRequestDto.password, user.password))
             throw PasswordMismatchException()
+        if(user.state != UserState.CREATED)
+            throw UserStatePendingException()
+        val code = UUID.randomUUID().toString().split(".")[0]
+        oauthCodeRepository.save(OauthCode(code, user.email))
+        return OauthCodeResponseDto(
+            code = code,
+        )
+    }
+
+    fun execute(): OauthCodeResponseDto{
+        val user = userUtil.fetchCurrentUser()
         if(user.state != UserState.CREATED)
             throw UserStatePendingException()
         val code = UUID.randomUUID().toString().split(".")[0]
