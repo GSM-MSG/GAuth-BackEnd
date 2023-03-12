@@ -56,6 +56,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, "/client").authenticated()
             .antMatchers(HttpMethod.GET, "/client/{id}").authenticated()
             .antMatchers(HttpMethod.PATCH, "/client/{id}").authenticated()
+            .antMatchers(HttpMethod.DELETE, "/client/{id}").authenticated()
             .antMatchers(HttpMethod.GET, "/client/search").hasRole("ADMIN")
             .antMatchers(HttpMethod.PATCH, "/client/{id}/patch").hasRole("ADMIN")
 
