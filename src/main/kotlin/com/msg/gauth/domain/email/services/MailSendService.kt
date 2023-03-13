@@ -5,18 +5,14 @@ import com.msg.gauth.domain.email.exception.AlreadyAuthenticatedEmailException
 import com.msg.gauth.domain.email.exception.ManyRequestEmailAuthException
 import com.msg.gauth.domain.email.presentation.dto.EmailSendDto
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
-import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.exception.exceptions.MessageSendFailException
 import org.springframework.mail.javamail.JavaMailSender
-import org.springframework.scheduling.annotation.Async
-import org.springframework.scheduling.annotation.EnableAsync
+import org.springframework.mail.javamail.MimeMessageHelper
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import org.thymeleaf.spring5.SpringTemplateEngine
 import java.util.*
-import javax.mail.Message
 import javax.mail.MessagingException
 
 @Service
@@ -45,10 +41,11 @@ class MailSendService(
         emailAuthRepository.save(updateEmailAuth)
         try {
             val message = mailSender.createMimeMessage()
+            val helper = MimeMessageHelper(message, "UTF-8")
             val mailTemplate = createMailTemplate(email, value)
-            message.addRecipients(Message.RecipientType.TO, emailSendDto.email)
-            message.subject = "[GAuth] 이메일 인증"
-            message.setText(mailTemplate, "utf-8", "html")
+            helper.setSubject("[GAuth] 이메일 인증")
+            helper.setTo(emailSendDto.email)
+            helper.setText(mailTemplate, true)
             mailSender.send(message)
         } catch (ex: MessagingException) {
             throw MessageSendFailException()
@@ -57,10 +54,10 @@ class MailSendService(
 
     private fun createMailTemplate(email: String, code: String): String {
         val context = Context()
+        val url = "https://server.gauth.co.kr/email/authentication?email=${email}&uuid=${code}"
         context.setVariables(mapOf(
-            "email" to email,
-            "code" to code
+            "url" to url
         ))
-        return templateEngine.process("mail", context)
+        return templateEngine.process("mail-template", context)
     }
 }

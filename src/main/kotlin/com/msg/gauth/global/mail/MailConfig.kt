@@ -28,8 +28,4 @@ class MailConfig(
             this.javaMailProperties["mail.smtp.starttls.enable"] = true
             this.javaMailProperties["mail.smtp.starttls.required"] = true
         }
-
-    @Bean
-    fun templateEngine(): SpringTemplateEngine =
-        SpringTemplateEngine()
 }
