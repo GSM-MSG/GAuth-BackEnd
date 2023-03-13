@@ -57,7 +57,7 @@ jobs:
                 - name: JWT_REFRESH
                   value: ${{ secrets.JWT_REFRESH }}
                 - name: JWT_OAUTH
-                  value: ${{ serects.JWT_OAUTH }}
+                  value: ${{ secrets.JWT_OAUTH }}
             context:
               git:
                 url: git@github.com:${{ github.repository }}.git
