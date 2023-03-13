@@ -23,7 +23,7 @@ import javax.mail.MessagingException
 class MailSendService(
     private val mailSender: JavaMailSender,
     private val emailAuthRepository: EmailAuthRepository,
-    private val templateEngine: TemplateEngine
+    private val templateEngine: SpringTemplateEngine
 ) {
 
     fun execute(emailSendDto: EmailSendDto) {

@@ -30,6 +30,6 @@ class MailConfig(
         }
 
     @Bean
-    fun templateEngine(): TemplateEngine =
+    fun templateEngine(): SpringTemplateEngine =
         SpringTemplateEngine()
 }
