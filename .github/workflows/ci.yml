@@ -9,6 +9,16 @@ on:
 permissions: write-all
 
 jobs:
+  services:
+    mysql:
+      image: mysql:8.0
+      env:
+        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        MYSQL_DATABASE: ${{ secrets.MYSQL_DB }}
+        MYSQL_USER: ${{ secrets.MYSQL_USER }}
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      ports:
+        - 3306:3306
   build:
     runs-on: ubuntu-latest
 
@@ -19,13 +29,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
-
-      - name: Setup MySQL
-        uses: samin/mysql-action@v1.1
-        with:
-          mysql database: ${{ secrets.MYSQL_DB }}
-          mysql user: ${{ secrets.MYSQL_USER }}
-          mysql password: ${{ secrets.MYSQL_PASSWORD }}
 
       - name: Start Redis
         uses: supercharge/redis-github-action@1.4.0
