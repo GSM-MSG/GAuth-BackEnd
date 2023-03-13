@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup MySQL
-        uses: mirromutth/mysql-action@v1.1
+        uses: samin/mysql-action@v1.1
         with:
           mysql database: ${{ secrets.MYSQL_DB }}
           mysql user: ${{ secrets.MYSQL_USER }}
