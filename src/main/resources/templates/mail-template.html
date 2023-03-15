@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-  <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-  <head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <title>Document</title>
-      <link rel="stylesheet" href="style.css" />
-  </head>
-  <body style="margin: 0; padding: 0; box-sizing: border-box">  
-  <div
-          style="
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body style="margin: 0; padding: 0; box-sizing: border-box">
+<div
+        style="
           width: 100%;
           min-height: 100vh;
           background: #ffffff;
@@ -19,58 +19,59 @@
           flex-direction: column;
           box-sizing: border-box;
         "
-  >
-  <div
-  style="
+>
+    <div
+            style="
   width: 100%;
   height: 346px;
   display: block;
   text-align:center;
   "
-  >
-  <div style="
+    >
+        <div style="
   width: auto;
   height: auto;
-  ">  
-  <hr style="
+  ">
+            <hr style="
   width: 100%; 
   height: 5px; 
   background: #5499d9;
-  margin-bottom: 18vh;
+  margin-bottom: 8rem;
   " />
-      <img 
-            style=" 
-          width: 105px;
-          height: 38px;
+            <img
+                    style="
+          width: calc(4% + 5rem);
+          height: auto;
           viewBox: 0 0 105 38;
           fill: none;
+          object-fit: cover;
         "
-      src="https://user-images.githubusercontent.com/74440939/224630742-81dbffc7-2f65-48fe-9ee6-b13879f87c6b.png" alt="gauth_title">
-      <h1 style="font-size: 24px; font-weight: 700; color: #000000">
-          <span style="color: #5499d9">메일인증</span> 안내입니다.
-      </h1>
-      <hr
-              style="
+                    src="https://user-images.githubusercontent.com/74440939/224630742-81dbffc7-2f65-48fe-9ee6-b13879f87c6b.png" alt="gauth_title">
+            <h1 style="font-size: 24px; font-weight: 700; color: #000000">
+                <span style="color: #5499d9">메일인증</span> 안내입니다.
+            </h1>
+            <hr
+                    style="
           width: 100px;
           background: #929292;
           height: 2px;
           border-radius: 50px;
         "
-      />
-      <p
-              style="
-          font-weight: 600;   
+            />
+            <p
+                    style="
+          font-weight: 600;
           font-size: 12px;
           color: #929292;
           text-align: center;
         "
-      >
-          GAuth에서 보낸 인증 메일입니다.<br />
-          이메일 인증을 위해 아래 버튼을 눌러주세요.
-      </p>
-    <a
-            th:href="${url}"
-            style="
+            >
+                GAuth에서 보낸 인증 메일입니다.<br />
+                이메일 인증을 위해 아래 버튼을 눌러주세요.
+            </p>
+            <a
+                    th:href="${url}"
+                    style="
         cursor: pointer;
         width: 137px;
         height: 32px;
@@ -84,12 +85,12 @@
         margin: 0 auto;
         padding: 5px 13px;
       "
-    >
-        인증 확인
-    </a>
-    <hr style="width: 100%; height: 5px; background: #5499d9; margin-top: 18vh;" />
-  </div>
-      </div>
-  </div>
-  </body>
-  </html>
+            >
+                인증 확인
+            </a>
+            <hr style="width: 100%; height: 5px; background: #5499d9; margin-top: 8rem;" />
+        </div>
+    </div>
+</div>
+</body>
+</html>
