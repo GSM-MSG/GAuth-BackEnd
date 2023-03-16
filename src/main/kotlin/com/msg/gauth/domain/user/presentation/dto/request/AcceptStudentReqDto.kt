@@ -2,18 +2,18 @@ package com.msg.gauth.domain.user.presentation.dto.request
 
 import com.msg.gauth.domain.user.enums.Gender
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 
 data class AcceptStudentReqDto(
-    @field: NotBlank
+    @field: NotNull
     val id: Long,
     @field: NotBlank
     val name: String,
-    @field: NotBlank
     val gender: Gender,
-    @field: NotBlank
+    @field: NotNull
     val grade: Int,
-    @field: NotBlank
+    @field: NotNull
     val classNum: Int,
-    @field: NotBlank
+    @field: NotNull
     val num: Int
 )
