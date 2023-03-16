@@ -23,7 +23,7 @@ class EmailController(
     @GetMapping("/authentication")
     fun emailVerification(@RequestParam email: String, @RequestParam uuid: String): ResponseEntity<String> {
         mailVerificationService.execute(email, uuid)
-        return ResponseEntity.ok("완료되었습니다!<br> 회원가입을 진행해주세요.")
+        return ResponseEntity.ok("완료되었습니다!<br> 다음 단계를 진행해주세요.")
     }
 
     @GetMapping

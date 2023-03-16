@@ -38,38 +38,43 @@ class SecurityConfig(
             }).permitAll()
 
             // Auth
-            .mvcMatchers(HttpMethod.POST, "/auth").permitAll()
-            .mvcMatchers(HttpMethod.PATCH, "/auth").permitAll()
-            .mvcMatchers(HttpMethod.DELETE, "/auth").authenticated()
-            .mvcMatchers(HttpMethod.POST, "/auth/signup").permitAll()
-            .mvcMatchers(HttpMethod.PATCH, "/auth/password/initialize").permitAll()
-            .mvcMatchers(HttpMethod.PATCH, "/auth/image").permitAll()
-            .mvcMatchers(HttpMethod.DELETE, "/auth/image").permitAll()
+            .antMatchers(HttpMethod.POST, "/auth").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
+            .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
+            .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/auth/password/initialize").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/auth/image").permitAll()
+            .antMatchers(HttpMethod.DELETE, "/auth/image").permitAll()
 
             // Email
-            .mvcMatchers(HttpMethod.POST, "/email").permitAll()
-            .mvcMatchers(HttpMethod.GET, "/email/authentication").permitAll()
-            .mvcMatchers(HttpMethod.GET, "/email").permitAll()
+            .antMatchers(HttpMethod.POST, "/email").permitAll()
+            .antMatchers(HttpMethod.GET, "/email/authentication").permitAll()
+            .antMatchers(HttpMethod.GET, "/email").permitAll()
 
             // Client
-            .mvcMatchers(HttpMethod.GET, "/client").authenticated()
-            .mvcMatchers(HttpMethod.POST, "/client").authenticated()
-            .mvcMatchers(HttpMethod.GET, "/client/{id}").authenticated()
-            .mvcMatchers(HttpMethod.PATCH, "/client/{id}").authenticated()
-            .mvcMatchers(HttpMethod.GET, "/client/search").hasRole("ADMIN")
-            .mvcMatchers(HttpMethod.PATCH, "/client/{id}/patch").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/client").authenticated()
+            .antMatchers(HttpMethod.POST, "/client").authenticated()
+            .antMatchers(HttpMethod.GET, "/client/{id}").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/client/{id}").authenticated()
+            .antMatchers(HttpMethod.DELETE, "/client/{id}").authenticated()
+            .antMatchers(HttpMethod.GET, "/client/search").hasRole("ADMIN")
+            .antMatchers(HttpMethod.PATCH, "/client/{id}/patch").hasRole("ADMIN")
 
             // Admin
-            .mvcMatchers("/admin/**").hasRole("ADMIN")
+            .antMatchers(HttpMethod.POST, "/admin/parsing-member").hasRole("ADMIN")
 
             // OAuth
-            .mvcMatchers("/oauth/**").permitAll()
+            .antMatchers(HttpMethod.POST, "/oauth/code").permitAll()
+            .antMatchers(HttpMethod.POST, "/oauth/token").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/oauth/code").permitAll()
+            .antMatchers(HttpMethod.GET, "/oauth/{clientId}").permitAll()
+            .antMatchers(HttpMethod.POST, "/oauth/code/access").authenticated()
 
             // User
-            .mvcMatchers("/user/**").authenticated()
-            .mvcMatchers(HttpMethod.PATCH, "/user/accept-teacher").hasRole("ADMIN")
-            .mvcMatchers(HttpMethod.GET, "/user/pending").hasRole("ADMIN")
-            .mvcMatchers(HttpMethod.PATCH, "/user/accept-student").hasRole("ADMIN")
+            .antMatchers("/user/**").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/user/accept-teacher").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/user/pending").hasRole("ADMIN")
+            .antMatchers(HttpMethod.PATCH, "/user/accept-student").hasRole("ADMIN")
 
             .anyRequest().denyAll()
             .and()

@@ -1,0 +1,65 @@
+name: Deploy to cloudtype
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Connect deploy key
+        uses: cloudtype-github-actions/connect@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          ghtoken: ${{ secrets.GHP_TOKEN }}
+      - name: Deploy
+        uses: cloudtype-github-actions/deploy@v1
+        with:
+          token: ${{ secrets.CLOUDTYPE_TOKEN }}
+          project: baegteun/gauth
+          stage: main
+          yaml: >
+            name: gauth-back-kt
+
+            app: java@11
+
+            options:
+              ports: 8080
+              env:
+                - name: DB_URL
+                  value: ${{ secrets.DB_URL }}
+                - name: DB_NAME
+                  value: ${{ secrets.DB_NAME }}
+                - name: DB_USER
+                  value: ${{ secrets.DB_USER }}
+                - name: DB_PASSWORD
+                  value: ${{ secrets.DB_PASSWORD }}
+                - name: REDIS_HOST
+                  value: ${{ secrets.REDIS_HOST }}
+                - name: REDIS_PORT
+                  value: ${{ secrets.REDIS_PORT }}
+                - name: MAIL_USERNAME
+                  value: ${{ secrets.MAIL_USERNAME }}
+                - name: MAIL_PASSWORD
+                  value: ${{ secrets.MAIL_PASSWORD }}
+                - name: AWS_ACCESS
+                  value: ${{ secrets.AWS_ACCESS }}
+                - name: AWS_SECRET
+                  value: ${{ secrets.AWS_SECRET }}
+                - name: AWS_REGION
+                  value: ${{ secrets.AWS_REGION }}
+                - name: AWS_BUCKET
+                  value: ${{ secrets.AWS_BUCKET }}
+                - name: JWT_ACCESS
+                  value: ${{ secrets.JWT_ACCESS }}
+                - name: JWT_REFRESH
+                  value: ${{ secrets.JWT_REFRESH }}
+                - name: JWT_OAUTH
+                  value: ${{ secrets.JWT_OAUTH }}
+            context:
+              git:
+                url: git@github.com:${{ github.repository }}.git
+                ref: ${{ github.ref }}
+              preset: kotlin
