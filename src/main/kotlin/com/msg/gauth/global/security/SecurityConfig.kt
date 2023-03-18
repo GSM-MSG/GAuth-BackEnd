@@ -74,6 +74,7 @@ class SecurityConfig(
             .antMatchers("/user/**").authenticated()
             .antMatchers(HttpMethod.PATCH, "/user/accept-teacher").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/user/pending").hasRole("ADMIN")
+            .antMatchers(HttpMethod.PATCH, "/user/accept-student").hasRole("ADMIN")
 
             .anyRequest().denyAll()
             .and()

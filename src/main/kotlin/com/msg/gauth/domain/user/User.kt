@@ -3,6 +3,7 @@ package com.msg.gauth.domain.user
 import com.msg.gauth.domain.user.enums.Gender
 import com.msg.gauth.domain.user.enums.UserRole
 import com.msg.gauth.domain.user.enums.UserState
+import com.msg.gauth.domain.user.presentation.dto.request.AcceptStudentReqDto
 import com.msg.gauth.global.entity.BaseIdEntity
 import javax.persistence.*
 import javax.validation.constraints.Size
@@ -87,6 +88,22 @@ class User(
             password = password,
             roles = this.roles,
             state = this.state,
+            profileUrl = this.profileUrl
+        )
+        user.id = this.id
+        return user
+    }
+    fun update(acceptedStudentReqDto: AcceptStudentReqDto): User{
+        val user = User(
+            name = acceptedStudentReqDto.name,
+            email = this.email,
+            grade = acceptedStudentReqDto.grade,
+            classNum = acceptedStudentReqDto.classNum,
+            num = acceptedStudentReqDto.num,
+            gender = acceptedStudentReqDto.gender,
+            password = this.password,
+            roles = this.roles,
+            state = UserState.CREATED,
             profileUrl = this.profileUrl
         )
         user.id = this.id

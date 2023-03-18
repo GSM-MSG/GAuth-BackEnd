@@ -1,5 +1,6 @@
 package com.msg.gauth.domain.user.presentation
 
+import com.msg.gauth.domain.user.presentation.dto.request.AcceptStudentReqDto
 import com.msg.gauth.domain.user.presentation.dto.request.AcceptTeacherReqDto
 import com.msg.gauth.domain.user.presentation.dto.request.PasswordChangeReqDto
 import com.msg.gauth.domain.user.presentation.dto.response.MyProfileResDto
@@ -19,7 +20,8 @@ class UserController(
     private val myProfileService: MyProfileService,
     private val acceptedUserService: AcceptedUserService,
     private val acceptTeacherSignUpService: AcceptTeacherSignUpService,
-    private val pendingListService: PendingListService
+    private val pendingListService: PendingListService,
+    private val acceptStudentSignUpService: AcceptStudentSignUpService
 ) {
     @GetMapping
     fun myProfile(): ResponseEntity<MyProfileResDto> {
@@ -55,5 +57,11 @@ class UserController(
     fun pendingList(): ResponseEntity<List<SinglePendingListResDto>> {
         val result = pendingListService.execute()
         return ResponseEntity.ok(result)
+    }
+
+    @PatchMapping("/accept-student")
+    fun acceptStudent(@RequestBody @Valid acceptedStudentReqDto: AcceptStudentReqDto): ResponseEntity<Void> {
+        acceptStudentSignUpService.execute(acceptedStudentReqDto)
+        return ResponseEntity.noContent().build()
     }
 }
