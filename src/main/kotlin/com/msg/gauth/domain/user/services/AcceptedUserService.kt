@@ -1,60 +1,24 @@
 package com.msg.gauth.domain.user.services
 
-import com.msg.gauth.domain.user.User
-import com.msg.gauth.domain.user.enums.UserRole
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
 import com.msg.gauth.domain.user.repository.UserRepository
-import com.msg.gauth.domain.user.specification.UserSpecification
 import com.msg.gauth.global.annotation.service.ReadOnlyService
-import org.springframework.data.jpa.domain.Specification
-import javax.persistence.criteria.CriteriaBuilder
-import javax.persistence.criteria.CriteriaQuery
-import javax.persistence.criteria.Root
 
 @ReadOnlyService
 class AcceptedUserService(
     private val userRepository: UserRepository,
 ) {
     fun execute(grade: Int, classNum: Int, keyword: String): List<SingleAcceptedUserResDto> {
-
-        val users: List<User>
-                = if(grade == 0 && classNum == 0 && keyword == "0")
-            listAcceptedUser()
-        else {
-            searchUser(grade, classNum, keyword)
-        }
-
-
-       return users.filter { user -> user.roles.equals(UserRole.ROLE_STUDENT) && user.state == UserState.CREATED }
-            .map { user ->
-                SingleAcceptedUserResDto(
-                    user.id,
-                    user.name!!,
-                    user.email,
-                    user.grade!!,
-                    user.classNum!!,
-                    user.num!!,
-                    user.profileUrl
-                )
-            }
-
-    }
-
-    private fun listAcceptedUser(): List<User> =
-        userRepository.findAllByState(UserState.CREATED)
-
-    private fun searchUser(grade: Int, classNum: Int, keyword: String): List<User> {
-        val spec: Specification<User> =
-            Specification { _: Root<User>?, _: CriteriaQuery<*>?, _: CriteriaBuilder? -> null }
-
+        var userList = userRepository.findAllByState(UserState.CREATED)
         if(grade != 0)
-            spec.and(UserSpecification.equalGrade(grade))
+            userList = userList.filter { it.grade == grade }
         if(classNum != 0)
-            spec.and(UserSpecification.equalClassNum(classNum))
+            userList = userList.filter { it.classNum == classNum }
         if(keyword != "0")
-            spec.and(UserSpecification.containKeyword(keyword))
+            userList = userList.filter { it.name!!.contains(keyword) }
 
-        return userRepository.findAll(spec)
+        return userList.map { SingleAcceptedUserResDto(it) }
+
     }
 }
