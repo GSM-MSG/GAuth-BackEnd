@@ -42,7 +42,10 @@ class UserController(
     }
 
     @GetMapping("/user-list")
-    fun acceptedUserList(@RequestParam grade: Int, @RequestParam classNum: Int, @RequestParam keyword: String): ResponseEntity<List<SingleAcceptedUserResDto>> {
+    fun acceptedUserList(@RequestParam grade: Int,
+                         @RequestParam classNum: Int,
+                         @RequestParam keyword: String
+    ): ResponseEntity<List<SingleAcceptedUserResDto>> {
         val result = acceptedUserService.execute(grade, classNum, keyword)
         return ResponseEntity.ok(result)
     }
