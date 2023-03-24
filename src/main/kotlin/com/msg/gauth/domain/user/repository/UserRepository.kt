@@ -3,6 +3,7 @@ package com.msg.gauth.domain.user.repository
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserRole
 import com.msg.gauth.domain.user.enums.UserState
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
@@ -15,14 +16,14 @@ interface UserRepository: JpaRepository<User, Long>, JpaSpecificationExecutor<Us
 
 
 
-    fun findAllByState(state: UserState): List<User>
-    fun findAllByStateAndNameContaining(state: UserState, name: String): List<User>
-    fun findAllByStateAndClassNum(state: UserState, classNum: Int): List<User>
-    fun findAllByStateAndGrade(state: UserState, grade: Int): List<User>
-    fun findAllByStateAndClassNumAndNameContaining(state: UserState, classNum: Int, name: String): List<User>
-    fun findAllByStateAndGradeAndNameContaining(state: UserState, grade: Int, name: String): List<User>
-    fun findAllByStateAndGradeAndClassNum(state: UserState, grade: Int, classNum: Int): List<User>
-    fun findAllByStateAndGradeAndClassNumAndNameContaining(state: UserState, grade: Int, classNum: Int, name: String): List<User>
+    fun findAllByStateOrderByGrade(state: UserState, pageable: Pageable): List<User>
+    fun findAllByStateAndNameContainingOrderByGrade(state: UserState, name: String, pageable: Pageable): List<User>
+    fun findAllByStateAndClassNumOrderByGrade(state: UserState, classNum: Int, pageable: Pageable): List<User>
+    fun findAllByStateAndGradeOrderByGrade(state: UserState, grade: Int, pageable: Pageable): List<User>
+    fun findAllByStateAndClassNumAndNameContainingOrderByGrade(state: UserState, classNum: Int, name: String, pageable: Pageable): List<User>
+    fun findAllByStateAndGradeAndNameContainingOrderByGrade(state: UserState, grade: Int, name: String, pageable: Pageable): List<User>
+    fun findAllByStateAndGradeAndClassNumOrderByGrade(state: UserState, grade: Int, classNum: Int, pageable: Pageable): List<User>
+    fun findAllByStateAndGradeAndClassNumAndNameContainingOrderByGrade(state: UserState, grade: Int, classNum: Int, name: String, pageable: Pageable): List<User>
     @Query("select user from User user where user.id = :id and user.state = :state and user.roles = :roles")
     fun findByIdAndStateAndRoles(id: Long, state: UserState, roles: MutableList<UserRole>): User?
 }

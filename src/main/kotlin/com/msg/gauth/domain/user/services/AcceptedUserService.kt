@@ -5,25 +5,26 @@ import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.ReadOnlyService
+import org.springframework.data.domain.Pageable
 
 @ReadOnlyService
 class AcceptedUserService(
     private val userRepository: UserRepository,
 ) {
-    fun execute(grade: Int, classNum: Int, name: String): List<SingleAcceptedUserResDto> {
+    fun execute(grade: Int, classNum: Int, name: String, pageable: Pageable): List<SingleAcceptedUserResDto> {
         val userList: List<User>
         = when {
-            grade == 0 && classNum == 0 && name == "" -> userRepository.findAllByState(UserState.CREATED)
+            grade == 0 && classNum == 0 && name == "" -> userRepository.findAllByStateOrderByGrade(UserState.CREATED, pageable)
 
-            grade == 0 && classNum == 0 -> userRepository.findAllByStateAndNameContaining(UserState.CREATED, name)
-            classNum == 0 && name == "" -> userRepository.findAllByStateAndClassNum(UserState.CREATED, classNum)
-            grade == 0 && name == ""-> userRepository.findAllByStateAndGrade(UserState.CREATED, grade)
+            grade == 0 && classNum == 0 -> userRepository.findAllByStateAndNameContainingOrderByGrade(UserState.CREATED, name, pageable)
+            classNum == 0 && name == "" -> userRepository.findAllByStateAndClassNumOrderByGrade(UserState.CREATED, classNum, pageable)
+            grade == 0 && name == ""-> userRepository.findAllByStateAndGradeOrderByGrade(UserState.CREATED, grade, pageable)
 
-            grade == 0 -> userRepository.findAllByStateAndClassNumAndNameContaining(UserState.CREATED, classNum, name)
-            classNum == 0 -> userRepository.findAllByStateAndGradeAndNameContaining(UserState.CREATED, grade, name)
-            name == "" -> userRepository.findAllByStateAndGradeAndClassNum(UserState.CREATED, grade, classNum)
+            grade == 0 -> userRepository.findAllByStateAndClassNumAndNameContainingOrderByGrade(UserState.CREATED, classNum, name, pageable)
+            classNum == 0 -> userRepository.findAllByStateAndGradeAndNameContainingOrderByGrade(UserState.CREATED, grade, name, pageable)
+            name == "" -> userRepository.findAllByStateAndGradeAndClassNumOrderByGrade(UserState.CREATED, grade, classNum, pageable)
 
-            else -> userRepository.findAllByStateAndGradeAndClassNumAndNameContaining(UserState.CREATED, grade, classNum, name)
+            else -> userRepository.findAllByStateAndGradeAndClassNumAndNameContainingOrderByGrade(UserState.CREATED, grade, classNum, name, pageable)
         }
         return userList.map {
             SingleAcceptedUserResDto(it)
