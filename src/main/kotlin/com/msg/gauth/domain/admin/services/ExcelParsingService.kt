@@ -42,7 +42,7 @@ class ExcelParsingService(
         }
         userRepository.findByEmailIn(map.keys.toList())
             .forEach {
-                val updateDto = map[it.email]?: throw Exception()
+                val updateDto = map[it.email] ?: throw Exception()
                 userRepository.save(it.update(updateDto.name, updateDto.grade, updateDto.classNum, updateDto.num, updateDto.gender))
             }
     }
