@@ -17,8 +17,8 @@ class AcceptedUserService(
             grade == 0 && classNum == 0 && name == "" -> userRepository.findAllByStateOrderByGrade(UserState.CREATED, pageable)
 
             grade == 0 && classNum == 0 -> userRepository.findAllByStateAndNameContainingOrderByGrade(UserState.CREATED, name, pageable)
-            classNum == 0 && name == "" -> userRepository.findAllByStateAndClassNumOrderByGrade(UserState.CREATED, classNum, pageable)
-            grade == 0 && name == ""-> userRepository.findAllByStateAndGradeOrderByGrade(UserState.CREATED, grade, pageable)
+            classNum == 0 && name == "" -> userRepository.findAllByStateAndGradeOrderByGrade(UserState.CREATED, classNum, pageable)
+            grade == 0 && name == ""-> userRepository.findAllByStateAndClassNumOrderByGrade(UserState.CREATED, grade, pageable)
 
             grade == 0 -> userRepository.findAllByStateAndClassNumAndNameContainingOrderByGrade(UserState.CREATED, classNum, name, pageable)
             classNum == 0 -> userRepository.findAllByStateAndGradeAndNameContainingOrderByGrade(UserState.CREATED, grade, name, pageable)
