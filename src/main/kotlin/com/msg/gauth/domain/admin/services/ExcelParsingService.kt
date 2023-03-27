@@ -29,20 +29,30 @@ class ExcelParsingService(
             else
                 HSSFWorkbook(file.inputStream)
         val workSheet:Sheet = workBook.getSheetAt(0)
-        val allEmail = userRepository.findAllEmail()
+        val map = hashMapOf<String, UpdateDto>()
         for(i in 1 until workSheet.physicalNumberOfRows){
             val row = workSheet.getRow(i)
             val email = row.getCell(4).stringCellValue
-            if(!allEmail.contains(email))
-                continue
-            val grade = row.getCell(0).numericCellValue.toInt()
-            val classNum = row.getCell(1).numericCellValue.toInt()
-            val num = row.getCell(2).numericCellValue.toInt()
-            val name = row.getCell(3).stringCellValue.toString()
-            val gender = Gender.valueOf(row.getCell(5).stringCellValue)
-            val user = userRepository.findByEmail(email) ?: continue
-            val update = user.update(name, grade, classNum, num, gender)
-            userRepository.save(update)
+            map[email] =
+                UpdateDto(
+                    name = row.getCell(3).stringCellValue.toString(),
+                    grade = row.getCell(0).numericCellValue.toInt(),
+                    classNum = row.getCell(1).numericCellValue.toInt(),
+                    num = row.getCell(2).numericCellValue.toInt(),
+                    gender = Gender.valueOf(row.getCell(5).stringCellValue)
+                )
         }
+        userRepository.findByEmailIn(map.keys.toList())
+            .forEach {
+                val updateDto = map[it.email] ?: throw Exception()
+                userRepository.save(it.update(updateDto.name, updateDto.grade, updateDto.classNum, updateDto.num, updateDto.gender))
+            }
     }
+    data class UpdateDto(
+        val name: String,
+        val grade: Int,
+        val classNum: Int,
+        val num: Int,
+        val gender: Gender
+    )
 }
