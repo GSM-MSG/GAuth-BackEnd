@@ -1,5 +1,6 @@
 package com.msg.gauth.domain.user.presentation
 
+import com.msg.gauth.domain.user.presentation.dto.response.GetMyRolesResDto
 import com.msg.gauth.domain.user.presentation.dto.request.AcceptStudentReqDto
 import com.msg.gauth.domain.user.presentation.dto.request.AcceptTeacherReqDto
 import com.msg.gauth.domain.user.presentation.dto.request.PasswordChangeReqDto
@@ -22,8 +23,15 @@ class UserController(
     private val acceptedUserService: AcceptedUserService,
     private val acceptTeacherSignUpService: AcceptTeacherSignUpService,
     private val pendingListService: PendingListService,
-    private val acceptStudentSignUpService: AcceptStudentSignUpService
+    private val acceptStudentSignUpService: AcceptStudentSignUpService,
+    private val getMyRolesService: GetMyRolesService
 ) {
+    @GetMapping("/role")
+    fun getMyRoles(): ResponseEntity<GetMyRolesResDto> {
+        val result = getMyRolesService.execute()
+        return ResponseEntity.ok(result)
+    }
+
     @GetMapping
     fun myProfile(): ResponseEntity<MyProfileResDto> {
         val result = myProfileService.execute()
