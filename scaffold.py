@@ -17,9 +17,9 @@ def write_code_in_file(file_path: str, codes: str):
 def register_presentation(domain: str, api_name: str, method: str, path: str, has_request: bool, has_response: bool):
     method_str = ''
     if method == 'HEAD':
-        method_str = f'@RequestMapping(value="{path}", method = RequestMethod.HEAD)'
+        method_str = f'@RequestMapping(value="/{path}", method = RequestMethod.HEAD)'
     else:
-        method_str = f'@{method.lower().capitalize()}Mapping("{path}")'
+        method_str = f'@{method.lower().capitalize()}Mapping("/{path}")'
 
     param_str = ''
     if has_request:
