@@ -17,9 +17,9 @@ def write_code_in_file(file_path: str, codes: str):
 def register_presentation(domain: str, api_name: str, method: str, path: str, has_request: bool, has_response: bool):
     method_str = ''
     if method == 'HEAD':
-        method_str = f'@RequestMapping(value={path}, method = RequestMethod.HEAD)'
+        method_str = f'@RequestMapping(value="{path}", method = RequestMethod.HEAD)'
     else:
-        method_str = f'@{method.lower().capitalize()}Mapping'
+        method_str = f'@{method.lower().capitalize()}Mapping("{path}")'
 
     param_str = ''
     if has_request:
@@ -52,7 +52,7 @@ def register_service(domain: str, api_name: str, has_request: bool, has_response
     
     response_str = ''
     if has_response:
-        response_str = f': ResponseEntity<{api_name.capitalize()}ResponseDto>'
+        response_str = f': {api_name.capitalize()}ResponseDto1'
     
     service_content = f"""@TransactionalService
 class {api_name.capitalize()}Service(
@@ -62,7 +62,7 @@ class {api_name.capitalize()}Service(
     {'}'}
 {'}'}
 """
-    write_file_at(f'src/main/kotlin/com/msg/gauth/domain/{domain}/services/{domain.capitalize()}Service.kt', service_content)
+    write_file_at(f'src/main/kotlin/com/msg/gauth/domain/{domain}/services/{api_name.capitalize()}Service.kt', service_content)
 
 def read_file_at(file_path: str):
     with open(file_path, 'r') as file:
