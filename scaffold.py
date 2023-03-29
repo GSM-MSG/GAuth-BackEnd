@@ -52,7 +52,7 @@ def register_service(domain: str, api_name: str, has_request: bool, has_response
     
     response_str = ''
     if has_response:
-        response_str = f': {api_name.capitalize()}ResponseDto1'
+        response_str = f': {api_name.capitalize()}ResponseDto'
     
     service_content = f"""@TransactionalService
 class {api_name.capitalize()}Service(
