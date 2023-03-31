@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServletRequest
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
-    @log4k
-    val log: Logger? = null
+    private lateinit var log: Logger
 
+    @log4k
     @ExceptionHandler(BasicException::class)
     fun basicExceptionHandler(request: HttpServletRequest, ex: BasicException): ResponseEntity<ErrorResponse> {
-        log?.error(request.requestURI)
-        log?.error(ex.message)
+        log.error(request.requestURI)
+        log.error(ex.message)
         val errorResponse = ErrorResponse(ex.errorCode)
         return ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.valueOf(ex.errorCode.code))
     }
@@ -36,9 +36,10 @@ class GlobalExceptionHandler {
         return ResponseEntity<Map<String, String?>>(errorMap, HttpStatus.BAD_REQUEST)
     }
 
+    @log4k
     @ExceptionHandler(NoHandlerFoundException::class)
     fun arithmeticExceptionHandler(request: HttpServletRequest, e: NoHandlerFoundException): ResponseEntity<ErrorResponse>{
-        log?.error(request.requestURI)
+        log.error(request.requestURI)
         val errorResponse = ErrorResponse(ErrorCode.FORBIDDEN)
         return ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.valueOf(ErrorCode.FORBIDDEN.code))
     }

@@ -49,6 +49,7 @@ dependencies {
     implementation("org.apache.poi:poi-ooxml:5.2.2")
     implementation("commons-io:commons-io:2.11.0")
     implementation("org.apache.tika:tika-core:2.6.0")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
 }
 
 tasks.withType<KotlinCompile> {
