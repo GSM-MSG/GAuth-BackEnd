@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component
 class InjectorLogger{
     @Around("@annotation(com.msg.gauth.global.annotation.logger.log4k)")
     fun inject(joinPoint: ProceedingJoinPoint): Any?{
-        println("진짜 테스트")
         val target = joinPoint.target
         val fields = target.javaClass.declaredFields
         fields.filter { it.type == Logger::class.java }
