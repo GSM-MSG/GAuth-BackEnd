@@ -9,7 +9,6 @@ import com.msg.gauth.global.exception.exceptions.MessageSendFailException
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
 import org.springframework.stereotype.Service
-import org.thymeleaf.TemplateEngine
 import org.thymeleaf.context.Context
 import org.thymeleaf.spring5.SpringTemplateEngine
 import java.util.*
@@ -21,7 +20,6 @@ class MailSendService(
     private val emailAuthRepository: EmailAuthRepository,
     private val templateEngine: SpringTemplateEngine
 ) {
-
     fun execute(emailSendDto: EmailSendDto) {
         val email: String = emailSendDto.email
         val value = UUID.randomUUID().toString()
