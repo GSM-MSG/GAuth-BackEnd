@@ -23,13 +23,18 @@ class SignInService(
 ) {
     fun execute(dto: SigninRequestDto): SigninResponseDto {
         val user: User = userRepository.findByEmail(dto.email) ?: throw UserNotFoundException()
+
         if (!passwordEncoder.matches(dto.password, user.password))
             throw PasswordMismatchException()
+
         if(user.state != UserState.CREATED)
             throw UserIsPendingException()
-        val access = jwtTokenProvider.generateAccessToken(dto.email)
-        val refresh = jwtTokenProvider.generateRefreshToken(dto.email)
+
+        val (access, refresh) = jwtTokenProvider.run {
+            generateAccessToken(dto.email) to generateRefreshToken(dto.email)}
+
         val expiresAt = jwtTokenProvider.accessExpiredTime
+
         refreshTokenRepository.save(RefreshToken(user.id, refresh))
         return SigninResponseDto(access, refresh, expiresAt)
     }
