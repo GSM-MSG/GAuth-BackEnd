@@ -11,20 +11,21 @@ import org.springframework.data.domain.Pageable
 class AcceptedUserService(
     private val userRepository: UserRepository,
 ) {
-    fun execute(grade: Int, classNum: Int, name: String, pageable: Pageable): List<SingleAcceptedUserResDto> {
+    fun execute(grade: Int, classNum: Int, name: String?, pageable: Pageable): List<SingleAcceptedUserResDto> {
+        val keyword: String = name ?: ""
         val userList: List<User>
         = when {
             grade == 0 && classNum == 0 && name == "" -> userRepository.findAllByStateOrderByGrade(UserState.CREATED, pageable)
 
-            grade == 0 && classNum == 0 -> userRepository.findAllByStateAndNameContainingOrderByGrade(UserState.CREATED, name, pageable)
+            grade == 0 && classNum == 0 -> userRepository.findAllByStateAndNameContainingOrderByGrade(UserState.CREATED, keyword, pageable)
             classNum == 0 && name == "" -> userRepository.findAllByStateAndGradeOrderByGrade(UserState.CREATED, classNum, pageable)
             grade == 0 && name == ""-> userRepository.findAllByStateAndClassNumOrderByGrade(UserState.CREATED, grade, pageable)
 
-            grade == 0 -> userRepository.findAllByStateAndClassNumAndNameContainingOrderByGrade(UserState.CREATED, classNum, name, pageable)
-            classNum == 0 -> userRepository.findAllByStateAndGradeAndNameContainingOrderByGrade(UserState.CREATED, grade, name, pageable)
+            grade == 0 -> userRepository.findAllByStateAndClassNumAndNameContainingOrderByGrade(UserState.CREATED, classNum, keyword, pageable)
+            classNum == 0 -> userRepository.findAllByStateAndGradeAndNameContainingOrderByGrade(UserState.CREATED, grade, keyword, pageable)
             name == "" -> userRepository.findAllByStateAndGradeAndClassNumOrderByGrade(UserState.CREATED, grade, classNum, pageable)
 
-            else -> userRepository.findAllByStateAndGradeAndClassNumAndNameContainingOrderByGrade(UserState.CREATED, grade, classNum, name, pageable)
+            else -> userRepository.findAllByStateAndGradeAndClassNumAndNameContainingOrderByGrade(UserState.CREATED, grade, classNum, keyword, pageable)
         }
         return userList.map {
             SingleAcceptedUserResDto(it)
