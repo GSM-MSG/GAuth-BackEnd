@@ -13,20 +13,24 @@ class RefreshService(
     private val jwtTokenProvider: JwtTokenProvider,
     private val refreshTokenRepository: RefreshTokenRepository
 ) {
-    fun execute(refreshToken: String): RefreshResponseDto {
-        val refreshToken = jwtTokenProvider.parseToken(refreshToken) ?: throw InvalidRefreshTokenException()
+    fun execute(requestToken: String): RefreshResponseDto {
+        val refreshToken = jwtTokenProvider.parseToken(requestToken) ?: throw InvalidRefreshTokenException()
         val email = jwtTokenProvider.exactEmailFromRefreshToken(refreshToken)
-        val existingRefreshToken = refreshTokenRepository.findByToken(refreshToken) ?: throw ExpiredRefreshTokenException()
+
+        val existingRefreshToken = refreshTokenRepository.findByToken(refreshToken)
+            ?: throw ExpiredRefreshTokenException()
+
         if (existingRefreshToken.token != refreshToken)
             throw InvalidRefreshTokenException()
-        val access = jwtTokenProvider.generateAccessToken(email)
-        val refresh = jwtTokenProvider.generateRefreshToken(email)
-        val expiresAt = jwtTokenProvider.accessExpiredTime
+
+        val (access, refresh) = jwtTokenProvider.run {
+            generateAccessToken(email) to generateRefreshToken(email)}
+
         val newRefreshToken = RefreshToken(
             userId = existingRefreshToken.userId,
             token = refresh,
         )
         refreshTokenRepository.save(newRefreshToken)
-        return RefreshResponseDto(access, refresh, expiresAt)
+        return RefreshResponseDto(access, refresh, jwtTokenProvider.accessExpiredTime)
     }
 }

@@ -13,29 +13,27 @@ import java.util.*
 
 @Component
 class OauthTokenProvider(
-    private val jwtProperties: JwtProperties,
-    private val authDetailsService: AuthDetailsService,
-    private val jwtTokenProvider: JwtTokenProvider
+    private val jwtProperties: JwtProperties
 ) {
 
     companion object {
-        const val ACCESS_TYPE = "access"
-        const val REFRESH_TYPE = "refresh"
-        const val ACCESS_EXP = 60L * 15 // 15 min
-        const val REFRESH_EXP = 60L * 60 * 24 * 7 // 1 weeks
+        const val OAUTH_ACCESS_TYPE = "access"
+        const val OAUTH_REFRESH_TYPE = "refresh"
+        const val OAUTH_ACCESS_EXP = 60L * 15 // 15 min
+        const val OAUTH_REFRESH_EXP = 60L * 60 * 24 * 7 // 1 weeks
         const val TOKEN_PREFIX = "Bearer "
     }
 
     fun generateOauthAccessToken(email: String, clientId: String): String =
         generateOauthToken(email,
-            ACCESS_TYPE, clientId, jwtProperties.oauthSecret,
-            ACCESS_EXP
+            OAUTH_ACCESS_TYPE, clientId, jwtProperties.oauthSecret,
+            OAUTH_ACCESS_EXP
         )
 
     fun generateOauthRefreshToken(email: String, clientId: String): String =
         generateOauthToken(email,
-            REFRESH_TYPE, clientId, jwtProperties.oauthSecret,
-            REFRESH_EXP
+            OAUTH_REFRESH_TYPE, clientId, jwtProperties.oauthSecret,
+            OAUTH_REFRESH_EXP
         )
 
     private fun generateOauthToken(sub: String, type: String, clientId: String, secret: Key, exp: Long): String =
@@ -49,7 +47,7 @@ class OauthTokenProvider(
             .compact()
 
     fun parseToken(token: String): String? =
-        if (token.startsWith(JwtTokenProvider.TOKEN_PREFIX)) token.replace(JwtTokenProvider.TOKEN_PREFIX, "") else null
+        if (token.startsWith(TOKEN_PREFIX)) token.replace(TOKEN_PREFIX, "") else null
 
     fun exactEmailFromOauthRefreshToken(refresh: String): String =
         getTokenSubject(refresh, jwtProperties.oauthSecret)

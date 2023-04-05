@@ -1,5 +1,7 @@
 package com.msg.gauth.global.security.jwt
 
+import com.msg.gauth.domain.auth.repository.RefreshTokenRepository
+import com.msg.gauth.domain.oauth.repository.OauthRefreshTokenRepository
 import com.msg.gauth.global.security.auth.AuthDetailsService
 import com.msg.gauth.global.security.exception.ExpiredTokenException
 import com.msg.gauth.global.security.exception.InvalidTokenException
