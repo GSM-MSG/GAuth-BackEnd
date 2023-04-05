@@ -23,8 +23,7 @@ class OauthTokenService(
     private val userRepository: UserRepository,
     private val tokenProvider: JwtTokenProvider,
     private val refreshTokenRepository: OauthRefreshTokenRepository,
-    private val oauthCodeRepository: OauthCodeRepository,
-    private val passwordEncoder: PasswordEncoder,
+    private val oauthCodeRepository: OauthCodeRepository
 ){
     fun execute(userTokenRequestDto: UserTokenRequestDto): UserTokenResponseDto{
         val client = (clientRepository.findByClientIdAndRedirectUri(userTokenRequestDto.clientId, userTokenRequestDto.redirectUri)

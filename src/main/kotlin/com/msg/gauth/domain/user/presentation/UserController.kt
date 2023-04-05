@@ -19,10 +19,10 @@ import javax.validation.Valid
 class UserController(
     private val changePasswordService: ChangePasswordService,
     private val uploadProfileService: UploadProfileService,
-    private val myProfileService: MyProfileService,
-    private val acceptedUserService: AcceptedUserService,
+    private val getMyProfileService: GetMyProfileService,
+    private val getAcceptedUsersService: GetAcceptedUsersService,
     private val acceptTeacherSignUpService: AcceptTeacherSignUpService,
-    private val pendingListService: PendingListService,
+    private val getPendingUsersService: GetPendingUsersService,
     private val acceptStudentSignUpService: AcceptStudentSignUpService,
     private val getMyRolesService: GetMyRolesService
 ) {
@@ -34,7 +34,7 @@ class UserController(
 
     @GetMapping
     fun myProfile(): ResponseEntity<MyProfileResDto> {
-        val result = myProfileService.execute()
+        val result = getMyProfileService.execute()
         return ResponseEntity.ok(result)
     }
 
@@ -56,7 +56,7 @@ class UserController(
                          @RequestParam keyword: String?,
                          pageable: Pageable
     ): ResponseEntity<List<SingleAcceptedUserResDto>> {
-        val result = acceptedUserService.execute(grade, classNum, keyword, pageable)
+        val result = getAcceptedUsersService.execute(grade, classNum, keyword, pageable)
         return ResponseEntity.ok(result)
     }
 
@@ -68,7 +68,7 @@ class UserController(
 
     @GetMapping("/pending")
     fun pendingList(): ResponseEntity<List<SinglePendingListResDto>> {
-        val result = pendingListService.execute()
+        val result = getPendingUsersService.execute()
         return ResponseEntity.ok(result)
     }
 

@@ -5,7 +5,7 @@ import com.msg.gauth.domain.email.repository.EmailAuthRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
 
 @TransactionalService
-class MailVerificationService(
+class VerifyMailService(
     private val emailAuthRepository: EmailAuthRepository
 ) {
     fun execute(email: String, uuid: String) {
