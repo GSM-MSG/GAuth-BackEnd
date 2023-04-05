@@ -9,23 +9,24 @@ import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
+import com.msg.gauth.global.security.jwt.OauthTokenProvider
 import org.springframework.stereotype.Service
 
 @TransactionalService
 class OauthRefreshService(
     private val tokenRepository: OauthRefreshTokenRepository,
-    private val tokenProvider: JwtTokenProvider,
+    private val oauthTokenProvider: OauthTokenProvider,
     private val userRepository: UserRepository,
 ){
-    fun execute(refreshToken: String): UserTokenResponseDto{
-        val refreshToken = tokenProvider.parseToken(refreshToken) ?: throw InvalidRefreshTokenException()
-        val email = tokenProvider.exactEmailFromOauthRefreshToken(refreshToken)
+    fun execute(requestToken: String): UserTokenResponseDto{
+        val refreshToken = oauthTokenProvider.parseToken(requestToken) ?: throw InvalidRefreshTokenException()
+        val email = oauthTokenProvider.exactEmailFromOauthRefreshToken(refreshToken)
         val user = userRepository.findByEmail(email) ?: throw UserNotFoundException()
         if(!tokenRepository.existsById(user.id))
             throw ExpiredRefreshTokenException()
-        val clientId = tokenProvider.exactClientIdFromOauthRefreshToken(refreshToken)
-        val access = tokenProvider.generateOauthAccessToken(email, clientId)
-        val refresh = tokenProvider.generateOauthRefreshToken(email, clientId)
+        val clientId = oauthTokenProvider.exactClientIdFromOauthRefreshToken(refreshToken)
+        val access = oauthTokenProvider.generateOauthAccessToken(email, clientId)
+        val refresh = oauthTokenProvider.generateOauthRefreshToken(email, clientId)
         val newRefreshToken = OauthRefreshToken(
             userId = user.id,
             token = refresh,
