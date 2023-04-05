@@ -8,7 +8,7 @@ import com.msg.gauth.global.annotation.service.ReadOnlyService
 import org.springframework.data.domain.Pageable
 
 @ReadOnlyService
-class GetAcceptedUserService(
+class GetAcceptedUserListService(
     private val userRepository: UserRepository,
 ) {
     fun execute(grade: Int, classNum: Int, name: String?, pageable: Pageable): List<SingleAcceptedUserResDto> {

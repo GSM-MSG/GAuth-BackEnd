@@ -20,7 +20,7 @@ class UserController(
     private val changePasswordService: ChangePasswordService,
     private val uploadProfileService: UploadProfileService,
     private val myProfileService: MyProfileService,
-    private val getAcceptedUserService: GetAcceptedUserService,
+    private val getAcceptedUserListService: GetAcceptedUserListService,
     private val acceptTeacherSignUpService: AcceptTeacherSignUpService,
     private val getPendingUserListService: GetPendingUserListService,
     private val acceptStudentSignUpService: AcceptStudentSignUpService,
@@ -56,7 +56,7 @@ class UserController(
                          @RequestParam keyword: String?,
                          pageable: Pageable
     ): ResponseEntity<List<SingleAcceptedUserResDto>> {
-        val result = getAcceptedUserService.execute(grade, classNum, keyword, pageable)
+        val result = getAcceptedUserListService.execute(grade, classNum, keyword, pageable)
         return ResponseEntity.ok(result)
     }
 
