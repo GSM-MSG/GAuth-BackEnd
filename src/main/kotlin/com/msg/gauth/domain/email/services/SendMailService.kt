@@ -15,7 +15,7 @@ import java.util.*
 import javax.mail.MessagingException
 
 @Service
-class MailSendService(
+class SendMailService(
     private val mailSender: JavaMailSender,
     private val emailAuthRepository: EmailAuthRepository,
     private val templateEngine: SpringTemplateEngine

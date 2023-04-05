@@ -5,7 +5,7 @@ import com.msg.gauth.domain.email.repository.EmailAuthRepository
 import org.springframework.stereotype.Service
 
 @Service
-class MailVerificationCheckService(
+class CheckMailVerificationService(
     private val emailAuthRepository: EmailAuthRepository,
 ){
     fun execute(email: String){
