@@ -6,7 +6,7 @@ import com.msg.gauth.domain.user.utils.UserUtil
 import com.msg.gauth.global.annotation.service.ReadOnlyService
 
 @ReadOnlyService
-class MyProfileService(
+class GetMyProfileService(
     private val userUtil: UserUtil,
     private val clientRepository: ClientRepository
 ) {

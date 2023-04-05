@@ -6,7 +6,7 @@ import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.ReadOnlyService
 
 @ReadOnlyService
-class GetPendingUserListService(
+class GetPendingUsersService(
     private val userRepository: UserRepository
 ) {
     fun execute(): List<SinglePendingListResDto>
