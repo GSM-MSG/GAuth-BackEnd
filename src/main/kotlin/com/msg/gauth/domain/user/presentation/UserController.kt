@@ -20,9 +20,9 @@ class UserController(
     private val changePasswordService: ChangePasswordService,
     private val uploadProfileService: UploadProfileService,
     private val myProfileService: MyProfileService,
-    private val acceptedUserService: AcceptedUserService,
+    private val getAcceptedUserService: GetAcceptedUserService,
     private val acceptTeacherSignUpService: AcceptTeacherSignUpService,
-    private val pendingListService: PendingListService,
+    private val getPendingUserListService: GetPendingUserListService,
     private val acceptStudentSignUpService: AcceptStudentSignUpService,
     private val getMyRolesService: GetMyRolesService
 ) {
@@ -56,7 +56,7 @@ class UserController(
                          @RequestParam keyword: String?,
                          pageable: Pageable
     ): ResponseEntity<List<SingleAcceptedUserResDto>> {
-        val result = acceptedUserService.execute(grade, classNum, keyword, pageable)
+        val result = getAcceptedUserService.execute(grade, classNum, keyword, pageable)
         return ResponseEntity.ok(result)
     }
 
@@ -68,7 +68,7 @@ class UserController(
 
     @GetMapping("/pending")
     fun pendingList(): ResponseEntity<List<SinglePendingListResDto>> {
-        val result = pendingListService.execute()
+        val result = getPendingUserListService.execute()
         return ResponseEntity.ok(result)
     }
 
