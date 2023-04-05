@@ -15,13 +15,14 @@ import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.ReadOnlyService
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
+import com.msg.gauth.global.security.jwt.OauthTokenProvider
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @ReadOnlyService
 class OauthTokenService(
     private val clientRepository: ClientRepository,
     private val userRepository: UserRepository,
-    private val tokenProvider: JwtTokenProvider,
+    private val oauthTokenProvider: OauthTokenProvider,
     private val refreshTokenRepository: OauthRefreshTokenRepository,
     private val oauthCodeRepository: OauthCodeRepository
 ){
@@ -43,8 +44,8 @@ class OauthTokenService(
         client: Client,
         user: User
     ): UserTokenResponseDto {
-        val accessToken = tokenProvider.generateOauthAccessToken(email, client.clientId)
-        val refreshToken = tokenProvider.generateOauthRefreshToken(email, client.clientId)
+        val (accessToken, refreshToken) = oauthTokenProvider.run {
+            generateOauthAccessToken(email, client.clientId) to generateOauthRefreshToken(email, client.clientId)}
         refreshTokenRepository.save(OauthRefreshToken(user.id, refreshToken))
         return UserTokenResponseDto(
             accessToken = accessToken,
