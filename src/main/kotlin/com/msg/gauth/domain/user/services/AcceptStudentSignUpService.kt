@@ -15,6 +15,7 @@ class AcceptStudentSignUpService(
         val user = userRepository.findByIdAndStateAndRoles(acceptedStudentReqDto.id, UserState.PENDING, mutableListOf(UserRole.ROLE_STUDENT))
             ?: throw UserNotFoundException()
 
-        userRepository.save(user.update(acceptedStudentReqDto))
+        user.update(acceptedStudentReqDto)
+            .let { userRepository.save(it) }
     }
 }
