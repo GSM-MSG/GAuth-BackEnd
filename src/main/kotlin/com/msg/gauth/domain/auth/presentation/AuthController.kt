@@ -22,7 +22,7 @@ class AuthController(
     private val signInService: SignInService,
     private val signUpService: SignUpService,
     private val initPasswordService: InitPasswordService,
-    private val signupImageUploadService: SignupImageUploadService,
+    private val signupImageUploadService: SignUpImageUploadService,
 ) {
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> {
