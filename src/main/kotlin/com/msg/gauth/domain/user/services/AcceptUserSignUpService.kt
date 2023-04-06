@@ -13,16 +13,16 @@ class AcceptUserSignUpService(
     private val userRepository: UserRepository
 ) {
 
-    private fun getUser(id: Long, userRole: UserRole) =
-        userRepository.findByIdAndStateAndRoles(id, UserState.PENDING, mutableListOf(userRole))
+    private fun getUser(id: Long) =
+        userRepository.findByIdAndState(id, UserState.PENDING)
             ?: throw UserNotFoundException()
 
     private fun acceptStudent(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        userRepository.save(getUser(id, UserRole.ROLE_STUDENT).update(acceptUserReqDto))
+        userRepository.save(getUser(id).update(acceptUserReqDto))
 
 
     private fun acceptTeacher(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        userRepository.save(getUser(id, UserRole.ROLE_TEACHER).update(acceptUserReqDto.name, acceptUserReqDto.gender))
+        userRepository.save(getUser(id).update(acceptUserReqDto.name, acceptUserReqDto.gender))
 
     fun execute(id: Long, acceptUserReqDto: AcceptUserReqDto) =
         when(acceptUserReqDto.userRole){
