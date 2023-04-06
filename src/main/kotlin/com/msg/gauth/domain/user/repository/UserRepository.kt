@@ -15,6 +15,7 @@ interface UserRepository: JpaRepository<User, Long>, JpaSpecificationExecutor<Us
     @Query("select user.email from User user")
     fun findAllEmail(): List<String>
     fun findAllByState(state: UserState): List<User>
+    fun findByIdAndState(id: Long, roles: UserState): User?
     fun findAllByStateOrderByGrade(state: UserState, pageable: Pageable): List<User>
     fun findAllByStateAndNameContainingOrderByGrade(state: UserState, name: String, pageable: Pageable): List<User>
     fun findAllByStateAndClassNumOrderByGrade(state: UserState, classNum: Int, pageable: Pageable): List<User>

@@ -3,6 +3,7 @@ package com.msg.gauth.domain.user.presentation
 import com.msg.gauth.domain.user.presentation.dto.response.GetMyRolesResDto
 import com.msg.gauth.domain.user.presentation.dto.request.AcceptStudentReqDto
 import com.msg.gauth.domain.user.presentation.dto.request.AcceptTeacherReqDto
+import com.msg.gauth.domain.user.presentation.dto.request.AcceptUserReqDto
 import com.msg.gauth.domain.user.presentation.dto.request.PasswordChangeReqDto
 import com.msg.gauth.domain.user.presentation.dto.response.MyProfileResDto
 import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
@@ -24,7 +25,8 @@ class UserController(
     private val acceptTeacherSignUpService: AcceptTeacherSignUpService,
     private val getPendingUsersService: GetPendingUsersService,
     private val acceptStudentSignUpService: AcceptStudentSignUpService,
-    private val getMyRolesService: GetMyRolesService
+    private val getMyRolesService: GetMyRolesService,
+    private val acceptUserSignUpService: AcceptUserSignUpService
 ) {
     @GetMapping("/role")
     fun getMyRoles(): ResponseEntity<GetMyRolesResDto> {
@@ -64,6 +66,12 @@ class UserController(
     fun pendingList(): ResponseEntity<List<SinglePendingListResDto>> {
         val result = getPendingUsersService.execute()
         return ResponseEntity.ok(result)
+    }
+
+    @PatchMapping("/accept-user/{id}")
+    fun acceptUser(@PathVariable id: Long, @RequestBody @Valid acceptUserReqDto: AcceptUserReqDto): ResponseEntity<Void>{
+        acceptUserSignUpService.execute(id, acceptUserReqDto)
+        return ResponseEntity.noContent().build()
     }
 
     @Deprecated("This api is deprecated. Use acceptUser instead")

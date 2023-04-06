@@ -4,6 +4,7 @@ import com.msg.gauth.domain.user.enums.Gender
 import com.msg.gauth.domain.user.enums.UserRole
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.presentation.dto.request.AcceptStudentReqDto
+import com.msg.gauth.domain.user.presentation.dto.request.AcceptUserReqDto
 import com.msg.gauth.global.entity.BaseIdEntity
 import javax.persistence.*
 import javax.validation.constraints.Size
@@ -69,7 +70,7 @@ class User(
             num = this.num,
             gender = gender,
             password = this.password,
-            roles = this.roles,
+            roles = mutableListOf(UserRole.ROLE_TEACHER),
             state = UserState.CREATED,
             profileUrl = this.profileUrl
         )
@@ -101,6 +102,23 @@ class User(
             classNum = acceptedStudentReqDto.classNum,
             num = acceptedStudentReqDto.num,
             gender = acceptedStudentReqDto.gender,
+            password = this.password,
+            roles = this.roles,
+            state = UserState.CREATED,
+            profileUrl = this.profileUrl
+        )
+        user.id = this.id
+        return user
+    }
+
+    fun update(acceptUserReqDto: AcceptUserReqDto): User{
+        val user = User(
+            name = acceptUserReqDto.name,
+            email = this.email,
+            grade = acceptUserReqDto.grade,
+            classNum = acceptUserReqDto.classNum,
+            num = acceptUserReqDto.num,
+            gender = acceptUserReqDto.gender,
             password = this.password,
             roles = this.roles,
             state = UserState.CREATED,
