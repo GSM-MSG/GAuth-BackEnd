@@ -13,6 +13,13 @@ class AcceptUserSignUpService(
     private val userRepository: UserRepository
 ) {
 
+    fun execute(id: Long, acceptUserReqDto: AcceptUserReqDto) =
+        when(acceptUserReqDto.userRole){
+            UserRole.ROLE_STUDENT -> acceptStudent(id, acceptUserReqDto)
+            UserRole.ROLE_TEACHER -> acceptTeacher(id, acceptUserReqDto)
+            else -> throw BadUserRoleRequestException()
+        }
+
     private fun getUser(id: Long) =
         userRepository.findByIdAndState(id, UserState.PENDING)
             ?: throw UserNotFoundException()
@@ -24,10 +31,4 @@ class AcceptUserSignUpService(
     private fun acceptTeacher(id: Long, acceptUserReqDto: AcceptUserReqDto) =
         userRepository.save(getUser(id).update(acceptUserReqDto.name, acceptUserReqDto.gender))
 
-    fun execute(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        when(acceptUserReqDto.userRole){
-            UserRole.ROLE_STUDENT -> acceptStudent(id, acceptUserReqDto)
-            UserRole.ROLE_TEACHER -> acceptTeacher(id, acceptUserReqDto)
-            else -> throw BadUserRoleRequestException()
-        }
 }
