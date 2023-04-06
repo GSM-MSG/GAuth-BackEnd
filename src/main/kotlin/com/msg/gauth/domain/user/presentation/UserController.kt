@@ -68,9 +68,9 @@ class UserController(
         return ResponseEntity.ok(result)
     }
 
-    @PatchMapping("/accept-user")
-    fun acceptUser(@RequestBody @Valid acceptUserReqDto: AcceptUserReqDto): ResponseEntity<Void>{
-        acceptUserSignUpService.execute(acceptUserReqDto)
+    @PatchMapping("/accept-user/{id}")
+    fun acceptUser(@PathVariable id: Long, @RequestBody @Valid acceptUserReqDto: AcceptUserReqDto): ResponseEntity<Void>{
+        acceptUserSignUpService.execute(id, acceptUserReqDto)
         return ResponseEntity.noContent().build()
     }
 

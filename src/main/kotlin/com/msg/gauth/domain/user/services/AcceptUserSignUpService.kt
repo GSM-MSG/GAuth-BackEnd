@@ -17,17 +17,17 @@ class AcceptUserSignUpService(
         userRepository.findByIdAndStateAndRoles(id, UserState.PENDING, mutableListOf(userRole))
             ?: throw UserNotFoundException()
 
-    private fun acceptStudent(acceptUserReqDto: AcceptUserReqDto) =
-        userRepository.save(getUser(acceptUserReqDto.id, UserRole.ROLE_STUDENT).update(acceptUserReqDto))
+    private fun acceptStudent(id: Long, acceptUserReqDto: AcceptUserReqDto) =
+        userRepository.save(getUser(id, UserRole.ROLE_STUDENT).update(acceptUserReqDto))
 
 
-    private fun acceptTeacher(acceptUserReqDto: AcceptUserReqDto) =
-        userRepository.save(getUser(acceptUserReqDto.id, UserRole.ROLE_TEACHER).update(acceptUserReqDto.name, acceptUserReqDto.gender))
+    private fun acceptTeacher(id: Long, acceptUserReqDto: AcceptUserReqDto) =
+        userRepository.save(getUser(id, UserRole.ROLE_TEACHER).update(acceptUserReqDto.name, acceptUserReqDto.gender))
 
-    fun execute(acceptUserReqDto: AcceptUserReqDto) =
+    fun execute(id: Long, acceptUserReqDto: AcceptUserReqDto) =
         when(acceptUserReqDto.userRole){
-            UserRole.ROLE_STUDENT -> acceptStudent(acceptUserReqDto)
-            UserRole.ROLE_TEACHER -> acceptTeacher(acceptUserReqDto)
+            UserRole.ROLE_STUDENT -> acceptStudent(id, acceptUserReqDto)
+            UserRole.ROLE_TEACHER -> acceptTeacher(id, acceptUserReqDto)
             else -> throw BadUserRoleRequestException()
         }
 }
