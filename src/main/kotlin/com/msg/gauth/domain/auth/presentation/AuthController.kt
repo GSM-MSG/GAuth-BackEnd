@@ -3,9 +3,9 @@ package com.msg.gauth.domain.auth.presentation
 import com.msg.gauth.domain.auth.presentation.dto.request.SignUpDto
 import com.msg.gauth.domain.auth.presentation.dto.request.SigninRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto
-import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto
 import com.msg.gauth.domain.auth.services.*
 import com.msg.gauth.domain.auth.presentation.dto.request.PasswordInitReqDto
+import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SignupImageResDto
 import com.msg.gauth.domain.auth.services.InitPasswordService
 import org.springframework.http.HttpStatus
@@ -22,7 +22,7 @@ class AuthController(
     private val signInService: SignInService,
     private val signUpService: SignUpService,
     private val initPasswordService: InitPasswordService,
-    private val signupImageUploadService: SignUpImageUploadService,
+    private val signUpImageUploadService: SignupImageUploadService,
 ) {
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> {
@@ -37,8 +37,8 @@ class AuthController(
     }
 
     @PostMapping
-    fun signin(@Valid @RequestBody signinRequestDto: SigninRequestDto): ResponseEntity<SigninResponseDto> {
-        val result = signInService.execute(signinRequestDto)
+    fun signin(@Valid @RequestBody signInRequestDto: SigninRequestDto): ResponseEntity<SigninResponseDto> {
+        val result = signInService.execute(signInRequestDto)
         return ResponseEntity.ok(result)
     }
 
@@ -50,7 +50,7 @@ class AuthController(
 
     @PatchMapping("/image")
     fun uploadSignupImage(@RequestPart("image") image: MultipartFile, @RequestPart("imageUrl") previousUrl: String?, @RequestPart email: String): ResponseEntity<SignupImageResDto> {
-        val result = signupImageUploadService.execute(image, previousUrl, email)
+        val result = signUpImageUploadService.execute(image, previousUrl, email)
         return ResponseEntity.ok(result)
     }
 
