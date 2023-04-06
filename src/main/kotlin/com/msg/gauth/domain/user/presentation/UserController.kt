@@ -60,8 +60,6 @@ class UserController(
         return ResponseEntity.ok(result)
     }
 
-
-
     @GetMapping("/pending")
     fun pendingList(): ResponseEntity<List<SinglePendingListResDto>> {
         val result = getPendingUsersService.execute()
