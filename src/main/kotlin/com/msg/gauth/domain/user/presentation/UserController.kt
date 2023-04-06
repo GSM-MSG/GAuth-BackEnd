@@ -60,18 +60,20 @@ class UserController(
         return ResponseEntity.ok(result)
     }
 
-    @PatchMapping("/accept-teacher")
-    fun acceptTeacher(@RequestBody @Valid acceptTeacherReqDto: AcceptTeacherReqDto): ResponseEntity<Void>{
-        acceptTeacherSignUpService.execute(acceptTeacherReqDto)
-        return ResponseEntity.noContent().build()
-    }
-
     @GetMapping("/pending")
     fun pendingList(): ResponseEntity<List<SinglePendingListResDto>> {
         val result = getPendingUsersService.execute()
         return ResponseEntity.ok(result)
     }
 
+    @Deprecated("This api is deprecated. Use acceptUser instead")
+    @PatchMapping("/accept-teacher")
+    fun acceptTeacher(@RequestBody @Valid acceptTeacherReqDto: AcceptTeacherReqDto): ResponseEntity<Void>{
+        acceptTeacherSignUpService.execute(acceptTeacherReqDto)
+        return ResponseEntity.noContent().build()
+    }
+
+    @Deprecated("This api is deprecated. Use acceptUser instead")
     @PatchMapping("/accept-student")
     fun acceptStudent(@RequestBody @Valid acceptedStudentReqDto: AcceptStudentReqDto): ResponseEntity<Void> {
         acceptStudentSignUpService.execute(acceptedStudentReqDto)
