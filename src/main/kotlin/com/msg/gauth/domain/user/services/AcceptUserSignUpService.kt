@@ -25,10 +25,12 @@ class AcceptUserSignUpService(
             ?: throw UserNotFoundException()
 
     private fun acceptStudent(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        userRepository.save(getUser(id).update(acceptUserReqDto))
+        getUser(id).update(acceptUserReqDto)
+            .let { userRepository.save(it) }
 
 
     private fun acceptTeacher(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        userRepository.save(getUser(id).update(acceptUserReqDto.name, acceptUserReqDto.gender))
+        getUser(id).update(acceptUserReqDto.name, acceptUserReqDto.gender)
+            .let { userRepository.save(it) }
 
 }
