@@ -32,7 +32,5 @@ enum class ErrorCode(
     MANY_REQUEST_EMAIL_AUTH("15분에 최대 3번 이메일 인증을 요청할 수 있습니다.", 429),
 
     MAIL_SEND_FAIL("메일을 보내는데 실패했습니다.", 500),
-    INTERNAL_SERVER_ERROR("서버 내부 에러", 500)
-
-    ;
+    INTERNAL_SERVER_ERROR("서버 내부 에러", 500);
 }
