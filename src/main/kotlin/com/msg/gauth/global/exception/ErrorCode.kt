@@ -20,6 +20,8 @@ enum class ErrorCode(
     USER_NOT_SAME("유저가 일치하지 않습니다", 401),
     OAUTH_CODE_EXPIRED("oauth 코드가 만료되었습니다.", 401),
 
+    BAD_USER_ROLE_REQUEST("잘못된 유저 역할입니다..", 400),
+
     FORBIDDEN("금지된 요청입니다.", 403),
     USER_STATE_PENDING("유저가 보류중 입니다.", 403),
 

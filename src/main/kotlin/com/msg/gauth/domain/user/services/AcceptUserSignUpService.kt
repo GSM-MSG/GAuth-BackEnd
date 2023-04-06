@@ -1,12 +1,12 @@
 package com.msg.gauth.domain.user.services
 
+import com.msg.gauth.domain.client.exception.BadUserRoleRequestException
 import com.msg.gauth.domain.user.enums.UserRole
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.presentation.dto.request.AcceptUserReqDto
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
-import com.msg.gauth.global.exception.exceptions.BadRequestException
 
 @TransactionalService
 class AcceptUserSignUpService(
@@ -28,8 +28,6 @@ class AcceptUserSignUpService(
         when(acceptUserReqDto.userRole){
             UserRole.ROLE_STUDENT -> acceptStudent(acceptUserReqDto)
             UserRole.ROLE_TEACHER -> acceptTeacher(acceptUserReqDto)
-            else -> throw BadRequestException()
+            else -> throw BadUserRoleRequestException()
         }
-
-
 }
