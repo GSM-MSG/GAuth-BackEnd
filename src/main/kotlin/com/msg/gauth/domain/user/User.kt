@@ -61,7 +61,7 @@ class User(
         return user
     }
 
-    fun update(name: String, gender: Gender): User {
+    fun update(name: String, gender: Gender, roles: MutableList<UserRole>): User {
         val user = User(
             name = name,
             email = this.email,
@@ -70,7 +70,7 @@ class User(
             num = this.num,
             gender = gender,
             password = this.password,
-            roles = this.roles,
+            roles = roles,
             state = UserState.CREATED,
             profileUrl = this.profileUrl
         )

@@ -29,6 +29,6 @@ class AcceptUserSignUpService(
 
 
     private fun acceptTeacher(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        userRepository.save(getUser(id).update(acceptUserReqDto.name, acceptUserReqDto.gender))
+        userRepository.save(getUser(id).update(acceptUserReqDto.name, acceptUserReqDto.gender, mutableListOf(UserRole.ROLE_TEACHER)))
 
 }
