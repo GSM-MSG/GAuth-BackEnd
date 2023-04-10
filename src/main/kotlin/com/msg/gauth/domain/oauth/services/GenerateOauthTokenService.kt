@@ -15,6 +15,7 @@ import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.ReadOnlyService
 import com.msg.gauth.global.security.jwt.OauthTokenProvider
+import org.springframework.data.repository.findByIdOrNull
 
 @ReadOnlyService
 class GenerateOauthTokenService(
@@ -29,8 +30,8 @@ class GenerateOauthTokenService(
             ?: throw ClientNotFindException())
         if(client.clientSecret != userTokenRequestDto.clientSecret)
             throw ClientSecretMismatchException()
-        val oauthCode = oauthCodeRepository.findById(userTokenRequestDto.code)
-            .orElseThrow { throw OauthCodeExpiredException() }
+        val oauthCode = oauthCodeRepository.findByIdOrNull(userTokenRequestDto.code)
+            ?: throw OauthCodeExpiredException()
         val email = oauthCode
             .email
         oauthCodeRepository.delete(oauthCode)
