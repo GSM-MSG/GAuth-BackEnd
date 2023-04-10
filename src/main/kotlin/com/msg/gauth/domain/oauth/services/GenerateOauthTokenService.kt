@@ -14,12 +14,10 @@ import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.ReadOnlyService
-import com.msg.gauth.global.security.jwt.JwtTokenProvider
 import com.msg.gauth.global.security.jwt.OauthTokenProvider
-import org.springframework.security.crypto.password.PasswordEncoder
 
 @ReadOnlyService
-class OauthTokenService(
+class GenerateOauthTokenService(
     private val clientRepository: ClientRepository,
     private val userRepository: UserRepository,
     private val oauthTokenProvider: OauthTokenProvider,
