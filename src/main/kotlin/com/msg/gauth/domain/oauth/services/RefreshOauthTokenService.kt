@@ -3,7 +3,7 @@ package com.msg.gauth.domain.oauth.services
 import com.msg.gauth.domain.auth.exception.ExpiredRefreshTokenException
 import com.msg.gauth.domain.auth.exception.InvalidRefreshTokenException
 import com.msg.gauth.domain.oauth.OauthRefreshToken
-import com.msg.gauth.domain.oauth.presentation.dto.response.UserTokenResponseDto
+import com.msg.gauth.domain.oauth.presentation.dto.response.OauthTokenResponseDto
 import com.msg.gauth.domain.oauth.repository.OauthRefreshTokenRepository
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
@@ -16,7 +16,7 @@ class RefreshOauthTokenService(
     private val oauthTokenProvider: OauthTokenProvider,
     private val userRepository: UserRepository,
 ){
-    fun execute(requestToken: String): UserTokenResponseDto{
+    fun execute(requestToken: String): OauthTokenResponseDto{
         val refreshToken = oauthTokenProvider.parseToken(requestToken) ?: throw InvalidRefreshTokenException()
 
         val (email, clientId) = oauthTokenProvider.run {
@@ -31,6 +31,6 @@ class RefreshOauthTokenService(
         val newRefreshToken = OauthRefreshToken(user.id, refresh)
         tokenRepository.save(newRefreshToken)
 
-        return UserTokenResponseDto(access, refresh)
+        return OauthTokenResponseDto(access, refresh)
     }
 }

@@ -6,8 +6,8 @@ import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.oauth.OauthRefreshToken
 import com.msg.gauth.domain.oauth.exception.ClientSecretMismatchException
 import com.msg.gauth.domain.oauth.exception.OauthCodeExpiredException
-import com.msg.gauth.domain.oauth.presentation.dto.request.UserTokenRequestDto
-import com.msg.gauth.domain.oauth.presentation.dto.response.UserTokenResponseDto
+import com.msg.gauth.domain.oauth.presentation.dto.request.OauthTokenRequestDto
+import com.msg.gauth.domain.oauth.presentation.dto.response.OauthTokenResponseDto
 import com.msg.gauth.domain.oauth.repository.OauthCodeRepository
 import com.msg.gauth.domain.oauth.repository.OauthRefreshTokenRepository
 import com.msg.gauth.domain.user.User
@@ -25,12 +25,12 @@ class GenerateOauthTokenService(
     private val refreshTokenRepository: OauthRefreshTokenRepository,
     private val oauthCodeRepository: OauthCodeRepository
 ){
-    fun execute(userTokenRequestDto: UserTokenRequestDto): UserTokenResponseDto{
-        val client = (clientRepository.findByClientIdAndRedirectUri(userTokenRequestDto.clientId, userTokenRequestDto.redirectUri)
+    fun execute(oauthTokenRequestDto: OauthTokenRequestDto): OauthTokenResponseDto{
+        val client = (clientRepository.findByClientIdAndRedirectUri(oauthTokenRequestDto.clientId, oauthTokenRequestDto.redirectUri)
             ?: throw ClientNotFindException())
-        if(client.clientSecret != userTokenRequestDto.clientSecret)
+        if(client.clientSecret != oauthTokenRequestDto.clientSecret)
             throw ClientSecretMismatchException()
-        val oauthCode = oauthCodeRepository.findByIdOrNull(userTokenRequestDto.code)
+        val oauthCode = oauthCodeRepository.findByIdOrNull(oauthTokenRequestDto.code)
             ?: throw OauthCodeExpiredException()
         val email = oauthCode
             .email
@@ -44,12 +44,12 @@ class GenerateOauthTokenService(
         email: String,
         client: Client,
         user: User
-    ): UserTokenResponseDto {
+    ): OauthTokenResponseDto {
         val (accessToken, refreshToken) = oauthTokenProvider.run {
             generateOauthAccessToken(email, client.clientId) to generateOauthRefreshToken(email, client.clientId)
         }
         refreshTokenRepository.save(OauthRefreshToken(user.id, refreshToken))
-        return UserTokenResponseDto(
+        return OauthTokenResponseDto(
             accessToken = accessToken,
             refreshToken = refreshToken
         )

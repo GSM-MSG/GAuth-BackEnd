@@ -1,10 +1,10 @@
 package com.msg.gauth.domain.oauth.presentation
 
 import com.msg.gauth.domain.oauth.presentation.dto.request.OauthCodeRequestDto
-import com.msg.gauth.domain.oauth.presentation.dto.request.UserTokenRequestDto
+import com.msg.gauth.domain.oauth.presentation.dto.request.OauthTokenRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.OauthCodeResponseDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.ServiceNameResponseDto
-import com.msg.gauth.domain.oauth.presentation.dto.response.UserTokenResponseDto
+import com.msg.gauth.domain.oauth.presentation.dto.response.OauthTokenResponseDto
 import com.msg.gauth.domain.oauth.services.GetServiceNameService
 import com.msg.gauth.domain.oauth.services.GenerateOauthCodeService
 import com.msg.gauth.domain.oauth.services.RefreshOauthTokenService
@@ -34,13 +34,13 @@ class OauthController(
     }
 
     @PostMapping("/token")
-    fun generateOauthToken(@Valid @RequestBody userTokenRequestDto: UserTokenRequestDto): ResponseEntity<UserTokenResponseDto> {
-        val result = generateOauthTokenService.execute(userTokenRequestDto)
+    fun generateOauthToken(@Valid @RequestBody oauthTokenRequestDto: OauthTokenRequestDto): ResponseEntity<OauthTokenResponseDto> {
+        val result = generateOauthTokenService.execute(oauthTokenRequestDto)
         return ResponseEntity.ok(result)
     }
 
     @PatchMapping("/token")
-    fun refreshOauthToken(@RequestHeader refreshToken: String): ResponseEntity<UserTokenResponseDto> {
+    fun refreshOauthToken(@RequestHeader refreshToken: String): ResponseEntity<OauthTokenResponseDto> {
         val result = refreshOauthTokenService.execute(refreshToken)
         return ResponseEntity.ok(result)
     }
