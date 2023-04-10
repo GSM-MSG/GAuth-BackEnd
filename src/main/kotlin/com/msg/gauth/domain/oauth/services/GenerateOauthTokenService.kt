@@ -46,7 +46,8 @@ class GenerateOauthTokenService(
         user: User
     ): UserTokenResponseDto {
         val (accessToken, refreshToken) = oauthTokenProvider.run {
-            generateOauthAccessToken(email, client.clientId) to generateOauthRefreshToken(email, client.clientId)}
+            generateOauthAccessToken(email, client.clientId) to generateOauthRefreshToken(email, client.clientId)
+        }
         refreshTokenRepository.save(OauthRefreshToken(user.id, refreshToken))
         return UserTokenResponseDto(
             accessToken = accessToken,
