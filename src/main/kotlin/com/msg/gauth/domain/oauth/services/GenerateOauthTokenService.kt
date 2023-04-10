@@ -6,34 +6,35 @@ import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.oauth.OauthRefreshToken
 import com.msg.gauth.domain.oauth.exception.ClientSecretMismatchException
 import com.msg.gauth.domain.oauth.exception.OauthCodeExpiredException
-import com.msg.gauth.domain.oauth.presentation.dto.request.UserTokenRequestDto
-import com.msg.gauth.domain.oauth.presentation.dto.response.UserTokenResponseDto
+import com.msg.gauth.domain.oauth.presentation.dto.request.OauthTokenRequestDto
+import com.msg.gauth.domain.oauth.presentation.dto.response.OauthTokenResponseDto
 import com.msg.gauth.domain.oauth.repository.OauthCodeRepository
 import com.msg.gauth.domain.oauth.repository.OauthRefreshTokenRepository
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.ReadOnlyService
-import com.msg.gauth.global.security.jwt.JwtTokenProvider
 import com.msg.gauth.global.security.jwt.OauthTokenProvider
-import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.data.repository.findByIdOrNull
 
 @ReadOnlyService
-class OauthTokenService(
+class GenerateOauthTokenService(
     private val clientRepository: ClientRepository,
     private val userRepository: UserRepository,
     private val oauthTokenProvider: OauthTokenProvider,
     private val refreshTokenRepository: OauthRefreshTokenRepository,
     private val oauthCodeRepository: OauthCodeRepository
 ){
-    fun execute(userTokenRequestDto: UserTokenRequestDto): UserTokenResponseDto{
-        val client = (clientRepository.findByClientIdAndRedirectUri(userTokenRequestDto.clientId, userTokenRequestDto.redirectUri)
+    fun execute(oauthTokenRequestDto: OauthTokenRequestDto): OauthTokenResponseDto{
+        val client = (clientRepository.findByClientIdAndRedirectUri(oauthTokenRequestDto.clientId, oauthTokenRequestDto.redirectUri)
             ?: throw ClientNotFindException())
-        if(client.clientSecret != userTokenRequestDto.clientSecret)
+        if(client.clientSecret != oauthTokenRequestDto.clientSecret)
             throw ClientSecretMismatchException()
-        val email = oauthCodeRepository.findById(userTokenRequestDto.code)
-            .orElseThrow { throw OauthCodeExpiredException() }
+        val oauthCode = oauthCodeRepository.findByIdOrNull(oauthTokenRequestDto.code)
+            ?: throw OauthCodeExpiredException()
+        val email = oauthCode
             .email
+        oauthCodeRepository.delete(oauthCode)
         val user = (userRepository.findByEmail(email)
             ?: throw UserNotFoundException())
         return tokenResponseDto(email, client, user)
@@ -43,11 +44,12 @@ class OauthTokenService(
         email: String,
         client: Client,
         user: User
-    ): UserTokenResponseDto {
+    ): OauthTokenResponseDto {
         val (accessToken, refreshToken) = oauthTokenProvider.run {
-            generateOauthAccessToken(email, client.clientId) to generateOauthRefreshToken(email, client.clientId)}
+            generateOauthAccessToken(email, client.clientId) to generateOauthRefreshToken(email, client.clientId)
+        }
         refreshTokenRepository.save(OauthRefreshToken(user.id, refreshToken))
-        return UserTokenResponseDto(
+        return OauthTokenResponseDto(
             accessToken = accessToken,
             refreshToken = refreshToken
         )

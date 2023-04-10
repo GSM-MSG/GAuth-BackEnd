@@ -2,7 +2,7 @@ package com.msg.gauth.domain.oauth.presentation.dto.request
 
 import javax.validation.constraints.NotBlank
 
-data class UserTokenRequestDto(
+data class OauthTokenRequestDto(
     @field:NotBlank
     val code: String,
 
