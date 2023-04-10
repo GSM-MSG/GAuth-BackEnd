@@ -31,9 +31,11 @@ class OauthTokenService(
             ?: throw ClientNotFindException())
         if(client.clientSecret != userTokenRequestDto.clientSecret)
             throw ClientSecretMismatchException()
-        val email = oauthCodeRepository.findById(userTokenRequestDto.code)
+        val oauthCode = oauthCodeRepository.findById(userTokenRequestDto.code)
             .orElseThrow { throw OauthCodeExpiredException() }
+        val email = oauthCode
             .email
+        oauthCodeRepository.delete(oauthCode)
         val user = (userRepository.findByEmail(email)
             ?: throw UserNotFoundException())
         return tokenResponseDto(email, client, user)
