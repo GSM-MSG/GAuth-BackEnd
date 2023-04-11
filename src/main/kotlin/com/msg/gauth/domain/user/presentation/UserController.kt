@@ -9,7 +9,7 @@ import com.msg.gauth.domain.user.presentation.dto.response.MyProfileResDto
 import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
 import com.msg.gauth.domain.user.presentation.dto.response.SinglePendingListResDto
 import com.msg.gauth.domain.user.services.*
-import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -58,7 +58,7 @@ class UserController(
                          @RequestParam keyword: String = "",
                          @RequestParam(defaultValue = "0") page: Int,
                          @RequestParam(defaultValue = "10") size: Int
-    ): ResponseEntity<List<SingleAcceptedUserResDto>> {
+    ): ResponseEntity<Page<SingleAcceptedUserResDto>> {
         val result = getAcceptedUsersService.execute(grade, classNum, keyword, page, size)
         return ResponseEntity.ok(result)
     }
