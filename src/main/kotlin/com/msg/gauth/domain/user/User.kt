@@ -44,6 +44,7 @@ class User(
     @Column(nullable = true, columnDefinition = "TEXT")
     val profileUrl: String?,
 ): BaseIdEntity(){
+
     fun update(name: String, grade: Int, classNum: Int, num: Int, gender: Gender): User{
         val user = User(
             name = name,
@@ -61,7 +62,7 @@ class User(
         return user
     }
 
-    fun update(name: String, gender: Gender): User {
+    fun updateTeacher(name: String, gender: Gender): User {
         val user = User(
             name = name,
             email = this.email,
@@ -71,6 +72,23 @@ class User(
             gender = gender,
             password = this.password,
             roles = mutableListOf(UserRole.ROLE_TEACHER),
+            state = UserState.CREATED,
+            profileUrl = this.profileUrl
+        )
+        user.id = this.id
+        return user
+    }
+
+    fun updateGraduate(name: String, gender: Gender): User {
+        val user = User(
+            name = name,
+            email = this.email,
+            grade = this.grade,
+            classNum = this.classNum,
+            num = this.num,
+            gender = gender,
+            password = this.password,
+            roles = mutableListOf(UserRole.ROLE_GRADUATE),
             state = UserState.CREATED,
             profileUrl = this.profileUrl
         )

@@ -17,6 +17,7 @@ class AcceptUserSignUpService(
         when(acceptUserReqDto.userRole){
             UserRole.ROLE_STUDENT -> acceptStudent(id, acceptUserReqDto)
             UserRole.ROLE_TEACHER -> acceptTeacher(id, acceptUserReqDto)
+            UserRole.ROLE_GRADUATE -> acceptGraduate(id, acceptUserReqDto)
             else -> throw BadUserRoleRequestException()
         }
 
@@ -28,9 +29,12 @@ class AcceptUserSignUpService(
         getUser(id).update(acceptUserReqDto)
             .let { userRepository.save(it) }
 
-
     private fun acceptTeacher(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        getUser(id).update(acceptUserReqDto.name, acceptUserReqDto.gender)
+        getUser(id).updateTeacher(acceptUserReqDto.name, acceptUserReqDto.gender)
+            .let { userRepository.save(it) }
+
+    private fun acceptGraduate(id: Long, acceptUserReqDto: AcceptUserReqDto) =
+        getUser(id).updateGraduate(acceptUserReqDto.name, acceptUserReqDto.gender)
             .let { userRepository.save(it) }
 
 }
