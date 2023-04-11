@@ -1,12 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.ir.backend.js.compile
 
 plugins {
-    id("org.springframework.boot") version "2.7.3"
-    id("io.spring.dependency-management") version "1.0.13.RELEASE"
-    kotlin("jvm") version "1.7.10"
-    kotlin("plugin.spring") version "1.7.10"
-    kotlin("plugin.jpa") version "1.7.10"
+    id("org.springframework.boot") version PluginVersion.SPRING_BOOT_VERSION
+    id("io.spring.dependency-management") version PluginVersion.DEPENDENCY_MANAGER_VERSION
+    kotlin("jvm") version PluginVersion.JVM_VERSION
+    kotlin("plugin.spring") version PluginVersion.SPRING_PLUGIN_VERSION
+    kotlin("plugin.jpa") version PluginVersion.JPA_PLUGIN_VERSION
     application
 }
 
@@ -25,31 +24,44 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-mail")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("com.amazonaws:aws-java-sdk-s3:1.12.364")
-    runtimeOnly("com.h2database:h2")
-    runtimeOnly("mysql:mysql-connector-java")
-    runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
-    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.security:spring-security-test")
-    implementation("org.apache.poi:poi:5.2.2")
-    implementation("org.apache.poi:poi-ooxml:5.2.2")
-    implementation("commons-io:commons-io:2.11.0")
-    implementation("org.apache.tika:tika-core:2.6.0")
-    implementation("org.springframework.boot:spring-boot-starter-aop")
+
+    // spring
+    implementation(Dependencies.SPRING_JPA)
+    implementation(Dependencies.SPRING_REDIS)
+    implementation(Dependencies.SPRING_SECURITY)
+    implementation(Dependencies.SPRING_WEB)
+    implementation(Dependencies.SPRING_MAIL)
+    implementation(Dependencies.SPRING_THYMELEAF)
+    implementation(Dependencies.SPRING_VALIDATION)
+    annotationProcessor(Dependencies.CONFIG_PROCESSOR)
+    testImplementation(Dependencies.SPRING_STARTER_TEST)
+    testImplementation(Dependencies.SPRING_SECURITY_TEST)
+    implementation(Dependencies.SPRING_AOP)
+
+
+    // kotlin
+    implementation(Dependencies.JACKSON_MODULE_KOTLIN)
+    implementation(Dependencies.KOTLIN_REFLET)
+    implementation(Dependencies.KOTLIN_JDK)
+
+    // aws
+    implementation(Dependencies.AWS_S3)
+
+    // database
+    runtimeOnly(Dependencies.H2_DATABASE)
+    runtimeOnly(Dependencies.MYSQL_DATABASE)
+    runtimeOnly(Dependencies.MARIADB_DATABASE)
+
+    // jwt
+    implementation(Dependencies.JWT_API)
+    runtimeOnly(Dependencies.JWT_IMPL)
+    runtimeOnly(Dependencies.JWT_JACKSON)
+
+    // apache
+    implementation(Dependencies.APACHE_POI)
+    implementation(Dependencies.APACHE_POI_XML)
+    implementation(Dependencies.COMMONS_IO)
+    implementation(Dependencies.APACHE_TIKA)
 }
 
 tasks.withType<KotlinCompile> {
