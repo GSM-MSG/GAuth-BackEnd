@@ -29,7 +29,6 @@ class AcceptUserSignUpService(
         getUser(id).update(acceptUserReqDto)
             .let { userRepository.save(it) }
 
-
     private fun acceptTeacher(id: Long, acceptUserReqDto: AcceptUserReqDto) =
         getUser(id).updateTeacher(acceptUserReqDto.name, acceptUserReqDto.gender)
             .let { userRepository.save(it) }
