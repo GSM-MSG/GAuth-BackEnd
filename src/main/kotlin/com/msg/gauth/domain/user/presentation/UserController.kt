@@ -53,9 +53,9 @@ class UserController(
     }
 
     @GetMapping("/user-list")
-    fun acceptedUserList(@RequestParam grade: Int = 0,
-                         @RequestParam classNum: Int = 0,
-                         @RequestParam keyword: String = "",
+    fun acceptedUserList(@RequestParam(defaultValue = "0") grade: Int,
+                         @RequestParam(defaultValue = "0") classNum: Int,
+                         @RequestParam(defaultValue = "") keyword: String,
                          @RequestParam(defaultValue = "0") page: Int,
                          @RequestParam(defaultValue = "10") size: Int
     ): ResponseEntity<Page<SingleAcceptedUserResDto>> {
