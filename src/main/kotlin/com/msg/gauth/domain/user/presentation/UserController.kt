@@ -53,8 +53,8 @@ class UserController(
     }
 
     @GetMapping("/user-list")
-    fun acceptedUserList(@RequestParam grade: Int,
-                         @RequestParam classNum: Int,
+    fun acceptedUserList(@RequestParam grade: Int = 0,
+                         @RequestParam classNum: Int = 0,
                          @RequestParam keyword: String = "",
                          @RequestParam(defaultValue = "0") page: Int,
                          @RequestParam(defaultValue = "10") size: Int
