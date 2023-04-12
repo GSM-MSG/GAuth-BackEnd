@@ -57,7 +57,7 @@ class UserController(
                          @RequestParam(defaultValue = "0") classNum: Int,
                          @RequestParam(defaultValue = "") keyword: String,
                          @RequestParam(defaultValue = "0") page: Int,
-                         @RequestParam(defaultValue = "10") size: Int
+                         @RequestParam(defaultValue = "25") size: Int
     ): ResponseEntity<Page<SingleAcceptedUserResDto>> {
         val result = getAcceptedUsersService.execute(grade, classNum, keyword, page, size)
         return ResponseEntity.ok(result)
