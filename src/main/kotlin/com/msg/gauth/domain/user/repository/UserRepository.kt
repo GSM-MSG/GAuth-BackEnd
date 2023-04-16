@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 
-interface UserRepository: JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
+interface UserRepository: JpaRepository<User, Long> {
     fun findByEmail(email: String): User?
     fun findByEmailIn(emailList: List<String>): List<User>
     fun existsByEmail(email: String): Boolean
