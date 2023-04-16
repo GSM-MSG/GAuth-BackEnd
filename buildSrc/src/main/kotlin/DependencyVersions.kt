@@ -13,4 +13,8 @@ object DependencyVersions {
     const val APACHE_POI_XML_VERSION = "5.2.2"
     const val COMMONS_IO_VERSION = "2.11.0"
     const val APACHE_TIKA_VERSION = "2.6.0"
+
+    // querydsl
+    const val QUERY_DSL_VERSION = "5.0.0"
+    const val QUERY_DSL_APT_VERSION = "5.0.0"
 }

@@ -3,10 +3,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version PluginVersion.SPRING_BOOT_VERSION
     id("io.spring.dependency-management") version PluginVersion.DEPENDENCY_MANAGER_VERSION
+
     kotlin("jvm") version PluginVersion.JVM_VERSION
     kotlin("plugin.spring") version PluginVersion.SPRING_PLUGIN_VERSION
     kotlin("plugin.jpa") version PluginVersion.JPA_PLUGIN_VERSION
-    application
+    kotlin("kapt") version PluginVersion.KAPT_VERSION
 }
 
 group = "com.msg"
@@ -33,7 +34,7 @@ dependencies {
     implementation(Dependencies.SPRING_MAIL)
     implementation(Dependencies.SPRING_THYMELEAF)
     implementation(Dependencies.SPRING_VALIDATION)
-    annotationProcessor(Dependencies.CONFIG_PROCESSOR)
+    kapt(Dependencies.CONFIG_PROCESSOR)
     testImplementation(Dependencies.SPRING_STARTER_TEST)
     testImplementation(Dependencies.SPRING_SECURITY_TEST)
     implementation(Dependencies.SPRING_AOP)
@@ -62,6 +63,10 @@ dependencies {
     implementation(Dependencies.APACHE_POI_XML)
     implementation(Dependencies.COMMONS_IO)
     implementation(Dependencies.APACHE_TIKA)
+
+    // querydsl
+    implementation(Dependencies.QUERY_DSL)
+    kapt(Dependencies.QUERY_DSL_APT)
 }
 
 tasks.withType<KotlinCompile> {
