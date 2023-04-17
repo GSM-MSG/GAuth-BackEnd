@@ -26,7 +26,8 @@ class UserController(
     private val getPendingUsersService: GetPendingUsersService,
     private val acceptStudentSignUpService: AcceptStudentSignUpService,
     private val getMyRolesService: GetMyRolesService,
-    private val acceptUserSignUpService: AcceptUserSignUpService
+    private val acceptUserSignUpService: AcceptUserSignUpService,
+    private val rejectSignUpUserService: RejectSignUpUserService
 ) {
     @GetMapping("/role")
     fun getMyRoles(): ResponseEntity<GetMyRolesResDto> {
@@ -71,6 +72,12 @@ class UserController(
     fun acceptUser(@PathVariable id: Long, @RequestBody @Valid acceptUserReqDto: AcceptUserReqDto): ResponseEntity<Void>{
         acceptUserSignUpService.execute(id, acceptUserReqDto)
         return ResponseEntity.noContent().build()
+    }
+
+    @DeleteMapping("/reject/{id}")
+    fun rejectUser(@PathVariable id: Long): ResponseEntity<Void> {
+        rejectSignUpUserService.execute(id)
+        return ResponseEntity.ok().build()
     }
 
     @Deprecated("This api is deprecated. Use acceptUser instead")

@@ -77,6 +77,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/user/accept-student").hasRole("ADMIN")
             .antMatchers(HttpMethod.PATCH, "/user/accept-user").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/user/user-list").hasRole("ADMIN")
+            .antMatchers(HttpMethod.DELETE, "/user/reject/**").hasRole("ADMIN")
 
             .anyRequest().denyAll()
             .and()
