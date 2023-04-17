@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable
 class GetAcceptedUsersService(
     private val userRepository: UserRepository,
 ) {
-    fun execute(grade: Int, classNum: Int, keyword: String ): List<SingleAcceptedUserResDto> =
+    fun execute(grade: Int, classNum: Int, keyword: String): List<SingleAcceptedUserResDto> =
         userRepository.searchUser(grade, classNum, keyword)
             .map { SingleAcceptedUserResDto(it) }
 }
