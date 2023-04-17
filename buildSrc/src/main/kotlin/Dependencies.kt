@@ -37,4 +37,9 @@ object Dependencies {
     const val APACHE_POI_XML = "org.apache.poi:poi-ooxml:${DependencyVersions.APACHE_POI_XML_VERSION}"
     const val COMMONS_IO = "commons-io:commons-io:${DependencyVersions.COMMONS_IO_VERSION}"
     const val APACHE_TIKA = "org.apache.tika:tika-core:${DependencyVersions.APACHE_TIKA_VERSION}"
+
+    // querydsl
+    const val QUERY_DSL = "com.querydsl:querydsl-jpa:${DependencyVersions.QUERY_DSL_VERSION}"
+    const val QUERY_DSL_APT = "com.querydsl:querydsl-apt:${DependencyVersions.QUERY_DSL_APT_VERSION}:jpa"
+
 }
