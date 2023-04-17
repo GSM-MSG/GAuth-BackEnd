@@ -12,10 +12,9 @@ import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
 @Repository
-class CustomUserRepositoryImpl : CustomUserRepository {
-
-    @PersistenceContext
-    private lateinit var entityManager: EntityManager
+class CustomUserRepositoryImpl(
+    private val entityManager: EntityManager
+) : CustomUserRepository {
 
     override fun searchUser(grade: Int, classNum: Int, keyword: String): List<User> {
         val booleanBuilder = BooleanBuilder()
