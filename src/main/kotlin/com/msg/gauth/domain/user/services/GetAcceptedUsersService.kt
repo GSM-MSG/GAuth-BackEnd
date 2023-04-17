@@ -14,15 +14,7 @@ import org.springframework.data.domain.Pageable
 class GetAcceptedUsersService(
     private val userRepository: UserRepository,
 ) {
-    fun execute(grade: Int, classNum: Int, keyword: String, page: Int, size: Int): List<SingleAcceptedUserResDto> =
-        userRepository.findAllByState(UserState.CREATED, PageRequest.of(page, size))
-            .let { filterUser(it, grade, classNum, keyword) }
+    fun execute(grade: Int, classNum: Int, keyword: String ): List<SingleAcceptedUserResDto> =
+        userRepository.searchUser(grade, classNum, keyword)
             .map { SingleAcceptedUserResDto(it) }
-
-    private fun filterUser(users: Page<User>, grade: Int, classNum: Int, keyword: String): List<User> =
-        users.filter { grade == 0 || it.grade == grade }
-            .filter { classNum == 0 || it.classNum == classNum }
-            .filter { keyword.isEmpty() || it.name!!.contains(keyword) }
-            .toList()
-
 }
