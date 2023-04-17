@@ -55,11 +55,9 @@ class UserController(
     @GetMapping("/user-list")
     fun acceptedUserList(@RequestParam(defaultValue = "0") grade: Int,
                          @RequestParam(defaultValue = "0") classNum: Int,
-                         @RequestParam(defaultValue = "") keyword: String,
-                         @RequestParam(defaultValue = "0") page: Int,
-                         @RequestParam(defaultValue = "25") size: Int
+                         @RequestParam(defaultValue = "") keyword: String
     ): ResponseEntity<List<SingleAcceptedUserResDto>> {
-        val result = getAcceptedUsersService.execute(grade, classNum, keyword, page, size)
+        val result = getAcceptedUsersService.execute(grade, classNum, keyword)
         return ResponseEntity.ok(result)
     }
 
