@@ -1,13 +1,14 @@
 package com.msg.gauth.domain.user.repository
 
+import com.msg.gauth.domain.user.User
+import com.querydsl.core.types.dsl.BooleanExpression
+import com.querydsl.jpa.impl.JPAQueryFactory
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository
-import javax.persistence.EntityManager
 
 @Repository
-class CustomUserRepositoryImpl(private val entityManager: EntityManager): CustomUserRepository {
+class CustomUserRepositoryImpl : CustomUserRepository {
 
     override fun searchUser(grade: Int, classNum: Int, keyword: String) {
-      TODO("Asdf")
     }
-
 }

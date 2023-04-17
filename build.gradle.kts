@@ -9,6 +9,7 @@ plugins {
     kotlin("plugin.spring") version PluginVersion.SPRING_PLUGIN_VERSION
     kotlin("plugin.jpa") version PluginVersion.JPA_PLUGIN_VERSION
     kotlin("kapt") version PluginVersion.KAPT_VERSION
+    idea
 }
 
 group = "com.msg"
@@ -24,6 +25,8 @@ configurations {
 repositories {
     mavenCentral()
 }
+
+
 
 dependencies {
 
@@ -66,15 +69,9 @@ dependencies {
     implementation(Dependencies.APACHE_TIKA)
 
     // querydsl
-    api(Dependencies.QUERY_DSL)
+    implementation(Dependencies.QUERY_DSL)
+    implementation(Dependencies.QUERY_DSL_APT)
     kapt(Dependencies.QUERY_DSL_APT)
-}
-
-
-querydsl {
-    jpa = true
-    library = "com.querydsl:querydsl-apt:5.0.0"
-    querydslSourcesDir = "$projectDir/build/generated"
 }
 
 
@@ -82,6 +79,14 @@ tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "11"
+    }
+}
+
+idea {
+    module {
+        val kaptMain = file("build/generated/source/kapt/main")
+        sourceDirs.add(kaptMain)
+        generatedSourceDirs.add(kaptMain)
     }
 }
 
