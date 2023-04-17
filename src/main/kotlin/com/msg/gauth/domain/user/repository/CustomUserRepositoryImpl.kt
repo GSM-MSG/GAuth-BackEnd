@@ -13,7 +13,8 @@ import javax.persistence.PersistenceContext
 
 @Repository
 class CustomUserRepositoryImpl(
-    private val entityManager: EntityManager
+    private val entityManager: EntityManager,
+    private val jpaQueryFactory: JPAQueryFactory
 ) : CustomUserRepository {
 
     override fun searchUser(grade: Int, classNum: Int, keyword: String): List<User> {
@@ -31,7 +32,7 @@ class CustomUserRepositoryImpl(
             booleanBuilder.and(user.name.like("%$keyword%"))
         }
 
-        return JPAQueryFactory(entityManager).selectFrom(user)
+        return jpaQueryFactory.selectFrom(user)
             .where(booleanBuilder)
             .fetch()
     }
