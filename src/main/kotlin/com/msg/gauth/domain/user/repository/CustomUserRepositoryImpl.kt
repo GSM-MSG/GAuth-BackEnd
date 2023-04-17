@@ -13,7 +13,6 @@ import javax.persistence.PersistenceContext
 
 @Repository
 class CustomUserRepositoryImpl(
-    private val entityManager: EntityManager,
     private val jpaQueryFactory: JPAQueryFactory
 ) : CustomUserRepository {
 
