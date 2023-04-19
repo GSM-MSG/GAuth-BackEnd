@@ -6,7 +6,7 @@ import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
 
 @TransactionalService
-class RejectSignUpUserService(
+class UserSignUpRejectService(
     private val userRepository: UserRepository
 ) {
 
