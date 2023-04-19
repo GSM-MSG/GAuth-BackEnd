@@ -77,7 +77,7 @@ class UserController(
     @DeleteMapping("/reject/{id}")
     fun rejectUser(@PathVariable id: Long): ResponseEntity<Void> {
         rejectSignUpUserService.execute(id)
-        return ResponseEntity.ok().build()
+        return ResponseEntity.noContent().build()
     }
 
     @Deprecated("This api is deprecated. Use acceptUser instead")
