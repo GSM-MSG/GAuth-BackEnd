@@ -26,7 +26,7 @@ class UserController(
     private val acceptStudentSignUpService: AcceptStudentSignUpService,
     private val getMyRolesService: GetMyRolesService,
     private val acceptUserSignUpService: AcceptUserSignUpService,
-    private val userSignUpRejectService: UserSignUpRejectService
+    private val rejectUserSignUpService: RejectUserSignUpService
 ) {
     @GetMapping("/role")
     fun getMyRoles(): ResponseEntity<GetMyRolesResDto> {
@@ -75,7 +75,7 @@ class UserController(
 
     @DeleteMapping("/reject/{id}")
     fun rejectUser(@PathVariable id: Long): ResponseEntity<Void> {
-        userSignUpRejectService.execute(id)
+        rejectUserSignUpService.execute(id)
         return ResponseEntity.noContent().build()
     }
 
