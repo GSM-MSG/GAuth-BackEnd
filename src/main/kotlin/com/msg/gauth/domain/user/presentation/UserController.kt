@@ -9,7 +9,6 @@ import com.msg.gauth.domain.user.presentation.dto.response.MyProfileResDto
 import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
 import com.msg.gauth.domain.user.presentation.dto.response.SinglePendingListResDto
 import com.msg.gauth.domain.user.services.*
-import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -26,7 +25,8 @@ class UserController(
     private val getPendingUsersService: GetPendingUsersService,
     private val acceptStudentSignUpService: AcceptStudentSignUpService,
     private val getMyRolesService: GetMyRolesService,
-    private val acceptUserSignUpService: AcceptUserSignUpService
+    private val acceptUserSignUpService: AcceptUserSignUpService,
+    private val rejectUserSignUpService: RejectUserSignUpService
 ) {
     @GetMapping("/role")
     fun getMyRoles(): ResponseEntity<GetMyRolesResDto> {
@@ -70,6 +70,12 @@ class UserController(
     @PatchMapping("/accept-user/{id}")
     fun acceptUser(@PathVariable id: Long, @RequestBody @Valid acceptUserReqDto: AcceptUserReqDto): ResponseEntity<Void>{
         acceptUserSignUpService.execute(id, acceptUserReqDto)
+        return ResponseEntity.noContent().build()
+    }
+
+    @DeleteMapping("/reject/{id}")
+    fun rejectUser(@PathVariable id: Long): ResponseEntity<Void> {
+        rejectUserSignUpService.execute(id)
         return ResponseEntity.noContent().build()
     }
 
