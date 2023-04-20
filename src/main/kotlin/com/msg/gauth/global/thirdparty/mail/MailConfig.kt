@@ -1,6 +1,6 @@
-package com.msg.gauth.global.mail
+package com.msg.gauth.global.thirdparty.mail
 
-import com.msg.gauth.global.mail.properties.MailProperties
+import com.msg.gauth.global.thirdparty.mail.properties.MailProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.mail.javamail.JavaMailSender
@@ -19,7 +19,6 @@ class MailConfig(
             this.port = mailProperties.port
             this.username = mailProperties.username
             this.password = mailProperties.password
-
             this.javaMailProperties["mail.smtp.auth"] = true
             this.javaMailProperties["mail.smtp.connectiontimeout"] = 5000
             this.javaMailProperties["mail.smtp.timeout"] = 5000

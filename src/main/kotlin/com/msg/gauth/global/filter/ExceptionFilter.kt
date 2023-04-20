@@ -1,4 +1,4 @@
-package com.msg.gauth.global.security.filter
+package com.msg.gauth.global.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.msg.gauth.global.exception.ErrorCode

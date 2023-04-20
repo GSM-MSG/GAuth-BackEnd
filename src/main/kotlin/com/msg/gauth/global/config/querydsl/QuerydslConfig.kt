@@ -1,4 +1,4 @@
-package com.msg.gauth.global.querydsl
+package com.msg.gauth.global.config.querydsl
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.context.annotation.Bean

@@ -1,4 +1,4 @@
-package com.msg.gauth.global.web
+package com.msg.gauth.global.config.web
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.CorsRegistry
