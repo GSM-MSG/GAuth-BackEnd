@@ -5,7 +5,7 @@ import com.msg.gauth.domain.email.exception.AuthCodeExpiredException
 import com.msg.gauth.domain.email.exception.AuthCodeNotVerificationException
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
-import com.msg.gauth.global.aws.s3.S3Util
+import com.msg.gauth.global.thirdparty.aws.s3.S3Util
 import org.springframework.web.multipart.MultipartFile
 
 @TransactionalService

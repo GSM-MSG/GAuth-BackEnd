@@ -1,6 +1,6 @@
-package com.msg.gauth.global.mail
+package com.msg.gauth.global.thirdparty.mail
 
-import com.msg.gauth.global.mail.properties.MailProperties
+import com.msg.gauth.global.thirdparty.mail.properties.MailProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.mail.javamail.JavaMailSender

@@ -1,4 +1,4 @@
-package com.msg.gauth.global.mail.properties
+package com.msg.gauth.global.thirdparty.mail.properties
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.properties.ConfigurationProperties

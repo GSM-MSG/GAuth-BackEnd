@@ -3,7 +3,7 @@ package com.msg.gauth.domain.user.services
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.domain.user.utils.UserUtil
 import com.msg.gauth.global.annotation.service.TransactionalService
-import com.msg.gauth.global.aws.s3.S3Util
+import com.msg.gauth.global.thirdparty.aws.s3.S3Util
 import org.springframework.web.multipart.MultipartFile
 
 @TransactionalService

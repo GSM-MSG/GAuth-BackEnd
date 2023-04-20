@@ -1,4 +1,4 @@
-package com.msg.gauth.global.aws.s3
+package com.msg.gauth.global.thirdparty.aws.s3
 
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.model.ObjectMetadata

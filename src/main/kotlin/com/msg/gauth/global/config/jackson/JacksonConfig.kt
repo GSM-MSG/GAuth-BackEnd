@@ -1,4 +1,4 @@
-package com.msg.gauth.global.jackson
+package com.msg.gauth.global.config.jackson
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule

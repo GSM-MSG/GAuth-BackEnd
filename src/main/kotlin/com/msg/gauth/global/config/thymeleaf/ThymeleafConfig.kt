@@ -1,4 +1,4 @@
-package com.msg.gauth.global.thymeleaf
+package com.msg.gauth.global.config.thymeleaf
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

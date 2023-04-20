@@ -1,4 +1,4 @@
-package com.msg.gauth.global.security.filter
+package com.msg.gauth.global.filter
 
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
 import org.springframework.security.core.context.SecurityContextHolder
