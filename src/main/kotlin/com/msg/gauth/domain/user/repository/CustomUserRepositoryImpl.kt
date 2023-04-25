@@ -22,9 +22,14 @@ class CustomUserRepositoryImpl(
             ?.and(if (classNum != 0) user.classNum.eq(classNum) else null)
             ?.and(if (keyword.isNotEmpty()) user.name.like("%$keyword%") else null)
 
-        return jpaQueryFactory.selectFrom(user)
-            .where(expression)
-            .fetch()
+        return if(expression == null){
+            jpaQueryFactory.selectFrom(user)
+                .fetch()
+        } else {
+            jpaQueryFactory.selectFrom(user)
+                .where(expression)
+                .fetch()
+        }
     }
 
 }
