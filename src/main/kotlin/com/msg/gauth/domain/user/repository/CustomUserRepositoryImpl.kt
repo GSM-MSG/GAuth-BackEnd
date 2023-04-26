@@ -17,23 +17,19 @@ class CustomUserRepositoryImpl(
 ) : CustomUserRepository {
 
     override fun searchUser(grade: Int, classNum: Int, keyword: String): List<User> {
-        val booleanBuilder = BooleanBuilder()
 
-        if (grade != 0) {
-            booleanBuilder.and(user.grade.eq(grade))
+        val expression = (if (grade != 0) user.grade.eq(grade) else null)
+            ?.and(if (classNum != 0) user.classNum.eq(classNum) else null)
+            ?.and(if (keyword.isNotEmpty()) user.name.like("%$keyword%") else null)
+
+        return if(expression == null){
+            jpaQueryFactory.selectFrom(user)
+                .fetch()
+        } else {
+            jpaQueryFactory.selectFrom(user)
+                .where(expression)
+                .fetch()
         }
-
-        if (classNum != 0) {
-            booleanBuilder.and(user.classNum.eq(classNum))
-        }
-
-        if (keyword.isNotEmpty()) {
-            booleanBuilder.and(user.name.like("%$keyword%"))
-        }
-
-        return jpaQueryFactory.selectFrom(user)
-            .where(booleanBuilder)
-            .fetch()
     }
 
 }
