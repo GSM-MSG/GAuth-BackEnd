@@ -59,7 +59,7 @@ class UserController(
                          @RequestParam(defaultValue = "") keyword: String,
                          @RequestParam(defaultValue = "ROLE_STUDENT") role: UserRole
     ): ResponseEntity<List<SingleAcceptedUserResDto>> {
-        val result = getAcceptedUsersService.execute(grade, classNum, keyword)
+        val result = getAcceptedUsersService.execute(grade, classNum, keyword, role)
         return ResponseEntity.ok(result)
     }
 

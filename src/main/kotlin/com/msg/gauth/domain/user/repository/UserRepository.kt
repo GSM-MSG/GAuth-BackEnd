@@ -6,7 +6,6 @@ import com.msg.gauth.domain.user.enums.UserState
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.data.jpa.repository.Query
 
 interface UserRepository: JpaRepository<User, Long>, CustomUserRepository {
@@ -18,6 +17,7 @@ interface UserRepository: JpaRepository<User, Long>, CustomUserRepository {
     fun findAllByState(state: UserState): List<User>
     fun findAllByState(state: UserState, pageable: Pageable): Page<User>
     fun findByIdAndState(id: Long, roles: UserState): User?
+    fun findAllByRolesContaining(role: UserRole): List<User>
 
     @Query("select user from User user where user.id = :id and user.state = :state and user.roles = :roles")
     fun findByIdAndStateAndRoles(id: Long, state: UserState, roles: MutableList<UserRole>): User?
