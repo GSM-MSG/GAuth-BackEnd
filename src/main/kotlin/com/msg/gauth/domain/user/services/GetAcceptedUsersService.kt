@@ -11,7 +11,7 @@ class GetAcceptedUsersService(
 ) {
     fun execute(grade: Int, classNum: Int, keyword: String, role: UserRole): List<SingleAcceptedUserResDto> =
         when(role) {
-            UserRole.ROLE_STUDENT -> userRepository.searchUser(grade, classNum, keyword)
+            UserRole.ROLE_STUDENT -> userRepository.search(grade, classNum, keyword)
             else -> userRepository.findAllByRolesContaining(role)
         }.map { SingleAcceptedUserResDto(it) }
 }
