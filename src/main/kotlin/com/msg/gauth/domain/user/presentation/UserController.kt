@@ -1,5 +1,6 @@
 package com.msg.gauth.domain.user.presentation
 
+import com.msg.gauth.domain.user.enums.UserRole
 import com.msg.gauth.domain.user.presentation.dto.response.GetMyRolesResDto
 import com.msg.gauth.domain.user.presentation.dto.request.AcceptStudentReqDto
 import com.msg.gauth.domain.user.presentation.dto.request.AcceptTeacherReqDto
@@ -55,7 +56,8 @@ class UserController(
     @GetMapping("/user-list")
     fun acceptedUserList(@RequestParam(defaultValue = "0") grade: Int,
                          @RequestParam(defaultValue = "0") classNum: Int,
-                         @RequestParam(defaultValue = "") keyword: String
+                         @RequestParam(defaultValue = "") keyword: String,
+                         @RequestParam(defaultValue = "ROLE_STUDENT") role: UserRole
     ): ResponseEntity<List<SingleAcceptedUserResDto>> {
         val result = getAcceptedUsersService.execute(grade, classNum, keyword)
         return ResponseEntity.ok(result)
