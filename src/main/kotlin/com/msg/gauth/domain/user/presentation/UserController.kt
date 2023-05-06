@@ -1,10 +1,7 @@
 package com.msg.gauth.domain.user.presentation
 
+import com.msg.gauth.domain.user.presentation.dto.request.*
 import com.msg.gauth.domain.user.presentation.dto.response.GetMyRolesResDto
-import com.msg.gauth.domain.user.presentation.dto.request.AcceptStudentReqDto
-import com.msg.gauth.domain.user.presentation.dto.request.AcceptTeacherReqDto
-import com.msg.gauth.domain.user.presentation.dto.request.AcceptUserReqDto
-import com.msg.gauth.domain.user.presentation.dto.request.PasswordChangeReqDto
 import com.msg.gauth.domain.user.presentation.dto.response.MyProfileResDto
 import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
 import com.msg.gauth.domain.user.presentation.dto.response.SinglePendingListResDto
@@ -53,11 +50,9 @@ class UserController(
     }
 
     @GetMapping("/user-list")
-    fun acceptedUserList(@RequestParam(defaultValue = "0") grade: Int,
-                         @RequestParam(defaultValue = "0") classNum: Int,
-                         @RequestParam(defaultValue = "") keyword: String
+    fun acceptedUserList(request: AcceptedUserRequest
     ): ResponseEntity<List<SingleAcceptedUserResDto>> {
-        val result = getAcceptedUsersService.execute(grade, classNum, keyword)
+        val result = getAcceptedUsersService.execute(request)
         return ResponseEntity.ok(result)
     }
 

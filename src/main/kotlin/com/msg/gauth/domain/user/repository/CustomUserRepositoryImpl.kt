@@ -16,7 +16,7 @@ class CustomUserRepositoryImpl(
     private val jpaQueryFactory: JPAQueryFactory
 ) : CustomUserRepository {
 
-    override fun searchUser(grade: Int, classNum: Int, keyword: String): List<User> {
+    override fun search(grade: Int, classNum: Int, keyword: String): List<User> {
 
         val expression = (if (grade != 0) user.grade.eq(grade) else null)
             ?.and(if (classNum != 0) user.classNum.eq(classNum) else null)
