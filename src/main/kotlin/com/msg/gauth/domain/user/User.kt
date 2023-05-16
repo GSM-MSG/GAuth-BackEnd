@@ -163,4 +163,20 @@ class User(
         return user
     }
 
+    fun updateUserState(userState: UserState): User{
+        val user = User(
+            name = this.name,
+            email = this.email,
+            grade = this.grade,
+            classNum = this.classNum,
+            num = this.num,
+            gender = this.gender,
+            password = this.password,
+            roles = this.roles,
+            state = userState,
+            profileUrl = profileUrl
+        )
+        user.id = this.id
+        return user
+    }
 }
