@@ -25,6 +25,7 @@ enum class ErrorCode(
     FORBIDDEN("금지된 요청입니다.", 403),
     USER_STATE_PENDING("유저가 보류중 입니다.", 403),
     SIGN_IN_BAN("로그인이 금지된 계정입니다.", 403),
+    TEMP_BAN("계정이 1분 금지된 상태입니다.", 403),
 
     NOT_FOUND("리소스를 찾을수 없음", 404),
     USER_NOT_FOUND("해당 유저를 찾을 수 없습니다.", 404),
