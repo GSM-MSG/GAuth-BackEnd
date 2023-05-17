@@ -40,7 +40,7 @@ class SignInService(
 
         if (!passwordEncoder.matches(dto.password, user.password)) {
             val updatedUser = userRepository.save(user.updateWrongPasswordCount(user.wrongPasswordCount + 1))
-            if (updatedUser.wrongPasswordCount >= 5){
+            if (updatedUser.wrongPasswordCount >= 5) {
                 tempSignInBanRepository.save(TempSignInBan(user.email))
                 userRepository.save(user.updateWrongPasswordCount(0))
             }
