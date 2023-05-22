@@ -14,10 +14,12 @@ class RequestLogFilter : OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain,
     ) {
-        log.info("client ip = ${request.remoteAddr}")
-        log.info("request method = ${request.method}")
-        log.info("request url = ${request.requestURI}")
-        log.info("client info = ${request.getHeader("User-Agent")}")
+        listOf(
+            "client ip = ${request.remoteAddr}",
+            "request method = ${request.method}",
+            "request url = ${request.requestURI}",
+            "client info = ${request.getHeader("User-Agent")}"
+        ).forEach { log.info(it) }
         filterChain.doFilter(request, response)
         log.info("response status = ${response.status}")
     }
