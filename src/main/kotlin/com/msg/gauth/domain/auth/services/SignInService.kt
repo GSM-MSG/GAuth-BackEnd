@@ -31,10 +31,10 @@ class SignInService(
     fun execute(dto: SigninRequestDto): SigninResponseDto {
         val user: User = userRepository.findByEmail(dto.email) ?: throw UserNotFoundException()
 
-        if (user.state == UserState.SIGN_IN_BAN)
-            throw SignInBanException()
-        if (tempSignInBanRepository.existsById(user.email))
-            throw TempSignInBanException()
+        when {
+            user.state == UserState.SIGN_IN_BAN -> throw SignInBanException()
+            tempSignInBanRepository.existsById(user.email) -> throw TempSignInBanException()
+        }
 
         tooManyRequestValidUtil.validRequest(dto.email)
 
