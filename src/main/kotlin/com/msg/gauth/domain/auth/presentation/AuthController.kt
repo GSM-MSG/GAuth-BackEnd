@@ -3,11 +3,11 @@ package com.msg.gauth.domain.auth.presentation
 import com.msg.gauth.domain.auth.presentation.dto.request.SignUpDto
 import com.msg.gauth.domain.auth.presentation.dto.request.SigninRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto
-import com.msg.gauth.domain.auth.services.*
+import com.msg.gauth.domain.auth.service.*
 import com.msg.gauth.domain.auth.presentation.dto.request.PasswordInitReqDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SignupImageResDto
-import com.msg.gauth.domain.auth.services.InitPasswordService
+import com.msg.gauth.domain.auth.service.InitPasswordService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

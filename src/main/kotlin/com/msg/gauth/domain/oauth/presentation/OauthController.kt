@@ -5,10 +5,10 @@ import com.msg.gauth.domain.oauth.presentation.dto.request.OauthTokenRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.OauthCodeResponseDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.ServiceNameResponseDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.OauthTokenResponseDto
-import com.msg.gauth.domain.oauth.services.GetServiceNameService
-import com.msg.gauth.domain.oauth.services.GenerateOauthCodeService
-import com.msg.gauth.domain.oauth.services.RefreshOauthTokenService
-import com.msg.gauth.domain.oauth.services.GenerateOauthTokenService
+import com.msg.gauth.domain.oauth.service.GetServiceNameService
+import com.msg.gauth.domain.oauth.service.GenerateOauthCodeService
+import com.msg.gauth.domain.oauth.service.RefreshOauthTokenService
+import com.msg.gauth.domain.oauth.service.GenerateOauthTokenService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
