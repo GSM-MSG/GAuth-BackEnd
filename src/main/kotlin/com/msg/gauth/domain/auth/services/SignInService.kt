@@ -31,19 +31,12 @@ class SignInService(
     fun execute(dto: SigninRequestDto): SigninResponseDto {
         val user: User = userRepository.findByEmail(dto.email) ?: throw UserNotFoundException()
 
-        when {
-            user.state == UserState.SIGN_IN_BAN -> throw SignInBanException()
-            tempSignInBanRepository.existsById(user.email) -> throw TempSignInBanException()
-        }
+        isUserBan(user)
 
         tooManyRequestValidUtil.validRequest(dto.email)
 
         if (!passwordEncoder.matches(dto.password, user.password)) {
-            val updatedUser = userRepository.save(user.updateWrongPasswordCount(user.wrongPasswordCount + 1))
-            if (updatedUser.wrongPasswordCount >= 5) {
-                tempSignInBanRepository.save(TempSignInBan(user.email))
-                userRepository.save(user.updateWrongPasswordCount(0))
-            }
+            validWrongCount(user)
             throw PasswordMismatchException()
         }
 
@@ -57,5 +50,20 @@ class SignInService(
 
         refreshTokenRepository.save(RefreshToken(user.id, refresh))
         return SigninResponseDto(access, refresh, expiresAt)
+    }
+
+    private fun isUserBan(user: User) {
+        when {
+            user.state == UserState.SIGN_IN_BAN -> throw SignInBanException()
+            tempSignInBanRepository.existsById(user.email) -> throw TempSignInBanException()
+        }
+    }
+
+    private fun validWrongCount(user: User) {
+        val updatedUser = userRepository.save(user.updateWrongPasswordCount(user.wrongPasswordCount + 1))
+        if (updatedUser.wrongPasswordCount >= 5) {
+            tempSignInBanRepository.save(TempSignInBan(user.email))
+            userRepository.save(user.updateWrongPasswordCount(0))
+        }
     }
 }

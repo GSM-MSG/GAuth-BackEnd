@@ -11,6 +11,7 @@ import com.msg.gauth.domain.oauth.presentation.dto.response.OauthCodeResponseDto
 import com.msg.gauth.domain.oauth.repository.OauthCodeRepository
 import com.msg.gauth.domain.oauth.repository.TempOAuthSignInBanRepository
 import com.msg.gauth.domain.oauth.util.TooManyOAuthRequestValidUtil
+import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
@@ -30,17 +31,10 @@ class GenerateOauthCodeService(
 ){
     fun execute(oauthLoginRequestDto: OauthCodeRequestDto): OauthCodeResponseDto {
         val user = userRepository.findByEmail(oauthLoginRequestDto.email) ?: throw UserNotFoundException()
-        when {
-            user.state == UserState.OAUTH_BAN -> throw SignInBanException()
-            tempOAuthSignInBanRepository.existsById(user.email) -> throw TempOAuthSignInBanException()
-        }
+        isUserBan(user)
         tooManyOAuthRequestValidUtil.validRequest(oauthLoginRequestDto.email)
         if (!passwordEncoder.matches(oauthLoginRequestDto.password, user.password)) {
-            val updatedUser = userRepository.save(user.updateOAuthWrongPasswordCount(user.oauthWrongPasswordCount + 1))
-            if (updatedUser.oauthWrongPasswordCount >= 5){
-                tempOAuthSignInBanRepository.save(TempOAuthSignInBan(user.email))
-                userRepository.save(user.updateOAuthWrongPasswordCount(0))
-            }
+            validWrongCount(user)
             throw PasswordMismatchException()
         }
         if(user.state == UserState.PENDING)
@@ -54,6 +48,8 @@ class GenerateOauthCodeService(
 
     fun execute(): OauthCodeResponseDto{
         val user = userUtil.fetchCurrentUser()
+        isUserBan(user)
+        tooManyOAuthRequestValidUtil.validRequest(user.email)
         if(user.state == UserState.PENDING)
             throw UserStatePendingException()
         val code = UUID.randomUUID().toString().split(".")[0]
@@ -61,5 +57,21 @@ class GenerateOauthCodeService(
         return OauthCodeResponseDto(
             code = code,
         )
+    }
+
+
+    private fun validWrongCount(user: User) {
+        val updatedUser = userRepository.save(user.updateOAuthWrongPasswordCount(user.oauthWrongPasswordCount + 1))
+        if (updatedUser.oauthWrongPasswordCount >= 5) {
+            tempOAuthSignInBanRepository.save(TempOAuthSignInBan(user.email))
+            userRepository.save(user.updateOAuthWrongPasswordCount(0))
+        }
+    }
+
+    private fun isUserBan(user: User) {
+        when {
+            user.state == UserState.OAUTH_BAN -> throw SignInBanException()
+            tempOAuthSignInBanRepository.existsById(user.email) -> throw TempOAuthSignInBanException()
+        }
     }
 }
