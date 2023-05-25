@@ -5,7 +5,7 @@ import com.msg.gauth.domain.user.presentation.dto.response.GetMyRolesResDto
 import com.msg.gauth.domain.user.presentation.dto.response.MyProfileResDto
 import com.msg.gauth.domain.user.presentation.dto.response.SingleAcceptedUserResDto
 import com.msg.gauth.domain.user.presentation.dto.response.SinglePendingListResDto
-import com.msg.gauth.domain.user.services.*
+import com.msg.gauth.domain.user.service.*
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
