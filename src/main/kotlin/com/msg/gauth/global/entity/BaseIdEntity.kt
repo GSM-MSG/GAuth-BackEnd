@@ -6,6 +6,6 @@ import javax.persistence.*
 abstract class BaseIdEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = false)
+    @Column(name = "id", nullable = false)
     open val id: Long = 0
 )
