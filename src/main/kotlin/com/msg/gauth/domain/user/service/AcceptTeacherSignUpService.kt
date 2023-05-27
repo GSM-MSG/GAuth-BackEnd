@@ -16,7 +16,18 @@ class AcceptTeacherSignUpService(
     fun execute(acceptTeacherReqDto: AcceptTeacherReqDto) {
         val user: User = userRepository.findByIdAndStateAndRoles(acceptTeacherReqDto.id, UserState.PENDING, mutableListOf(UserRole.ROLE_TEACHER))
             ?: throw UserNotFoundException()
-        user.updateTeacher(acceptTeacherReqDto.name, acceptTeacherReqDto.gender)
-            .let { userRepository.save(it) }
+
+        userRepository.save(
+            User(
+                id = acceptTeacherReqDto.id,
+                email = user.email,
+                name = user.name,
+                password = user.password,
+                gender = acceptTeacherReqDto.gender,
+                roles = mutableListOf(UserRole.ROLE_TEACHER),
+                state = UserState.CREATED,
+                profileUrl = user.profileUrl
+            )
+        )
     }
 }

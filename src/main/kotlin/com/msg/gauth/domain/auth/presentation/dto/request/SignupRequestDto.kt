@@ -17,13 +17,4 @@ data class SignUpDto(
     val password: String,
 
     val profileUrl: String?,
-) {
-    fun toEntity(password: String): User =
-        User(
-            email = email,
-            password = password,
-            roles = mutableListOf(UserRole.ROLE_STUDENT),
-            state = UserState.PENDING,
-            profileUrl = profileUrl,
-        )
-}
+)

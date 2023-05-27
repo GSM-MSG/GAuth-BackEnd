@@ -8,7 +8,7 @@ import javax.persistence.*
 @Entity
 class Client(
 
-    override val id: Long,
+    override val id: Long = 0,
 
     val clientId: String,
 

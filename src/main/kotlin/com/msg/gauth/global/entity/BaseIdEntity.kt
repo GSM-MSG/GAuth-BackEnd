@@ -7,5 +7,5 @@ abstract class BaseIdEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = false)
-    open val id: Long
+    open val id: Long = 0
 )

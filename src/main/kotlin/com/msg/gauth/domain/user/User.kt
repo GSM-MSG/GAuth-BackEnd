@@ -10,7 +10,7 @@ import javax.validation.constraints.Size
 @Entity
 class User(
 
-    override val id: Long,
+    override val id: Long = 0,
 
     @Column(unique = true)
     val email: String,
