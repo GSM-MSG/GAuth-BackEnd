@@ -1,9 +1,9 @@
 package com.msg.gauth.domain.email.presentation
 
 import com.msg.gauth.domain.email.presentation.dto.EmailSendDto
-import com.msg.gauth.domain.email.services.SendMailService
-import com.msg.gauth.domain.email.services.CheckMailVerificationService
-import com.msg.gauth.domain.email.services.VerifyMailService
+import com.msg.gauth.domain.email.service.SendMailService
+import com.msg.gauth.domain.email.service.CheckMailVerificationService
+import com.msg.gauth.domain.email.service.VerifyMailService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
