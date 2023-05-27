@@ -1,5 +1,6 @@
 package com.msg.gauth.domain.user.service
 
+import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.domain.user.util.UserUtil
 import com.msg.gauth.global.annotation.service.TransactionalService
@@ -15,7 +16,20 @@ class UploadProfileService(
     fun execute(file: MultipartFile){
         val url = s3Util.upload(file)
         val user = userUtil.fetchCurrentUser()
-        val update = user.updateProfile(url)
-        userRepository.save(update)
+
+        userRepository.save(
+            User(
+                id = user.id,
+                email = user.email,
+                password = user.password,
+                gender = user.gender,
+                grade = user.grade,
+                classNum = user.classNum,
+                num = user.num,
+                roles = user.roles,
+                state = user.state,
+                profileUrl = url
+            )
+        )
     }
 }

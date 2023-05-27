@@ -3,7 +3,7 @@ package com.msg.gauth.domain.auth.service
 import com.msg.gauth.domain.auth.RefreshToken
 import com.msg.gauth.domain.auth.exception.PasswordMismatchException
 import com.msg.gauth.domain.auth.exception.UserIsPendingException
-import com.msg.gauth.domain.auth.presentation.dto.request.SigninRequestDto
+import com.msg.gauth.domain.auth.presentation.dto.request.SignInRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto
 import com.msg.gauth.domain.auth.repository.RefreshTokenRepository
 import com.msg.gauth.domain.user.User
@@ -21,7 +21,7 @@ class SignInService(
     private val refreshTokenRepository: RefreshTokenRepository,
     private val passwordEncoder: PasswordEncoder
 ) {
-    fun execute(dto: SigninRequestDto): SigninResponseDto {
+    fun execute(dto: SignInRequestDto): SigninResponseDto {
         val user: User = userRepository.findByEmail(dto.email) ?: throw UserNotFoundException()
 
         if (!passwordEncoder.matches(dto.password, user.password))

@@ -1,7 +1,7 @@
 package com.msg.gauth.domain.auth.presentation
 
 import com.msg.gauth.domain.auth.presentation.dto.request.SignUpDto
-import com.msg.gauth.domain.auth.presentation.dto.request.SigninRequestDto
+import com.msg.gauth.domain.auth.presentation.dto.request.SignInRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto
 import com.msg.gauth.domain.auth.service.*
 import com.msg.gauth.domain.auth.presentation.dto.request.PasswordInitReqDto
@@ -22,7 +22,7 @@ class AuthController(
     private val signInService: SignInService,
     private val signUpService: SignUpService,
     private val initPasswordService: InitPasswordService,
-    private val signUpImageUploadService: SignupImageUploadService,
+    private val signUpImageUploadService: SignUpImageUploadService,
 ) {
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> {
@@ -37,7 +37,7 @@ class AuthController(
     }
 
     @PostMapping
-    fun signin(@Valid @RequestBody signInRequestDto: SigninRequestDto): ResponseEntity<SigninResponseDto> {
+    fun signin(@Valid @RequestBody signInRequestDto: SignInRequestDto): ResponseEntity<SigninResponseDto> {
         val result = signInService.execute(signInRequestDto)
         return ResponseEntity.ok(result)
     }
