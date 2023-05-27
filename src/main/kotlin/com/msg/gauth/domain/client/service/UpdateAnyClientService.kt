@@ -14,7 +14,17 @@ class UpdateAnyClientService(
 
     fun execute(id: Long, clientUpdateReqDto: ClientUpdateReqDto) {
         val client: Client = clientRepository.findByIdOrNull(id) ?: throw ClientNotFindException()
-        clientRepository.save(client.updateClient(clientUpdateReqDto))
+        clientRepository.save(
+            Client(
+                id = id,
+                clientId = client.clientId,
+                clientSecret = client.clientSecret,
+                redirectUri = clientUpdateReqDto.redirectUri,
+                serviceName = clientUpdateReqDto.serviceName,
+                serviceUri = clientUpdateReqDto.serviceUri,
+                createdBy = client.createdBy
+            )
+        )
     }
 
 }
