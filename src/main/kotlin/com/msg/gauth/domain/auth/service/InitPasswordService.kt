@@ -25,23 +25,21 @@ class InitPasswordService(
         val user = userRepository.findByEmail(passwordInitReqDto.email)
             ?: throw UserNotFoundException()
 
-        user.let {
-            userRepository.save(
-                User(
-                    id = it.id,
-                    email = it.email,
-                    password = passwordEncoder.encode(passwordInitReqDto.newPassword),
-                    gender = it.gender,
-                    name = it.name,
-                    grade = it.grade,
-                    classNum = it.classNum,
-                    num = it.num,
-                    roles = it.roles,
-                    state = it.state,
-                    profileUrl = it.profileUrl
-                )
+        userRepository.save(
+            User(
+                id = user.id,
+                email = user.email,
+                password = passwordEncoder.encode(passwordInitReqDto.newPassword),
+                gender = user.gender,
+                name = user.name,
+                grade = user.grade,
+                classNum = user.classNum,
+                num = user.num,
+                roles = user.roles,
+                state = user.state,
+                profileUrl = user.profileUrl
             )
-        }
+        )
         emailAuthRepository.delete(emailAuth)
     }
 }
