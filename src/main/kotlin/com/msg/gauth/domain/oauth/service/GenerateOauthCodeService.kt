@@ -22,12 +22,17 @@ class GenerateOauthCodeService(
     private val userUtil: UserUtil
 ){
     fun execute(oauthLoginRequestDto: OauthCodeRequestDto): OauthCodeResponseDto {
-        val user = userRepository.findByEmail(oauthLoginRequestDto.email) ?: throw UserNotFoundException()
+        val user = userRepository.findByEmail(oauthLoginRequestDto.email)
+            ?: throw UserNotFoundException()
+
         if (!passwordEncoder.matches(oauthLoginRequestDto.password, user.password))
             throw PasswordMismatchException()
+
         if(user.state == UserState.PENDING)
             throw UserStatePendingException()
+
         val code = UUID.randomUUID().toString().split(".")[0]
+
         oauthCodeRepository.save(OauthCode(code, user.email))
         return OauthCodeResponseDto(
             code = code,
@@ -36,10 +41,13 @@ class GenerateOauthCodeService(
 
     fun execute(): OauthCodeResponseDto{
         val user = userUtil.fetchCurrentUser()
+
         if(user.state == UserState.PENDING)
             throw UserStatePendingException()
+
         val code = UUID.randomUUID().toString().split(".")[0]
         oauthCodeRepository.save(OauthCode(code, user.email))
+
         return OauthCodeResponseDto(
             code = code,
         )

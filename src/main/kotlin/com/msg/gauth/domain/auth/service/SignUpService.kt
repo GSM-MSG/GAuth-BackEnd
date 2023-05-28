@@ -37,6 +37,7 @@ class SignUpService(
             emailAuthRepository.delete(emailAuth)
             throw EmailNotVerifiedException()
         }
+
         emailAuthRepository.delete(emailAuth)
         return userRepository.save(user).id
     }

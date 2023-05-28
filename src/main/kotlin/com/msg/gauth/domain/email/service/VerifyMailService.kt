@@ -11,8 +11,11 @@ class VerifyMailService(
     fun execute(email: String, uuid: String) {
         val emailAuth = emailAuthRepository.findById(email)
             .orElseThrow { AuthCodeExpiredException() }
+
         if (emailAuth.randomValue != uuid) throw AuthCodeExpiredException()
+
         val updateEmailAuth = emailAuth.updateAuthentication(true)
+
         emailAuthRepository.save(updateEmailAuth)
     }
 }

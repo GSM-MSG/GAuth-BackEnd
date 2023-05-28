@@ -18,8 +18,10 @@ class InitPasswordService(
     fun execute(passwordInitReqDto: PasswordInitReqDto){
         val emailAuth = emailAuthRepository.findById(passwordInitReqDto.email)
             .orElseThrow { throw EmailNotVerifiedException() }
+
         if(!emailAuth.authentication)
             throw EmailNotVerifiedException()
+
         val user = userRepository.findByEmail(passwordInitReqDto.email)
             ?: throw UserNotFoundException()
 

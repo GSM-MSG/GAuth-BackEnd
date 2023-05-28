@@ -16,10 +16,13 @@ class SignUpImageUploadService(
     fun execute(image: MultipartFile, previousUrl: String?, email: String): SignupImageResDto{
         val emailAuth = emailAuthRepository.findById(email)
             .orElseThrow { throw AuthCodeExpiredException() }
+
         if(!emailAuth.authentication)
             throw AuthCodeNotVerificationException()
+
         if(previousUrl != null)
             s3Util.deleteImage(previousUrl)
+
         return SignupImageResDto(s3Util.upload(image))
     }
 }

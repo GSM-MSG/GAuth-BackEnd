@@ -30,6 +30,7 @@ class RefreshService(
             userId = existingRefreshToken.userId,
             token = refresh,
         )
+
         refreshTokenRepository.save(newRefreshToken)
         return RefreshResponseDto(access, refresh, jwtTokenProvider.accessExpiredTime)
     }
