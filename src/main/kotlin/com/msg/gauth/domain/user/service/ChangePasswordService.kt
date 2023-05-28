@@ -24,11 +24,11 @@ class ChangePasswordService(
         if(!emailAuth.authentication)
             throw EmailNotVerifiedException()
 
-        userRepository.save(
-            passwordChangeReqDto.toEntity(
-                currentUser, passwordEncoder.encode(passwordChangeReqDto.password)
-            )
+        val user = passwordChangeReqDto.toEntity(
+            currentUser, passwordEncoder.encode(passwordChangeReqDto.password)
         )
+
+        userRepository.save(user)
         emailAuthRepository.delete(emailAuth)
     }
 }
