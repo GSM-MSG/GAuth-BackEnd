@@ -1,6 +1,9 @@
 package com.msg.gauth.domain.user.presentation.dto.request
 
+import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.Gender
+import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserState
 import javax.validation.constraints.NotBlank
 
 data class AcceptTeacherReqDto(
@@ -8,4 +11,16 @@ data class AcceptTeacherReqDto(
     @field:NotBlank
     val name: String,
     val gender: Gender
-)
+){
+    fun toEntity(user: User): User =
+        User(
+            id = this.id,
+            email = user.email,
+            name = user.name,
+            password = user.password,
+            gender = this.gender,
+            roles = mutableListOf(UserRole.ROLE_TEACHER),
+            state = UserState.CREATED,
+            profileUrl = user.profileUrl
+        )
+}
