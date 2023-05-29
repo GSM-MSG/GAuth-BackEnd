@@ -13,18 +13,8 @@ class UpdateClientService(
     private val userUtil: UserUtil
 ) {
     fun updateClient(id: Long, clientUpdateReqDto: ClientUpdateReqDto){
-        val client = clientRepository.findByIdAndCreatedBy(id, userUtil.fetchCurrentUser()) ?: throw ClientNotFindException()
-
-        clientRepository.save(
-            Client(
-                id = id,
-                clientId = client.clientId,
-                clientSecret = client.clientSecret,
-                redirectUri = clientUpdateReqDto.redirectUri,
-                serviceName = clientUpdateReqDto.serviceName,
-                serviceUri = clientUpdateReqDto.serviceUri,
-                createdBy = client.createdBy
-            )
-        )
+        val client = clientRepository.findByIdAndCreatedBy(id, userUtil.fetchCurrentUser())
+            ?: throw ClientNotFindException()
+        clientRepository.save(clientUpdateReqDto.toEntity(client))
     }
 }
