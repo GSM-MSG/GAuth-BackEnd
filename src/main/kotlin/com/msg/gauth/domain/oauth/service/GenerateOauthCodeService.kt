@@ -30,22 +30,18 @@ class GenerateOauthCodeService(
     private val userUtil: UserUtil
 ){
     fun execute(oauthLoginRequestDto: OauthCodeRequestDto): OauthCodeResponseDto {
-<<<<<<< HEAD
         val user = userRepository.findByEmail(oauthLoginRequestDto.email)
             ?: throw UserNotFoundException()
 
-        if (!passwordEncoder.matches(oauthLoginRequestDto.password, user.password))
-            throw PasswordMismatchException()
-
-=======
-        val user = userRepository.findByEmail(oauthLoginRequestDto.email) ?: throw UserNotFoundException()
         isUserBan(user)
+
         tooManyOAuthRequestValidUtil.validRequest(oauthLoginRequestDto.email)
+
         if (!passwordEncoder.matches(oauthLoginRequestDto.password, user.password)) {
             validWrongCount(user)
             throw PasswordMismatchException()
         }
->>>>>>> 38128ff1f3223ebc99e754125e7239b7e72bad68
+
         if(user.state == UserState.PENDING)
             throw UserStatePendingException()
 
@@ -56,26 +52,6 @@ class GenerateOauthCodeService(
             code = code,
         )
     }
-
-    fun execute(): OauthCodeResponseDto{
-        val user = userUtil.fetchCurrentUser()
-<<<<<<< HEAD
-
-=======
-        isUserBan(user)
-        tooManyOAuthRequestValidUtil.validRequest(user.email)
->>>>>>> 38128ff1f3223ebc99e754125e7239b7e72bad68
-        if(user.state == UserState.PENDING)
-            throw UserStatePendingException()
-
-        val code = UUID.randomUUID().toString().split(".")[0]
-        oauthCodeRepository.save(OauthCode(code, user.email))
-
-        return OauthCodeResponseDto(
-            code = code,
-        )
-    }
-
 
     private fun validWrongCount(user: User) {
         val updatedUser = userRepository.save(user.updateOAuthWrongPasswordCount(user.oauthWrongPasswordCount + 1))

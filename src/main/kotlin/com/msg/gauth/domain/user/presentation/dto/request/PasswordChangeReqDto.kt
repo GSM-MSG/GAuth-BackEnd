@@ -22,7 +22,9 @@ data class PasswordChangeReqDto(
             num = user.num,
             roles = user.roles,
             state = user.state,
-            profileUrl = user.profileUrl
+            profileUrl = user.profileUrl,
+            wrongPasswordCount = user.wrongPasswordCount,
+            oauthWrongPasswordCount = user.oauthWrongPasswordCount
         )
     }
 }

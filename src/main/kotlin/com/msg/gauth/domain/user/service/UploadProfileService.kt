@@ -28,7 +28,9 @@ class UploadProfileService(
                 num = user.num,
                 roles = user.roles,
                 state = user.state,
-                profileUrl = url
+                profileUrl = url,
+                wrongPasswordCount = user.wrongPasswordCount,
+                oauthWrongPasswordCount = user.oauthWrongPasswordCount
             )
         )
     }

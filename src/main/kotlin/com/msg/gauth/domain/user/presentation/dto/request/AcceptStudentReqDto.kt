@@ -32,7 +32,9 @@ data class AcceptStudentReqDto(
             num = this.num,
             roles = user.roles,
             state = UserState.CREATED,
-            profileUrl = user.profileUrl
+            profileUrl = user.profileUrl,
+            wrongPasswordCount = user.wrongPasswordCount,
+            oauthWrongPasswordCount = user.oauthWrongPasswordCount
         )
 
 

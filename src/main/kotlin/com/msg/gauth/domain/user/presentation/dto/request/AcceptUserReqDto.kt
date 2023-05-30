@@ -30,7 +30,9 @@ data class AcceptUserReqDto(
             num = num,
             roles = mutableListOf(UserRole.ROLE_STUDENT),
             state = UserState.CREATED,
-            profileUrl = user.profileUrl
+            profileUrl = user.profileUrl,
+            wrongPasswordCount = user.wrongPasswordCount,
+            oauthWrongPasswordCount = user.oauthWrongPasswordCount
         )
     }
 
