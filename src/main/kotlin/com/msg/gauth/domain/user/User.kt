@@ -43,6 +43,10 @@ class User(
 
     @Column(nullable = true, columnDefinition = "TEXT")
     val profileUrl: String?,
+
+    val wrongPasswordCount: Int = 0,
+
+    val oauthWrongPasswordCount: Int = 0
 ): BaseIdEntity(){
 
     fun update(name: String, grade: Int, classNum: Int, num: Int, gender: Gender): User{
@@ -56,7 +60,9 @@ class User(
             password = this.password,
             roles = this.roles,
             state = UserState.CREATED,
-            profileUrl = this.profileUrl
+            profileUrl = this.profileUrl,
+            wrongPasswordCount = this.wrongPasswordCount,
+            oauthWrongPasswordCount = this.oauthWrongPasswordCount
         )
         user.id = this.id
         return user
@@ -73,7 +79,9 @@ class User(
             password = this.password,
             roles = mutableListOf(UserRole.ROLE_TEACHER),
             state = UserState.CREATED,
-            profileUrl = this.profileUrl
+            profileUrl = this.profileUrl,
+            wrongPasswordCount = this.wrongPasswordCount,
+            oauthWrongPasswordCount = this.oauthWrongPasswordCount
         )
         user.id = this.id
         return user
@@ -90,7 +98,9 @@ class User(
             password = this.password,
             roles = mutableListOf(UserRole.ROLE_GRADUATE),
             state = UserState.CREATED,
-            profileUrl = this.profileUrl
+            profileUrl = this.profileUrl,
+            wrongPasswordCount = this.wrongPasswordCount,
+            oauthWrongPasswordCount = this.oauthWrongPasswordCount
         )
         user.id = this.id
         return user
@@ -107,7 +117,9 @@ class User(
             password = password,
             roles = this.roles,
             state = this.state,
-            profileUrl = this.profileUrl
+            profileUrl = this.profileUrl,
+            wrongPasswordCount = this.wrongPasswordCount,
+            oauthWrongPasswordCount = this.oauthWrongPasswordCount
         )
         user.id = this.id
         return user
@@ -123,7 +135,9 @@ class User(
             password = this.password,
             roles = this.roles,
             state = UserState.CREATED,
-            profileUrl = this.profileUrl
+            profileUrl = this.profileUrl,
+            wrongPasswordCount = this.wrongPasswordCount,
+            oauthWrongPasswordCount = this.oauthWrongPasswordCount
         )
         user.id = this.id
         return user
@@ -140,7 +154,9 @@ class User(
             password = this.password,
             roles = this.roles,
             state = UserState.CREATED,
-            profileUrl = this.profileUrl
+            profileUrl = this.profileUrl,
+            wrongPasswordCount = this.wrongPasswordCount,
+            oauthWrongPasswordCount = this.oauthWrongPasswordCount
         )
         user.id = this.id
         return user
@@ -157,10 +173,68 @@ class User(
             password = this.password,
             roles = this.roles,
             state = this.state,
-            profileUrl = profileUrl
+            profileUrl = profileUrl,
+            wrongPasswordCount = this.wrongPasswordCount,
+            oauthWrongPasswordCount = this.oauthWrongPasswordCount
         )
         user.id = this.id
         return user
     }
 
+    fun updateUserState(userState: UserState): User{
+        val user = User(
+            name = this.name,
+            email = this.email,
+            grade = this.grade,
+            classNum = this.classNum,
+            num = this.num,
+            gender = this.gender,
+            password = this.password,
+            roles = this.roles,
+            state = userState,
+            profileUrl = profileUrl,
+            wrongPasswordCount = this.wrongPasswordCount,
+            oauthWrongPasswordCount = this.oauthWrongPasswordCount
+        )
+        user.id = this.id
+        return user
+    }
+
+    fun updateWrongPasswordCount(wrongPasswordCount: Int): User{
+        val user = User(
+            name = this.name,
+            email = this.email,
+            grade = this.grade,
+            classNum = this.classNum,
+            num = this.num,
+            gender = this.gender,
+            password = this.password,
+            roles = this.roles,
+            state = this.state,
+            profileUrl = this.profileUrl,
+            wrongPasswordCount = wrongPasswordCount,
+            oauthWrongPasswordCount = this.oauthWrongPasswordCount
+        )
+        user.id = this.id
+        return user
+    }
+
+    fun updateOAuthWrongPasswordCount(oauthWrongPasswordCount: Int): User{
+        val user = User(
+            name = this.name,
+            email = this.email,
+            grade = this.grade,
+            classNum = this.classNum,
+            num = this.num,
+            gender = this.gender,
+            password = this.password,
+            roles = this.roles,
+            state = this.state,
+            profileUrl = this.profileUrl,
+            wrongPasswordCount = this.wrongPasswordCount,
+            oauthWrongPasswordCount = oauthWrongPasswordCount
+        )
+        user.id = this.id
+        return user
+    }
 }
