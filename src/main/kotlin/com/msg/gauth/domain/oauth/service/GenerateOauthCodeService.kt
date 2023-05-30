@@ -15,6 +15,7 @@ import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
+import com.msg.gauth.domain.user.util.TempUserUtil
 import com.msg.gauth.domain.user.util.UserUtil
 import com.msg.gauth.global.annotation.service.TransactionalService
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -25,20 +26,19 @@ class GenerateOauthCodeService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
     private val oauthCodeRepository: OauthCodeRepository,
-    private val tempOAuthSignInBanRepository: TempOAuthSignInBanRepository,
     private val tooManyOAuthRequestValidUtil: TooManyOAuthRequestValidUtil,
-    private val userUtil: UserUtil
+    private val tempUserUtil: TempUserUtil
 ){
     fun execute(oauthLoginRequestDto: OauthCodeRequestDto): OauthCodeResponseDto {
         val user = userRepository.findByEmail(oauthLoginRequestDto.email)
             ?: throw UserNotFoundException()
 
-        isUserBan(user)
+        tempUserUtil.isUserOAuthBan(user)
 
         tooManyOAuthRequestValidUtil.validRequest(oauthLoginRequestDto.email)
 
         if (!passwordEncoder.matches(oauthLoginRequestDto.password, user.password)) {
-            validWrongCount(user)
+            tempUserUtil.validOAuthWrongCount(user)
             throw PasswordMismatchException()
         }
 
@@ -53,18 +53,5 @@ class GenerateOauthCodeService(
         )
     }
 
-    private fun validWrongCount(user: User) {
-        val updatedUser = userRepository.save(user.updateOAuthWrongPasswordCount(user.oauthWrongPasswordCount + 1))
-        if (updatedUser.oauthWrongPasswordCount >= 5) {
-            tempOAuthSignInBanRepository.save(TempOAuthSignInBan(user.email))
-            userRepository.save(user.updateOAuthWrongPasswordCount(0))
-        }
-    }
 
-    private fun isUserBan(user: User) {
-        when {
-            user.state == UserState.OAUTH_BAN -> throw SignInBanException()
-            tempOAuthSignInBanRepository.existsById(user.email) -> throw TempOAuthSignInBanException()
-        }
-    }
 }

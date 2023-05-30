@@ -2,20 +2,16 @@ package com.msg.gauth.domain.auth.service
 
 import com.msg.gauth.domain.auth.RefreshToken
 import com.msg.gauth.domain.auth.exception.PasswordMismatchException
-import com.msg.gauth.domain.auth.exception.SignInBanException
-import com.msg.gauth.domain.auth.exception.TempSignInBanException
 import com.msg.gauth.domain.auth.exception.UserIsPendingException
 import com.msg.gauth.domain.auth.presentation.dto.request.SignInRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto
 import com.msg.gauth.domain.auth.repository.RefreshTokenRepository
-import com.msg.gauth.domain.auth.repository.TempSignInBanRepository
 import com.msg.gauth.domain.auth.util.TooManyRequestValidUtil
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
-import com.msg.gauth.domain.user.util.TempUserValidator
-import com.msg.gauth.domain.user.util.UserUtil
+import com.msg.gauth.domain.user.util.TempUserUtil
 import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -27,17 +23,17 @@ class SignInService(
     private val refreshTokenRepository: RefreshTokenRepository,
     private val passwordEncoder: PasswordEncoder,
     private val tooManyRequestValidUtil: TooManyRequestValidUtil,
-    private val tempUserValidator: TempUserValidator
+    private val tempUserUtil: TempUserUtil
 ) {
     fun execute(dto: SignInRequestDto): SigninResponseDto {
         val user: User = userRepository.findByEmail(dto.email) ?: throw UserNotFoundException()
 
-        tempUserValidator.isUserBan(user)
+        tempUserUtil.isUserBan(user)
 
         tooManyRequestValidUtil.validRequest(dto.email)
 
         if (!passwordEncoder.matches(dto.password, user.password)) {
-            tempUserValidator.validWrongCount(user)
+            tempUserUtil.validWrongCount(user)
             throw PasswordMismatchException()
         }
 
