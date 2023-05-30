@@ -7,26 +7,20 @@ import javax.persistence.*
 
 @Entity
 class Client(
+
+    override val id: Long = 0,
+
     val clientId: String,
+
     val clientSecret: String,
+
     val redirectUri: String,
+
     val serviceName: String,
+
     val serviceUri: String,
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     val createdBy: User
-): BaseIdEntity(){
-    fun updateClient(clientUpdateReqDto: ClientUpdateReqDto): Client{
-        val client = Client(
-            clientId = this.clientId,
-            clientSecret = this.clientSecret,
-            redirectUri = clientUpdateReqDto.redirectUri,
-            serviceUri = clientUpdateReqDto.serviceUri,
-            serviceName = clientUpdateReqDto.serviceName,
-            createdBy = this.createdBy
-        )
-        client.id=this.id
-        return client
-    }
-}
+): BaseIdEntity(id)

@@ -12,6 +12,7 @@ class GetServiceNameService(
     fun execute(clientId: String): ServiceNameResponseDto {
         val client = (clientRepository.findByClientId(clientId)
             ?: throw ClientNotFindException())
+
         return ServiceNameResponseDto(
             client.serviceName
         )

@@ -6,6 +6,7 @@ import com.msg.gauth.domain.oauth.exception.OAuthSignInMinuteOverException
 import com.msg.gauth.domain.oauth.exception.OAuthSignInSecondOverException
 import com.msg.gauth.domain.oauth.repository.MinuteOAuthSignInCountRepository
 import com.msg.gauth.domain.oauth.repository.SecondOAuthSignInCountRepository
+import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
@@ -21,23 +22,52 @@ class TooManyOAuthRequestValidUtil(
     fun validRequest(email: String){
         val secondSignInCount = (secondSignInCountRepository.findByIdOrNull(email)
             ?: secondSignInCountRepository.save(SecondOAuthSignInCount(email)))
+
         if (secondSignInCount.count >= 20) {
             val user = userRepository.findByEmail(email)
                 ?: throw UserNotFoundException()
-            userRepository.save(user.updateUserState(UserState.OAUTH_BAN))
+
+            userOAuthBan(user)
+
             throw OAuthSignInSecondOverException()
         }
+
         secondSignInCount.addCount()
         secondSignInCountRepository.save(secondSignInCount)
+
         val minuteSignInCount = (minuteSignInCountRepository.findByIdOrNull(email)
             ?: minuteSignInCountRepository.save(MinuteOAuthSignInCount(email)))
+
         if (minuteSignInCount.count >= 10) {
             val user = userRepository.findByEmail(email)
                 ?: throw UserNotFoundException()
-            userRepository.save(user.updateUserState(UserState.OAUTH_BAN))
+
+            userOAuthBan(user)
+
             throw OAuthSignInMinuteOverException()
         }
+
         minuteSignInCount.addCount()
         minuteSignInCountRepository.save(minuteSignInCount)
+    }
+
+    fun userOAuthBan(user: User){
+        userRepository.save(
+            User(
+                id = user.id,
+                email = user.email,
+                password = user.password,
+                gender = user.gender,
+                name = user.name,
+                grade = user.grade,
+                classNum = user.classNum,
+                num = user.num,
+                roles = user.roles,
+                state = UserState.OAUTH_BAN,
+                profileUrl = user.profileUrl,
+                wrongPasswordCount = user.wrongPasswordCount,
+                oauthWrongPasswordCount = user.oauthWrongPasswordCount
+            )
+        )
     }
 }

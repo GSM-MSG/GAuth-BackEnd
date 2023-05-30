@@ -16,6 +16,7 @@ class RegisterClientService(
         val (clientSecret, clientId) = createUUID() to createUUID()
         val user = userUtil.fetchCurrentUser()
         val client = clientRegisterDto.toEntity(user, clientSecret, clientId)
+
         return ClientRegisterResDto(clientRepository.save(client))
     }
 

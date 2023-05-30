@@ -32,15 +32,21 @@ class SendMailService(
                     attemptCount = 0
                 )
             )
+
         if(authEntity.authentication)
             throw AlreadyAuthenticatedEmailException()
-        if (authEntity.attemptCount >= 5) throw ManyRequestEmailAuthException()
+
+        if (authEntity.attemptCount >= 5)
+            throw ManyRequestEmailAuthException()
+
         val updateEmailAuth = authEntity.resendEmailAuth(value)
+
         emailAuthRepository.save(updateEmailAuth)
         try {
             val message = mailSender.createMimeMessage()
             val helper = MimeMessageHelper(message, "UTF-8")
             val mailTemplate = createMailTemplate(email, value)
+
             helper.setSubject("[GAuth] 이메일 인증")
             helper.setTo(emailSendDto.email)
             helper.setText(mailTemplate, true)

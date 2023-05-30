@@ -1,13 +1,11 @@
 package com.msg.gauth.global.entity
 
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.MappedSuperclass
+import javax.persistence.*
 
 @MappedSuperclass
-abstract class BaseIdEntity {
+abstract class BaseIdEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long = 0
-}
+    @Column(name = "id", nullable = false)
+    open val id: Long = 0
+)

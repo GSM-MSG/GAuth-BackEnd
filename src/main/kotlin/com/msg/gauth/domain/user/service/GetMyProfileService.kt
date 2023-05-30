@@ -14,6 +14,7 @@ class GetMyProfileService(
         val currentUser = userUtil.fetchCurrentUser()
         val clientList = clientRepository.findAllByCreatedBy(currentUser)
             .map { MyProfileResDto.SingleClientResDto(it) }
+
         return MyProfileResDto(currentUser, clientList)
     }
 }

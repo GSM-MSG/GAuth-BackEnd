@@ -1,6 +1,7 @@
 package com.msg.gauth.domain.admin.service
 
 import com.msg.gauth.domain.admin.exception.FileExtensionInvalidException
+import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.Gender
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
@@ -21,18 +22,23 @@ class ExcelParsingService(
         val tika = Tika()
         val detect = tika.detect(file.bytes)
         val extension = FileNameUtils.getExtension(file.originalFilename)
+
         if(!ExcelUtil.isExcel(detect, extension))
             throw FileExtensionInvalidException()
+
         val workBook: Workbook =
             if (extension.equals("xlsx"))
                 XSSFWorkbook(file.inputStream)
             else
                 HSSFWorkbook(file.inputStream)
+
         val workSheet:Sheet = workBook.getSheetAt(0)
         val map = hashMapOf<String, UpdateDto>()
+
         for(i in 1 until workSheet.physicalNumberOfRows){
             val row = workSheet.getRow(i)
             val email = row.getCell(4).stringCellValue
+
             map[email] =
                 UpdateDto(
                     name = row.getCell(3).stringCellValue.toString(),
@@ -45,7 +51,22 @@ class ExcelParsingService(
         userRepository.findByEmailIn(map.keys.toList())
             .forEach {
                 val updateDto = map[it.email] ?: throw Exception()
-                userRepository.save(it.update(updateDto.name, updateDto.grade, updateDto.classNum, updateDto.num, updateDto.gender))
+
+                userRepository.save(
+                    User(
+                        id = it.id,
+                        email = it.email,
+                        password = it.password,
+                        gender = updateDto.gender,
+                        name = updateDto.name,
+                        grade = updateDto.grade,
+                        classNum = updateDto.classNum,
+                        num = updateDto.num,
+                        roles = it.roles,
+                        state = it.state,
+                        profileUrl = it.profileUrl
+                    )
+                )
             }
     }
     data class UpdateDto(

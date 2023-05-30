@@ -3,6 +3,8 @@ package com.msg.gauth.domain.auth.service
 import com.msg.gauth.domain.auth.presentation.dto.request.SignUpDto
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
 import com.msg.gauth.domain.user.User
+import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.EmailNotVerifiedException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
@@ -20,14 +22,22 @@ class SignUpService(
             emailAuthRepository.deleteById(signUpDto.email)
             throw DuplicateEmailException()
         }
-        val password: String = signUpDto.password
-        val user: User = signUpDto.toEntity(passwordEncoder.encode(password))
+        val user = User(
+            email = signUpDto.email,
+            password = passwordEncoder.encode(signUpDto.password),
+            roles = mutableListOf(UserRole.ROLE_STUDENT),
+            state = UserState.PENDING,
+            profileUrl = null
+        )
+
         val emailAuth = emailAuthRepository.findById(signUpDto.email)
             .orElseThrow { EmailNotVerifiedException() }
+
         if (!emailAuth.authentication) {
             emailAuthRepository.delete(emailAuth)
             throw EmailNotVerifiedException()
         }
+
         emailAuthRepository.delete(emailAuth)
         return userRepository.save(user).id
     }

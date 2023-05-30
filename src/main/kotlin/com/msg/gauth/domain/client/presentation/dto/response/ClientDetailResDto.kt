@@ -16,6 +16,6 @@ data class ClientDetailResDto(
         clientSecret = client.clientSecret,
         redirectUri = client.redirectUri,
         serviceName = client.serviceName,
-        serviceUri = client.serviceUri,
+        serviceUri = client.serviceUri
     )
 }

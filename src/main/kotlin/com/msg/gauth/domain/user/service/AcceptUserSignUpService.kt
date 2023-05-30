@@ -1,6 +1,7 @@
 package com.msg.gauth.domain.user.service
 
 import com.msg.gauth.domain.client.exception.BadUserRoleRequestException
+import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserRole
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
@@ -25,16 +26,13 @@ class AcceptUserSignUpService(
         userRepository.findByIdAndState(id, UserState.PENDING)
             ?: throw UserNotFoundException()
 
-    private fun acceptStudent(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        getUser(id).update(acceptUserReqDto)
-            .let { userRepository.save(it) }
+    private fun acceptStudent(id: Long, acceptUserReqDto: AcceptUserReqDto)=
+        userRepository.save(acceptUserReqDto.toStudentEntity(getUser(id)))
 
     private fun acceptTeacher(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        getUser(id).updateTeacher(acceptUserReqDto.name, acceptUserReqDto.gender)
-            .let { userRepository.save(it) }
+        userRepository.save(acceptUserReqDto.toTeacherEntity(getUser(id)))
 
     private fun acceptGraduate(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        getUser(id).updateGraduate(acceptUserReqDto.name, acceptUserReqDto.gender)
-            .let { userRepository.save(it) }
+        userRepository.save(acceptUserReqDto.toGraduateEntity(getUser(id)))
 
 }

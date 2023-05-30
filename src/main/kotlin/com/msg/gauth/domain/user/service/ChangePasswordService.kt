@@ -6,6 +6,7 @@ import com.msg.gauth.domain.user.presentation.dto.request.PasswordChangeReqDto
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.domain.user.util.UserUtil
 import com.msg.gauth.global.annotation.service.TransactionalService
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @TransactionalService
@@ -17,12 +18,17 @@ class ChangePasswordService(
 ){
     fun execute(passwordChangeReqDto: PasswordChangeReqDto){
         val currentUser = userUtil.fetchCurrentUser()
-        val emailAuth = emailAuthRepository.findById(currentUser.email)
-            .orElseThrow{ throw EmailNotVerifiedException() }
+        val emailAuth = emailAuthRepository.findByIdOrNull(currentUser.email)
+            ?: throw EmailNotVerifiedException()
+
         if(!emailAuth.authentication)
             throw EmailNotVerifiedException()
-        val update = currentUser.update(passwordEncoder.encode(passwordChangeReqDto.password))
-        userRepository.save(update)
+
+        val user = passwordChangeReqDto.toEntity(
+            currentUser, passwordEncoder.encode(passwordChangeReqDto.password)
+        )
+
+        userRepository.save(user)
         emailAuthRepository.delete(emailAuth)
     }
 }

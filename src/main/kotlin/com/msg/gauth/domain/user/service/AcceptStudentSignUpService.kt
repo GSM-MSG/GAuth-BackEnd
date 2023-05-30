@@ -1,5 +1,6 @@
 package com.msg.gauth.domain.user.service
 
+import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserRole
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
@@ -14,8 +15,6 @@ class AcceptStudentSignUpService(
     fun execute(acceptedStudentReqDto: AcceptStudentReqDto) {
         val user = userRepository.findByIdAndStateAndRoles(acceptedStudentReqDto.id, UserState.PENDING, mutableListOf(UserRole.ROLE_STUDENT))
             ?: throw UserNotFoundException()
-
-        user.update(acceptedStudentReqDto)
-            .let { userRepository.save(it) }
+        userRepository.save(acceptedStudentReqDto.toEntity(user))
     }
 }
