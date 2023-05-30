@@ -24,6 +24,9 @@ enum class ErrorCode(
 
     FORBIDDEN("금지된 요청입니다.", 403),
     USER_STATE_PENDING("유저가 보류중 입니다.", 403),
+    SIGN_IN_BAN("로그인이 금지된 계정입니다.", 403),
+    TEMP_BAN("계정이 1분 금지된 상태입니다.", 403),
+    OAUTH_SIGN_IN_BAN("oauth 로그인이 금지된 계정입니다.", 403),
 
     NOT_FOUND("리소스를 찾을수 없음", 404),
     USER_NOT_FOUND("해당 유저를 찾을 수 없습니다.", 404),
@@ -32,6 +35,10 @@ enum class ErrorCode(
     DUPLICATE_EMAIL("중복되는 이메일입니다.", 409),
 
     MANY_REQUEST_EMAIL_AUTH("15분에 최대 3번 이메일 인증을 요청할 수 있습니다.", 429),
+    MANY_REQUEST_SIGN_IN_SECOND("5초에 20번 이상 로그인 요청이 들어왔습니다.", 429),
+    MANY_REQUEST_SIGN_IN_MINUTE("1분에 10회 이상 로그인 요청이 들어왔습니다.", 429),
+    MANY_REQUEST_OAUTH_SIGN_IN_SECOND("5초에 20번 이상 oauth 로그인 요청이 들어왔습니다.", 429),
+    MANY_REQUEST_OAUTH_SIGN_IN_MINUTE("1분에 10회 이상 oauth 로그인 요청이 들어왔습니다.", 429),
 
     MAIL_SEND_FAIL("메일을 보내는데 실패했습니다.", 500),
     INTERNAL_SERVER_ERROR("서버 내부 에러", 500);
