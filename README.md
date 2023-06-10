@@ -39,7 +39,7 @@ GAuth는 학교 OAuth 서비스로, 교내 프로젝트나 서비스를 만들 �
   
 code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 
-#### Request
+### Request
 ```json
 {
     "body":{
@@ -49,14 +49,14 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 }
 ```
 
-#### Response
+### Response
 ```json
 {
     "code": String
 }
 ```
 
-#### Error
+### Error
 ```json
 {
 	"400": "Mismatch Password", // or "Bad Request"
@@ -69,7 +69,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 
 `request URL`: https://server.gauth.co.kr/oauth/token 
 
-#### Request
+### Request
 ```json
 {
     "body":{
@@ -81,7 +81,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 }
 ```
 
-#### Response
+### Response
 ```json
 {
    "accessToken": String,
@@ -89,7 +89,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 }
 ```
 
-#### Error
+### Error
 ```json
 {
    "400": "Mismatch Client Secret",
@@ -103,7 +103,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 
 `request URL`: https://server.gauth.co.kr/oauth/token
 
-#### Request
+### Request
 ```json
 {
     "header":{
@@ -112,7 +112,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 }
 ```
 
-#### Response
+### Response
 ```json
 {
    "accessToken": String,
@@ -120,7 +120,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 }
 ```
 
-#### Error
+### Error
 ```json
 {
    "401": "Invalid Token",
@@ -144,7 +144,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 }
 ```
 
-#### Response
+### Response
 ```json
 {
    "email": String,
@@ -158,7 +158,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 }
 ```
 
-#### Error
+### Error
 ```json
 {
    "400": "Mismatch ClientSecret",
