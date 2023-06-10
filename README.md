@@ -33,7 +33,7 @@ GAuth는 학교 OAuth 서비스로, 교내 프로젝트나 서비스를 만들 �
 
 ## Open API Docs
 
-### POST: code 발급
+## POST: code 발급
 
 `request URL`: https://server.gauth.co.kr/oauth/code
   
@@ -65,7 +65,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 }
 ```
 
-### POST: token 발급
+## POST: token 발급
 
 `request URL`: https://server.gauth.co.kr/oauth/token 
 
@@ -99,7 +99,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 }
 ```
 
-### PATCH: token 재발급
+## PATCH: token 재발급
 
 `request URL`: https://server.gauth.co.kr/oauth/token
 
@@ -130,7 +130,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 ```
 
 
-### GET: User Info
+## GET: User Info
 
 `request URL`: https://open.gauth.co.kr/user
 
