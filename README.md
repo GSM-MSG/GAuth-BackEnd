@@ -61,9 +61,9 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 ### Error
 ```js
 {
-	"400": "Mismatch Password", // or "Bad Request"
-	"404": "User Not Found..",
-	"500": "Internal Server Error"
+  "400": "Mismatch Password",
+  "404": "User Not Found..",
+  "500": "Internal Server Error"
 }
 ```
 
