@@ -30,3 +30,140 @@ GAuth는 학교 OAuth 서비스로, 교내 프로젝트나 서비스를 만들 �
 - 버그 제보: [이슈 트래커](https://github.com/GSM-MSG/GAuth-BackEnd/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)에 제보할 버그를 작성합니다.
 - 기능 제안: [이슈 트래커](https://github.com/GSM-MSG/GAuth-BackEnd/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)에 제안하고 싶은 기능을 작성합니다.
 - 코드 기여: GitHub에서 코드를 Fork하고, Pull Request를 보냅니다.
+
+## Open API Docs
+
+### POST: code 발급
+
+`request URL`: https://server.gauth.co.kr/oauth/code
+  
+code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
+
+#### Request
+```json
+{
+    "body":{
+        "email": String,
+        "password": String
+    }
+}
+```
+
+#### Response
+```json
+{
+    "code": String
+}
+```
+
+#### Error
+```json
+{
+	"400": "Mismatch Password", // or "Bad Request"
+	"404": "User Not Found..",
+	"500": "Internal Server Error"
+}
+```
+
+### POST: token 발급
+
+`request URL`: https://server.gauth.co.kr/oauth/token 
+
+#### Request
+```json
+{
+    "body":{
+       "code": String,
+       "clientId": String,
+       "clientSecret": String,
+       "redirectUri": String
+    }
+}
+```
+
+#### Response
+```json
+{
+   "accessToken": String,
+   "refreshToken": String
+}
+```
+
+#### Error
+```json
+{
+   "400": "Mismatch Client Secret",
+   "401": "Invalid Token",
+   "404": "Not Found Client by ClientId",
+   "500": "Internal Server Error"
+}
+```
+
+### PATCH: token 재발급
+
+`request URL`: https://server.gauth.co.kr/oauth/token
+
+#### Request
+```json
+{
+    "header":{
+       "refreshToken": Bearer {RefreshToken}
+    }
+}
+```
+
+#### Response
+```json
+{
+   "accessToken": String,
+   "refreshToken": String
+}
+```
+
+#### Error
+```json
+{
+   "401": "Invalid Token",
+   "404": "Not Found User by Token",
+   "500": "Internal Server Error"
+}
+```
+
+
+### GET: User Info
+
+`request URL`: https://open.gauth.co.kr/user
+
+선생님, 혹은 졸업생은 grade, classNum, num이 null로 옵니다!
+#### Request
+```json
+{
+    "header":{
+       "Authorization": "Bearer {AccessToken}"
+    }
+}
+```
+
+#### Response
+```json
+{
+   "email": String,
+   "name": String?,
+   "grade": Int?, // 학년
+   "classNum": Int?, // 반
+   "num": Int?, // 번호
+   "gender": "MALE" | "FEMALE",
+   "profileUrl": String?,
+   "role": "ROLE_STUDENT" | "ROLE_TEACHER" | "ROLE_GRADUATE"
+}
+```
+
+#### Error
+```json
+{
+   "400": "Mismatch ClientSecret",
+   "401": "Invalid Token",
+   "404": "Not Found Client",
+   "500": "Internal Server Error"
+}
+```
