@@ -52,7 +52,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 ```
 
 ### Response
-```json
+```js
 {
     "code": String
 }
