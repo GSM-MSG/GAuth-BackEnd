@@ -22,7 +22,7 @@ GAuth는 학교 OAuth 서비스로, 교내 프로젝트나 서비스를 만들 �
 1. [https://gauth.com/login?client_id=(clientID)&redirect_uri=(redirectURI)](https://gauth.com/login?client_id=(clientID)&redirect_uri=(redirectURI)) 에 유저가 접속합니다. (OAuth 로그인 페이지)
 2. 로그인 성공 시 정보주는 동의를 받고 (redirectURI)?code=(code) 로 리다이렉트됩니다.
 3. 리다이렉트된 곳(클라이언트 서버)에서 받은 코드를 써서 [https://server.gauth.com/](https://server.gauth.com/user) 에 POST method로 body에 code, clientId, clientSecret을 담아서 보내면 유저정보를 받을 수 있습니다
-g
+
 <br>
 
 자세한 설명은 [여기](https://gauth.co.kr/instruction)를 참고하세요
