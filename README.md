@@ -31,7 +31,9 @@ GAuth는 학교 OAuth 서비스로, 교내 프로젝트나 서비스를 만들 �
 - 기능 제안: [이슈 트래커](https://github.com/GSM-MSG/GAuth-BackEnd/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)에 제안하고 싶은 기능을 작성합니다.
 - 코드 기여: GitHub에서 코드를 Fork하고, Pull Request를 보냅니다.
 
-## Open API Docs
+<br>
+
+# Open API Docs
 
 ## POST: code 발급
 
