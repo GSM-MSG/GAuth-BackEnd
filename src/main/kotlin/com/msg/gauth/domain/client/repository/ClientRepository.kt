@@ -13,4 +13,5 @@ interface ClientRepository: JpaRepository<Client, Long> {
     fun findByClientId(clientId: String): Client?
     fun findByClientIdAndRedirectUri(clientId: String, redirectUri: String): Client?
     fun findByServiceNameContaining(serviceName: String, pageable: Pageable): Page<Client>
+    fun deleteByIdAndCreatedBy(id: Long, createdBy: User)
 }
