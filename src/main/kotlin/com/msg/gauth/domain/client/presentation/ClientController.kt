@@ -21,7 +21,7 @@ class ClientController(
     private val deleteClientService: DeleteClientService,
     private val getClientsByServiceNameService: GetClientsByServiceNameService,
     private val updateAnyClientService: UpdateAnyClientService,
-    private val deleteSeveralClientService: DeleteSeveralClientService
+    private val deleteClientsService: DeleteClientsService
 ) {
 
     @PostMapping
@@ -68,7 +68,7 @@ class ClientController(
 
     @DeleteMapping
     fun deleteSeveralClient(@RequestParam(value = "ids") ids: List<Long>): ResponseEntity<Void> {
-        deleteSeveralClientService.execute(ids)
+        deleteClientsService.execute(ids)
         return ResponseEntity.noContent().build()
     }
 }
