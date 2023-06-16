@@ -15,6 +15,6 @@ class DeleteSeveralClientService(
 ) {
     fun execute(ids: List<Long>) {
         val user = userUtil.fetchCurrentUser()
-        ids.map { clientRepository.deleteByIdAndCreatedBy(it, user) }
+        ids.forEach { clientRepository.deleteByIdAndCreatedBy(it, user) }
     }
 }
