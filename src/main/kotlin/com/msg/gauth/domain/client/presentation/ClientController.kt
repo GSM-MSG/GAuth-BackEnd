@@ -20,7 +20,8 @@ class ClientController(
     private val registerClientService: RegisterClientService,
     private val deleteClientService: DeleteClientService,
     private val getClientsByServiceNameService: GetClientsByServiceNameService,
-    private val updateAnyClientService: UpdateAnyClientService
+    private val updateAnyClientService: UpdateAnyClientService,
+    private val deleteClientsService: DeleteClientsService
 ) {
 
     @PostMapping
@@ -62,6 +63,12 @@ class ClientController(
     @PatchMapping("/{id}/patch")
     fun updateAnyClient(@PathVariable id: Long, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
         updateAnyClientService.execute(id, clientUpdateDto)
+        return ResponseEntity.noContent().build()
+    }
+
+    @DeleteMapping
+    fun deleteSeveralClient(@RequestParam(value = "ids") ids: List<Long>): ResponseEntity<Void> {
+        deleteClientsService.execute(ids)
         return ResponseEntity.noContent().build()
     }
 }

@@ -5,9 +5,10 @@ import com.msg.gauth.domain.user.User
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
 import java.util.*
 
-interface ClientRepository: JpaRepository<Client, Long> {
+interface ClientRepository: JpaRepository<Client, Long>, CustomClientRepository {
     fun findAllByCreatedBy(createdBy: User): List<Client>
     fun findByIdAndCreatedBy(clientId: Long, createdBy: User): Client?
     fun findByClientId(clientId: String): Client?
