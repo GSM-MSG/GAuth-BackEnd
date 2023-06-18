@@ -13,6 +13,6 @@ class DeleteClientsService(
 ) {
     fun execute(ids: List<Long>) {
         val user = userUtil.fetchCurrentUser()
-        ids.forEach { clientRepository.deleteByIdAndCreatedBy(it, user) }
+        clientRepository.deleteAllByIdsAndCreatedBy(ids, user)
     }
 }
