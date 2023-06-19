@@ -3,6 +3,7 @@ package com.msg.gauth.global.security
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.msg.gauth.global.exception.ErrorCode
 import com.msg.gauth.global.exception.ErrorResponse
+import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.web.access.AccessDeniedHandler
@@ -14,11 +15,14 @@ import javax.servlet.http.HttpServletResponse
 class CustomAccessDeniedHandler(
     private val objectMapper: ObjectMapper
 ): AccessDeniedHandler {
+    private val log = LoggerFactory.getLogger(this::class.simpleName)
+
     override fun handle(
         request: HttpServletRequest,
         response: HttpServletResponse,
         accessDeniedException: AccessDeniedException
     ) {
+        log.error("=====ACCESS DENIED=====")
         val errorCode = ErrorCode.FORBIDDEN
         val responseString = objectMapper.writeValueAsString(ErrorResponse(errorCode))
         response.characterEncoding = "UTF-8"
