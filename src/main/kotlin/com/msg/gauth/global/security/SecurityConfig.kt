@@ -82,6 +82,7 @@ class SecurityConfig(
             .and()
             .exceptionHandling()
             .authenticationEntryPoint(CustomAuthenticationEntryPoint(objectMapper))
+            .accessDeniedHandler(CustomAccessDeniedHandler(objectMapper))
 
             .and()
             .apply(FilterConfig(jwtTokenProvider, objectMapper))
