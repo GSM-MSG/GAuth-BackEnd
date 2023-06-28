@@ -112,4 +112,44 @@ class TempUserUtil(
             tempOAuthSignInBanRepository.existsById(user.email) -> throw TempSignInBanException()
         }
     }
+
+    fun resetOAuthWrongPasswordCount(user: User) {
+        userRepository.save(
+            User(
+                id = user.id,
+                email = user.email,
+                password = user.password,
+                gender = user.gender,
+                name = user.name,
+                grade = user.grade,
+                classNum = user.classNum,
+                num = user.num,
+                roles = user.roles,
+                state = user.state,
+                profileUrl = user.profileUrl,
+                wrongPasswordCount = user.wrongPasswordCount,
+                oauthWrongPasswordCount = 0
+            )
+        )
+    }
+
+    fun resetWrongPasswordCount(user: User) {
+        userRepository.save(
+            User(
+                id = user.id,
+                email = user.email,
+                password = user.password,
+                gender = user.gender,
+                name = user.name,
+                grade = user.grade,
+                classNum = user.classNum,
+                num = user.num,
+                roles = user.roles,
+                state = user.state,
+                profileUrl = user.profileUrl,
+                wrongPasswordCount = 0,
+                oauthWrongPasswordCount = user.oauthWrongPasswordCount
+            )
+        )
+    }
 }
