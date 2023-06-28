@@ -40,6 +40,8 @@ class SignInService(
         if(user.state != UserState.CREATED)
             throw UserIsPendingException()
 
+        tempUserUtil.resetWrongPasswordCount(user)
+
         val (access, refresh) = jwtTokenProvider.run {
             generateAccessToken(dto.email) to generateRefreshToken(dto.email)}
 
