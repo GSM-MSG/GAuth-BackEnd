@@ -46,9 +46,10 @@ class   GenerateOauthCodeService(
         if(user.state == UserState.PENDING)
             throw UserStatePendingException()
 
+        tempUserUtil.resetOAuthWrongPasswordCount(user)
+
         val code = UUID.randomUUID().toString().split(".")[0]
 
-        tempUserUtil.resetOAuthWrongPasswordCount(user)
         oauthCodeRepository.save(OauthCode(code, user.email))
         return OauthCodeResponseDto(
             code = code,
