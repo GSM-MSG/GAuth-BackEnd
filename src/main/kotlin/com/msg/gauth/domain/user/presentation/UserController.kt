@@ -50,8 +50,7 @@ class UserController(
     }
 
     @GetMapping("/user-list")
-    fun acceptedUserList(request: AcceptedUserRequest
-    ): ResponseEntity<List<SingleAcceptedUserResDto>> {
+    fun acceptedUserList(request: AcceptedUserRequest): ResponseEntity<List<SingleAcceptedUserResDto>> {
         val result = getAcceptedUsersService.execute(request)
         return ResponseEntity.ok(result)
     }
