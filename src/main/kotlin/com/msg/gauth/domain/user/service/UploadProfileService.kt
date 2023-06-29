@@ -22,6 +22,7 @@ class UploadProfileService(
                 id = user.id,
                 email = user.email,
                 password = user.password,
+                name = user.name,
                 gender = user.gender,
                 grade = user.grade,
                 classNum = user.classNum,
