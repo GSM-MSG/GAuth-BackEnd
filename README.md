@@ -1,4 +1,7 @@
 # GAuth
+
+<img src="./assets/img/gauth.png" width = 300px height = 200px></img>
+
 GAuth는 학교 OAuth 서비스로, 교내 프로젝트나 서비스를 만들 때 필요한 학생들의 정보를 쉽게 얻을 수 있습니다.  
 서비스 사용자는 로그인 및 회원가입을 간편하게 진행할 수 있습니다.
 
@@ -21,7 +24,7 @@ GAuth는 학교 OAuth 서비스로, 교내 프로젝트나 서비스를 만들 �
 2. sidebar에서 서비스 등록 탭을 눌러 서비스 등록 페이지로 이동합니다.
 3. 서비스 등록 페이지에서 {서비스 이름, redirectURI, 서비스 사이트 URL}을 입력하여 서비스를 등록합니다.
 
-### Oauth
+### OAuth
 
 1. [https://gauth.com/login?client_id=(clientID)&redirect_uri=(redirectURI)](https://gauth.com/login?client_id=(clientID)&redirect_uri=(redirectURI)) 에 유저가 접속합니다. (OAuth 로그인 페이지)
 2. 로그인 성공 시 정보주는 동의를 받고 (redirectURI)?code=(code) 로 리다이렉트됩니다.
