@@ -1,6 +1,6 @@
 # GAuth
 
-![](./assets/img/gauth.png)
+<img src="./assets/img/gauth.png" width = 400px height = 200px></img>
 
 GAuth는 학교 OAuth 서비스로, 교내 프로젝트나 서비스를 만들 때 필요한 학생들의 정보를 쉽게 얻을 수 있습니다.  
 서비스 사용자는 로그인 및 회원가입을 간편하게 진행할 수 있습니다.
