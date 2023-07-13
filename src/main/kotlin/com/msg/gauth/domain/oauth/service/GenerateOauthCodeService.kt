@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.*
 
 @TransactionalService(noRollbackFor = [PasswordMismatchException::class])
-class   GenerateOauthCodeService(
+class GenerateOauthCodeService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
     private val oauthCodeRepository: OauthCodeRepository,
