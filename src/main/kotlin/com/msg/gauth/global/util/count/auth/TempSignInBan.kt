@@ -1,11 +1,11 @@
-package com.msg.gauth.domain.oauth
+package com.msg.gauth.global.util.count.auth
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.redis.core.RedisHash
 import org.springframework.data.redis.core.index.Indexed
 
-@RedisHash(value = "tempOAuthSignInBan", timeToLive = 60)
-class TempOAuthSignInBan (
+@RedisHash(value = "tempSignInBan", timeToLive = 60)
+class TempSignInBan (
     @Id
     @Indexed
     val email: String

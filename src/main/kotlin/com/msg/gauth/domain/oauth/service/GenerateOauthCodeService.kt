@@ -1,17 +1,12 @@
 package com.msg.gauth.domain.oauth.service
 
 import com.msg.gauth.domain.auth.exception.PasswordMismatchException
-import com.msg.gauth.domain.auth.exception.SignInBanException
-import com.msg.gauth.domain.oauth.OauthCode
-import com.msg.gauth.domain.oauth.TempOAuthSignInBan
-import com.msg.gauth.domain.oauth.exception.TempOAuthSignInBanException
+import com.msg.gauth.global.util.count.oauth.OauthCode
 import com.msg.gauth.domain.oauth.exception.UserStatePendingException
 import com.msg.gauth.domain.oauth.presentation.dto.request.OauthCodeRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.OauthCodeResponseDto
 import com.msg.gauth.domain.oauth.repository.OauthCodeRepository
-import com.msg.gauth.domain.oauth.repository.TempOAuthSignInBanRepository
-import com.msg.gauth.domain.oauth.util.TooManyOAuthRequestValidUtil
-import com.msg.gauth.domain.user.User
+import com.msg.gauth.global.util.count.oauth.util.TooManyOAuthRequestValidUtil
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
@@ -22,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.*
 
 @TransactionalService(noRollbackFor = [PasswordMismatchException::class])
-class   GenerateOauthCodeService(
+class GenerateOauthCodeService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder,
     private val oauthCodeRepository: OauthCodeRepository,

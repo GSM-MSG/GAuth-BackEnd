@@ -1,11 +1,11 @@
-package com.msg.gauth.domain.auth
+package com.msg.gauth.global.util.count.auth
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.redis.core.RedisHash
 import org.springframework.data.redis.core.index.Indexed
 
-@RedisHash(value = "minuteSignInCount", timeToLive = 60)
-class MinuteSignInCount(
+@RedisHash(value = "secondSignInCount", timeToLive = 5)
+class SecondSignInCount(
     @Id
     @Indexed
     val email: String,

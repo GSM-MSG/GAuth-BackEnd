@@ -3,7 +3,7 @@ package com.msg.gauth.domain.oauth.service
 import com.msg.gauth.domain.client.Client
 import com.msg.gauth.domain.client.exception.ClientNotFindException
 import com.msg.gauth.domain.client.repository.ClientRepository
-import com.msg.gauth.domain.oauth.OauthRefreshToken
+import com.msg.gauth.global.util.count.oauth.OauthRefreshToken
 import com.msg.gauth.domain.oauth.exception.ClientSecretMismatchException
 import com.msg.gauth.domain.oauth.exception.OauthCodeExpiredException
 import com.msg.gauth.domain.oauth.presentation.dto.request.OauthTokenRequestDto

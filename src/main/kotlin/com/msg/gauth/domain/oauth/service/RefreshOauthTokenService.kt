@@ -2,7 +2,7 @@ package com.msg.gauth.domain.oauth.service
 
 import com.msg.gauth.domain.auth.exception.ExpiredRefreshTokenException
 import com.msg.gauth.domain.auth.exception.InvalidRefreshTokenException
-import com.msg.gauth.domain.oauth.OauthRefreshToken
+import com.msg.gauth.global.util.count.oauth.OauthRefreshToken
 import com.msg.gauth.domain.oauth.presentation.dto.response.OauthTokenResponseDto
 import com.msg.gauth.domain.oauth.repository.OauthRefreshTokenRepository
 import com.msg.gauth.domain.user.exception.UserNotFoundException
