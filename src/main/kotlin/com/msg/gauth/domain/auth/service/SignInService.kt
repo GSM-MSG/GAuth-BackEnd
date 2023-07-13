@@ -1,12 +1,12 @@
 package com.msg.gauth.domain.auth.service
 
-import com.msg.gauth.domain.auth.RefreshToken
+import com.msg.gauth.global.util.count.auth.RefreshToken
 import com.msg.gauth.domain.auth.exception.PasswordMismatchException
 import com.msg.gauth.domain.auth.exception.UserIsPendingException
 import com.msg.gauth.domain.auth.presentation.dto.request.SignInRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto
 import com.msg.gauth.domain.auth.repository.RefreshTokenRepository
-import com.msg.gauth.domain.auth.util.TooManyRequestValidUtil
+import com.msg.gauth.global.util.count.auth.util.TooManyRequestValidUtil
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException

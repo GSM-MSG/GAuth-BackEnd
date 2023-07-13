@@ -1,10 +1,10 @@
 package com.msg.gauth.domain.user.util
 
-import com.msg.gauth.domain.auth.TempSignInBan
+import com.msg.gauth.global.util.count.auth.TempSignInBan
 import com.msg.gauth.domain.auth.exception.SignInBanException
 import com.msg.gauth.domain.auth.exception.TempSignInBanException
 import com.msg.gauth.domain.auth.repository.TempSignInBanRepository
-import com.msg.gauth.domain.oauth.TempOAuthSignInBan
+import com.msg.gauth.global.util.count.oauth.TempOAuthSignInBan
 import com.msg.gauth.domain.oauth.repository.TempOAuthSignInBanRepository
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserState

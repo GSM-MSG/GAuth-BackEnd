@@ -1,4 +1,4 @@
-package com.msg.gauth.domain.oauth
+package com.msg.gauth.global.util.count.oauth
 
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
 import org.springframework.data.annotation.Id

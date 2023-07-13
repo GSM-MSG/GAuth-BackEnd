@@ -1,6 +1,6 @@
 package com.msg.gauth.domain.auth.service
 
-import com.msg.gauth.domain.auth.RefreshToken
+import com.msg.gauth.global.util.count.auth.RefreshToken
 import com.msg.gauth.domain.auth.exception.ExpiredRefreshTokenException
 import com.msg.gauth.domain.auth.exception.InvalidRefreshTokenException
 import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto

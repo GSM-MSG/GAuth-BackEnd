@@ -1,11 +1,11 @@
-package com.msg.gauth.domain.auth.util
+package com.msg.gauth.global.util.count.oauth.util
 
-import com.msg.gauth.domain.auth.MinuteSignInCount
-import com.msg.gauth.domain.auth.SecondSignInCount
-import com.msg.gauth.domain.auth.exception.SignInMinuteCountOverException
-import com.msg.gauth.domain.auth.exception.SignInSecondCountOverException
-import com.msg.gauth.domain.auth.repository.MinuteSignInCountRepository
-import com.msg.gauth.domain.auth.repository.SecondSignInCountRepository
+import com.msg.gauth.global.util.count.oauth.MinuteOAuthSignInCount
+import com.msg.gauth.global.util.count.oauth.SecondOAuthSignInCount
+import com.msg.gauth.domain.oauth.exception.OAuthSignInMinuteOverException
+import com.msg.gauth.domain.oauth.exception.OAuthSignInSecondOverException
+import com.msg.gauth.domain.oauth.repository.MinuteOAuthSignInCountRepository
+import com.msg.gauth.domain.oauth.repository.SecondOAuthSignInCountRepository
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
@@ -14,43 +14,44 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
 @Component
-class TooManyRequestValidUtil(
-    private val minuteSignInCountRepository: MinuteSignInCountRepository,
-    private val secondSignInCountRepository: SecondSignInCountRepository,
+class TooManyOAuthRequestValidUtil(
+    private val minuteSignInCountRepository: MinuteOAuthSignInCountRepository,
+    private val secondSignInCountRepository: SecondOAuthSignInCountRepository,
     private val userRepository: UserRepository
 ) {
     fun validRequest(email: String){
         val secondSignInCount = (secondSignInCountRepository.findByIdOrNull(email)
-            ?: secondSignInCountRepository.save(SecondSignInCount(email)))
+            ?: secondSignInCountRepository.save(SecondOAuthSignInCount(email)))
 
         if (secondSignInCount.count >= 20) {
             val user = userRepository.findByEmail(email)
                 ?: throw UserNotFoundException()
 
-            userSignInBan(user)
+            userOAuthBan(user)
 
-            throw SignInSecondCountOverException()
+            throw OAuthSignInSecondOverException()
         }
-        secondSignInCount.addCount()
 
+        secondSignInCount.addCount()
         secondSignInCountRepository.save(secondSignInCount)
 
         val minuteSignInCount = (minuteSignInCountRepository.findByIdOrNull(email)
-            ?: minuteSignInCountRepository.save(MinuteSignInCount(email)))
+            ?: minuteSignInCountRepository.save(MinuteOAuthSignInCount(email)))
 
         if (minuteSignInCount.count >= 10) {
             val user = userRepository.findByEmail(email)
                 ?: throw UserNotFoundException()
 
-            userSignInBan(user)
-            throw SignInMinuteCountOverException()
+            userOAuthBan(user)
+
+            throw OAuthSignInMinuteOverException()
         }
 
         minuteSignInCount.addCount()
         minuteSignInCountRepository.save(minuteSignInCount)
     }
 
-    fun userSignInBan(user: User){
+    fun userOAuthBan(user: User){
         userRepository.save(
             User(
                 id = user.id,
@@ -62,7 +63,7 @@ class TooManyRequestValidUtil(
                 classNum = user.classNum,
                 num = user.num,
                 roles = user.roles,
-                state = UserState.SIGN_IN_BAN,
+                state = UserState.OAUTH_BAN,
                 profileUrl = user.profileUrl,
                 wrongPasswordCount = user.wrongPasswordCount,
                 oauthWrongPasswordCount = user.oauthWrongPasswordCount
