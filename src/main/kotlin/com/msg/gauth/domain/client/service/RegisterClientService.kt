@@ -20,5 +20,6 @@ class RegisterClientService(
         return ClientRegisterResDto(clientRepository.save(client))
     }
 
-    private fun createUUID() = (UUID.randomUUID().toString() + UUID.randomUUID().toString()).replace("-", "")
+    private fun createUUID() = (UUID.randomUUID().toString() + UUID.randomUUID().toString())
+        .replace("-", "")
 }
