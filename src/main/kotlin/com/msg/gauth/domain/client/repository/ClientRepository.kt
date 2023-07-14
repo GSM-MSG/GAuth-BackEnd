@@ -1,6 +1,7 @@
 package com.msg.gauth.domain.client.repository
 
 import com.msg.gauth.domain.client.Client
+import com.msg.gauth.domain.client.enums.ServiceScope
 import com.msg.gauth.domain.user.User
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -14,4 +15,5 @@ interface ClientRepository: JpaRepository<Client, Long>, CustomClientRepository 
     fun findByClientId(clientId: String): Client?
     fun findByClientIdAndRedirectUri(clientId: String, redirectUri: String): Client?
     fun findByServiceNameContaining(serviceName: String, pageable: Pageable): Page<Client>
+    fun findByServiceScope(serviceScope: ServiceScope): List<Client>
 }
