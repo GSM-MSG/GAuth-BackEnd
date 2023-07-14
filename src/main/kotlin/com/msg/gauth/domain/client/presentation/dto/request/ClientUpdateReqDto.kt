@@ -17,7 +17,7 @@ data class ClientUpdateReqDto(
     val redirectUri: String,
 
     @Enumerated(EnumType.STRING)
-    val serviceScope: ServiceScope
+    val serviceScope: ServiceScope = ServiceScope.PUBLIC
 ){
 
     fun toEntity(client: Client): Client =

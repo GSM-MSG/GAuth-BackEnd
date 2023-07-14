@@ -18,7 +18,7 @@ data class ClientRegisterReqDto(
     val redirectUri: String,
 
     @Enumerated(EnumType.STRING)
-    val serviceScope: ServiceScope
+    val serviceScope: ServiceScope = ServiceScope.PUBLIC
 ){
     fun toEntity(user: User, clientSecret: String, clientId: String): Client =
         Client(
