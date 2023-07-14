@@ -4,7 +4,7 @@ import com.msg.gauth.global.util.count.auth.RefreshToken
 import com.msg.gauth.domain.auth.exception.PasswordMismatchException
 import com.msg.gauth.domain.auth.exception.UserIsPendingException
 import com.msg.gauth.domain.auth.presentation.dto.request.SignInRequestDto
-import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto
+import com.msg.gauth.domain.auth.presentation.dto.response.SignInResponseDto
 import com.msg.gauth.domain.auth.repository.RefreshTokenRepository
 import com.msg.gauth.global.util.count.auth.util.TooManyRequestValidUtil
 import com.msg.gauth.domain.user.User
@@ -25,7 +25,7 @@ class SignInService(
     private val tooManyRequestValidUtil: TooManyRequestValidUtil,
     private val tempUserUtil: TempUserUtil
 ) {
-    fun execute(dto: SignInRequestDto): SigninResponseDto {
+    fun execute(dto: SignInRequestDto): SignInResponseDto {
         val user: User = userRepository.findByEmail(dto.email) ?: throw UserNotFoundException()
 
         tempUserUtil.isUserBan(user)
@@ -48,7 +48,7 @@ class SignInService(
         val expiresAt = jwtTokenProvider.accessExpiredTime
 
         refreshTokenRepository.save(RefreshToken(user.id, refresh))
-        return SigninResponseDto(access, refresh, expiresAt)
+        return SignInResponseDto(access, refresh, expiresAt)
     }
 
 }

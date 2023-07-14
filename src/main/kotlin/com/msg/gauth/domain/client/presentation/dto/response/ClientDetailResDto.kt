@@ -1,6 +1,7 @@
 package com.msg.gauth.domain.client.presentation.dto.response
 
 import com.msg.gauth.domain.client.Client
+import com.msg.gauth.domain.client.enums.ServiceScope
 
 data class ClientDetailResDto(
     val id: Long,
@@ -9,6 +10,7 @@ data class ClientDetailResDto(
     val redirectUri: String,
     val serviceName: String,
     val serviceUri: String,
+    val serviceScope: ServiceScope
 ){
     constructor(client: Client): this(
         id = client.id,
@@ -16,6 +18,7 @@ data class ClientDetailResDto(
         clientSecret = client.clientSecret,
         redirectUri = client.redirectUri,
         serviceName = client.serviceName,
-        serviceUri = client.serviceUri
+        serviceUri = client.serviceUri,
+        serviceScope = client.serviceScope
     )
 }

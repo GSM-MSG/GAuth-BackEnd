@@ -12,7 +12,9 @@ class GetMyDetailClientService(
     private val userUtil: UserUtil
 ) {
     fun execute(id: Long): ClientDetailResDto{
-        val client = clientRepository.findByIdAndCreatedBy(id, userUtil.fetchCurrentUser()) ?: throw ClientNotFindException()
+        val client = clientRepository.findByIdAndCreatedBy(id, userUtil.fetchCurrentUser())
+            ?: throw ClientNotFindException()
+
         return ClientDetailResDto(client)
     }
 }

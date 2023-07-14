@@ -2,11 +2,11 @@ package com.msg.gauth.domain.client.service
 
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.user.util.UserUtil
+import com.msg.gauth.global.annotation.service.TransactionalService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-@Service
-@Transactional(rollbackFor = [Exception::class])
+@TransactionalService
 class DeleteClientsService(
     private val clientRepository: ClientRepository,
     private val userUtil: UserUtil

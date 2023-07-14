@@ -15,6 +15,7 @@ class UpdateClientService(
     fun updateClient(id: Long, clientUpdateReqDto: ClientUpdateReqDto){
         val client = clientRepository.findByIdAndCreatedBy(id, userUtil.fetchCurrentUser())
             ?: throw ClientNotFindException()
+
         clientRepository.save(clientUpdateReqDto.toEntity(client))
     }
 }

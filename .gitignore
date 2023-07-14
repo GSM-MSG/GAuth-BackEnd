@@ -37,6 +37,7 @@ out/
 .vscode/
 
 ### docker ###
-docker-compose.yml
 
 /src/main/resources/application-dev.yml
+
+.env
