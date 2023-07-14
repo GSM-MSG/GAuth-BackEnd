@@ -1,6 +1,6 @@
 package com.msg.gauth.domain.auth.service
 
-import com.msg.gauth.domain.auth.presentation.dto.response.SignupImageResDto
+import com.msg.gauth.domain.auth.presentation.dto.response.SignUpImageResDto
 import com.msg.gauth.domain.email.exception.AuthCodeExpiredException
 import com.msg.gauth.domain.email.exception.AuthCodeNotVerificationException
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
@@ -13,7 +13,7 @@ class SignUpImageUploadService(
     private val s3Util: S3Util,
     private val emailAuthRepository: EmailAuthRepository,
 ){
-    fun execute(image: MultipartFile, previousUrl: String?, email: String): SignupImageResDto{
+    fun execute(image: MultipartFile, previousUrl: String?, email: String): SignUpImageResDto{
         val emailAuth = emailAuthRepository.findById(email)
             .orElseThrow { throw AuthCodeExpiredException() }
 
@@ -23,6 +23,6 @@ class SignUpImageUploadService(
         if(previousUrl != null)
             s3Util.deleteImage(previousUrl)
 
-        return SignupImageResDto(s3Util.upload(image))
+        return SignUpImageResDto(s3Util.upload(image))
     }
 }

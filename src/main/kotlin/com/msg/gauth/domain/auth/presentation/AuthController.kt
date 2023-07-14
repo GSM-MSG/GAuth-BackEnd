@@ -5,8 +5,8 @@ import com.msg.gauth.domain.auth.presentation.dto.request.SignInRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto
 import com.msg.gauth.domain.auth.service.*
 import com.msg.gauth.domain.auth.presentation.dto.request.PasswordInitReqDto
-import com.msg.gauth.domain.auth.presentation.dto.response.SigninResponseDto
-import com.msg.gauth.domain.auth.presentation.dto.response.SignupImageResDto
+import com.msg.gauth.domain.auth.presentation.dto.response.SignInResponseDto
+import com.msg.gauth.domain.auth.presentation.dto.response.SignUpImageResDto
 import com.msg.gauth.domain.auth.service.InitPasswordService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -37,7 +37,7 @@ class AuthController(
     }
 
     @PostMapping
-    fun signin(@Valid @RequestBody signInRequestDto: SignInRequestDto): ResponseEntity<SigninResponseDto> {
+    fun signIn(@Valid @RequestBody signInRequestDto: SignInRequestDto): ResponseEntity<SignInResponseDto> {
         val result = signInService.execute(signInRequestDto)
         return ResponseEntity.ok(result)
     }
@@ -49,7 +49,7 @@ class AuthController(
     }
 
     @PatchMapping("/image")
-    fun uploadSignupImage(@RequestPart("image") image: MultipartFile, @RequestPart("imageUrl") previousUrl: String?, @RequestPart email: String): ResponseEntity<SignupImageResDto> {
+    fun uploadSignupImage(@RequestPart("image") image: MultipartFile, @RequestPart("imageUrl") previousUrl: String?, @RequestPart email: String): ResponseEntity<SignUpImageResDto> {
         val result = signUpImageUploadService.execute(image, previousUrl, email)
         return ResponseEntity.ok(result)
     }

@@ -26,6 +26,6 @@ class Client(
     val createdBy: User,
 
     @Enumerated(EnumType.STRING)
-    val serviceScope: ServiceScope
+    val serviceScope: ServiceScope = ServiceScope.PUBLIC
 
 ): BaseIdEntity(id)

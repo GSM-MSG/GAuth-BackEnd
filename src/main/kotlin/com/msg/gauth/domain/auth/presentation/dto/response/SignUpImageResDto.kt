@@ -1,5 +1,5 @@
 package com.msg.gauth.domain.auth.presentation.dto.response
 
-data class SignupImageResDto(
+data class SignUpImageResDto(
     val imageUrl: String,
 )
