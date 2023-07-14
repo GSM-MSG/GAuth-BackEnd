@@ -25,9 +25,9 @@ data class ClientUpdateReqDto(
             id = client.id,
             clientId = client.clientId,
             clientSecret = client.clientSecret,
-            redirectUri = this.redirectUri,
-            serviceName = this.serviceName,
-            serviceUri = this.serviceUri,
+            redirectUri = redirectUri,
+            serviceName = serviceName,
+            serviceUri = serviceUri,
             createdBy = client.createdBy,
             serviceScope = serviceScope
         )
