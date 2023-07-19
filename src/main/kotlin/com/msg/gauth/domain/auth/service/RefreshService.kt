@@ -28,7 +28,7 @@ class RefreshService(
 
         val newRefreshToken = RefreshToken(
             userId = existingRefreshToken.userId,
-            token = refresh,
+            token = refresh
         )
 
         refreshTokenRepository.save(newRefreshToken)
