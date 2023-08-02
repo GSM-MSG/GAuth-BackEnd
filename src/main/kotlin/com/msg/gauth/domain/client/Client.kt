@@ -26,7 +26,7 @@ class Client(
     val createdBy: User,
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'PUBLIC")
+    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'PUBLIC'")
     val serviceScope: ServiceScope
 
 ): BaseIdEntity(id)
