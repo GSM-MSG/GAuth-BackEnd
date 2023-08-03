@@ -1,6 +1,7 @@
 package com.msg.gauth.domain.user.presentation.dto.response
 
 import com.msg.gauth.domain.client.Client
+import com.msg.gauth.domain.client.enums.ServiceScope
 import com.msg.gauth.domain.user.User
 
 data class MyProfileResDto(
@@ -20,12 +21,14 @@ data class MyProfileResDto(
         val clientId: String,
         val serviceName: String,
         val serviceUri: String,
+        val serviceScope: ServiceScope
     ) {
         constructor(client: Client): this(
             id = client.id,
             clientId = client.clientId,
             serviceName = client.serviceName,
             serviceUri = client.serviceUri,
+            serviceScope = client.serviceScope
         )
     }
 }
