@@ -1,15 +1,10 @@
 package com.msg.gauth.domain.user.repository
 
-import com.fasterxml.jackson.databind.util.ArrayBuilders
 import com.msg.gauth.domain.user.QUser.user
 import com.msg.gauth.domain.user.User
-import com.querydsl.core.BooleanBuilder
-import com.querydsl.core.types.dsl.BooleanExpression
+import com.msg.gauth.domain.user.enums.UserRole
 import com.querydsl.jpa.impl.JPAQueryFactory
-import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository
-import javax.persistence.EntityManager
-import javax.persistence.PersistenceContext
 
 @Repository
 class CustomUserRepositoryImpl(
@@ -21,15 +16,10 @@ class CustomUserRepositoryImpl(
         val expression = (if (grade != 0) user.grade.eq(grade) else null)
             ?.and(if (classNum != 0) user.classNum.eq(classNum) else null)
             ?.and(if (keyword.isNotEmpty()) user.name.like("%$keyword%") else null)
+            ?: user.roles.contains(UserRole.ROLE_STUDENT)
 
-        return if(expression == null){
-            jpaQueryFactory.selectFrom(user)
-                .fetch()
-        } else {
-            jpaQueryFactory.selectFrom(user)
-                .where(expression)
-                .fetch()
-        }
+        return jpaQueryFactory.selectFrom(user)
+            .where(expression)
+            .fetch()
     }
-
 }
