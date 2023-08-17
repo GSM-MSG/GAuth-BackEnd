@@ -14,15 +14,14 @@ class CustomUserRepositoryImpl(
 
     override fun search(grade: Int, classNum: Int, keyword: String): List<User> {
 
-        return if(grade == 0 && classNum == 0 && keyword.isEmpty()) {
-            jpaQueryFactory.selectFrom(user)
-                .where(roleContains(UserRole.ROLE_STUDENT))
+        return jpaQueryFactory.selectFrom(user)
+                .where(
+                    gradeEq(grade),
+                    classNumEq(classNum),
+                    keywordLike(keyword),
+                    roleContains(UserRole.ROLE_STUDENT)
+                )
                 .fetch()
-        } else {
-            jpaQueryFactory.selectFrom(user)
-                .where(gradeEq(grade), classNumEq(classNum), keywordLike(keyword))
-                .fetch()
-        }
     }
 
     private fun gradeEq(grade: Int): BooleanExpression? =
