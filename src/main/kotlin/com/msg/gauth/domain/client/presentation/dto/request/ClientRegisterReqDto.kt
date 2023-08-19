@@ -25,7 +25,7 @@ data class ClientRegisterReqDto(
 
     val serviceImgUrl: String = ""
 
-){
+) {
     fun toEntity(user: User, clientSecret: String, clientId: String): Client =
         Client(
             clientId = clientId,
