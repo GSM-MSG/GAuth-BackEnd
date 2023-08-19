@@ -27,6 +27,9 @@ class Client(
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(255) DEFAULT 'PUBLIC'")
-    val serviceScope: ServiceScope
+    val serviceScope: ServiceScope,
+
+    @Column(columnDefinition = "TEXT")
+    val serviceImgUrl: String?
 
 ): BaseIdEntity(id)
