@@ -9,7 +9,8 @@ data class ClientRegisterResDto(
     val redirectUri: String,
     val serviceName: String,
     val serviceUri: String,
-    val serviceScope: ServiceScope
+    val serviceScope: ServiceScope,
+    val serviceImgUrl: String
 ) {
     constructor(client: Client): this(
         clientId = client.clientId,
@@ -17,6 +18,7 @@ data class ClientRegisterResDto(
         redirectUri = client.redirectUri,
         serviceName = client.serviceName,
         serviceUri = client.serviceUri,
-        serviceScope = client.serviceScope
+        serviceScope = client.serviceScope,
+        serviceImgUrl = client.serviceImgUrl
     )
 }

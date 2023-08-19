@@ -8,7 +8,8 @@ data class ClientResDto(
     val serviceName: String,
     val serviceUri: String,
     val ownerName: String,
-    val serviceScope: ServiceScope
+    val serviceScope: ServiceScope,
+    val serviceImgUrl: String
 ) {
 
     constructor(client: Client): this(
@@ -16,6 +17,7 @@ data class ClientResDto(
         serviceName = client.serviceName,
         serviceUri = client.serviceUri,
         ownerName = client.createdBy.name ?: "",
-        serviceScope = client.serviceScope
+        serviceScope = client.serviceScope,
+        serviceImgUrl = client.serviceImgUrl
     )
 }
