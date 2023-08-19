@@ -3,6 +3,9 @@ package com.msg.gauth.domain.client.presentation.dto.request
 import com.msg.gauth.domain.client.Client
 import com.msg.gauth.domain.client.enums.ServiceScope
 import com.msg.gauth.domain.user.User
+import org.springframework.boot.context.properties.bind.DefaultValue
+import reactor.util.annotation.NonNull
+import reactor.util.annotation.Nullable
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 import javax.validation.constraints.Size
@@ -18,7 +21,10 @@ data class ClientRegisterReqDto(
     val redirectUri: String,
 
     @Enumerated(EnumType.STRING)
-    val serviceScope: ServiceScope = ServiceScope.PUBLIC
+    val serviceScope: ServiceScope = ServiceScope.PUBLIC,
+
+    val serviceImgUrl: String = ""
+
 ){
     fun toEntity(user: User, clientSecret: String, clientId: String): Client =
         Client(
@@ -28,6 +34,7 @@ data class ClientRegisterReqDto(
             serviceUri = serviceUri,
             redirectUri = redirectUri,
             createdBy = user,
-            serviceScope = serviceScope
+            serviceScope = serviceScope,
+            serviceImgUrl = serviceImgUrl
         )
 }

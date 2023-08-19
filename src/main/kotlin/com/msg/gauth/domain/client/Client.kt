@@ -30,6 +30,6 @@ class Client(
     val serviceScope: ServiceScope,
 
     @Column(columnDefinition = "TEXT")
-    val serviceImgUrl: String?
+    val serviceImgUrl: String = ""
 
 ): BaseIdEntity(id)
