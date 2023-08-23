@@ -18,7 +18,7 @@ class UpdateAnyClientService(
         val client: Client = clientRepository.findByIdOrNull(id)
             ?: throw ClientNotFindException()
 
-        if(client.serviceImgUrl != "")
+        if(client.serviceImgUrl.isNotEmpty())
             s3Util.deleteImage(client.serviceImgUrl)
 
         clientRepository.save(clientUpdateReqDto.toEntity(client))
