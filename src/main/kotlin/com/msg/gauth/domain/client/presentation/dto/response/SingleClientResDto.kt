@@ -8,13 +8,15 @@ data class SingleClientResDto(
     val clientId: String,
     val serviceName: String,
     val serviceUri: String,
-    val serviceScope: ServiceScope
+    val serviceScope: ServiceScope,
+    val serviceImgUrl: String
 ) {
     constructor(client: Client): this(
         id = client.id,
         clientId = client.clientId,
         serviceName = client.serviceName,
         serviceUri = client.serviceUri,
-        serviceScope = client.serviceScope
+        serviceScope = client.serviceScope,
+        serviceImgUrl = client.serviceImgUrl
     )
 }
