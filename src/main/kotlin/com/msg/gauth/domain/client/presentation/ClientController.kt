@@ -26,7 +26,10 @@ class ClientController(
 ) {
 
     @PostMapping
-    fun registerClient(@RequestPart("image") image: MultipartFile, @RequestBody clientRegisterReqDto: ClientRegisterReqDto): ResponseEntity<ClientRegisterResDto>{
+    fun registerClient(
+        @RequestPart(name = "image") image: MultipartFile,
+        @RequestBody clientRegisterReqDto: ClientRegisterReqDto
+    ): ResponseEntity<ClientRegisterResDto>{
         val clientRegisterResDto = registerClientService.execute(image, clientRegisterReqDto)
         return ResponseEntity.ok(clientRegisterResDto)
     }
@@ -44,8 +47,12 @@ class ClientController(
     }
 
     @PatchMapping("/{id}")
-    fun updateClient(@PathVariable id: Long, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
-        updateClientService.updateClient(id, clientUpdateDto)
+    fun updateClient(
+        @PathVariable id: Long,
+        @RequestBody clientUpdateDto: ClientUpdateReqDto,
+        @RequestPart(name = "image", required = false) image: MultipartFile?
+    ): ResponseEntity<Void>{
+        updateClientService.updateClient(id, clientUpdateDto, image)
         return ResponseEntity.noContent().build()
     }
 
@@ -62,8 +69,12 @@ class ClientController(
     }
 
     @PatchMapping("/{id}/patch")
-    fun updateAnyClient(@PathVariable id: Long, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
-        updateAnyClientService.execute(id, clientUpdateDto)
+    fun updateAnyClient(
+        @PathVariable id: Long,
+        @RequestBody clientUpdateDto: ClientUpdateReqDto,
+        @RequestPart(name = "image", required = false) image: MultipartFile
+    ): ResponseEntity<Void>{
+        updateAnyClientService.execute(id, clientUpdateDto, image)
         return ResponseEntity.noContent().build()
     }
 
