@@ -27,7 +27,7 @@ class ClientController(
 
     @PostMapping
     fun registerClient(
-        @RequestPart(name = "image") image: MultipartFile,
+        @RequestPart(name = "image", required = false) image: MultipartFile?,
         @RequestBody clientRegisterReqDto: ClientRegisterReqDto
     ): ResponseEntity<ClientRegisterResDto>{
         val clientRegisterResDto = registerClientService.execute(image, clientRegisterReqDto)
