@@ -10,6 +10,7 @@ import com.msg.gauth.domain.client.service.*
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 
 @RestController
 @RequestMapping("/client")
@@ -25,8 +26,8 @@ class ClientController(
 ) {
 
     @PostMapping
-    fun registerClient(@RequestBody clientRegisterReqDto: ClientRegisterReqDto): ResponseEntity<ClientRegisterResDto>{
-        val clientRegisterResDto = registerClientService.execute(clientRegisterReqDto)
+    fun registerClient(@RequestPart("image") image: MultipartFile, @RequestBody clientRegisterReqDto: ClientRegisterReqDto): ResponseEntity<ClientRegisterResDto>{
+        val clientRegisterResDto = registerClientService.execute(image, clientRegisterReqDto)
         return ResponseEntity.ok(clientRegisterResDto)
     }
 

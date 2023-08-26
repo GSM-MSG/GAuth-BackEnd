@@ -21,12 +21,9 @@ data class ClientRegisterReqDto(
     val redirectUri: String,
 
     @Enumerated(EnumType.STRING)
-    val serviceScope: ServiceScope = ServiceScope.PUBLIC,
-
-    val serviceImgUrl: String = ""
-
+    val serviceScope: ServiceScope = ServiceScope.PUBLIC
 ) {
-    fun toEntity(user: User, clientSecret: String, clientId: String): Client =
+    fun toEntity(user: User, clientSecret: String, clientId: String, serviceImgUrl: String): Client =
         Client(
             clientId = clientId,
             clientSecret = clientSecret,
