@@ -23,7 +23,8 @@ class UserController(
     private val acceptStudentSignUpService: AcceptStudentSignUpService,
     private val getMyRolesService: GetMyRolesService,
     private val acceptUserSignUpService: AcceptUserSignUpService,
-    private val rejectUserSignUpService: RejectUserSignUpService
+    private val rejectUserSignUpService: RejectUserSignUpService,
+    private val uploadProfileURLService: UploadProfileURLService
 ) {
     @GetMapping("/role")
     fun getMyRoles(): ResponseEntity<GetMyRolesResDto> {
@@ -43,9 +44,16 @@ class UserController(
         return ResponseEntity.noContent().build()
     }
 
+    @Deprecated("This api is deprecated use uploadProfilURL instead")
     @PatchMapping("/image")
-    fun uploadProfile(@RequestParam("image_url") imageURL: String): ResponseEntity<Void> {
-        uploadProfileService.execute(imageURL)
+    fun uploadProfile(@RequestPart("image") image: MultipartFile): ResponseEntity<Void> {
+        uploadProfileService.execute(image)
+        return ResponseEntity.noContent().build()
+    }
+
+    @PatchMapping("/profile")
+    fun uploadProfileURL(@RequestParam("image_url") imageURL: String): ResponseEntity<Void> {
+        uploadProfileURLService.execute(imageURL)
         return ResponseEntity.noContent().build()
     }
 
