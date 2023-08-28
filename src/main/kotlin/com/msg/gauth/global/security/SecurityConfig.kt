@@ -78,6 +78,10 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/user/user-list").hasRole("ADMIN")
             .antMatchers(HttpMethod.DELETE, "/user/reject/{id}").hasRole("ADMIN")
 
+            //image
+            .antMatchers(HttpMethod.POST, "/image").authenticated()
+            .antMatchers(HttpMethod.DELETE, "/image").authenticated()
+
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()
