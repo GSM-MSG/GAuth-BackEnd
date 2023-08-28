@@ -19,12 +19,10 @@ class UpdateAnyClientService(
         val client: Client = clientRepository.findByIdOrNull(id)
             ?: throw ClientNotFindException()
 
-        val serviceImgUrl = if(image != null) {
+        val serviceImgUrl = image?.let {
             s3Util.deleteImage(client.serviceImgUrl)
-            s3Util.upload(image)
-        } else {
-            client.serviceImgUrl
-        }
+            s3Util.upload(it)
+        } ?: client.serviceImgUrl
 
         clientRepository.save(clientUpdateReqDto.toEntity(client, serviceImgUrl))
     }
