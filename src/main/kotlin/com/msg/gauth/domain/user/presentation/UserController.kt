@@ -44,7 +44,7 @@ class UserController(
         return ResponseEntity.noContent().build()
     }
 
-    @Deprecated("This api is deprecated use uploadProfilURL instead")
+    @Deprecated("This api is deprecated use uploadProfileURL instead")
     @PatchMapping("/image")
     fun uploadProfile(@RequestPart("image") image: MultipartFile): ResponseEntity<Void> {
         uploadProfileService.execute(image)
