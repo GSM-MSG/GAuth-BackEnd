@@ -38,14 +38,14 @@ class UserController(
     }
 
     @PatchMapping("/password")
-    fun changePassword(@Valid @RequestBody passwordChangeReqDto: PasswordChangeReqDto): ResponseEntity<Void>{
+    fun changePassword(@Valid @RequestBody passwordChangeReqDto: PasswordChangeReqDto): ResponseEntity<Void> {
         changePasswordService.execute(passwordChangeReqDto)
         return ResponseEntity.noContent().build()
     }
 
     @PatchMapping("/image")
-    fun uploadProfile(@RequestPart("image") image: MultipartFile): ResponseEntity<Void>{
-        uploadProfileService.execute(image)
+    fun uploadProfile(@RequestParam("image_url") imageURL: String): ResponseEntity<Void> {
+        uploadProfileService.execute(imageURL)
         return ResponseEntity.noContent().build()
     }
 
