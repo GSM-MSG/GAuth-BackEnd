@@ -15,18 +15,12 @@ class RegisterClientService(
     private val userUtil: UserUtil,
     private val s3Util: S3Util
 ) {
-    fun execute(image: MultipartFile?, clientRegisterDto: ClientRegisterReqDto): ClientRegisterResDto {
+    fun execute(clientRegisterDto: ClientRegisterReqDto): ClientRegisterResDto {
         val (clientSecret, clientId) = createUUID() to createUUID()
 
         val user = userUtil.fetchCurrentUser()
 
-        val serviceImgUrl = if(image != null) {
-            s3Util.upload(image)
-        } else {
-            ""
-        }
-
-        val client = clientRegisterDto.toEntity(user, clientSecret, clientId, serviceImgUrl)
+        val client = clientRegisterDto.toEntity(user, clientSecret, clientId)
 
         return ClientRegisterResDto(clientRepository.save(client))
     }
