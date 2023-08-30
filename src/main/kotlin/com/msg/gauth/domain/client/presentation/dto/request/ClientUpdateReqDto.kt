@@ -2,10 +2,8 @@ package com.msg.gauth.domain.client.presentation.dto.request
 
 import com.msg.gauth.domain.client.Client
 import com.msg.gauth.domain.client.enums.ServiceScope
-import reactor.util.annotation.Nullable
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
-import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
 data class ClientUpdateReqDto(
@@ -20,8 +18,7 @@ data class ClientUpdateReqDto(
 
     @Enumerated(EnumType.STRING)
     val serviceScope: ServiceScope = ServiceScope.PUBLIC,
-
-    @field:Nullable
+    
     val serviceImgUrl: String = ""
 ) {
 
