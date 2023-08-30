@@ -21,8 +21,8 @@ data class ClientUpdateReqDto(
     @Enumerated(EnumType.STRING)
     val serviceScope: ServiceScope = ServiceScope.PUBLIC,
 
-    @field:NotNull
-    val serviceImgUrl: String
+    @field:Nullable
+    val serviceImgUrl: String = ""
 ) {
 
     fun toEntity(client: Client): Client =
