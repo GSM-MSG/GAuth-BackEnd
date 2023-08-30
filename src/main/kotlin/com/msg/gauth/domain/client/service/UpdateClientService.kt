@@ -12,18 +12,12 @@ import org.springframework.web.multipart.MultipartFile
 @TransactionalService
 class UpdateClientService(
     private val clientRepository: ClientRepository,
-    private val userUtil: UserUtil,
-    private val s3Util: S3Util
+    private val userUtil: UserUtil
 ) {
-    fun updateClient(id: Long, clientUpdateReqDto: ClientUpdateReqDto, image: MultipartFile?){
+    fun updateClient(id: Long, clientUpdateReqDto: ClientUpdateReqDto){
         val client = clientRepository.findByIdAndCreatedBy(id, userUtil.fetchCurrentUser())
             ?: throw ClientNotFindException()
 
-        val serviceImgUrl = image?.let {
-            s3Util.deleteImage(client.serviceImgUrl)
-            s3Util.upload(it)
-        } ?: client.serviceImgUrl
-
-        clientRepository.save(clientUpdateReqDto.toEntity(client, serviceImgUrl))
+        clientRepository.save(clientUpdateReqDto.toEntity(client))
     }
 }
