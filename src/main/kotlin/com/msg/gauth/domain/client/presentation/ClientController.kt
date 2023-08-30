@@ -49,10 +49,9 @@ class ClientController(
     @PatchMapping("/{id}")
     fun updateClient(
         @PathVariable id: Long,
-        @RequestBody clientUpdateDto: ClientUpdateReqDto,
-        @RequestPart(name = "image", required = false) image: MultipartFile?
+        @RequestBody clientUpdateDto: ClientUpdateReqDto
     ): ResponseEntity<Void>{
-        updateClientService.updateClient(id, clientUpdateDto, image)
+        updateClientService.updateClient(id, clientUpdateDto)
         return ResponseEntity.noContent().build()
     }
 
@@ -71,10 +70,9 @@ class ClientController(
     @PatchMapping("/{id}/patch")
     fun updateAnyClient(
         @PathVariable id: Long,
-        @RequestBody clientUpdateDto: ClientUpdateReqDto,
-        @RequestPart(name = "image", required = false) image: MultipartFile
+        @RequestBody clientUpdateDto: ClientUpdateReqDto
     ): ResponseEntity<Void>{
-        updateAnyClientService.execute(id, clientUpdateDto, image)
+        updateAnyClientService.execute(id, clientUpdateDto)
         return ResponseEntity.noContent().build()
     }
 
