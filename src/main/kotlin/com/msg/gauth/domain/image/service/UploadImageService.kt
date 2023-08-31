@@ -5,17 +5,18 @@ import com.msg.gauth.domain.image.presentation.dto.response.UploadImageResDto
 import com.msg.gauth.global.thirdparty.aws.s3.S3Util
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
+import java.util.*
 
 @Service
 class UploadImageService(
     private val s3Util: S3Util
 ) {
     fun execute(image: MultipartFile): UploadImageResDto {
-        val list = listOf("jpg", "png", "gif")
+        val list = listOf("jpg", "jpeg", "png", "gif")
 
         val extension = image.originalFilename.toString().split(".")[1]
 
-        if(!list.contains(extension))
+        if(!list.contains(extension.lowercase()))
             throw FileExtensionInvalidException()
 
         val imgURL = s3Util.upload(image)
