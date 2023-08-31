@@ -29,6 +29,6 @@ class ImageController(
     @DeleteMapping
     fun deleteImage(@RequestParam url: String): ResponseEntity<Void> {
         deleteImageService.execute(url)
-        return ResponseEntity.ok().build()
+        return ResponseEntity(HttpStatus.NO_CONTENT)
     }
 }
