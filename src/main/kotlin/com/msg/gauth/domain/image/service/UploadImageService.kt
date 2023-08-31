@@ -14,7 +14,12 @@ class UploadImageService(
     fun execute(image: MultipartFile): UploadImageResDto {
         val list = listOf("jpg", "jpeg", "png", "gif")
 
-        val extension = image.originalFilename.toString().split(".")[1].lowercase()
+        val splitFile = image.originalFilename.toString().split(".")
+
+        if(splitFile.size < 2)
+            throw FileExtensionInvalidException()
+
+        val extension = splitFile[1].lowercase()
 
         if(list.any { it == extension })
             throw FileExtensionInvalidException()
