@@ -68,7 +68,7 @@ class ClientController(
     fun updateAnyClient(
         @PathVariable id: Long,
         @RequestBody clientUpdateDto: ClientUpdateReqDto
-    ): ResponseEntity<Void>{
+    ): ResponseEntity<Void> {
         updateAnyClientService.execute(id, clientUpdateDto)
         return ResponseEntity.noContent().build()
     }
