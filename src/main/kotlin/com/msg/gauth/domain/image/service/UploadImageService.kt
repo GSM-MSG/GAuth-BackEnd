@@ -14,9 +14,9 @@ class UploadImageService(
     fun execute(image: MultipartFile): UploadImageResDto {
         val list = listOf("jpg", "jpeg", "png", "gif")
 
-        val extension = image.originalFilename.toString().split(".")[1]
+        val extension = image.originalFilename.toString().split(".")[1].lowercase()
 
-        if(!list.contains(extension.lowercase()))
+        if(!list.any { it == extension })
             throw FileExtensionInvalidException()
 
         val imgURL = s3Util.upload(image)
