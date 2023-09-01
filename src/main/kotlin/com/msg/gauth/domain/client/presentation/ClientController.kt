@@ -10,6 +10,7 @@ import com.msg.gauth.domain.client.service.*
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 
 @RestController
 @RequestMapping("/client")
@@ -43,7 +44,10 @@ class ClientController(
     }
 
     @PatchMapping("/{id}")
-    fun updateClient(@PathVariable id: Long, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
+    fun updateClient(
+        @PathVariable id: Long,
+        @RequestBody clientUpdateDto: ClientUpdateReqDto
+    ): ResponseEntity<Void> {
         updateClientService.updateClient(id, clientUpdateDto)
         return ResponseEntity.noContent().build()
     }
@@ -61,7 +65,10 @@ class ClientController(
     }
 
     @PatchMapping("/{id}/patch")
-    fun updateAnyClient(@PathVariable id: Long, @RequestBody clientUpdateDto: ClientUpdateReqDto): ResponseEntity<Void>{
+    fun updateAnyClient(
+        @PathVariable id: Long,
+        @RequestBody clientUpdateDto: ClientUpdateReqDto
+    ): ResponseEntity<Void> {
         updateAnyClientService.execute(id, clientUpdateDto)
         return ResponseEntity.noContent().build()
     }
