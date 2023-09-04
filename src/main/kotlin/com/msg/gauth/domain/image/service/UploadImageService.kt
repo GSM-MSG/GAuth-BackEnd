@@ -21,7 +21,7 @@ class UploadImageService(
 
         val extension = splitFile[1].lowercase()
 
-        if(list.any { it == extension })
+        if(list.none { it == extension })
             throw FileExtensionInvalidException()
 
         val imgURL = s3Util.upload(image)
