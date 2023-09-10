@@ -36,6 +36,10 @@ spring:
           timeout: 5000
           writetimeout: 5000
 
+  servlet:
+    multipart:
+      max-file-size: 5MB
+
 cloud:
   aws:
     credentials:
