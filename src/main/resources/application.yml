@@ -38,7 +38,8 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 5MB
+      max-file-size: ${MAX_FILE_SIZE}
+      max-request-size: ${MAX_REQUEST_SIZE}
 
 cloud:
   aws:
