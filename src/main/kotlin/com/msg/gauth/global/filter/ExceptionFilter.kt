@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.msg.gauth.global.exception.ErrorCode
 import com.msg.gauth.global.exception.ErrorResponse
 import com.msg.gauth.global.exception.exceptions.BasicException
+import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse
 class ExceptionFilter(
     private val objectMapper: ObjectMapper
 ): OncePerRequestFilter() {
+    private val log = LoggerFactory.getLogger(this::class.simpleName)
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -27,7 +29,9 @@ class ExceptionFilter(
             sendError(response, e.errorCode)
         } catch (e: Exception) {
             sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
+            throw e
         }
+
     }
 
     private fun sendError(res: HttpServletResponse, errorCode: ErrorCode) {
