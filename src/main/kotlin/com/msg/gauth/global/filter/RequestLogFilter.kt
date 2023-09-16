@@ -29,12 +29,12 @@ class RequestLogFilter : OncePerRequestFilter() {
 
         log.info("=========================")
 
-        try {
-            filterChain.doFilter(request, response)
-        } catch (e: Exception) {
-            log.error("=========================")
-            log.error(e.cause.toString())
-        }
+        runCatching {
+    filterChain.doFilter(request, response)
+}.onFailure { e ->
+    log.error("=========================")
+    log.error(e.cause.toString())
+}
         
         log.info("=========================")
         log.info("response status = ${response.status}")
