@@ -21,14 +21,19 @@ class RequestLogFilter : OncePerRequestFilter() {
             "request method = ${request.method}",
             "request url = ${request.requestURI}",
             "client info = ${request.getHeader("User-Agent")}"
-        ).forEach { log.info(it) }
+        ).forEach {
+            log.info("=========================")
+            log.info(it)
+        }
 
         try {
             filterChain.doFilter(request, response)
         } catch (e: Exception) {
+            log.error("=========================")
             log.error(e.cause.toString())
         }
-
+        
+        log.info("=========================")
         log.info("response status = ${response.status}")
     }
 }
