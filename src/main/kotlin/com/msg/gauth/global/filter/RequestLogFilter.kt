@@ -30,11 +30,11 @@ class RequestLogFilter : OncePerRequestFilter() {
         log.info("=========================")
 
         runCatching {
-    filterChain.doFilter(request, response)
-}.onFailure { e ->
-    log.error("=========================")
-    log.error(e.cause.toString())
-}
+            filterChain.doFilter(request, response)
+        }.onFailure { e ->
+            log.error("=========================")
+            log.error(e.cause.toString())
+        }
         
         log.info("=========================")
         log.info("response status = ${response.status}")
