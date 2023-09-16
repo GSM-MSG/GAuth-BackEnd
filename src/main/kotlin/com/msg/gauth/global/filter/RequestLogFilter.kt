@@ -16,15 +16,18 @@ class RequestLogFilter : OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain,
     ) {
+        log.info("=========================")
+
         listOf(
             "client ip = ${request.remoteAddr}",
             "request method = ${request.method}",
             "request url = ${request.requestURI}",
             "client info = ${request.getHeader("User-Agent")}"
         ).forEach {
-            log.info("=========================")
             log.info(it)
         }
+
+        log.info("=========================")
 
         try {
             filterChain.doFilter(request, response)
@@ -35,5 +38,6 @@ class RequestLogFilter : OncePerRequestFilter() {
         
         log.info("=========================")
         log.info("response status = ${response.status}")
+        log.info("=========================")
     }
 }
