@@ -1,5 +1,7 @@
 package com.msg.gauth.global.filter
 
+import com.msg.gauth.global.exception.ErrorCode
+import com.msg.gauth.global.exception.exceptions.BasicException
 import org.slf4j.LoggerFactory
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
@@ -14,13 +16,28 @@ class RequestLogFilter : OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain,
     ) {
+        log.info("=========================")
+
         listOf(
             "client ip = ${request.remoteAddr}",
             "request method = ${request.method}",
             "request url = ${request.requestURI}",
             "client info = ${request.getHeader("User-Agent")}"
-        ).forEach { log.info(it) }
-        filterChain.doFilter(request, response)
+        ).forEach {
+            log.info(it)
+        }
+
+        log.info("=========================")
+
+        runCatching {
+            filterChain.doFilter(request, response)
+        }.onFailure { e ->
+            log.error("=========================")
+            log.error(e.cause.toString())
+        }
+        
+        log.info("=========================")
         log.info("response status = ${response.status}")
+        log.info("=========================")
     }
 }
