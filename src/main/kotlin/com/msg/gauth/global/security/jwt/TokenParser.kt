@@ -17,6 +17,9 @@ class TokenParser(
     private val authDetailsService: AuthDetailsService
 ) {
 
+    fun parseToken(token: String): String? =
+        if (token.startsWith(JwtTokenProvider.TOKEN_PREFIX)) token.replace(JwtTokenProvider.TOKEN_PREFIX, "") else null
+
     fun exactEmailFromRefreshToken(refresh: String): String {
         return getTokenSubject(refresh, jwtProperties.refreshSecret)
     }
@@ -31,10 +34,6 @@ class TokenParser(
         val userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
         return UsernamePasswordAuthenticationToken(userDetails, "", userDetails.authorities)
     }
-
-    fun parseToken(token: String): String? =
-        if (token.startsWith(JwtTokenProvider.TOKEN_PREFIX)) token.replace(JwtTokenProvider.TOKEN_PREFIX, "") else null
-
 
     private fun getTokenBody(token: String, secret: Key): Claims {
         return try {
