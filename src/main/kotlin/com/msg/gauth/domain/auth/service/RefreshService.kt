@@ -7,15 +7,17 @@ import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto
 import com.msg.gauth.domain.auth.repository.RefreshTokenRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
+import com.msg.gauth.global.security.jwt.TokenParser
 
 @TransactionalService
 class RefreshService(
     private val jwtTokenProvider: JwtTokenProvider,
-    private val refreshTokenRepository: RefreshTokenRepository
+    private val refreshTokenRepository: RefreshTokenRepository,
+    private val tokenParser: TokenParser
 ) {
     fun execute(requestToken: String): RefreshResponseDto {
-        val refreshToken = jwtTokenProvider.parseToken(requestToken) ?: throw InvalidRefreshTokenException()
-        val email = jwtTokenProvider.exactEmailFromRefreshToken(refreshToken)
+        val refreshToken = tokenParser.parseToken(requestToken) ?: throw InvalidRefreshTokenException()
+        val email = tokenParser.exactEmailFromRefreshToken(refreshToken)
 
         val existingRefreshToken = refreshTokenRepository.findByToken(refreshToken)
             ?: throw ExpiredRefreshTokenException()
