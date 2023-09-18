@@ -1,7 +1,7 @@
 package com.msg.gauth.domain.oauth.service
 
 import com.msg.gauth.domain.auth.exception.PasswordMismatchException
-import com.msg.gauth.global.util.count.oauth.OauthCode
+import com.msg.gauth.domain.oauth.OauthCode
 import com.msg.gauth.domain.oauth.exception.UserStatePendingException
 import com.msg.gauth.domain.oauth.presentation.dto.request.OauthCodeRequestDto
 import com.msg.gauth.domain.oauth.presentation.dto.response.OauthCodeResponseDto
