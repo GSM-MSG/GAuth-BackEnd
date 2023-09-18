@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class JwtTokenProvider(
     private val jwtProperties: JwtProperties,
-    private val authDetailsService: AuthDetailsService
+    private val tokenParser: TokenParser
 ) {
     companion object {
         const val ACCESS_TYPE = "access"
@@ -39,25 +39,6 @@ class JwtTokenProvider(
     fun generateRefreshToken(email: String): String =
         generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, REFRESH_EXP)
 
-
-    fun resolveToken(req: HttpServletRequest): String? {
-        val token = req.getHeader("Authorization") ?: return null
-        return parseToken(token)
-    }
-
-    fun exactEmailFromRefreshToken(refresh: String): String {
-        return getTokenSubject(refresh, jwtProperties.refreshSecret)
-    }
-
-
-    fun authentication(token: String): Authentication {
-        val userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token, jwtProperties.accessSecret))
-        return UsernamePasswordAuthenticationToken(userDetails, "", userDetails.authorities)
-    }
-
-    fun parseToken(token: String): String? =
-        if (token.startsWith(TOKEN_PREFIX)) token.replace(TOKEN_PREFIX, "") else null
-
     fun generateToken(sub: String, type: String, secret: Key, exp: Long): String {
         return Jwts.builder()
             .signWith(secret, SignatureAlgorithm.HS256)
@@ -68,20 +49,9 @@ class JwtTokenProvider(
             .compact()
     }
 
-    private fun getTokenBody(token: String, secret: Key): Claims {
-        return try {
-            Jwts.parserBuilder()
-                .setSigningKey(secret)
-                .build()
-                .parseClaimsJws(token)
-                .body
-        } catch (e: ExpiredJwtException) {
-            throw ExpiredTokenException()
-        } catch (e: Exception) {
-            throw InvalidTokenException()
-        }
+    fun resolveToken(req: HttpServletRequest): String? {
+        val token = req.getHeader("Authorization") ?: return null
+        return tokenParser.parseToken(token)
     }
 
-    private fun getTokenSubject(token: String, secret: Key): String =
-        getTokenBody(token, secret).subject
 }
