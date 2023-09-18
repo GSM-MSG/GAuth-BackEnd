@@ -5,18 +5,20 @@ import com.msg.gauth.global.filter.ExceptionFilter
 import com.msg.gauth.global.filter.JwtTokenFilter
 import com.msg.gauth.global.filter.RequestLogFilter
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
+import com.msg.gauth.global.security.jwt.TokenParser
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.DefaultSecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 class FilterConfig(
+    private val tokenParser: TokenParser,
     private val jwtTokenProvider: JwtTokenProvider,
     private val objectMapper: ObjectMapper
 ): SecurityConfigurerAdapter<DefaultSecurityFilterChain?, HttpSecurity>() {
 
     override fun configure(builder: HttpSecurity) {
-        val jwtTokenFilter = JwtTokenFilter(jwtTokenProvider)
+        val jwtTokenFilter = JwtTokenFilter(tokenParser, jwtTokenProvider)
         val exceptionFilter = ExceptionFilter(objectMapper)
         val requestLogFilter = RequestLogFilter()
         builder.addFilterBefore(requestLogFilter, UsernamePasswordAuthenticationFilter::class.java)

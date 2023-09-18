@@ -3,6 +3,7 @@ package com.msg.gauth.global.security
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.msg.gauth.global.security.config.FilterConfig
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
+import com.msg.gauth.global.security.jwt.TokenParser
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -17,6 +18,7 @@ import org.springframework.web.cors.CorsUtils
 @Configuration
 class SecurityConfig(
     private val jwtTokenProvider: JwtTokenProvider,
+    private val tokenParser: TokenParser,
     private val objectMapper: ObjectMapper
 ) {
     @Bean
@@ -89,7 +91,7 @@ class SecurityConfig(
             .accessDeniedHandler(CustomAccessDeniedHandler(objectMapper))
 
             .and()
-            .apply(FilterConfig(jwtTokenProvider, objectMapper))
+            .apply(FilterConfig(tokenParser, jwtTokenProvider,  objectMapper))
 
             .and()
             .build()

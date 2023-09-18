@@ -9,18 +9,20 @@ import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.security.jwt.OauthTokenProvider
+import com.msg.gauth.global.security.jwt.TokenParser
 
 @TransactionalService
 class RefreshOauthTokenService(
     private val tokenRepository: OauthRefreshTokenRepository,
     private val oauthTokenProvider: OauthTokenProvider,
     private val userRepository: UserRepository,
+    private val tokenParser: TokenParser
 ){
     fun execute(requestToken: String): OauthTokenResponseDto{
-        val refreshToken = oauthTokenProvider.parseToken(requestToken)
+        val refreshToken = tokenParser.parseToken(requestToken)
             ?: throw InvalidRefreshTokenException()
 
-        val (email, clientId) = oauthTokenProvider.run {
+        val (email, clientId) = tokenParser.run {
             exactEmailFromOauthRefreshToken(refreshToken) to exactClientIdFromOauthRefreshToken(refreshToken)
         }
         val user = userRepository.findByEmail(email)

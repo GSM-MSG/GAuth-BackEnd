@@ -21,7 +21,6 @@ class OauthTokenProvider(
         const val OAUTH_REFRESH_TYPE = "refresh"
         const val OAUTH_ACCESS_EXP = 60L * 15 // 15 min
         const val OAUTH_REFRESH_EXP = 60L * 60 * 24 * 7 // 1 weeks
-        const val TOKEN_PREFIX = "Bearer "
     }
 
     fun generateOauthAccessToken(email: String, clientId: String): String =
@@ -45,32 +44,6 @@ class OauthTokenProvider(
             .setIssuedAt(Date())
             .setExpiration(Date(System.currentTimeMillis() + exp * 1000))
             .compact()
-
-    fun parseToken(token: String): String? =
-        if (token.startsWith(TOKEN_PREFIX)) token.replace(TOKEN_PREFIX, "") else null
-
-    fun exactEmailFromOauthRefreshToken(refresh: String): String =
-        getTokenSubject(refresh, jwtProperties.oauthSecret)
-
-    fun exactClientIdFromOauthRefreshToken(refresh: String): String =
-        getTokenBody(refresh, jwtProperties.oauthSecret)["clientId"].toString()
-
-    private fun getTokenBody(token: String, secret: Key): Claims {
-        return try {
-            Jwts.parserBuilder()
-                .setSigningKey(secret)
-                .build()
-                .parseClaimsJws(token)
-                .body
-        } catch (e: ExpiredJwtException) {
-            throw ExpiredTokenException()
-        } catch (e: Exception) {
-            throw InvalidTokenException()
-        }
-    }
-
-    private fun getTokenSubject(token: String, secret: Key): String =
-        getTokenBody(token, secret).subject
 
 }
 
