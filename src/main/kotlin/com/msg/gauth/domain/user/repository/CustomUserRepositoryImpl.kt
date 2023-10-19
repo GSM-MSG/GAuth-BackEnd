@@ -3,6 +3,7 @@ package com.msg.gauth.domain.user.repository
 import com.msg.gauth.domain.user.QUser.user
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserState
 import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
@@ -18,6 +19,7 @@ class CustomUserRepositoryImpl(
                 .where(
                     gradeEq(grade),
                     classNumEq(classNum),
+                    stateEq(UserState.CREATED),
                     keywordLike(keyword),
                     roleContains(UserRole.ROLE_STUDENT)
                 )
@@ -36,4 +38,6 @@ class CustomUserRepositoryImpl(
     private fun roleContains(userRole: UserRole): BooleanExpression =
         user.roles.contains(userRole)
 
+    private fun stateEq(userState: UserState): BooleanExpression =
+        user.state.eq(userState)
 }
