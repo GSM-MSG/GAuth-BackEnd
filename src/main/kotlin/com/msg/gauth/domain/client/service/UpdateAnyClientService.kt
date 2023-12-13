@@ -5,9 +5,7 @@ import com.msg.gauth.domain.client.exception.ClientNotFindException
 import com.msg.gauth.domain.client.presentation.dto.request.ClientUpdateReqDto
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
-import com.msg.gauth.global.thirdparty.aws.s3.S3Util
 import org.springframework.data.repository.findByIdOrNull
-import org.springframework.web.multipart.MultipartFile
 
 @TransactionalService
 class UpdateAnyClientService(

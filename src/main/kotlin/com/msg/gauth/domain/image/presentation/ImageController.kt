@@ -1,6 +1,5 @@
 package com.msg.gauth.domain.image.presentation
 
-import com.amazonaws.Response
 import com.msg.gauth.domain.image.presentation.dto.response.UploadImageResDto
 import com.msg.gauth.domain.image.service.DeleteImageService
 import com.msg.gauth.domain.image.service.UploadImageService

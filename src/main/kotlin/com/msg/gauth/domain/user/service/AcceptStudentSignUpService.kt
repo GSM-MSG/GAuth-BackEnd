@@ -1,6 +1,5 @@
 package com.msg.gauth.domain.user.service
 
-import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserRole
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
