@@ -1,7 +1,5 @@
 package com.msg.gauth.global.filter
 
-import com.msg.gauth.global.exception.ErrorCode
-import com.msg.gauth.global.exception.exceptions.BasicException
 import org.slf4j.LoggerFactory
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain

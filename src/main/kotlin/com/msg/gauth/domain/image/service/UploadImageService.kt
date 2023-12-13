@@ -5,7 +5,6 @@ import com.msg.gauth.domain.image.presentation.dto.response.UploadImageResDto
 import com.msg.gauth.global.thirdparty.aws.s3.S3Util
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
-import java.util.*
 
 @Service
 class UploadImageService(
