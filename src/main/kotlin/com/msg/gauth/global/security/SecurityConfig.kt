@@ -71,6 +71,9 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/oauth/{clientId}").permitAll()
             .antMatchers(HttpMethod.POST, "/oauth/code/access").authenticated()
 
+            // Health
+            .antMatchers(HttpMethod.GET, "/health").permitAll()
+
             // User
             .antMatchers("/user/**").authenticated()
             .antMatchers(HttpMethod.PATCH, "/user/accept-teacher").hasRole("ADMIN")
