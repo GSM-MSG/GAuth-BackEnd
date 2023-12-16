@@ -2,7 +2,7 @@ package com.msg.gauth.domain.user
 
 import com.msg.gauth.global.entity.BaseIdEntity
 import javax.persistence.*
-import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserRoleType
 
 @Entity
 class UserRoleEntity(
@@ -14,5 +14,5 @@ class UserRoleEntity(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role", nullable = false)
-    val userRole: UserRole
+    val userRoleType: UserRoleType
 ) : BaseIdEntity(id)

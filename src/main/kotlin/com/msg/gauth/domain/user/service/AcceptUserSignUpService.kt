@@ -1,7 +1,7 @@
 package com.msg.gauth.domain.user.service
 
 import com.msg.gauth.domain.client.exception.BadUserRoleRequestException
-import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.presentation.dto.request.AcceptUserReqDto
@@ -14,10 +14,10 @@ class AcceptUserSignUpService(
 ) {
 
     fun execute(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        when(acceptUserReqDto.userRole){
-            UserRole.ROLE_STUDENT -> acceptStudent(id, acceptUserReqDto)
-            UserRole.ROLE_TEACHER -> acceptTeacher(id, acceptUserReqDto)
-            UserRole.ROLE_GRADUATE -> acceptGraduate(id, acceptUserReqDto)
+        when(acceptUserReqDto.userRoleType){
+            UserRoleType.ROLE_STUDENT -> acceptStudent(id, acceptUserReqDto)
+            UserRoleType.ROLE_TEACHER -> acceptTeacher(id, acceptUserReqDto)
+            UserRoleType.ROLE_GRADUATE -> acceptGraduate(id, acceptUserReqDto)
             else -> throw BadUserRoleRequestException()
         }
 

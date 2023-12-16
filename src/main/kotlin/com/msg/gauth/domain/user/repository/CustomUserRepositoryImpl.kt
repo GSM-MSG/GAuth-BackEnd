@@ -2,7 +2,7 @@ package com.msg.gauth.domain.user.repository
 
 import com.msg.gauth.domain.user.QUser.user
 import com.msg.gauth.domain.user.User
-import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
 import com.querydsl.core.types.dsl.BooleanExpression
 import com.querydsl.jpa.impl.JPAQueryFactory
@@ -21,7 +21,7 @@ class CustomUserRepositoryImpl(
                     classNumEq(classNum),
                     stateEq(UserState.CREATED),
                     keywordLike(keyword),
-                    roleContains(UserRole.ROLE_STUDENT)
+                    roleContains(UserRoleType.ROLE_STUDENT)
                 )
                 .fetch()
     }
@@ -35,8 +35,8 @@ class CustomUserRepositoryImpl(
     private fun keywordLike(keyword: String): BooleanExpression? =
         if(keyword.isNotEmpty()) user.name.like("%${keyword}%") else null
 
-    private fun roleContains(userRole: UserRole): BooleanExpression =
-        user.roles.contains(userRole)
+    private fun roleContains(userRoleType: UserRoleType): BooleanExpression =
+        user.roles.contains(userRoleType)
 
     private fun stateEq(userState: UserState): BooleanExpression =
         user.state.eq(userState)

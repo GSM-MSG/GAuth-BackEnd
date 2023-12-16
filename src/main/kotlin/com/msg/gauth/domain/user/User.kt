@@ -1,7 +1,7 @@
 package com.msg.gauth.domain.user
 
 import com.msg.gauth.domain.user.enums.Gender
-import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.global.entity.BaseIdEntity
 import javax.persistence.*
@@ -36,7 +36,7 @@ class User(
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "UserRole", joinColumns = [JoinColumn(name = "id")])
-    val roles: MutableList<UserRole> = mutableListOf(),
+    val roles: MutableList<UserRoleType> = mutableListOf(),
 
     @Enumerated(EnumType.STRING)
     val state: UserState,
