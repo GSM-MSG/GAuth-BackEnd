@@ -5,7 +5,7 @@ import javax.persistence.*
 import com.msg.gauth.domain.user.enums.UserRoleType
 
 @Entity
-class UserRoleEntity(
+class UserRole(
     override val id: Long = 0L,
 
     @ManyToOne(fetch = FetchType.LAZY)
