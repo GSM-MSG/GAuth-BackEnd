@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 @TransactionalService
 class SignUpService(
     private val userRepository: UserRepository,
-    private val userRoleRepository: UserRoleRepository
+    private val userRoleRepository: UserRoleRepository,
     private val passwordEncoder: PasswordEncoder,
     private val emailAuthRepository: EmailAuthRepository
 ) {
@@ -25,10 +25,10 @@ class SignUpService(
             emailAuthRepository.deleteById(signUpDto.email)
             throw DuplicateEmailException()
         }
+
         val user = User(
             email = signUpDto.email,
             password = passwordEncoder.encode(signUpDto.password),
-            roles = mutableListOf(UserRoleType.ROLE_STUDENT),
             state = UserState.PENDING,
             profileUrl = null
         )
