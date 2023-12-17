@@ -9,5 +9,5 @@ class GetMyRolesService(
     private val userUtil: UserUtil
 ) {
     fun execute(): GetMyRolesResDto =
-        GetMyRolesResDto(userUtil.fetchCurrentUser().roles)
+        GetMyRolesResDto(userUtil.fetchCurrentUser().userRoles.map { it.userRoleType })
 }
