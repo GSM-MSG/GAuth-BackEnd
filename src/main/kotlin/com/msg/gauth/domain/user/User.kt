@@ -39,8 +39,8 @@ class User(
     @CollectionTable(name = "UserRole", joinColumns = [JoinColumn(name = "id")])
     val roles: MutableList<UserRoleType> = mutableListOf(),
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    val userRoles: List<UserRole>,
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST])
+    val userRoles: List<UserRole> = mutableListOf(),
 
     @Enumerated(EnumType.STRING)
     val state: UserState,
