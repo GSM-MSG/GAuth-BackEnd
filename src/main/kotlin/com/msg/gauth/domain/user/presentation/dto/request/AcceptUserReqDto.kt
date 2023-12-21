@@ -2,14 +2,14 @@ package com.msg.gauth.domain.user.presentation.dto.request
 
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.Gender
-import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 data class AcceptUserReqDto(
     @field:NotNull
-    val userRole: UserRole,
+    val userRoleType: UserRoleType,
     @field:NotBlank
     val name: String,
     @field:NotNull
@@ -28,7 +28,7 @@ data class AcceptUserReqDto(
             grade = grade,
             classNum = classNum,
             num = num,
-            roles = mutableListOf(UserRole.ROLE_STUDENT),
+            roles = mutableListOf(UserRoleType.ROLE_STUDENT),
             state = UserState.CREATED,
             profileUrl = user.profileUrl,
             wrongPasswordCount = user.wrongPasswordCount,
@@ -46,7 +46,7 @@ data class AcceptUserReqDto(
             grade = grade,
             classNum = classNum,
             num = num,
-            roles = mutableListOf(UserRole.ROLE_TEACHER),
+            roles = mutableListOf(UserRoleType.ROLE_TEACHER),
             state = UserState.CREATED,
             profileUrl = user.profileUrl
         )
@@ -62,7 +62,7 @@ data class AcceptUserReqDto(
             grade = grade,
             classNum = classNum,
             num = num,
-            roles = mutableListOf(UserRole.ROLE_GRADUATE),
+            roles = mutableListOf(UserRoleType.ROLE_GRADUATE),
             state = UserState.CREATED,
             profileUrl = user.profileUrl
         )

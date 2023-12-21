@@ -1,7 +1,7 @@
 package com.msg.gauth.domain.user.presentation.dto.response
 
-import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserRoleType
 
 data class GetMyRolesResDto(
-    val roles: List<UserRole>
+    val roles: List<UserRoleType>
 )

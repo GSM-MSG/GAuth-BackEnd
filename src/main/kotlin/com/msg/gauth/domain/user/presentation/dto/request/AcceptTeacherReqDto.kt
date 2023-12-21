@@ -2,7 +2,7 @@ package com.msg.gauth.domain.user.presentation.dto.request
 
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.Gender
-import com.msg.gauth.domain.user.enums.UserRole
+import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
 import javax.validation.constraints.NotBlank
 
@@ -19,7 +19,7 @@ data class AcceptTeacherReqDto(
             name = user.name,
             password = user.password,
             gender = this.gender,
-            roles = mutableListOf(UserRole.ROLE_TEACHER),
+            roles = mutableListOf(UserRoleType.ROLE_TEACHER),
             state = UserState.CREATED,
             profileUrl = user.profileUrl,
             wrongPasswordCount = user.wrongPasswordCount,
