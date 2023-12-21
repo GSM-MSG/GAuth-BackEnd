@@ -8,6 +8,7 @@ import com.msg.gauth.global.annotation.service.ReadOnlyService
 class GetMyRolesService(
     private val userUtil: UserUtil
 ) {
+    // TODO: DB 이전 완료 시 roles -> userRoles.map { it.userRoleType }로 변경
     fun execute(): GetMyRolesResDto =
         GetMyRolesResDto(userUtil.fetchCurrentUser().userRoles.map { it.userRoleType })
 }
