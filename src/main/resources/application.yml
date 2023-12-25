@@ -41,6 +41,9 @@ spring:
       max-file-size: ${MAX_FILE_SIZE}
       max-request-size: ${MAX_REQUEST_SIZE}
 
+  discord:
+    webhookURL: ${SIGNUP_URL}
+
 cloud:
   aws:
     credentials:

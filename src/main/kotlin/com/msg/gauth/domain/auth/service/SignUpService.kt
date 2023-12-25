@@ -9,6 +9,7 @@ import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.EmailNotVerifiedException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.domain.user.repository.UserRoleRepository
+import com.msg.gauth.domain.webhook.service.WebHookService
 import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.exception.exceptions.DuplicateEmailException
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -18,7 +19,8 @@ class SignUpService(
     private val userRepository: UserRepository,
     private val userRoleRepository: UserRoleRepository,
     private val passwordEncoder: PasswordEncoder,
-    private val emailAuthRepository: EmailAuthRepository
+    private val emailAuthRepository: EmailAuthRepository,
+    private val webHookService: WebHookService
 ) {
     fun execute(signUpDto: SignUpDto): Long {
         if (userRepository.existsByEmail(signUpDto.email)) {
@@ -46,7 +48,7 @@ class SignUpService(
         val savedUser = userRepository.save(user)
 
         saveUserRole(user)
-
+        webHookService.callEvent()
         return savedUser.id
     }
 

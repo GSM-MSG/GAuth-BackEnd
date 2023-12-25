@@ -2,6 +2,7 @@ object Dependencies {
     // kotlin
     const val KOTLIN_REFLET = "org.jetbrains.kotlin:kotlin-reflect"
     const val KOTLIN_JDK = "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0"
 
     // spring
     const val SPRING_JPA = "org.springframework.boot:spring-boot-starter-data-jpa"

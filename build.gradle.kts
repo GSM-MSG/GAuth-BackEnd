@@ -47,6 +47,9 @@ dependencies {
     implementation(Dependencies.KOTLIN_REFLET)
     implementation(Dependencies.KOTLIN_JDK)
 
+    // jackson
+    implementation(Dependencies.KOTLIN_SERIALIZATION)
+
     // aws
     implementation(Dependencies.AWS_S3)
 
