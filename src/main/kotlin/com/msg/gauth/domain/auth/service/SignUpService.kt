@@ -48,7 +48,7 @@ class SignUpService(
         val savedUser = userRepository.save(user)
 
         saveUserRole(user)
-        webHookService.callEvent()
+        webHookService.callEvent(user.email)
         return savedUser.id
     }
 
