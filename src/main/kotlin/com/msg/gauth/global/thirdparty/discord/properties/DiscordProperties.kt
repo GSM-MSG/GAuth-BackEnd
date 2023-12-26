@@ -5,6 +5,6 @@ import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConstructorBinding
 @ConfigurationProperties(prefix = "discord.webhook")
-class DiscordProperties(
+data class DiscordProperties(
     val url: String
 )
