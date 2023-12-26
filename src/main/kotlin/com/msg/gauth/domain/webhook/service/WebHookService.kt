@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate
 
 class WebHookService {
 
-    @Value("\${discord.webhookURL}")
+    @Value("\${discord.webhook_url}")
     private lateinit var url: String
 
     fun callEvent(email: String) {

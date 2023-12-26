@@ -42,7 +42,7 @@ spring:
       max-request-size: ${MAX_REQUEST_SIZE}
 
   discord:
-    webhookURL: ${SIGNUP_URL}
+    webhook_url: ${WEBHOOK_URL}
 
 cloud:
   aws:
