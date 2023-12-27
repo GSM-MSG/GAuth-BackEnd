@@ -41,6 +41,10 @@ spring:
       max-file-size: ${MAX_FILE_SIZE}
       max-request-size: ${MAX_REQUEST_SIZE}
 
+discord:
+  webhook:
+    url: ${WEBHOOK_URL}
+
 cloud:
   aws:
     credentials:
@@ -52,7 +56,6 @@ cloud:
       bucket: ${AWS_BUCKET}
     stack:
       auto: false
-
 
 messages:
   basename: i18n/exception
