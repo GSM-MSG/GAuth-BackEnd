@@ -5,6 +5,7 @@ import com.msg.gauth.global.thirdparty.discord.properties.DiscordProperties
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import org.springframework.context.event.EventListener
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -17,7 +18,7 @@ import org.springframework.web.client.RestTemplate
 class AuthEventHandler(
     private val discordProperties: DiscordProperties
 ) {
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    @EventListener
     fun signupLoggingHandler(signupLoggingEvent: SignupLoggingEvent) {
         val fields = listOf(
             JsonObject(
@@ -48,6 +49,5 @@ class AuthEventHandler(
         val restTemplate = RestTemplate()
         val entity = HttpEntity(jsonObject.toString(), headers)
         restTemplate.postForObject(discordProperties.url, entity, String::class.java)
-        println("3")
     }
 }
