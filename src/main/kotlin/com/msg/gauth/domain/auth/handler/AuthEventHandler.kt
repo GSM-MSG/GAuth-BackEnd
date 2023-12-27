@@ -27,7 +27,6 @@ class AuthEventHandler(
                 )
             )
         )
-
         val embed = JsonObject(
             mapOf(
                 "title" to JsonPrimitive("회원가입 알림"),
@@ -36,7 +35,6 @@ class AuthEventHandler(
                 "fields" to JsonArray(fields)
             )
         )
-
         val jsonObject = JsonObject(
             mapOf(
                 "content" to JsonPrimitive("[알림] 회원가입을 시도하였습니다."),
