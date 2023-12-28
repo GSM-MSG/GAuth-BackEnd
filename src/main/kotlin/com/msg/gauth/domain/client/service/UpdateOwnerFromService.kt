@@ -15,7 +15,7 @@ class UpdateOwnerFromService(
     private val userUtil: UserUtil,
     private val userRepository: UserRepository
 ) {
-    fun execute(clientId:Long, userId: Long) {
+    fun execute(clientId: Long, userId: Long) {
         val user = userUtil.fetchCurrentUser()
 
         val client = clientRepository.findByIdOrNull(clientId)
