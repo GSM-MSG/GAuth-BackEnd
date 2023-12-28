@@ -1,11 +1,11 @@
 package com.msg.gauth.domain.client.service
 
 import com.msg.gauth.domain.client.Client
-import com.msg.gauth.domain.client.exception.BadRequestException
+import com.msg.gauth.domain.client.exception.BadUserIdRequestException
 import com.msg.gauth.domain.client.exception.ClientNotFindException
-import com.msg.gauth.domain.client.exception.UserNotFoundException
 import com.msg.gauth.domain.client.exception.UserNotMatchException
 import com.msg.gauth.domain.client.repository.ClientRepository
+import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.domain.user.util.UserUtil
 import com.msg.gauth.global.annotation.service.TransactionalService
@@ -17,9 +17,9 @@ class DelegateOwnerService(
     private val userUtil: UserUtil,
     private val userRepository: UserRepository
 ) {
-    fun execute(clientId: Long, userId: Long) {
-        if (clientId == userId)
-            throw BadRequestException()
+    fun execute(clientId: Long, delegateUserId: Long) {
+        if (clientId == delegateUserId)
+            throw BadUserIdRequestException()
 
         val user = userUtil.fetchCurrentUser()
 
@@ -29,7 +29,7 @@ class DelegateOwnerService(
         if (user != client.createdBy)
             throw UserNotMatchException()
 
-        val updateUser = userRepository.findByIdOrNull(userId)
+        val delegateUser = userRepository.findByIdOrNull(delegateUserId)
             ?: throw UserNotFoundException()
 
         val updateClient = Client(
@@ -39,7 +39,7 @@ class DelegateOwnerService(
             redirectUri = client.redirectUri,
             serviceName = client.serviceName,
             serviceUri = client.serviceUri,
-            createdBy = updateUser,
+            createdBy = delegateUser,
             serviceScope = client.serviceScope,
             serviceImgUrl = client.serviceImgUrl
         )
