@@ -2,6 +2,7 @@ package com.msg.gauth.domain.client.service
 
 import com.msg.gauth.domain.client.Client
 import com.msg.gauth.domain.client.exception.ClientNotFindException
+import com.msg.gauth.domain.client.exception.UserNotFoundException
 import com.msg.gauth.domain.client.exception.UserNotMatchException
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.user.repository.UserRepository
@@ -25,7 +26,7 @@ class DelegateOwnerService(
             throw UserNotMatchException()
 
         val updateUser = userRepository.findByIdOrNull(userId)
-            ?: throw ClientNotFindException()
+            ?: throw UserNotFoundException()
 
         val updateClient = Client(
             id = client.id,
