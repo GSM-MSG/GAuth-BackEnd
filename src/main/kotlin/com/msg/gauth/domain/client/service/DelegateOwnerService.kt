@@ -18,10 +18,11 @@ class DelegateOwnerService(
     private val userRepository: UserRepository
 ) {
     fun execute(clientId: Long, delegateUserId: Long) {
-        if (clientId == delegateUserId)
-            throw BadDelegateUserIdRequestException()
 
         val user = userUtil.fetchCurrentUser()
+
+        if (delegateUserId == user.id)
+        throw BadDelegateUserIdRequestException()
 
         val client = clientRepository.findByIdOrNull(clientId)
             ?: throw ClientNotFindException()
