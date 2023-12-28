@@ -1,7 +1,7 @@
 package com.msg.gauth.domain.client.service
 
 import com.msg.gauth.domain.client.Client
-import com.msg.gauth.domain.client.exception.BadUserIdRequestException
+import com.msg.gauth.domain.client.exception.BadDelegateUserIdRequestException
 import com.msg.gauth.domain.client.exception.ClientNotFindException
 import com.msg.gauth.domain.client.exception.UserNotMatchException
 import com.msg.gauth.domain.client.repository.ClientRepository
@@ -19,7 +19,7 @@ class DelegateOwnerService(
 ) {
     fun execute(clientId: Long, delegateUserId: Long) {
         if (clientId == delegateUserId)
-            throw BadUserIdRequestException()
+            throw BadDelegateUserIdRequestException()
 
         val user = userUtil.fetchCurrentUser()
 
