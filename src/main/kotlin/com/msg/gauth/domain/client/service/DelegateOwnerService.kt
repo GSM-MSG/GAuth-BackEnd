@@ -10,7 +10,7 @@ import com.msg.gauth.global.annotation.service.TransactionalService
 import org.springframework.data.repository.findByIdOrNull
 
 @TransactionalService
-class UpdateOwnerFromService(
+class DelegateOwnerService(
     private val clientRepository: ClientRepository,
     private val userUtil: UserUtil,
     private val userRepository: UserRepository

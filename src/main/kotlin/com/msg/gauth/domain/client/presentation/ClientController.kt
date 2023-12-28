@@ -10,7 +10,6 @@ import com.msg.gauth.domain.client.service.*
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.multipart.MultipartFile
 
 @RestController
 @RequestMapping("/client")
@@ -23,7 +22,7 @@ class ClientController(
     private val getClientsByServiceNameService: GetClientsByServiceNameService,
     private val updateAnyClientService: UpdateAnyClientService,
     private val deleteClientsService: DeleteClientsService,
-    private val updateOwnerFromService: UpdateOwnerFromService
+    private val delegateOwnerService: DelegateOwnerService
 ) {
 
     @PostMapping
@@ -81,11 +80,11 @@ class ClientController(
     }
 
     @PatchMapping("/{id}/owner")
-    fun updateOwnerFromService(
+    fun delegateOwner(
         @PathVariable id: Long,
         @RequestParam userId: Long
     ): ResponseEntity<Void> {
-        updateOwnerFromService.execute(id, userId)
+        delegateOwnerService.execute(id, userId)
         return ResponseEntity.noContent().build()
     }
 }
