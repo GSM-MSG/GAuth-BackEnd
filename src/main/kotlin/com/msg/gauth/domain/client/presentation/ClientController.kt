@@ -82,7 +82,7 @@ class ClientController(
 
     @PatchMapping("/{id}/owner")
     fun updateOwnerFromService(
-        @PathVariable id:Long,
+        @PathVariable id: Long,
         @RequestParam userId: Long
     ): ResponseEntity<Void> {
         updateOwnerFromService.execute(id, userId)
