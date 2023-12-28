@@ -85,7 +85,7 @@ class ClientController(
         @PathVariable id:Long,
         @RequestParam userId: Long
     ): ResponseEntity<Void> {
-        updateOwnerFromService.execute(id,userId)
+        updateOwnerFromService.execute(id, userId)
         return ResponseEntity.noContent().build()
     }
 }
