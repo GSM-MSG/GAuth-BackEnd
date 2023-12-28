@@ -30,15 +30,16 @@ class AuthEventHandler(
         )
         val embed = JsonObject(
             mapOf(
-                "title" to JsonPrimitive("회원가입 알림"),
-                "description" to JsonPrimitive("회원가입을 시도하였습니다."),
+                "title" to JsonPrimitive("회원가입 알림 확인하기"),
+                "url" to JsonPrimitive("https://gauth.co.kr/stulist?type=applicant"),
+                "description" to JsonPrimitive("새로운 회원가입 요청이 왔어요!"),
                 "color" to JsonPrimitive(48127),
                 "fields" to JsonArray(fields)
             )
         )
         val jsonObject = JsonObject(
             mapOf(
-                "content" to JsonPrimitive("[알림] 회원가입을 시도하였습니다."),
+                "content" to JsonPrimitive("## [알림] 새로운 회원가입 요청!"),
                 "embeds" to JsonArray(listOf(embed))
             )
         )
