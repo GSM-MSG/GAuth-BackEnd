@@ -10,7 +10,6 @@ import com.msg.gauth.domain.client.service.*
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.multipart.MultipartFile
 
 @RestController
 @RequestMapping("/client")
@@ -22,7 +21,8 @@ class ClientController(
     private val deleteClientService: DeleteClientService,
     private val getClientsByServiceNameService: GetClientsByServiceNameService,
     private val updateAnyClientService: UpdateAnyClientService,
-    private val deleteClientsService: DeleteClientsService
+    private val deleteClientsService: DeleteClientsService,
+    private val delegateOwnerService: DelegateOwnerService
 ) {
 
     @PostMapping
@@ -76,6 +76,15 @@ class ClientController(
     @DeleteMapping
     fun deleteSeveralClient(@RequestParam(value = "ids") ids: List<Long>): ResponseEntity<Void> {
         deleteClientsService.execute(ids)
+        return ResponseEntity.noContent().build()
+    }
+
+    @PatchMapping("/{id}/owner")
+    fun delegateOwner(
+        @PathVariable id: Long,
+        @RequestParam userId: Long
+    ): ResponseEntity<Void> {
+        delegateOwnerService.execute(id, userId)
         return ResponseEntity.noContent().build()
     }
 }
