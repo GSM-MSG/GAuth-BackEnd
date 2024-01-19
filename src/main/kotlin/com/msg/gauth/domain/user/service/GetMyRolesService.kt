@@ -10,5 +10,5 @@ class GetMyRolesService(
 ) {
     // TODO: DB 이전 완료 시 roles -> userRoles.map { it.userRoleType }로 변경
     fun execute(): GetMyRolesResDto =
-        GetMyRolesResDto(userUtil.fetchCurrentUser().userRoles.map { it.userRoleType })
+        GetMyRolesResDto(userUtil.fetchCurrentUser().roles)
 }
