@@ -11,7 +11,7 @@ spring:
       ddl-auto: update
 
   datasource:
-    url: jdbc:mysql://${DB_URL}/${DB_NAME}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+    url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: ${DB_DRIVER_CLASS}
