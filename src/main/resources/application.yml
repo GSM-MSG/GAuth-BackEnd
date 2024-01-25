@@ -5,7 +5,7 @@ spring:
     resources:
       add-mappings: false
   jpa:
-    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    database-platform: ${DB_PLATFORM}
     show-sql: true
     hibernate:
       ddl-auto: update
@@ -14,7 +14,7 @@ spring:
     url: jdbc:mysql://${DB_URL}/${DB_NAME}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
     username: ${DB_USER}
     password: ${DB_PASSWORD}
-    driver-class-name: org.mariadb.jdbc.Driver
+    driver-class-name: ${DB_DRIVER_CLASS}
 
 
   redis:
