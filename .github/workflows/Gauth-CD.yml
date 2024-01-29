@@ -2,7 +2,7 @@ name: Gauth Server CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "*" ]
 
 env:
   S3_BUCKET_NAME: gauth-deploy-bucket
@@ -25,11 +25,6 @@ jobs:
         run: chmod +x ./gradlew
         shell: bash
 
-      - name: Create application.yml
-        run: |
-          touch ./src/main/resources/application.yml
-          echo "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
-        shell: bash
 
       - name: Build with Gradle
         run: ./gradlew clean build -i -x test
@@ -47,7 +42,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Upload to S3
-        run: aws s3 cp ${{ secrets.AWS_REGION }} ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip
+        run: aws s3 cp ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip
 
       - name: Deploy
         run: |
