@@ -52,4 +52,4 @@ jobs:
           --deployment-group-name ${{ secrets.GAUTH_DEPLOY_GROUP }} \
           --file-exists-behavior OVERWRITE \
           --s3-location bucket=${{ secrets.GAUTH_DEPLOY_S3_NAME }},bundleType=zip,key=${{ secrets.GAUTH_S3_OBJECT }}/$GITHUB_SHA.zip \
-          --${{ secrets.AWS_REGION }}
+          --region ${{ secrets.AWS_REGION }}
