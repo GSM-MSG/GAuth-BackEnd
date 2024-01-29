@@ -52,9 +52,9 @@ jobs:
       - name: Deploy
         run: |
           aws deploy create-deployment \
-          --application-name ${{ secrets.GAUTH_CODEDEPLOY } \  
+          --application-name ${{ secrets.GAUTH_CODEDEPLOY }} \  
           --deployment-config-name CodeDeployDefault.OneAtATime \
-          --deployment-group-name ${{ secrets.GAUTH_DEPLOY_GROUP } \
+          --deployment-group-name ${{ secrets.GAUTH_DEPLOY_GROUP }} \
           --file-exists-behavior OVERWRITE \
           --s3-location bucket=${{ secrets.GAUTH_DEPLOY_S3_NAME }},bundleType=zip,key=${{ secrets.GAUTH_S3_OBJECT }}/$GITHUB_SHA.zip \
           --region ap-northeast-2 \
