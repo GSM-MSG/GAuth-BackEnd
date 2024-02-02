@@ -4,9 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.msg.gauth.global.security.config.FilterConfig
 import com.msg.gauth.global.security.jwt.JwtTokenProvider
 import com.msg.gauth.global.security.jwt.TokenParser
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest
+import org.springframework.boot.actuate.autoconfigure.security.servlet.SecurityRequestMatchersManagementContextConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
+import org.springframework.security.config.Customizer.withDefaults
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -14,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.util.matcher.RequestMatcher
 import org.springframework.web.cors.CorsUtils
+
 
 @Configuration
 class SecurityConfig(
@@ -87,6 +91,11 @@ class SecurityConfig(
             //image
             .antMatchers(HttpMethod.POST, "/image").authenticated()
             .antMatchers(HttpMethod.DELETE, "/image").authenticated()
+
+            // Actuator
+            .antMatchers(HttpMethod.GET, "/actuator/health").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/actuator/info").hasRole("ADMIN")
+            .antMatchers(HttpMethod.GET, "/actuator/prometheus").hasRole("ADMIN")
 
             .anyRequest().denyAll()
             .and()
