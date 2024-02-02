@@ -16,6 +16,7 @@ object Dependencies {
     const val SPRING_STARTER_TEST = "org.springframework.boot:spring-boot-starter-test"
     const val SPRING_SECURITY_TEST = "org.springframework.security:spring-security-test"
     const val SPRING_AOP = "org.springframework.boot:spring-boot-starter-aop"
+    const val SPRING_ACTUATOR = "org.springframework.boot:spring-boot-starter-actuator"
 
     // jackson
     const val JACKSON_MODULE_KOTLIN = "com.fasterxml.jackson.module:jackson-module-kotlin"
@@ -43,4 +44,6 @@ object Dependencies {
     const val QUERY_DSL = "com.querydsl:querydsl-jpa:${DependencyVersions.QUERY_DSL_VERSION}"
     const val QUERY_DSL_APT = "com.querydsl:querydsl-apt:${DependencyVersions.QUERY_DSL_APT_VERSION}:jpa"
 
+    // prometheus
+    const val PROMETHEUS_MICROMETER = "io.micrometer:micrometer-registry-prometheus"
 }
