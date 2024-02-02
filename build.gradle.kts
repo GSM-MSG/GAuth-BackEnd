@@ -40,7 +40,7 @@ dependencies {
     testImplementation(Dependencies.SPRING_STARTER_TEST)
     testImplementation(Dependencies.SPRING_SECURITY_TEST)
     implementation(Dependencies.SPRING_AOP)
-
+    implementation(Dependencies.SPRING_ACTUATOR)
 
     // kotlin
     implementation(Dependencies.JACKSON_MODULE_KOTLIN)
@@ -73,6 +73,9 @@ dependencies {
     implementation(Dependencies.QUERY_DSL)
     implementation(Dependencies.QUERY_DSL_APT)
     kapt(Dependencies.QUERY_DSL_APT)
+
+    // prometheus
+    implementation(Dependencies.PROMETHEUS_MICROMETER)
 }
 
 
