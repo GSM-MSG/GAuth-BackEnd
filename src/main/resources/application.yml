@@ -65,3 +65,20 @@ jwt:
   accessSecret: ${JWT_ACCESS}
   refreshSecret: ${JWT_REFRESH}
   oauthSecret: ${JWT_OAUTH}
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health,info,prometheus
+
+  endpoint:
+    health:
+      enabled: true
+
+    info:
+      enabled: true
+
+    prometheus:
+      enabled: true
