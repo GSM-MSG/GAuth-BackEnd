@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -28,7 +27,6 @@ func main() {
 		Password: os.Getenv("GAUTH_PASSWORD"),
 	}
 
-	fmt.Println(url)
 	reqBody, _ := json.Marshal(user)
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(reqBody))
@@ -45,8 +43,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println(string(body))
 
 	var token Token
 	err = json.Unmarshal(body, &token)
