@@ -2,7 +2,7 @@ name: Gauth Server CD
 
 on:
   push:
-    branches: [ "*" ]
+    branches: [ "main" ]
 
 env:
   S3_BUCKET_NAME: gauth-deploy-bucket
