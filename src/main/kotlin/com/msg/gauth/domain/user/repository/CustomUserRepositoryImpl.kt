@@ -1,6 +1,7 @@
 package com.msg.gauth.domain.user.repository
 
 import com.msg.gauth.domain.user.QUser.user
+import com.msg.gauth.domain.user.QUserRole
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
@@ -15,15 +16,20 @@ class CustomUserRepositoryImpl(
 
     override fun search(grade: Int, classNum: Int, keyword: String): List<User> {
 
+        val userIds:List<Long> = jpaQueryFactory.select(QUserRole.userRole.user.id).from(QUserRole.userRole)
+            .where(
+                QUserRole.userRole.userRoleType.eq(UserRoleType.ROLE_STUDENT)
+            )
+            .fetch()
+
         return jpaQueryFactory.selectFrom(user)
-                .where(
-                    gradeEq(grade),
-                    classNumEq(classNum),
-                    stateEq(UserState.CREATED),
-                    keywordLike(keyword),
-                    roleContains(UserRoleType.ROLE_STUDENT)
-                )
-                .fetch()
+            .where(
+                gradeEq(grade),
+                classNumEq(classNum),
+                keywordLike(keyword),
+                stateEq(UserState.CREATED),
+                user.id.`in`(userIds)
+            ).fetch()
     }
 
     private fun gradeEq(grade: Int): BooleanExpression? =
