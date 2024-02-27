@@ -9,7 +9,7 @@ class AuthDetails(
     private val user: User
 ): UserDetails {
     override fun getAuthorities(): Collection<GrantedAuthority?> =
-        user.roles
+        user.userRoles.map { it.userRoleType }
 
     override fun getPassword(): String? =
         null
