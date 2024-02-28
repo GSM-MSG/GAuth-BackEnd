@@ -1,6 +1,7 @@
 package com.msg.gauth.domain.user.presentation.dto.request
 
 import com.msg.gauth.domain.user.User
+import com.msg.gauth.domain.user.UserRole
 import com.msg.gauth.domain.user.enums.Gender
 import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
@@ -20,6 +21,7 @@ data class AcceptTeacherReqDto(
             password = user.password,
             gender = this.gender,
             roles = mutableListOf(UserRoleType.ROLE_TEACHER),
+            userRoles = user.userRoles,
             state = UserState.CREATED,
             profileUrl = user.profileUrl,
             wrongPasswordCount = user.wrongPasswordCount,

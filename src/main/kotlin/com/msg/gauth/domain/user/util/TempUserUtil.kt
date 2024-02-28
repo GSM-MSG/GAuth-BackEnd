@@ -50,6 +50,7 @@ class TempUserUtil(
                     classNum = user.classNum,
                     num = user.num,
                     roles = user.roles,
+                    userRoles = user.userRoles,
                     state = user.state,
                     profileUrl = user.profileUrl,
                     wrongPasswordCount = 0,

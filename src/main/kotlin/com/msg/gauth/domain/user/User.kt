@@ -40,7 +40,7 @@ class User(
     val roles: MutableList<UserRoleType> = mutableListOf(),
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST], orphanRemoval = true)
-    val userRoles: List<UserRole> = mutableListOf(),
+    val userRoles: List<UserRole>,
 
     @Enumerated(EnumType.STRING)
     val state: UserState,
