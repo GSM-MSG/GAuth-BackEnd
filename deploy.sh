@@ -22,4 +22,4 @@ fi
 echo "> 애플리케이션 배포"
 JAR_NAME=$(ls -tr $JAR_PATH | tail -n 1)
 echo "> JAR NAME: $JAR_NAME"
-nohup java -jar $JAR_NAME  --logging.file.path=/home/ec2-user/&
+nohup java -jar $JAR_NAME  --logging.file.path=/home/ec2-user/ &
