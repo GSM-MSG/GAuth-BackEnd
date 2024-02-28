@@ -32,6 +32,7 @@ class SignUpService(
         val user = User(
             email = signUpDto.email,
             password = passwordEncoder.encode(signUpDto.password),
+            userRoles = mutableListOf(),
             state = UserState.PENDING,
             profileUrl = null
         )
