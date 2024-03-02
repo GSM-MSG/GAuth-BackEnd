@@ -1,6 +1,7 @@
 package com.msg.gauth.domain.user.presentation.dto.request
 
 import com.msg.gauth.domain.user.User
+import com.msg.gauth.domain.user.UserRole
 import com.msg.gauth.domain.user.enums.Gender
 import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
@@ -29,6 +30,7 @@ data class AcceptUserReqDto(
             classNum = classNum,
             num = num,
             roles = mutableListOf(UserRoleType.ROLE_STUDENT),
+            userRoles = mutableListOf(UserRole(user = user, userRoleType = UserRoleType.ROLE_STUDENT)),
             state = UserState.CREATED,
             profileUrl = user.profileUrl,
             wrongPasswordCount = user.wrongPasswordCount,
@@ -47,6 +49,7 @@ data class AcceptUserReqDto(
             classNum = classNum,
             num = num,
             roles = mutableListOf(UserRoleType.ROLE_TEACHER),
+            userRoles = mutableListOf(UserRole(user = user, userRoleType = UserRoleType.ROLE_TEACHER)),
             state = UserState.CREATED,
             profileUrl = user.profileUrl
         )
@@ -63,6 +66,7 @@ data class AcceptUserReqDto(
             classNum = classNum,
             num = num,
             roles = mutableListOf(UserRoleType.ROLE_GRADUATE),
+            userRoles = mutableListOf(UserRole(user = user, userRoleType = UserRoleType.ROLE_GRADUATE)),
             state = UserState.CREATED,
             profileUrl = user.profileUrl
         )

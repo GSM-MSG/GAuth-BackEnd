@@ -21,6 +21,7 @@ data class PasswordChangeReqDto(
             classNum = user.grade,
             num = user.num,
             roles = user.roles,
+            userRoles = user.userRoles,
             state = user.state,
             profileUrl = user.profileUrl,
             wrongPasswordCount = user.wrongPasswordCount,

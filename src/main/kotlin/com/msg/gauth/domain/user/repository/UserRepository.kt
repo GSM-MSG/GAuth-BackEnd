@@ -5,10 +5,12 @@ import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 
 interface UserRepository: JpaRepository<User, Long>, CustomUserRepository {
+    @EntityGraph(attributePaths = ["userRoles"])
     fun findByEmail(email: String): User?
     fun findByEmailIn(emailList: List<String>): List<User>
     fun existsByEmail(email: String): Boolean
