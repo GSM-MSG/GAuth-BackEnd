@@ -30,7 +30,6 @@ data class AcceptUserReqDto(
             classNum = classNum,
             num = num,
             roles = mutableListOf(UserRoleType.ROLE_STUDENT),
-            userRoles = mutableListOf(UserRole(user = user, userRoleType = UserRoleType.ROLE_STUDENT)),
             state = UserState.CREATED,
             profileUrl = user.profileUrl,
             wrongPasswordCount = user.wrongPasswordCount,
@@ -49,7 +48,6 @@ data class AcceptUserReqDto(
             classNum = classNum,
             num = num,
             roles = mutableListOf(UserRoleType.ROLE_TEACHER),
-            userRoles = mutableListOf(UserRole(user = user, userRoleType = UserRoleType.ROLE_TEACHER)),
             state = UserState.CREATED,
             profileUrl = user.profileUrl
         )
@@ -66,7 +64,6 @@ data class AcceptUserReqDto(
             classNum = classNum,
             num = num,
             roles = mutableListOf(UserRoleType.ROLE_GRADUATE),
-            userRoles = mutableListOf(UserRole(user = user, userRoleType = UserRoleType.ROLE_GRADUATE)),
             state = UserState.CREATED,
             profileUrl = user.profileUrl
         )

@@ -21,7 +21,6 @@ data class AcceptTeacherReqDto(
             password = user.password,
             gender = this.gender,
             roles = mutableListOf(UserRoleType.ROLE_TEACHER),
-            userRoles = user.userRoles,
             state = UserState.CREATED,
             profileUrl = user.profileUrl,
             wrongPasswordCount = user.wrongPasswordCount,
