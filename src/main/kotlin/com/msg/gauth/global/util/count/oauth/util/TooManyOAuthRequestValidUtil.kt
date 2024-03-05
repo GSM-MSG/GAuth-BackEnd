@@ -63,7 +63,6 @@ class TooManyOAuthRequestValidUtil(
                 classNum = user.classNum,
                 num = user.num,
                 roles = user.roles,
-                userRoles = user.userRoles,
                 state = UserState.OAUTH_BAN,
                 profileUrl = user.profileUrl,
                 wrongPasswordCount = user.wrongPasswordCount,
