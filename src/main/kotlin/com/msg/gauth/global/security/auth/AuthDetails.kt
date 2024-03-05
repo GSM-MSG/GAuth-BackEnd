@@ -8,10 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails
 
 class AuthDetails(
     private val user: User,
-    private val userRole: List<UserRole>
 ): UserDetails {
     override fun getAuthorities(): Collection<GrantedAuthority?> =
-        userRole.map { it.userRoleType }
+        user.userRole.map { it.userRoleType }
 
     override fun getPassword(): String? =
         null

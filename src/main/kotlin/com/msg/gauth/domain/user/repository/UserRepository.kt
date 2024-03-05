@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 
 interface UserRepository: JpaRepository<User, Long>, CustomUserRepository {
+    @EntityGraph(attributePaths = ["userRole"])
     fun findByEmail(email: String): User?
     fun findByEmailIn(emailList: List<String>): List<User>
     fun existsByEmail(email: String): Boolean

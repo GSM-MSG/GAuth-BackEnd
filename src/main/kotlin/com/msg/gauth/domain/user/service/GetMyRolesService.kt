@@ -7,12 +7,8 @@ import com.msg.gauth.global.annotation.service.ReadOnlyService
 
 @ReadOnlyService
 class GetMyRolesService(
-    private val userUtil: UserUtil,
-    private val userRoleRepository: UserRoleRepository
+    private val userUtil: UserUtil
 ) {
-    fun execute(): GetMyRolesResDto {
-        val user = userUtil.fetchCurrentUser()
-        val userRole = userRoleRepository.findByUser(user)
-        return GetMyRolesResDto(userRole.map { it.userRoleType })
-    }
+    fun execute(): GetMyRolesResDto =
+        GetMyRolesResDto(userUtil.fetchCurrentUser().userRole.map { it.userRoleType })
 }
