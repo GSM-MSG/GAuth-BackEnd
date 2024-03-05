@@ -17,7 +17,7 @@ class CustomUserRepositoryImpl(
 
     override fun search(grade: Int, classNum: Int, keyword: String): List<User> {
         return jpaQueryFactory.selectFrom(user)
-            .leftJoin(user.userRoles, userRole).fetchJoin()
+            .leftJoin(userRole).on(userRole.user.eq(user)).fetchJoin()
             .where(
                 gradeEq(grade),
                 classNumEq(classNum),
