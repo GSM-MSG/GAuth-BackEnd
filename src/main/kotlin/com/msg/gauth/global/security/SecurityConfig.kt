@@ -80,7 +80,10 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/health").permitAll()
 
             // User
+            .antMatchers(HttpMethod.GET, "/user").authenticated()
             .antMatchers(HttpMethod.GET, "/user/role").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/user/profile").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/user/password").authenticated()
             .antMatchers(HttpMethod.PATCH, "/user/accept-teacher").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/user/pending").hasRole("ADMIN")
             .antMatchers(HttpMethod.PATCH, "/user/accept-student").hasRole("ADMIN")
