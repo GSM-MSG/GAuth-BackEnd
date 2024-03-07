@@ -84,11 +84,11 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/user/role").authenticated()
             .antMatchers(HttpMethod.PATCH, "/user/profile").authenticated()
             .antMatchers(HttpMethod.PATCH, "/user/password").authenticated()
+            .antMatchers(HttpMethod.GET, "/user/user-list").authenticated()
             .antMatchers(HttpMethod.PATCH, "/user/accept-teacher").hasRole("ADMIN")
             .antMatchers(HttpMethod.GET, "/user/pending").hasRole("ADMIN")
             .antMatchers(HttpMethod.PATCH, "/user/accept-student").hasRole("ADMIN")
             .antMatchers(HttpMethod.PATCH, "/user/accept-user/{id}").hasRole("ADMIN")
-            .antMatchers(HttpMethod.GET, "/user/user-list").hasRole("ADMIN")
             .antMatchers(HttpMethod.DELETE, "/user/reject/{id}").hasRole("ADMIN")
 
             //image
