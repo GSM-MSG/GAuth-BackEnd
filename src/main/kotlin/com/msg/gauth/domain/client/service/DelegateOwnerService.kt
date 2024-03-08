@@ -3,8 +3,10 @@ package com.msg.gauth.domain.client.service
 import com.msg.gauth.domain.client.Client
 import com.msg.gauth.domain.client.exception.BadDelegateUserIdRequestException
 import com.msg.gauth.domain.client.exception.ClientNotFindException
+import com.msg.gauth.domain.client.exception.InvalidDelegateUserException
 import com.msg.gauth.domain.client.exception.UserNotMatchException
 import com.msg.gauth.domain.client.repository.ClientRepository
+import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.domain.user.util.UserUtil
@@ -32,6 +34,9 @@ class DelegateOwnerService(
 
         val delegateUser = userRepository.findByIdOrNull(delegateUserId)
             ?: throw UserNotFoundException()
+
+        if (delegateUser.userRole.any { it.userRoleType != UserRoleType.ROLE_STUDENT })
+            throw InvalidDelegateUserException()
 
         val updateClient = Client(
             id = client.id,
