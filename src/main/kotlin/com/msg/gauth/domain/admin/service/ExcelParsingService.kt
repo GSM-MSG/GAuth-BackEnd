@@ -3,6 +3,7 @@ package com.msg.gauth.domain.admin.service
 import com.msg.gauth.domain.admin.exception.FileExtensionInvalidException
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.Gender
+import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.util.ExcelUtil
@@ -63,7 +64,7 @@ class ExcelParsingService(
                         classNum = updateDto.classNum,
                         num = updateDto.num,
                         roles = it.roles,
-                        state = it.state,
+                        state = UserState.CREATED,
                         profileUrl = it.profileUrl
                     )
                 )
