@@ -9,6 +9,7 @@ enum class ErrorCode(
     CLIENT_SECRET_MISMATCH("클라이언트 시크릿이 일치하지 않습니다.", 400),
     FILE_EXTENSION_INVALID("파일 확장자가 유효하지 않습니다.", 400),
     ALREADY_AUTHENTICATED_MAIL("이미 인증된 메일 입니다.", 400),
+    INVALID_DELEGATE_USER("유효하지 않은 위임자입니다.", 400),
 
     AUTH_CODE_EXPIRED("메일 인증이 만료되었습니다.", 401),
     UNAUTHORIZED("권한 없음", 401),
