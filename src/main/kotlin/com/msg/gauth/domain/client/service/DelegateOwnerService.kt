@@ -35,7 +35,7 @@ class DelegateOwnerService(
         val delegateUser = userRepository.findByIdOrNull(delegateUserId)
             ?: throw UserNotFoundException()
 
-        if (delegateUser.userRole.any { it.userRoleType != UserRoleType.ROLE_STUDENT })
+        if (!delegateUser.userRole.any { it.userRoleType == UserRoleType.ROLE_STUDENT })
             throw InvalidDelegateUserException()
 
         val updateClient = Client(
