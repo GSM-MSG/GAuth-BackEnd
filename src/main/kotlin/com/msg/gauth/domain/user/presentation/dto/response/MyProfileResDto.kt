@@ -5,7 +5,7 @@ import com.msg.gauth.domain.client.enums.ServiceScope
 import com.msg.gauth.domain.user.User
 
 data class MyProfileResDto(
-    val id: Long,
+    val userId: Long,
     val email: String,
     val name: String?,
     val grade: Int?,
@@ -15,7 +15,7 @@ data class MyProfileResDto(
     val clientList: List<SingleClientResDto>
 ) {
     constructor(user: User, clientList: List<SingleClientResDto>): this(
-        id = user.id,
+        userId = user.id,
         email = user.email,
         name =user.name,
         grade = user.grade,
