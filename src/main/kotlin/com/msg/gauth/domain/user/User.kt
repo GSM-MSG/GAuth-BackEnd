@@ -16,7 +16,7 @@ class User(
     val email: String,
 
     @field:Size(max = 60)
-    val password: String,
+    var password: String,
 
     @Enumerated(EnumType.STRING)
     val gender: Gender? = null,
