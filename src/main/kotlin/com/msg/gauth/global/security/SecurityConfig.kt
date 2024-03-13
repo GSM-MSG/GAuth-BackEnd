@@ -49,7 +49,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/auth/password/initialize").permitAll()
             .antMatchers(HttpMethod.PATCH, "/auth/image").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth/image").permitAll()
-            .antMatchers(HttpMethod.PATCH, "/auth/password").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/auth/password").authenticated()
 
             // Email
             .antMatchers(HttpMethod.POST, "/email").permitAll()
