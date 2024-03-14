@@ -18,7 +18,7 @@ class UpdatePasswordService(
     fun execute(passwordUpdateRequestDto: PasswordUpdateRequestDto) {
         val currentUser = userUtil.fetchCurrentUser()
 
-        if (currentUser.password == passwordUpdateRequestDto.password) {
+        if (!passwordEncoder.matches(passwordUpdateRequestDto.password, currentUser.password)) {
             throw PasswordMismatchException()
         }
 
@@ -33,7 +33,6 @@ class UpdatePasswordService(
             grade = currentUser.grade,
             classNum = currentUser.classNum,
             num = currentUser.num,
-            roles = currentUser.roles,
             state = currentUser.state,
             profileUrl = currentUser.profileUrl
         )
