@@ -5,6 +5,7 @@ import com.msg.gauth.domain.auth.presentation.dto.request.SignInRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto
 import com.msg.gauth.domain.auth.service.*
 import com.msg.gauth.domain.auth.presentation.dto.request.PasswordInitReqDto
+import com.msg.gauth.domain.auth.presentation.dto.request.PasswordUpdateRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SignInResponseDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SignUpImageResDto
 import com.msg.gauth.domain.auth.service.InitPasswordService
@@ -23,6 +24,7 @@ class AuthController(
     private val signUpService: SignUpService,
     private val initPasswordService: InitPasswordService,
     private val signUpImageUploadService: SignUpImageUploadService,
+    private val updatePasswordService: UpdatePasswordService
 ) {
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> {
@@ -58,6 +60,12 @@ class AuthController(
     @PatchMapping("/password/initialize")
     fun initPassword(@Valid @RequestBody passwordInitReqDto: PasswordInitReqDto): ResponseEntity<Void> {
         initPasswordService.execute(passwordInitReqDto)
+        return ResponseEntity.noContent().build()
+    }
+
+    @PatchMapping("/password")
+    fun updatePassword(@RequestBody passwordUpdateRequestDto: PasswordUpdateRequestDto): ResponseEntity<Void> {
+        updatePasswordService.execute(passwordUpdateRequestDto)
         return ResponseEntity.noContent().build()
     }
 }
