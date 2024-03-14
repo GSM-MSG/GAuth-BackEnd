@@ -25,6 +25,11 @@ jobs:
         run: chmod +x ./gradlew
         shell: bash
 
+      - name: Create application.yml
+        run: |
+          touch ./src/main/resources/application.yml
+          echo "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
+        shell: bash
 
       - name: Build with Gradle
         run: ./gradlew clean build -i -x test
