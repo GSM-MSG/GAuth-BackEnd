@@ -1,5 +1,6 @@
 package com.msg.gauth.domain.auth.service
 
+import com.msg.gauth.domain.auth.exception.PasswordAndNewPasswordSameException
 import com.msg.gauth.domain.auth.exception.PasswordMismatchException
 import com.msg.gauth.domain.auth.presentation.dto.request.PasswordUpdateRequestDto
 import com.msg.gauth.domain.user.User
@@ -20,6 +21,10 @@ class UpdatePasswordService(
 
         if (!passwordEncoder.matches(passwordUpdateRequestDto.password, currentUser.password)) {
             throw PasswordMismatchException()
+        }
+
+        if (passwordUpdateRequestDto.password == passwordUpdateRequestDto.newPassword) {
+            throw PasswordAndNewPasswordSameException()
         }
 
         val newPassword = passwordEncoder.encode(passwordUpdateRequestDto.newPassword)
