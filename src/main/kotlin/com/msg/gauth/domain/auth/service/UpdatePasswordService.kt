@@ -2,7 +2,7 @@ package com.msg.gauth.domain.auth.service
 
 import com.msg.gauth.domain.auth.exception.PasswordAndNewPasswordSameException
 import com.msg.gauth.domain.auth.exception.PasswordMismatchException
-import com.msg.gauth.domain.auth.presentation.dto.request.PasswordUpdateRequestDto
+import com.msg.gauth.domain.auth.presentation.dto.request.UpdatePasswordRequestDto
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.domain.user.util.UserUtil
@@ -16,18 +16,18 @@ class UpdatePasswordService(
     private val userRepository: UserRepository
 ) {
 
-    fun execute(passwordUpdateRequestDto: PasswordUpdateRequestDto) {
+    fun execute(updatePasswordRequestDto: UpdatePasswordRequestDto) {
         val currentUser = userUtil.fetchCurrentUser()
 
-        if (!passwordEncoder.matches(passwordUpdateRequestDto.password, currentUser.password)) {
+        if (!passwordEncoder.matches(updatePasswordRequestDto.password, currentUser.password)) {
             throw PasswordMismatchException()
         }
 
-        if (passwordUpdateRequestDto.password == passwordUpdateRequestDto.newPassword) {
+        if (updatePasswordRequestDto.password == updatePasswordRequestDto.newPassword) {
             throw PasswordAndNewPasswordSameException()
         }
 
-        val newPassword = passwordEncoder.encode(passwordUpdateRequestDto.newPassword)
+        val newPassword = passwordEncoder.encode(updatePasswordRequestDto.newPassword)
 
         val user = User(
             id = currentUser.id,
