@@ -4,8 +4,8 @@ import com.msg.gauth.domain.auth.presentation.dto.request.SignUpDto
 import com.msg.gauth.domain.auth.presentation.dto.request.SignInRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto
 import com.msg.gauth.domain.auth.service.*
-import com.msg.gauth.domain.auth.presentation.dto.request.PasswordInitReqDto
-import com.msg.gauth.domain.auth.presentation.dto.request.PasswordUpdateRequestDto
+import com.msg.gauth.domain.auth.presentation.dto.request.InitPasswordRequestDto
+import com.msg.gauth.domain.auth.presentation.dto.request.UpdatePasswordRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SignInResponseDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SignUpImageResDto
 import com.msg.gauth.domain.auth.service.InitPasswordService
@@ -58,14 +58,14 @@ class AuthController(
 
 
     @PatchMapping("/password/initialize")
-    fun initPassword(@Valid @RequestBody passwordInitReqDto: PasswordInitReqDto): ResponseEntity<Void> {
-        initPasswordService.execute(passwordInitReqDto)
+    fun initPassword(@Valid @RequestBody initPasswordRequestDto: InitPasswordRequestDto): ResponseEntity<Void> {
+        initPasswordService.execute(initPasswordRequestDto)
         return ResponseEntity.noContent().build()
     }
 
     @PatchMapping("/password")
-    fun updatePassword(@RequestBody passwordUpdateRequestDto: PasswordUpdateRequestDto): ResponseEntity<Void> {
-        updatePasswordService.execute(passwordUpdateRequestDto)
+    fun updatePassword(@RequestBody updatePasswordRequestDto: UpdatePasswordRequestDto): ResponseEntity<Void> {
+        updatePasswordService.execute(updatePasswordRequestDto)
         return ResponseEntity.noContent().build()
     }
 }

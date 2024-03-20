@@ -1,10 +1,9 @@
 package com.msg.gauth.domain.auth.presentation.dto.request
 
-import com.msg.gauth.domain.user.User
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 
-data class PasswordUpdateRequestDto(
+data class UpdatePasswordRequestDto(
     @field:NotBlank
     val password: String,
     @field:NotBlank

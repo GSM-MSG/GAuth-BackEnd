@@ -3,8 +3,7 @@ package com.msg.gauth.domain.auth.service
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
 import com.msg.gauth.domain.user.exception.EmailNotVerifiedException
 import com.msg.gauth.domain.user.exception.UserNotFoundException
-import com.msg.gauth.domain.auth.presentation.dto.request.PasswordInitReqDto
-import com.msg.gauth.domain.user.User
+import com.msg.gauth.domain.auth.presentation.dto.request.InitPasswordRequestDto
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -15,17 +14,17 @@ class InitPasswordService(
     private val emailAuthRepository: EmailAuthRepository,
     private val passwordEncoder: PasswordEncoder,
 ){
-    fun execute(passwordInitReqDto: PasswordInitReqDto){
-        val emailAuth = emailAuthRepository.findById(passwordInitReqDto.email)
+    fun execute(initPasswordRequestDto: InitPasswordRequestDto){
+        val emailAuth = emailAuthRepository.findById(initPasswordRequestDto.email)
             .orElseThrow { throw EmailNotVerifiedException() }
 
         if(!emailAuth.authentication)
             throw EmailNotVerifiedException()
 
-        val user = userRepository.findByEmail(passwordInitReqDto.email)
+        val user = userRepository.findByEmail(initPasswordRequestDto.email)
             ?: throw UserNotFoundException()
 
-        userRepository.save(passwordInitReqDto.toEntity(user, passwordEncoder.encode(passwordInitReqDto.newPassword)))
+        userRepository.save(initPasswordRequestDto.toEntity(user, passwordEncoder.encode(initPasswordRequestDto.newPassword)))
         emailAuthRepository.delete(emailAuth)
     }
 }
