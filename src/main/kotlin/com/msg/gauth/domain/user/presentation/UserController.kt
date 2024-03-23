@@ -15,7 +15,6 @@ import javax.validation.Valid
 @RequestMapping("/user")
 class UserController(
     private val changePasswordService: ChangePasswordService,
-    private val uploadProfileService: UploadProfileService,
     private val getMyProfileService: GetMyProfileService,
     private val getAcceptedUsersService: GetAcceptedUsersService,
     private val acceptTeacherSignUpService: AcceptTeacherSignUpService,
@@ -41,13 +40,6 @@ class UserController(
     @PatchMapping("/password")
     fun changePassword(@Valid @RequestBody passwordChangeReqDto: PasswordChangeReqDto): ResponseEntity<Void> {
         changePasswordService.execute(passwordChangeReqDto)
-        return ResponseEntity.noContent().build()
-    }
-
-    @Deprecated("This api is deprecated use uploadProfileURL instead")
-    @PatchMapping("/image")
-    fun uploadProfile(@RequestPart("image") image: MultipartFile): ResponseEntity<Void> {
-        uploadProfileService.execute(image)
         return ResponseEntity.noContent().build()
     }
 
