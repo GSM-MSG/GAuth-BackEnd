@@ -64,7 +64,7 @@ class AuthController(
     }
 
     @PatchMapping("/password")
-    fun updatePassword(@RequestBody updatePasswordRequestDto: UpdatePasswordRequestDto): ResponseEntity<Void> {
+    fun updatePassword(@RequestBody @Valid updatePasswordRequestDto: UpdatePasswordRequestDto): ResponseEntity<Void> {
         updatePasswordService.execute(updatePasswordRequestDto)
         return ResponseEntity.noContent().build()
     }
