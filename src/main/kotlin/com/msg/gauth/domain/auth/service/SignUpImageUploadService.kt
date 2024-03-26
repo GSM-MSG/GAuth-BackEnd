@@ -1,5 +1,6 @@
 package com.msg.gauth.domain.auth.service
 
+import com.msg.gauth.domain.admin.exception.FileExtensionInvalidException
 import com.msg.gauth.domain.auth.presentation.dto.response.SignUpImageResDto
 import com.msg.gauth.domain.email.exception.AuthCodeExpiredException
 import com.msg.gauth.domain.email.exception.AuthCodeNotVerificationException
@@ -23,6 +24,6 @@ class SignUpImageUploadService(
         if(previousUrl != null)
             s3Util.deleteImage(previousUrl)
 
-        return SignUpImageResDto(s3Util.upload(image))
+        return SignUpImageResDto(s3Util.imageUpload(image))
     }
 }

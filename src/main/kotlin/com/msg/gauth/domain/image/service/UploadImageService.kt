@@ -11,19 +11,7 @@ class UploadImageService(
     private val s3Util: S3Util
 ) {
     fun execute(image: MultipartFile): UploadImageResDto {
-        val list = listOf("jpg", "jpeg", "png", "gif")
-
-        val splitFile = image.originalFilename.toString().split(".")
-
-        if(splitFile.size < 2)
-            throw FileExtensionInvalidException()
-
-        val extension = splitFile[1].lowercase()
-
-        if(list.none { it == extension })
-            throw FileExtensionInvalidException()
-
-        val imgURL = s3Util.upload(image)
+        val imgURL = s3Util.imageUpload(image)
 
         return UploadImageResDto(imgURL)
     }
