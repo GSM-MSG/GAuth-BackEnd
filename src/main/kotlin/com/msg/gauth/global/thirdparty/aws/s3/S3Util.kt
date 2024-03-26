@@ -14,7 +14,6 @@ class S3Util(
 ){
     @Value("\${cloud.aws.s3.bucket}")
     private val bucket: String? = null
-    fun upload(file: MultipartFile): String {
 
     fun imageUpload(image: MultipartFile): String {
         val list = listOf("jpg", "jpeg", "png", "gif")
@@ -32,6 +31,7 @@ class S3Util(
         return upload(image)
     }
 
+    private fun upload(file: MultipartFile): String {
         val profileName = "${bucket}/${UUID.randomUUID()}${file.originalFilename}"
         val metadata = ObjectMetadata()
         metadata.contentLength = file.inputStream.available().toLong()
