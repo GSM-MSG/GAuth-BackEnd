@@ -1,5 +1,6 @@
 package com.msg.gauth.domain.auth.service
 
+import com.msg.gauth.domain.admin.exception.FileExtensionInvalidException
 import com.msg.gauth.domain.auth.presentation.dto.response.SignUpImageResDto
 import com.msg.gauth.domain.email.exception.AuthCodeExpiredException
 import com.msg.gauth.domain.email.exception.AuthCodeNotVerificationException
@@ -19,6 +20,18 @@ class SignUpImageUploadService(
 
         if(!emailAuth.authentication)
             throw AuthCodeNotVerificationException()
+
+        val list = listOf("jpg", "jpeg", "png", "gif")
+
+        val splitFile = image.originalFilename.toString().split(".")
+
+        if(splitFile.size < 2)
+            throw FileExtensionInvalidException()
+
+        val extension = splitFile[1].lowercase()
+
+        if(list.none { it == extension })
+            throw FileExtensionInvalidException()
 
         if(previousUrl != null)
             s3Util.deleteImage(previousUrl)
