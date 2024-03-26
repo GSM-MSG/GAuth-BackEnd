@@ -23,7 +23,7 @@ class UploadImageService(
         if(list.none { it == extension })
             throw FileExtensionInvalidException()
 
-        val imgURL = s3Util.upload(image)
+        val imgURL = s3Util.imageUpload(image)
 
         return UploadImageResDto(imgURL)
     }
