@@ -58,7 +58,7 @@ class SendMailService(
 
     private fun createMailTemplate(email: String, code: String): String {
         val context = Context()
-        val url = "https://server.gauth.co.kr/email/authentication?email=${email}&uuid=${code}"
+        val url = "https://port-0-gauth-backend-85phb42bluutn9a7.sel5.cloudtype.app/email/authentication?email=${email}&uuid=${code}"
         context.setVariables(mapOf(
             "url" to url
         ))
