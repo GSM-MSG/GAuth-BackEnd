@@ -30,18 +30,20 @@ class AcceptUserSignUpService(
 
     private fun acceptStudent(id: Long, acceptUserReqDto: AcceptUserReqDto) {
         val user = acceptUserReqDto.toStudentEntity(getUser(id))
-        saveUserRole(user, acceptUserReqDto.userRoleType)
-        userRepository.save(user)
+        saveUser(user, acceptUserReqDto)
     }
 
     private fun acceptTeacher(id: Long, acceptUserReqDto: AcceptUserReqDto) {
         val user = acceptUserReqDto.toTeacherEntity(getUser(id))
-        saveUserRole(user, acceptUserReqDto.userRoleType)
-        userRepository.save(user)
+        saveUser(user, acceptUserReqDto)
     }
 
     private fun acceptGraduate(id: Long, acceptUserReqDto: AcceptUserReqDto) {
         val user = acceptUserReqDto.toGraduateEntity(getUser(id))
+        saveUser(user, acceptUserReqDto)
+    }
+
+    private fun saveUser(user: User, acceptUserReqDto: AcceptUserReqDto) {
         saveUserRole(user, acceptUserReqDto.userRoleType)
         userRepository.save(user)
     }
