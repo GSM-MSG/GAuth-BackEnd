@@ -18,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 @TransactionalService
 class SignUpService(
     private val userRepository: UserRepository,
-    private val userRoleRepository: UserRoleRepository,
     private val passwordEncoder: PasswordEncoder,
     private val emailAuthRepository: EmailAuthRepository,
     private val applicationEventPublisher: ApplicationEventPublisher
@@ -48,19 +47,8 @@ class SignUpService(
 
         val savedUser = userRepository.save(user)
 
-        saveUserRole(user)
-
         applicationEventPublisher.publishEvent(SignupLoggingEvent(user.email))
 
         return savedUser.id
-    }
-
-    private fun saveUserRole(user: User) {
-        val userRole = UserRole(
-            user = user,
-            userRoleType = UserRoleType.ROLE_STUDENT
-        )
-
-        userRoleRepository.save(userRole)
     }
 }
