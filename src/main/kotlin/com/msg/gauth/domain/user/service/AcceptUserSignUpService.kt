@@ -29,17 +29,17 @@ class AcceptUserSignUpService(
             ?: throw UserNotFoundException()
 
     private fun acceptStudent(id: Long, acceptUserReqDto: AcceptUserReqDto) {
-        val user = acceptUserReqDto.toStudentEntity(getUser(id))
+        val user = acceptUserReqDto.toEntity(getUser(id))
         saveUser(user, acceptUserReqDto)
     }
 
     private fun acceptTeacher(id: Long, acceptUserReqDto: AcceptUserReqDto) {
-        val user = acceptUserReqDto.toTeacherEntity(getUser(id))
+        val user = acceptUserReqDto.toEntity(getUser(id))
         saveUser(user, acceptUserReqDto)
     }
 
     private fun acceptGraduate(id: Long, acceptUserReqDto: AcceptUserReqDto) {
-        val user = acceptUserReqDto.toGraduateEntity(getUser(id))
+        val user = acceptUserReqDto.toEntity(getUser(id))
         saveUser(user, acceptUserReqDto)
     }
 
