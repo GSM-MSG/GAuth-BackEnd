@@ -19,7 +19,7 @@ data class AcceptUserReqDto(
     val classNum: Int?,
     val num: Int?
 ) {
-    fun toStudentEntity(user: User): User {
+    fun toEntity(user: User): User {
         return User(
             id = user.id,
             email = user.email,
@@ -33,36 +33,6 @@ data class AcceptUserReqDto(
             profileUrl = user.profileUrl,
             wrongPasswordCount = user.wrongPasswordCount,
             oauthWrongPasswordCount = user.oauthWrongPasswordCount
-        )
-    }
-
-    fun toTeacherEntity(user: User): User{
-        return User(
-            id = user.id,
-            email = user.email,
-            password = user.password,
-            gender = gender,
-            name = name,
-            grade = grade,
-            classNum = classNum,
-            num = num,
-            state = UserState.CREATED,
-            profileUrl = user.profileUrl
-        )
-    }
-
-    fun toGraduateEntity(user: User): User{
-        return User(
-            id = user.id,
-            email = user.email,
-            password = user.password,
-            gender = gender,
-            name = name,
-            grade = grade,
-            classNum = classNum,
-            num = num,
-            state = UserState.CREATED,
-            profileUrl = user.profileUrl
         )
     }
 }
