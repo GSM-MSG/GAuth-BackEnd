@@ -16,32 +16,14 @@ class AcceptUserSignUpService(
     private val userRoleRepository: UserRoleRepository
 ) {
 
-    fun execute(id: Long, acceptUserReqDto: AcceptUserReqDto) =
-        when(acceptUserReqDto.userRoleType){
-            UserRoleType.ROLE_STUDENT -> acceptStudent(id, acceptUserReqDto)
-            UserRoleType.ROLE_TEACHER -> acceptTeacher(id, acceptUserReqDto)
-            UserRoleType.ROLE_GRADUATE -> acceptGraduate(id, acceptUserReqDto)
-            else -> throw BadUserRoleRequestException()
-        }
+    fun execute(id: Long, acceptUserReqDto: AcceptUserReqDto) {
+        val user = acceptUserReqDto.toEntity(getUser(id))
+        saveUser(user, acceptUserReqDto)
+    }
 
     private fun getUser(id: Long) =
         userRepository.findByIdAndState(id, UserState.PENDING)
             ?: throw UserNotFoundException()
-
-    private fun acceptStudent(id: Long, acceptUserReqDto: AcceptUserReqDto) {
-        val user = acceptUserReqDto.toEntity(getUser(id))
-        saveUser(user, acceptUserReqDto)
-    }
-
-    private fun acceptTeacher(id: Long, acceptUserReqDto: AcceptUserReqDto) {
-        val user = acceptUserReqDto.toEntity(getUser(id))
-        saveUser(user, acceptUserReqDto)
-    }
-
-    private fun acceptGraduate(id: Long, acceptUserReqDto: AcceptUserReqDto) {
-        val user = acceptUserReqDto.toEntity(getUser(id))
-        saveUser(user, acceptUserReqDto)
-    }
 
     private fun saveUser(user: User, acceptUserReqDto: AcceptUserReqDto) {
         saveUserRole(user, acceptUserReqDto.userRoleType)
