@@ -12,7 +12,7 @@ class AcceptStudentSignUpService(
     val userRepository: UserRepository
 ) {
     fun execute(acceptedStudentReqDto: AcceptStudentReqDto) {
-        val user = userRepository.findByIdAndStateAndRoles(acceptedStudentReqDto.id, UserState.PENDING, mutableListOf(UserRoleType.ROLE_STUDENT))
+        val user = userRepository.findByIdAndStateAndUserRole(acceptedStudentReqDto.id, UserState.PENDING, UserRoleType.ROLE_STUDENT)
             ?: throw UserNotFoundException()
         userRepository.save(acceptedStudentReqDto.toEntity(user))
     }
