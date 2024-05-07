@@ -33,12 +33,6 @@ class User(
     @Column(nullable = true)
     val num: Int? = null,
 
-    @Deprecated("'roles' is deprecated. use instead of 'userRoles'")
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "roles", joinColumns = [JoinColumn(name = "id")])
-    val roles: MutableList<UserRoleType> = mutableListOf(),
-
     @OneToMany(mappedBy = "user", cascade = [CascadeType.REMOVE], orphanRemoval = true)
     val userRole: List<UserRole> = mutableListOf(),
 
