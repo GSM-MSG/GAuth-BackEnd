@@ -63,7 +63,6 @@ class ExcelParsingService(
                         grade = updateDto.grade,
                         classNum = updateDto.classNum,
                         num = updateDto.num,
-                        roles = it.roles,
                         state = UserState.CREATED,
                         profileUrl = it.profileUrl
                     )
