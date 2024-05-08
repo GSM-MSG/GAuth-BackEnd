@@ -1,7 +1,6 @@
 package com.msg.gauth.domain.user
 
 import com.msg.gauth.domain.user.enums.Gender
-import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.global.entity.BaseIdEntity
 import javax.persistence.*
