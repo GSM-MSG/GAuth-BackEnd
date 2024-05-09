@@ -52,6 +52,16 @@ class CustomUserRepositoryImpl(
             .orderBy(*orderSpecifiers.toTypedArray()).fetch()
     }
 
+    override fun findAllByUserRoleType(userRoleType: UserRoleType): List<User> {
+        val roleEq = roleEq(userRoleType)
+
+        return jpaQueryFactory.selectFrom(user)
+            .leftJoin(userRole).on(userRole.user.eq(user)).fetchJoin()
+            .where(
+                roleEq
+            ).fetch()
+    }
+
     private fun gradeEq(grade: Int): BooleanExpression? =
         if(grade != 0) user.grade.eq(grade) else null
 
