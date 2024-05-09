@@ -17,9 +17,7 @@ class UserController(
     private val changePasswordService: ChangePasswordService,
     private val getMyProfileService: GetMyProfileService,
     private val getAcceptedUsersService: GetAcceptedUsersService,
-    private val acceptTeacherSignUpService: AcceptTeacherSignUpService,
     private val getPendingUsersService: GetPendingUsersService,
-    private val acceptStudentSignUpService: AcceptStudentSignUpService,
     private val getMyRolesService: GetMyRolesService,
     private val acceptUserSignUpService: AcceptUserSignUpService,
     private val rejectUserSignUpService: RejectUserSignUpService,
@@ -70,20 +68,6 @@ class UserController(
     @DeleteMapping("/reject/{id}")
     fun rejectUser(@PathVariable id: Long): ResponseEntity<Void> {
         rejectUserSignUpService.execute(id)
-        return ResponseEntity.noContent().build()
-    }
-
-    @Deprecated("This api is deprecated. Use acceptUser instead")
-    @PatchMapping("/accept-teacher")
-    fun acceptTeacher(@RequestBody @Valid acceptTeacherReqDto: AcceptTeacherReqDto): ResponseEntity<Void>{
-        acceptTeacherSignUpService.execute(acceptTeacherReqDto)
-        return ResponseEntity.noContent().build()
-    }
-
-    @Deprecated("This api is deprecated. Use acceptUser instead")
-    @PatchMapping("/accept-student")
-    fun acceptStudent(@RequestBody @Valid acceptedStudentReqDto: AcceptStudentReqDto): ResponseEntity<Void> {
-        acceptStudentSignUpService.execute(acceptedStudentReqDto)
         return ResponseEntity.noContent().build()
     }
 }
