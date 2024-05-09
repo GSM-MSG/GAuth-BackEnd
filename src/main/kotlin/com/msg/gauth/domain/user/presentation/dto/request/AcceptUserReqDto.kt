@@ -1,7 +1,6 @@
 package com.msg.gauth.domain.user.presentation.dto.request
 
 import com.msg.gauth.domain.user.User
-import com.msg.gauth.domain.user.UserRole
 import com.msg.gauth.domain.user.enums.Gender
 import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState

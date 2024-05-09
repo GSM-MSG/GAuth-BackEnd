@@ -61,7 +61,6 @@ class TooManyRequestValidUtil(
                 grade = user.grade,
                 classNum = user.classNum,
                 num = user.num,
-                roles = user.roles,
                 state = UserState.SIGN_IN_BAN,
                 profileUrl = user.profileUrl,
                 wrongPasswordCount = user.wrongPasswordCount,

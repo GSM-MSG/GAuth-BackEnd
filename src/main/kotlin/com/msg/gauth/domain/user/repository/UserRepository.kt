@@ -19,8 +19,6 @@ interface UserRepository: JpaRepository<User, Long>, CustomUserRepository {
     fun findAllByState(state: UserState): List<User>
     fun findAllByState(state: UserState, pageable: Pageable): Page<User>
     fun findByIdAndState(id: Long, roles: UserState): User?
-    fun findAllByRolesContaining(role: UserRoleType): List<User>
-
-    @Query("select user from User user where user.id = :id and user.state = :state and user.roles = :roles")
-    fun findByIdAndStateAndRoles(id: Long, state: UserState, roles: MutableList<UserRoleType>): User?
+    @Query("select user from User user where user.id = :id and user.state = :state and user.userRole = :userRole")
+    fun findByIdAndStateAndUserRole(id: Long, state: UserState, userRole: UserRoleType): User?
 }

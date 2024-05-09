@@ -4,12 +4,9 @@ import com.msg.gauth.domain.auth.event.SignupLoggingEvent
 import com.msg.gauth.domain.auth.presentation.dto.request.SignUpDto
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
 import com.msg.gauth.domain.user.User
-import com.msg.gauth.domain.user.UserRole
-import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.domain.user.exception.EmailNotVerifiedException
 import com.msg.gauth.domain.user.repository.UserRepository
-import com.msg.gauth.domain.user.repository.UserRoleRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.exception.exceptions.DuplicateEmailException
 import org.springframework.context.ApplicationEventPublisher

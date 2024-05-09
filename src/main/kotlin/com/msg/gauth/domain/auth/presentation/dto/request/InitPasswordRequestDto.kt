@@ -23,7 +23,6 @@ data class InitPasswordRequestDto(
             grade = user.grade,
             classNum = user.classNum,
             num = user.num,
-            roles = user.roles,
             state = user.state,
             profileUrl = user.profileUrl
         )

@@ -23,7 +23,6 @@ class UploadProfileURLService(
                 grade = user.grade,
                 classNum = user.classNum,
                 num = user.num,
-                roles = user.roles,
                 state = user.state,
                 profileUrl = imageURL,
                 wrongPasswordCount = user.wrongPasswordCount,

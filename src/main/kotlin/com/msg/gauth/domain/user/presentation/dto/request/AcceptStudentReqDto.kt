@@ -30,7 +30,6 @@ data class AcceptStudentReqDto(
             grade = this.grade,
             classNum = this.classNum,
             num = this.num,
-            roles = user.roles,
             state = UserState.CREATED,
             profileUrl = user.profileUrl,
             wrongPasswordCount = user.wrongPasswordCount,

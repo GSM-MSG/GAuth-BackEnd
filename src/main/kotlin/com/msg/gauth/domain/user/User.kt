@@ -1,7 +1,6 @@
 package com.msg.gauth.domain.user
 
 import com.msg.gauth.domain.user.enums.Gender
-import com.msg.gauth.domain.user.enums.UserRoleType
 import com.msg.gauth.domain.user.enums.UserState
 import com.msg.gauth.global.entity.BaseIdEntity
 import javax.persistence.*
@@ -32,12 +31,6 @@ class User(
 
     @Column(nullable = true)
     val num: Int? = null,
-
-    @Deprecated("'roles' is deprecated. use instead of 'userRoles'")
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "roles", joinColumns = [JoinColumn(name = "id")])
-    val roles: MutableList<UserRoleType> = mutableListOf(),
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.REMOVE], orphanRemoval = true)
     val userRole: List<UserRole> = mutableListOf(),
