@@ -41,7 +41,7 @@ class AddCoworkerService(
         saveCoworker(clientCoworker, client)
     }
 
-    fun saveCoworker(user: User, client: Client) {
+    private fun saveCoworker(user: User, client: Client) {
         val coworker = Coworker(
             user = user,
             client = client
