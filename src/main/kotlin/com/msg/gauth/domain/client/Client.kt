@@ -20,6 +20,9 @@ class Client(
 
     val serviceUri: String,
 
+    @OneToMany(mappedBy = "client", cascade = [CascadeType.REMOVE], orphanRemoval = true)
+    val coworkers: List<Coworker> = mutableListOf(),
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     val createdBy: User,
