@@ -5,7 +5,7 @@ import com.msg.gauth.domain.client.Coworker
 import com.msg.gauth.domain.client.exception.AlreadyExistCoworkerException
 import com.msg.gauth.domain.client.exception.ClientNotFindException
 import com.msg.gauth.domain.client.exception.UserNotMatchException
-import com.msg.gauth.domain.client.presentation.dto.request.CoworkerAddReqDto
+import com.msg.gauth.domain.client.presentation.dto.request.AddCoworkerReqDto
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.client.repository.CoworkerRepository
 import com.msg.gauth.domain.user.User
@@ -23,7 +23,7 @@ class AddCoworkerService(
     private val coworkerRepository: CoworkerRepository,
     private val userUtil: UserUtil,
 ) {
-    fun execute(id: Long, coworkerAddReqDto: CoworkerAddReqDto) {
+    fun execute(id: Long, addCoworkerReqDto: AddCoworkerReqDto) {
         val user = userUtil.fetchCurrentUser()
 
         val client = clientRepository.findByIdOrNull(id)
@@ -32,7 +32,7 @@ class AddCoworkerService(
         if (user != client.createdBy)
             throw UserNotMatchException()
 
-        val clientCoworker = userRepository.findByIdOrNull(coworkerAddReqDto.userId)
+        val clientCoworker = userRepository.findByIdOrNull(addCoworkerReqDto.userId)
             ?: throw UserNotFoundException()
 
         if (coworkerRepository.existsByUserAndClient(clientCoworker, client))

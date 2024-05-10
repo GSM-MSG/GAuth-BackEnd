@@ -3,7 +3,7 @@ package com.msg.gauth.domain.client.presentation
 import com.msg.gauth.domain.client.presentation.dto.response.ClientResDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientRegisterReqDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientUpdateReqDto
-import com.msg.gauth.domain.client.presentation.dto.request.CoworkerAddReqDto
+import com.msg.gauth.domain.client.presentation.dto.request.AddCoworkerReqDto
 import com.msg.gauth.domain.client.presentation.dto.response.SingleClientResDto
 import com.msg.gauth.domain.client.presentation.dto.response.ClientDetailResDto
 import com.msg.gauth.domain.client.presentation.dto.response.ClientRegisterResDto
@@ -93,9 +93,9 @@ class ClientController(
     @PatchMapping("/{id}/co-worker")
     fun addCoworker(
         @PathVariable id: Long,
-        @RequestBody coworkerAddReqDto: CoworkerAddReqDto
+        @RequestBody addCoworkerReqDto: AddCoworkerReqDto
     ): ResponseEntity<Void> {
-        addCoworkerService.execute(id, coworkerAddReqDto)
+        addCoworkerService.execute(id, addCoworkerReqDto)
         return ResponseEntity.noContent().build()
     }
 }
