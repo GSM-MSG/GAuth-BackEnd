@@ -3,6 +3,7 @@ package com.msg.gauth.domain.client.presentation
 import com.msg.gauth.domain.client.presentation.dto.response.ClientResDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientRegisterReqDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientUpdateReqDto
+import com.msg.gauth.domain.client.presentation.dto.request.CoworkerAddReqDto
 import com.msg.gauth.domain.client.presentation.dto.response.SingleClientResDto
 import com.msg.gauth.domain.client.presentation.dto.response.ClientDetailResDto
 import com.msg.gauth.domain.client.presentation.dto.response.ClientRegisterResDto
@@ -22,7 +23,8 @@ class ClientController(
     private val getClientsByServiceNameService: GetClientsByServiceNameService,
     private val updateAnyClientService: UpdateAnyClientService,
     private val deleteClientsService: DeleteClientsService,
-    private val delegateOwnerService: DelegateOwnerService
+    private val delegateOwnerService: DelegateOwnerService,
+    private val addCoworkerService: AddCoworkerService
 ) {
 
     @PostMapping
@@ -85,6 +87,15 @@ class ClientController(
         @RequestParam userId: Long
     ): ResponseEntity<Void> {
         delegateOwnerService.execute(id, userId)
+        return ResponseEntity.noContent().build()
+    }
+
+    @PatchMapping("/{id}/co-worker")
+    fun addCoworker(
+        @PathVariable id: Long,
+        @RequestBody coworkerAddReqDto: CoworkerAddReqDto
+    ): ResponseEntity<Void> {
+        addCoworkerService.execute(id, coworkerAddReqDto)
         return ResponseEntity.noContent().build()
     }
 }
