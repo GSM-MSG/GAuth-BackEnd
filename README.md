@@ -28,7 +28,7 @@ GAuth는 학교 OAuth 서비스로, 교내 프로젝트나 서비스를 만들 �
 
 1. [https://gauth.com/login?client_id=(clientID)&redirect_uri=(redirectURI)](https://gauth.com/login?client_id=(clientID)&redirect_uri=(redirectURI)) 에 유저가 접속합니다. (OAuth 로그인 페이지)
 2. 로그인 성공 시 정보주는 동의를 받고 (redirectURI)?code=(code) 로 리다이렉트됩니다.
-3. 리다이렉트된 곳(클라이언트 서버)에서 받은 코드를 써서 [https://server.gauth.com/](https://server.gauth.com/user) 에 POST method로 body에 code, clientId, clientSecret을 담아서 보내면 유저정보를 받을 수 있습니다
+3. 리다이렉트된 곳(클라이언트 서버)에서 받은 코드를 써서 [https://port-0-gauth-backend-85phb42bluutn9a7.sel5.cloudtype.app/](https://port-0-gauth-backend-85phb42bluutn9a7.sel5.cloudtype.app/user) 에 POST method로 body에 code, clientId, clientSecret을 담아서 보내면 유저정보를 받을 수 있습니다
 
 <br>
 
@@ -46,7 +46,7 @@ GAuth는 학교 OAuth 서비스로, 교내 프로젝트나 서비스를 만들 �
 
 ## POST: code 발급
 
-`request URL`: https://server.gauth.co.kr/oauth/code
+`request URL`: https://port-0-gauth-backend-85phb42bluutn9a7.sel5.cloudtype.app/oauth/code
   
 code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 
@@ -112,7 +112,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 
 ## PATCH: token 재발급
 
-`request URL`: https://server.gauth.co.kr/oauth/token
+`request URL`: https://port-0-gauth-backend-85phb42bluutn9a7.sel5.cloudtype.app/oauth/token
 
 ### Request
 ```js
@@ -143,7 +143,7 @@ code의 유효기간은 15이며 한 번 사용할 시 폐기됩니다.
 
 ## GET: User Info
 
-`request URL`: https://open.gauth.co.kr/user
+`request URL`: https://port-0-gauth-resource-server-71t02clq411q18.sel4.cloudtype.app/user
 
 선생님, 혹은 졸업생은 grade, classNum, num이 null로 옵니다!
 #### Request
