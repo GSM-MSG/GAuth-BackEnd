@@ -48,7 +48,16 @@ GAuth는 학교 OAuth 서비스로, 교내 프로젝트나 서비스를 만들 �
 
 ### 기간 24/04/12 ~
 
+### 변경 전 
+
+`GauthServerURL`: https://server.gauth.co.kr
+
+`ResourceServerURL`: https://open.gauth.co.kr
+
+### 변경 후
+
 `GauthServerURL`: https://port-0-gauth-backend-85phb42bluutn9a7.sel5.cloudtype.app
+
 `ResourceServerURL`: https://port-0-gauth-resource-server-71t02clq411q18.sel4.cloudtype.app
 
 ## POST: code 발급
