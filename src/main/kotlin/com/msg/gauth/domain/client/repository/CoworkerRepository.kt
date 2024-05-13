@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface CoworkerRepository: JpaRepository<Coworker, Long> {
     fun existsByUserAndClient(user: User, client: Client): Boolean
+    fun findByUserAndClient(user: User, client: Client): Coworker?
 }
