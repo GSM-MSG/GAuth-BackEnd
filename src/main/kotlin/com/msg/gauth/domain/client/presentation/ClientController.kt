@@ -4,6 +4,7 @@ import com.msg.gauth.domain.client.presentation.dto.response.ClientResDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientRegisterReqDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientUpdateReqDto
 import com.msg.gauth.domain.client.presentation.dto.request.AddCoworkerReqDto
+import com.msg.gauth.domain.client.presentation.dto.request.DeleteCoworkerReqDto
 import com.msg.gauth.domain.client.presentation.dto.response.SingleClientResDto
 import com.msg.gauth.domain.client.presentation.dto.response.ClientDetailResDto
 import com.msg.gauth.domain.client.presentation.dto.response.ClientRegisterResDto
@@ -24,7 +25,8 @@ class ClientController(
     private val updateAnyClientService: UpdateAnyClientService,
     private val deleteClientsService: DeleteClientsService,
     private val delegateOwnerService: DelegateOwnerService,
-    private val addCoworkerService: AddCoworkerService
+    private val addCoworkerService: AddCoworkerService,
+    private val deleteCoworkerService: DeleteCoworkerService
 ) {
 
     @PostMapping
@@ -96,6 +98,15 @@ class ClientController(
         @RequestBody addCoworkerReqDto: AddCoworkerReqDto
     ): ResponseEntity<Void> {
         addCoworkerService.execute(id, addCoworkerReqDto)
+        return ResponseEntity.noContent().build()
+    }
+
+    @DeleteMapping("/{id}/co-worker/delete")
+    fun deleteCoworker(
+        @PathVariable id: Long,
+        @RequestBody deleteCoworkerReqDto: DeleteCoworkerReqDto
+    ): ResponseEntity<Void> {
+        deleteCoworkerService.execute(id, deleteCoworkerReqDto)
         return ResponseEntity.noContent().build()
     }
 }
