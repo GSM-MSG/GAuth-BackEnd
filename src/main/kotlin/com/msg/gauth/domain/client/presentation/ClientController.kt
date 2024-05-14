@@ -101,7 +101,7 @@ class ClientController(
         return ResponseEntity.noContent().build()
     }
 
-    @DeleteMapping("/{id}/co-worker/delete")
+    @DeleteMapping("/{id}/co-worker")
     fun deleteCoworker(
         @PathVariable id: Long,
         @RequestBody deleteCoworkerReqDto: DeleteCoworkerReqDto
