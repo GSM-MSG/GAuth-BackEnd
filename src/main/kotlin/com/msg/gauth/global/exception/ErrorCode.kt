@@ -34,7 +34,7 @@ enum class ErrorCode(
     NOT_FOUND("리소스를 찾을수 없음", 404),
     USER_NOT_FOUND("해당 유저를 찾을 수 없습니다.", 404),
     CLIENT_NOT_FOUND("해당 클라이언트를 찾을 수 없습니다.", 404),
-    NOT_FOUND_COWORKER("해당하는 공동작업자를 찾을 수 없습니다.", 404),
+    COWORKER_NOT_FOUND("해당하는 공동작업자를 찾을 수 없습니다.", 404),
 
     DUPLICATE_EMAIL("중복되는 이메일입니다.", 409),
 
