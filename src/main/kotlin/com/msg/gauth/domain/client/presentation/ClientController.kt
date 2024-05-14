@@ -12,6 +12,7 @@ import com.msg.gauth.domain.client.service.*
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/client")
@@ -95,7 +96,7 @@ class ClientController(
     @PatchMapping("/{id}/co-worker")
     fun addCoworker(
         @PathVariable id: Long,
-        @RequestBody addCoworkerReqDto: AddCoworkerReqDto
+        @Valid @RequestBody addCoworkerReqDto: AddCoworkerReqDto
     ): ResponseEntity<Void> {
         addCoworkerService.execute(id, addCoworkerReqDto)
         return ResponseEntity.noContent().build()
@@ -104,7 +105,7 @@ class ClientController(
     @DeleteMapping("/{id}/co-worker")
     fun deleteCoworker(
         @PathVariable id: Long,
-        @RequestBody deleteCoworkerReqDto: DeleteCoworkerReqDto
+        @Valid @RequestBody deleteCoworkerReqDto: DeleteCoworkerReqDto
     ): ResponseEntity<Void> {
         deleteCoworkerService.execute(id, deleteCoworkerReqDto)
         return ResponseEntity.noContent().build()
