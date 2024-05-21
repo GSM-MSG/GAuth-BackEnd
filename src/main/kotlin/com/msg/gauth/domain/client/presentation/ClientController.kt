@@ -1,13 +1,10 @@
 package com.msg.gauth.domain.client.presentation
 
-import com.msg.gauth.domain.client.presentation.dto.response.ClientResDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientRegisterReqDto
 import com.msg.gauth.domain.client.presentation.dto.request.ClientUpdateReqDto
 import com.msg.gauth.domain.client.presentation.dto.request.AddCoworkerReqDto
 import com.msg.gauth.domain.client.presentation.dto.request.DeleteCoworkerReqDto
-import com.msg.gauth.domain.client.presentation.dto.response.SingleClientResDto
-import com.msg.gauth.domain.client.presentation.dto.response.ClientDetailResDto
-import com.msg.gauth.domain.client.presentation.dto.response.ClientRegisterResDto
+import com.msg.gauth.domain.client.presentation.dto.response.*
 import com.msg.gauth.domain.client.service.*
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
@@ -27,7 +24,8 @@ class ClientController(
     private val deleteClientsService: DeleteClientsService,
     private val delegateOwnerService: DelegateOwnerService,
     private val addCoworkerService: AddCoworkerService,
-    private val deleteCoworkerService: DeleteCoworkerService
+    private val deleteCoworkerService: DeleteCoworkerService,
+    private val coworkerGetService: CoworkerGetService
 ) {
 
     @PostMapping
@@ -109,5 +107,11 @@ class ClientController(
     ): ResponseEntity<Void> {
         deleteCoworkerService.execute(id, deleteCoworkerReqDto)
         return ResponseEntity.noContent().build()
+    }
+
+    @GetMapping("/{id}/co-worker")
+    fun getCowoker(@PathVariable id: Long): ResponseEntity<List<CoworkerGetResDto>> {
+        val response = coworkerGetService.execute(id)
+        return ResponseEntity.ok(response)
     }
 }
