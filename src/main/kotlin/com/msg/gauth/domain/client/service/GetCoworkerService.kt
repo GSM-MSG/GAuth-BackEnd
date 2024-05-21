@@ -2,7 +2,7 @@ package com.msg.gauth.domain.client.service
 
 import com.msg.gauth.domain.client.exception.ClientNotFindException
 import com.msg.gauth.domain.client.exception.UserNotMatchException
-import com.msg.gauth.domain.client.presentation.dto.response.CoworkerGetResDto
+import com.msg.gauth.domain.client.presentation.dto.response.GetCoworkerResDto
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.client.repository.CoworkerRepository
 import com.msg.gauth.domain.user.util.UserUtil
@@ -16,7 +16,7 @@ class GetCoworkerService(
     private val coworkerRepository: CoworkerRepository
 ) {
 
-    fun execute(id: Long): List<CoworkerGetResDto> {
+    fun execute(id: Long): List<GetCoworkerResDto> {
         val user = userUtil.fetchCurrentUser()
 
         val client = clientRepository.findByIdOrNull(id)
@@ -27,7 +27,7 @@ class GetCoworkerService(
 
         val serviceCoworkers = coworkerRepository.findByClient(client)
 
-        return serviceCoworkers.map { CoworkerGetResDto(it.user.id) }
+        return serviceCoworkers.map { GetCoworkerResDto(it.user.id) }
     }
 
 }

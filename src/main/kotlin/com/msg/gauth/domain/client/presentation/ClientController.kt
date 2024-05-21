@@ -110,7 +110,7 @@ class ClientController(
     }
 
     @GetMapping("/{id}/co-worker")
-    fun getCowoker(@PathVariable id: Long): ResponseEntity<List<CoworkerGetResDto>> {
+    fun getCowoker(@PathVariable id: Long): ResponseEntity<List<GetCoworkerResDto>> {
         val response = getCoworkerService.execute(id)
         return ResponseEntity.ok(response)
     }
