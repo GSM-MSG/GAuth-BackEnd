@@ -2,7 +2,6 @@ package com.msg.gauth.domain.client.service
 
 import com.msg.gauth.domain.client.exception.ClientNotFindException
 import com.msg.gauth.domain.client.exception.UserNotMatchException
-import com.msg.gauth.domain.client.presentation.dto.response.CoworkerGetResDto
 import com.msg.gauth.domain.client.presentation.dto.response.GetCoworkerResDto
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.client.repository.CoworkerRepository
