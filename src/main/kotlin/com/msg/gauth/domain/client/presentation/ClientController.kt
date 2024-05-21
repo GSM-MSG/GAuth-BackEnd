@@ -25,7 +25,7 @@ class ClientController(
     private val delegateOwnerService: DelegateOwnerService,
     private val addCoworkerService: AddCoworkerService,
     private val deleteCoworkerService: DeleteCoworkerService,
-    private val coworkerGetService: CoworkerGetService
+    private val getCoworkerService: GetCoworkerService
 ) {
 
     @PostMapping
@@ -111,7 +111,7 @@ class ClientController(
 
     @GetMapping("/{id}/co-worker")
     fun getCowoker(@PathVariable id: Long): ResponseEntity<List<CoworkerGetResDto>> {
-        val response = coworkerGetService.execute(id)
+        val response = getCoworkerService.execute(id)
         return ResponseEntity.ok(response)
     }
 }

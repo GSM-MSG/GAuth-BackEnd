@@ -10,7 +10,7 @@ import com.msg.gauth.global.annotation.service.ReadOnlyService
 import org.springframework.data.repository.findByIdOrNull
 
 @ReadOnlyService
-class CoworkerGetService(
+class GetCoworkerService(
     private val userUtil: UserUtil,
     private val clientRepository: ClientRepository,
     private val coworkerRepository: CoworkerRepository
