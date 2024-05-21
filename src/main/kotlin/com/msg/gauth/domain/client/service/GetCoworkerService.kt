@@ -25,8 +25,9 @@ class GetCoworkerService(
         if (user != client.createdBy)
             throw UserNotMatchException()
 
-        return coworkerRepository.findByClient(client)
-            .map { CoworkerGetResDto(it.user.id) }
+        val serviceCoworkers = coworkerRepository.findByClient(client)
+
+        return serviceCoworkers.map { CoworkerGetResDto(it.user.id) }
     }
 
 }
