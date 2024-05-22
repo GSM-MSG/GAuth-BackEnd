@@ -27,9 +27,9 @@ class GetCoworkerService(
 
         val serviceCoworkers = coworkerRepository.findByClient(client)
 
-        val responses = serviceCoworkers.map { GetCoworkerResDto(it.user.id) }
+        val response = serviceCoworkers.map { GetCoworkerResDto(it.user.id) }
 
-        return responses
+        return response
     }
 
 }
