@@ -68,6 +68,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/client/{id}/owner").authenticated()
             .antMatchers(HttpMethod.PATCH, "/client/{id}/co-worker").authenticated()
             .antMatchers(HttpMethod.DELETE, "/client/{id}/co-worker").authenticated()
+            .antMatchers(HttpMethod.GET, "/client/{id}/co-worker").authenticated()
 
             // Admin
             .antMatchers(HttpMethod.POST, "/admin/parsing-member").hasRole("ADMIN")
