@@ -4,6 +4,7 @@ import com.msg.gauth.domain.client.Client
 import com.msg.gauth.domain.client.enums.ServiceScope
 
 data class ClientRegisterResDto(
+    val id: Long,
     val clientId: String,
     val clientSecret: String,
     val redirectUri: String,
@@ -13,6 +14,7 @@ data class ClientRegisterResDto(
     val serviceImgUrl: String
 ) {
     constructor(client: Client): this(
+        id = client.id,
         clientId = client.clientId,
         clientSecret = client.clientSecret,
         redirectUri = client.redirectUri,
