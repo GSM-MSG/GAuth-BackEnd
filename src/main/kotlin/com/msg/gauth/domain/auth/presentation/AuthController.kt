@@ -1,11 +1,8 @@
 package com.msg.gauth.domain.auth.presentation
 
-import com.msg.gauth.domain.auth.presentation.dto.request.SignUpDto
-import com.msg.gauth.domain.auth.presentation.dto.request.SignInRequestDto
+import com.msg.gauth.domain.auth.presentation.dto.request.*
 import com.msg.gauth.domain.auth.presentation.dto.response.RefreshResponseDto
 import com.msg.gauth.domain.auth.service.*
-import com.msg.gauth.domain.auth.presentation.dto.request.InitPasswordRequestDto
-import com.msg.gauth.domain.auth.presentation.dto.request.UpdatePasswordRequestDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SignInResponseDto
 import com.msg.gauth.domain.auth.presentation.dto.response.SignUpImageResDto
 import com.msg.gauth.domain.auth.service.InitPasswordService
@@ -24,7 +21,8 @@ class AuthController(
     private val signUpService: SignUpService,
     private val initPasswordService: InitPasswordService,
     private val signUpImageUploadService: SignUpImageUploadService,
-    private val updatePasswordService: UpdatePasswordService
+    private val updatePasswordService: UpdatePasswordService,
+    private val signUpEmailVerificationService: SignUpEmailVerificationService
 ) {
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> {
@@ -68,4 +66,11 @@ class AuthController(
         updatePasswordService.execute(updatePasswordRequestDto)
         return ResponseEntity.noContent().build()
     }
+
+    @GetMapping
+    fun signUpEmailVerification(@RequestParam email: String): ResponseEntity<Void> {
+        signUpEmailVerificationService.execute(email)
+        return ResponseEntity.ok().build()
+    }
+
 }
