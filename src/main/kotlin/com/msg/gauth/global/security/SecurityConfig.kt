@@ -50,6 +50,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/auth/image").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth/image").permitAll()
             .antMatchers(HttpMethod.PATCH, "/auth/password").authenticated()
+            .antMatchers(HttpMethod.GET, "/auth").permitAll()
 
             // Email
             .antMatchers(HttpMethod.POST, "/email").permitAll()
