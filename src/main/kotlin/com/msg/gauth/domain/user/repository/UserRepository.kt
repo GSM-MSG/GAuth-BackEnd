@@ -12,4 +12,5 @@ interface UserRepository: JpaRepository<User, Long>, CustomUserRepository {
     fun existsByEmail(email: String): Boolean
     fun findAllByState(state: UserState): List<User>
     fun findByIdAndState(id: Long, roles: UserState): User?
+    fun existsByGradeAndClassNumAndNum(grade: Int, classNum: Int, num: Int): Boolean
 }
