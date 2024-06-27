@@ -43,7 +43,7 @@ class AuthController(
         return ResponseEntity.ok(result)
     }
 
-    @PostMapping("/v1/signup")
+    @PostMapping("/signup")
     fun signUpMember(@Valid @RequestBody signUpDto: SignUpDto): ResponseEntity<Void> {
         signUpService.execute(signUpDto)
         return ResponseEntity(HttpStatus.CREATED)
