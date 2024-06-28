@@ -11,6 +11,7 @@ import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.exception.exceptions.DuplicateEmailException
 import org.springframework.context.ApplicationEventPublisher
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @TransactionalService
@@ -28,8 +29,8 @@ class SignUpMemberV2Service(
         if (userRepository.existsByGradeAndClassNumAndNum(signUpV2RequestDto.grade, signUpV2RequestDto.classNum, signUpV2RequestDto.num))
             throw AlreadyExistUserException()
 
-        val emailAuth = emailAuthRepository.findById(signUpV2RequestDto.email)
-            .orElseThrow { EmailNotVerifiedException() }
+        val emailAuth = emailAuthRepository.findByIdOrNull(signUpV2RequestDto.email)
+            ?: throw EmailNotVerifiedException()
 
         if (!emailAuth.authentication) {
             emailAuthRepository.delete(emailAuth)
@@ -48,7 +49,6 @@ class SignUpMemberV2Service(
         )
 
         emailAuthRepository.delete(emailAuth)
-
         userRepository.save(user)
 
         applicationEventPublisher.publishEvent(SignupLoggingEvent(user.email))

@@ -10,6 +10,7 @@ import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
 import com.msg.gauth.global.exception.exceptions.DuplicateEmailException
 import org.springframework.context.ApplicationEventPublisher
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @TransactionalService
@@ -33,8 +34,8 @@ class SignUpService(
             profileUrl = null
         )
 
-        val emailAuth = emailAuthRepository.findById(signUpDto.email)
-            .orElseThrow { EmailNotVerifiedException() }
+        val emailAuth = emailAuthRepository.findByIdOrNull(signUpDto.email)
+            ?: throw EmailNotVerifiedException()
 
         if (!emailAuth.authentication) {
             emailAuthRepository.delete(emailAuth)

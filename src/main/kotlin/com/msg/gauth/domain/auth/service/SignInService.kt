@@ -44,11 +44,13 @@ class SignInService(
         tempUserUtil.resetWrongPasswordCount(user)
 
         val (access, refresh) = jwtTokenProvider.run {
-            generateAccessToken(dto.email) to generateRefreshToken(dto.email)}
+            generateAccessToken(dto.email) to generateRefreshToken(dto.email)
+        }
 
         val expiresAt = jwtTokenProvider.accessExpiredTime
 
         refreshTokenRepository.save(RefreshToken(user.id, refresh))
+
         return SignInResponseDto(access, refresh, expiresAt)
     }
 }
