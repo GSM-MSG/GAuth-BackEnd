@@ -10,9 +10,10 @@ class RejectUserSignUpService(
     private val userRepository: UserRepository
 ) {
 
-    fun execute(id: Long) =
-        userRepository.findByIdAndState(id, UserState.PENDING)
-            .let { it ?: throw UserNotFoundException() }
-            .let { userRepository.delete(it) }
+    fun execute(id: Long) {
+        val user = userRepository.findByIdAndState(id, UserState.PENDING)
+            ?: throw UserNotFoundException()
 
+        userRepository.delete(user)
+    }
 }
