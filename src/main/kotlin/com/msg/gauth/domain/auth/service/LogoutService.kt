@@ -9,6 +9,7 @@ class LogoutService(
     private val userUtil: UserUtil,
     private val refreshTokenRepository: RefreshTokenRepository
 ) {
+
     fun execute() {
         val currentUser = userUtil.fetchCurrentUser()
         refreshTokenRepository.deleteById(currentUser.id)

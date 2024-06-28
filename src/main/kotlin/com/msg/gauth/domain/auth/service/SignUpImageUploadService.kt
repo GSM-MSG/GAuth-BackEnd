@@ -1,6 +1,5 @@
 package com.msg.gauth.domain.auth.service
 
-import com.msg.gauth.domain.admin.exception.FileExtensionInvalidException
 import com.msg.gauth.domain.auth.presentation.dto.response.SignUpImageResDto
 import com.msg.gauth.domain.email.exception.AuthCodeExpiredException
 import com.msg.gauth.domain.email.exception.AuthCodeNotVerificationException
@@ -13,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile
 class SignUpImageUploadService(
     private val s3Util: S3Util,
     private val emailAuthRepository: EmailAuthRepository,
-){
-    fun execute(image: MultipartFile, previousUrl: String?, email: String): SignUpImageResDto{
+) {
+    fun execute(image: MultipartFile, previousUrl: String?, email: String): SignUpImageResDto {
         val emailAuth = emailAuthRepository.findById(email)
             .orElseThrow { throw AuthCodeExpiredException() }
 

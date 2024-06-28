@@ -19,6 +19,7 @@ class SignUpService(
     private val emailAuthRepository: EmailAuthRepository,
     private val applicationEventPublisher: ApplicationEventPublisher
 ) {
+
     fun execute(signUpDto: SignUpDto): Long {
         if (userRepository.existsByEmail(signUpDto.email)) {
             emailAuthRepository.deleteById(signUpDto.email)

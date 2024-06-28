@@ -14,7 +14,8 @@ class InitPasswordService(
     private val emailAuthRepository: EmailAuthRepository,
     private val passwordEncoder: PasswordEncoder,
 ){
-    fun execute(initPasswordRequestDto: InitPasswordRequestDto){
+
+    fun execute(initPasswordRequestDto: InitPasswordRequestDto) {
         val emailAuth = emailAuthRepository.findById(initPasswordRequestDto.email)
             .orElseThrow { throw EmailNotVerifiedException() }
 

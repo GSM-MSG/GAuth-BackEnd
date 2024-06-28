@@ -15,6 +15,7 @@ class RefreshService(
     private val refreshTokenRepository: RefreshTokenRepository,
     private val tokenParser: TokenParser
 ) {
+
     fun execute(requestToken: String): RefreshResponseDto {
         val refreshToken = tokenParser.parseToken(requestToken) ?: throw InvalidRefreshTokenException()
         val email = tokenParser.exactEmailFromRefreshToken(refreshToken)

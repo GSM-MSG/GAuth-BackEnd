@@ -20,6 +20,7 @@ class SignUpMemberV2Service(
     private val emailAuthRepository: EmailAuthRepository,
     private val applicationEventPublisher: ApplicationEventPublisher
 ) {
+
     fun execute(signUpV2RequestDto: SignUpV2RequestDto) {
         if(userRepository.existsByEmail(signUpV2RequestDto.email))
             throw DuplicateEmailException()
