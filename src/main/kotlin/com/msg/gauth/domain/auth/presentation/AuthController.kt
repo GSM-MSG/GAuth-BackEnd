@@ -39,19 +39,19 @@ class AuthController(
     }
 
     @PostMapping
-    fun signIn(@RequestBody @Valid signInRequestDto: SignInRequestDto): ResponseEntity<SignInResponseDto> {
+    fun signIn(@Valid @RequestBody signInRequestDto: SignInRequestDto): ResponseEntity<SignInResponseDto> {
         val result = signInService.execute(signInRequestDto)
         return ResponseEntity.ok(result)
     }
 
     @PostMapping("/signup")
-    fun signUpMember(@RequestBody @Valid signUpRequestDto: SignUpRequestDto): ResponseEntity<Void> {
+    fun signUpMember(@Valid @RequestBody signUpRequestDto: SignUpRequestDto): ResponseEntity<Void> {
         signUpService.execute(signUpRequestDto)
         return ResponseEntity(HttpStatus.CREATED)
     }
 
     @PostMapping("/v2/signup")
-    fun signUpMemberV2(@RequestBody @Valid signUpV2RequestDto: SignUpV2RequestDto): ResponseEntity<Void> {
+    fun signUpMemberV2(@Valid @RequestBody signUpV2RequestDto: SignUpV2RequestDto): ResponseEntity<Void> {
         signUpMemberV2Service.execute(signUpV2RequestDto)
         return ResponseEntity(HttpStatus.CREATED)
     }
@@ -68,13 +68,13 @@ class AuthController(
 
 
     @PatchMapping("/password/initialize")
-    fun initPassword(@RequestBody @Valid initPasswordRequestDto: InitPasswordRequestDto): ResponseEntity<Void> {
+    fun initPassword(@Valid @RequestBody initPasswordRequestDto: InitPasswordRequestDto): ResponseEntity<Void> {
         initPasswordService.execute(initPasswordRequestDto)
         return ResponseEntity.noContent().build()
     }
 
     @PatchMapping("/password")
-    fun updatePassword(@RequestBody @Valid updatePasswordRequestDto: UpdatePasswordRequestDto): ResponseEntity<Void> {
+    fun updatePassword(@Valid @RequestBody updatePasswordRequestDto: UpdatePasswordRequestDto): ResponseEntity<Void> {
         updatePasswordService.execute(updatePasswordRequestDto)
         return ResponseEntity.noContent().build()
     }
