@@ -6,6 +6,7 @@ import com.msg.gauth.domain.email.exception.ManyRequestEmailAuthException
 import com.msg.gauth.domain.email.presentation.dto.EmailSendDto
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
 import com.msg.gauth.global.exception.exceptions.MessageSendFailException
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
 import org.springframework.stereotype.Service
@@ -24,14 +25,12 @@ class SendMailService(
     fun execute(emailSendDto: EmailSendDto) {
         val email: String = emailSendDto.email
         val value = UUID.randomUUID().toString()
-        val authEntity = emailAuthRepository.findById(email)
-            .orElse(
-                EmailAuthEntity(
-                    authentication = false,
-                    randomValue = value,
-                    email = email,
-                    attemptCount = 0
-                )
+        val authEntity = emailAuthRepository.findByIdOrNull(email)
+            ?: EmailAuthEntity(
+                authentication = false,
+                randomValue = value,
+                email = email,
+                attemptCount = 0
             )
 
         if(authEntity.authentication)
