@@ -6,6 +6,7 @@ import com.msg.gauth.domain.email.service.CheckMailVerificationService
 import com.msg.gauth.domain.email.service.VerifyMailService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/email")
@@ -14,8 +15,9 @@ class EmailController(
     private val verifyMailService: VerifyMailService,
     private val checkMailVerificationService: CheckMailVerificationService,
 ) {
+
     @PostMapping
-    fun emailSend(@RequestBody emailSendDto: EmailSendDto): ResponseEntity<Void> {
+    fun emailSend(@Valid @RequestBody emailSendDto: EmailSendDto): ResponseEntity<Void> {
         sendMailService.execute(emailSendDto)
         return ResponseEntity.noContent().build()
     }
@@ -27,7 +29,7 @@ class EmailController(
     }
 
     @GetMapping
-    fun checkEmailVerification(@RequestParam email: String): ResponseEntity<Void>{
+    fun checkEmailVerification(@RequestParam email: String): ResponseEntity<Void> {
         checkMailVerificationService.execute(email)
         return ResponseEntity.ok().build()
     }
