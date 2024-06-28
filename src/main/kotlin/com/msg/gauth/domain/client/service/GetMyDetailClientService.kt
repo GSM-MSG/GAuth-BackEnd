@@ -11,7 +11,8 @@ class GetMyDetailClientService(
     private val clientRepository: ClientRepository,
     private val userUtil: UserUtil
 ) {
-    fun execute(id: Long): ClientDetailResDto{
+
+    fun execute(id: Long): ClientDetailResDto {
         val client = clientRepository.findByIdAndCreatedBy(id, userUtil.fetchCurrentUser())
             ?: throw ClientNotFindException()
 

@@ -31,5 +31,4 @@ class GetCoworkerService(
 
         return response
     }
-
 }

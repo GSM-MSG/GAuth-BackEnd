@@ -12,6 +12,7 @@ class DeleteClientService(
     private val clientRepository: ClientRepository,
     private val userUtil: UserUtil,
 ){
+
     fun execute(id: Long){
         val client = clientRepository.findByIdOrNull(id)
             ?: throw ClientNotFindException()

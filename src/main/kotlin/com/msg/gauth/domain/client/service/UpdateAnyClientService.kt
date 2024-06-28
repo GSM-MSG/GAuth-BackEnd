@@ -11,6 +11,7 @@ import org.springframework.data.repository.findByIdOrNull
 class UpdateAnyClientService(
     private val clientRepository: ClientRepository
 ) {
+
     fun execute(id: Long, clientUpdateReqDto: ClientUpdateReqDto) {
         val client: Client = clientRepository.findByIdOrNull(id)
             ?: throw ClientNotFindException()

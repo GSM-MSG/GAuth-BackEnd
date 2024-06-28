@@ -9,6 +9,7 @@ import com.msg.gauth.global.annotation.service.ReadOnlyService
 class GetAllClientsService(
     private val clientRepository: ClientRepository
 ) {
+
     fun execute(): List<SingleClientResDto> =
         clientRepository.findByServiceScope(ServiceScope.PUBLIC)
             .map { SingleClientResDto(it) }

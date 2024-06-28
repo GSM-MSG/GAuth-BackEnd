@@ -9,8 +9,10 @@ class DeleteClientsService(
     private val clientRepository: ClientRepository,
     private val userUtil: UserUtil
 ) {
+
     fun execute(ids: List<Long>) {
         val user = userUtil.fetchCurrentUser()
+
         clientRepository.deleteAllByIdsAndCreatedBy(ids, user)
     }
 }

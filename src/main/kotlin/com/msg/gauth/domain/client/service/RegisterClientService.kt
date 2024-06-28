@@ -12,6 +12,7 @@ class RegisterClientService(
     private val clientRepository: ClientRepository,
     private val userUtil: UserUtil,
 ) {
+
     fun execute(clientRegisterDto: ClientRegisterReqDto): ClientRegisterResDto {
         val (clientSecret, clientId) = createUUID() to createUUID()
 
