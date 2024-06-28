@@ -18,6 +18,7 @@ class RefreshService(
 
     fun execute(requestToken: String): RefreshResponseDto {
         val refreshToken = tokenParser.parseToken(requestToken) ?: throw InvalidRefreshTokenException()
+
         val email = tokenParser.exactEmailFromRefreshToken(refreshToken)
 
         val existingRefreshToken = refreshTokenRepository.findByToken(refreshToken)
@@ -35,6 +36,7 @@ class RefreshService(
         )
 
         refreshTokenRepository.save(newRefreshToken)
+
         return RefreshResponseDto(access, refresh, jwtTokenProvider.accessExpiredTime)
     }
 }
