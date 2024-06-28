@@ -45,4 +45,4 @@ class User(
 
     val oauthWrongPasswordCount: Int = 0
 
-): BaseIdEntity(id)
+) : BaseIdEntity(id)
