@@ -13,5 +13,4 @@ class HealthCheckController {
     fun healthCheck(): ResponseEntity<String> {
         return ResponseEntity.ok("Application is alive!")
     }
-
 }
