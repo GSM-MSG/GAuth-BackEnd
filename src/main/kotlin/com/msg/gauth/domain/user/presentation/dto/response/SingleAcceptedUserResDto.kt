@@ -11,6 +11,7 @@ data class SingleAcceptedUserResDto(
     val num: Int?,
     val profileUrl: String?
 ) {
+
     constructor(user: User): this(
         user.id,
         user.name!!,

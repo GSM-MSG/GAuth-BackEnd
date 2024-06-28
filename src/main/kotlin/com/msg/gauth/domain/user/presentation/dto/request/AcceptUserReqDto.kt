@@ -18,6 +18,7 @@ data class AcceptUserReqDto(
     val classNum: Int?,
     val num: Int?
 ) {
+
     fun toEntity(user: User): User {
         return User(
             id = user.id,
