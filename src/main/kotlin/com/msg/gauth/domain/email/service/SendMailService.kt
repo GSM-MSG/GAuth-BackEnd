@@ -24,7 +24,9 @@ class SendMailService(
 
     fun execute(emailSendDto: EmailSendDto) {
         val email: String = emailSendDto.email
+
         val value = UUID.randomUUID().toString()
+
         val authEntity = emailAuthRepository.findByIdOrNull(email)
             ?: EmailAuthEntity(
                 authentication = false,
@@ -45,12 +47,15 @@ class SendMailService(
 
         try {
             val message = mailSender.createMimeMessage()
+
             val helper = MimeMessageHelper(message, "UTF-8")
+
             val mailTemplate = createMailTemplate(email, value)
 
             helper.setSubject("[GAuth] 이메일 인증")
             helper.setTo(emailSendDto.email)
             helper.setText(mailTemplate, true)
+
             mailSender.send(message)
         } catch (ex: MessagingException) {
             throw MessageSendFailException()
