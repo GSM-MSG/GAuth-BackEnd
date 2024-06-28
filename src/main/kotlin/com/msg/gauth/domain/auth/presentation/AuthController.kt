@@ -25,6 +25,7 @@ class AuthController(
     private val signUpEmailVerificationService: SignUpEmailVerificationService,
     private val signUpMemberV2Service: SignUpMemberV2Service
 ) {
+
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> {
         val result = refreshService.execute(refreshToken)
@@ -38,32 +39,36 @@ class AuthController(
     }
 
     @PostMapping
-    fun signIn(@Valid @RequestBody signInRequestDto: SignInRequestDto): ResponseEntity<SignInResponseDto> {
+    fun signIn(@RequestBody @Valid signInRequestDto: SignInRequestDto): ResponseEntity<SignInResponseDto> {
         val result = signInService.execute(signInRequestDto)
         return ResponseEntity.ok(result)
     }
 
     @PostMapping("/signup")
-    fun signUpMember(@Valid @RequestBody signUpRequestDto: SignUpRequestDto): ResponseEntity<Void> {
+    fun signUpMember(@RequestBody @Valid signUpRequestDto: SignUpRequestDto): ResponseEntity<Void> {
         signUpService.execute(signUpRequestDto)
         return ResponseEntity(HttpStatus.CREATED)
     }
 
     @PostMapping("/v2/signup")
-    fun signUpMemberV2(@Valid @RequestBody signUpV2RequestDto: SignUpV2RequestDto): ResponseEntity<Void> {
+    fun signUpMemberV2(@RequestBody @Valid signUpV2RequestDto: SignUpV2RequestDto): ResponseEntity<Void> {
         signUpMemberV2Service.execute(signUpV2RequestDto)
         return ResponseEntity(HttpStatus.CREATED)
     }
 
     @PatchMapping("/image")
-    fun uploadSignupImage(@RequestPart("image") image: MultipartFile, @RequestPart("imageUrl") previousUrl: String?, @RequestPart email: String): ResponseEntity<SignUpImageResDto> {
+    fun uploadSignupImage(
+        @RequestPart("image") image: MultipartFile,
+        @RequestPart("imageUrl") previousUrl: String?,
+        @RequestPart email: String
+    ): ResponseEntity<SignUpImageResDto> {
         val result = signUpImageUploadService.execute(image, previousUrl, email)
         return ResponseEntity.ok(result)
     }
 
 
     @PatchMapping("/password/initialize")
-    fun initPassword(@Valid @RequestBody initPasswordRequestDto: InitPasswordRequestDto): ResponseEntity<Void> {
+    fun initPassword(@RequestBody @Valid initPasswordRequestDto: InitPasswordRequestDto): ResponseEntity<Void> {
         initPasswordService.execute(initPasswordRequestDto)
         return ResponseEntity.noContent().build()
     }
