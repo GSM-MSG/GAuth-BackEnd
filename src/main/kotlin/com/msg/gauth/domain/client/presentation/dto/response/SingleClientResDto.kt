@@ -11,6 +11,7 @@ data class SingleClientResDto(
     val serviceScope: ServiceScope,
     val serviceImgUrl: String
 ) {
+
     constructor(client: Client): this(
         id = client.id,
         clientId = client.clientId,
