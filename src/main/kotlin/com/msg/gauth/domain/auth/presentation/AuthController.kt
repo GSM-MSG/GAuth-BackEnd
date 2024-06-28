@@ -22,7 +22,8 @@ class AuthController(
     private val initPasswordService: InitPasswordService,
     private val signUpImageUploadService: SignUpImageUploadService,
     private val updatePasswordService: UpdatePasswordService,
-    private val signUpEmailVerificationService: SignUpEmailVerificationService
+    private val signUpEmailVerificationService: SignUpEmailVerificationService,
+    private val signUpMemberV2Service: SignUpMemberV2Service
 ) {
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> {
@@ -45,6 +46,12 @@ class AuthController(
     @PostMapping("/signup")
     fun signUpMember(@Valid @RequestBody signUpDto: SignUpDto): ResponseEntity<Void> {
         signUpService.execute(signUpDto)
+        return ResponseEntity(HttpStatus.CREATED)
+    }
+
+    @PostMapping("/v2/signup")
+    fun signUpMemberV2(@Valid @RequestBody signUpV2RequestDto: SignUpV2RequestDto): ResponseEntity<Void> {
+        signUpMemberV2Service.execute(signUpV2RequestDto)
         return ResponseEntity(HttpStatus.CREATED)
     }
 

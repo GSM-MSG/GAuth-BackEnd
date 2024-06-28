@@ -12,6 +12,7 @@ enum class ErrorCode(
     INVALID_DELEGATE_USER("유효하지 않은 위임자입니다.", 400),
     SAME_PASSWORD_AND_NEW_PASSWORD("기본 비밀번호와 새 비밀번호가 일치합니다.", 400),
     ALREADY_EXIST_COWORKER("해당 서비스에 이미 존재하는 공동작업자입니다.", 400),
+    ALREADY_EXIST_USER("이미 존재하는 유저입니다.", 400),
 
     AUTH_CODE_EXPIRED("메일 인증이 만료되었습니다.", 401),
     UNAUTHORIZED("권한 없음", 401),
