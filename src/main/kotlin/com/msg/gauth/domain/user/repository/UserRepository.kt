@@ -5,7 +5,7 @@ import com.msg.gauth.domain.user.enums.UserState
 import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface UserRepository: JpaRepository<User, Long>, CustomUserRepository {
+interface UserRepository : JpaRepository<User, Long>, CustomUserRepository {
     @EntityGraph(attributePaths = ["userRole"])
     fun findByEmail(email: String): User?
     fun findByEmailIn(emailList: List<String>): List<User>
