@@ -3,4 +3,6 @@ package com.msg.gauth.domain.client.exception
 import com.msg.gauth.global.exception.ErrorCode
 import com.msg.gauth.global.exception.exceptions.BasicException
 
-class InvalidDelegateUserException: BasicException(ErrorCode.INVALID_DELEGATE_USER)
+class InvalidDelegateUserException : BasicException(
+    ErrorCode.INVALID_DELEGATE_USER
+)
