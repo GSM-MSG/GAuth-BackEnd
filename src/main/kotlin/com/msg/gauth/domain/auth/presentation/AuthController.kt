@@ -44,8 +44,8 @@ class AuthController(
     }
 
     @PostMapping("/signup")
-    fun signUpMember(@Valid @RequestBody signUpDto: SignUpDto): ResponseEntity<Void> {
-        signUpService.execute(signUpDto)
+    fun signUpMember(@Valid @RequestBody signUpRequestDto: SignUpRequestDto): ResponseEntity<Void> {
+        signUpService.execute(signUpRequestDto)
         return ResponseEntity(HttpStatus.CREATED)
     }
 

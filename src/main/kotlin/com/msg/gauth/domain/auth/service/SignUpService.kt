@@ -1,7 +1,7 @@
 package com.msg.gauth.domain.auth.service
 
 import com.msg.gauth.domain.auth.event.SignupLoggingEvent
-import com.msg.gauth.domain.auth.presentation.dto.request.SignUpDto
+import com.msg.gauth.domain.auth.presentation.dto.request.SignUpRequestDto
 import com.msg.gauth.domain.email.repository.EmailAuthRepository
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserState
@@ -21,20 +21,20 @@ class SignUpService(
     private val applicationEventPublisher: ApplicationEventPublisher
 ) {
 
-    fun execute(signUpDto: SignUpDto): Long {
-        if (userRepository.existsByEmail(signUpDto.email)) {
-            emailAuthRepository.deleteById(signUpDto.email)
+    fun execute(signUpRequestDto: SignUpRequestDto): Long {
+        if (userRepository.existsByEmail(signUpRequestDto.email)) {
+            emailAuthRepository.deleteById(signUpRequestDto.email)
             throw DuplicateEmailException()
         }
 
         val user = User(
-            email = signUpDto.email,
-            password = passwordEncoder.encode(signUpDto.password),
+            email = signUpRequestDto.email,
+            password = passwordEncoder.encode(signUpRequestDto.password),
             state = UserState.PENDING,
             profileUrl = null
         )
 
-        val emailAuth = emailAuthRepository.findByIdOrNull(signUpDto.email)
+        val emailAuth = emailAuthRepository.findByIdOrNull(signUpRequestDto.email)
             ?: throw EmailNotVerifiedException()
 
         if (!emailAuth.authentication) {
