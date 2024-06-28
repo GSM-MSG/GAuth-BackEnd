@@ -8,6 +8,7 @@ import com.msg.gauth.global.annotation.service.TransactionalService
 class VerifyMailService(
     private val emailAuthRepository: EmailAuthRepository
 ) {
+
     fun execute(email: String, uuid: String) {
         val emailAuth = emailAuthRepository.findById(email)
             .orElseThrow { AuthCodeExpiredException() }
