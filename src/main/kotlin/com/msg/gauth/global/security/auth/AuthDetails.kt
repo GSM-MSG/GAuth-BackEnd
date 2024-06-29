@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails
 class AuthDetails(
     private val user: User,
 ): UserDetails {
+
     override fun getAuthorities(): Collection<GrantedAuthority?> =
         user.userRole.map { it.userRoleType }
 
