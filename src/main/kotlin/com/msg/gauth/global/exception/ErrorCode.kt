@@ -21,6 +21,7 @@ enum class ErrorCode(
     EXPIRED_REFRESH_TOKEN("리프레시 토큰이 만료되었습니다", 401),
     INVALID_REFRESH_TOKEN("리프레시 토큰이 변질되었습니다", 401),
     EMAIL_NOT_VERIFIED("인증된 이메일이 아닙니다.", 401),
+    AUTH_CODE_NOT_VERIFIED("인증 코드가 확인되지 않았습니다", 401),
     USER_NOT_MATCH("유저가 일치하지 않습니다", 401),
     OAUTH_CODE_EXPIRED("oauth 코드가 만료되었습니다.", 401),
 
