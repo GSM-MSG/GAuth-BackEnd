@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component
 @Aspect
 @Component
 class InjectorLogger {
+
     @Around("@annotation(com.msg.gauth.global.annotation.logger.log4k)")
     fun inject(joinPoint: ProceedingJoinPoint): Any? {
         val target = joinPoint.target
