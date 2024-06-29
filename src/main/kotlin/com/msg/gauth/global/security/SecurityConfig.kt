@@ -25,6 +25,7 @@ class SecurityConfig(
     private val tokenParser: TokenParser,
     private val objectMapper: ObjectMapper
 ) {
+
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         return http
