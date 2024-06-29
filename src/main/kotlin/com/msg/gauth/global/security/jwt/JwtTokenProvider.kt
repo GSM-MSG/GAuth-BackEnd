@@ -22,6 +22,7 @@ class JwtTokenProvider(
     private val jwtProperties: JwtProperties,
     private val tokenParser: TokenParser
 ) {
+
     companion object {
         const val ACCESS_TYPE = "access"
         const val REFRESH_TYPE = "refresh"
