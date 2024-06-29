@@ -4,5 +4,5 @@ import com.msg.gauth.global.exception.ErrorCode
 import com.msg.gauth.global.exception.exceptions.BasicException
 
 class UserNotMatchException : BasicException(
-    ErrorCode.USER_NOT_SAME
+    ErrorCode.USER_NOT_MATCH
 )
