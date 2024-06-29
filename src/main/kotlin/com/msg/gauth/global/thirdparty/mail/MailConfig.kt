@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl
 class MailConfig(
     private val mailProperties: MailProperties
 ) {
+
     @Bean
     fun getJavaMailSender(): JavaMailSender =
         JavaMailSenderImpl().apply {
