@@ -12,7 +12,7 @@ data class ClientDetailResDto(
     val serviceUri: String,
     val serviceScope: ServiceScope,
     val serviceImgUrl: String
-){
+) {
 
     constructor(client: Client): this(
         id = client.id,
