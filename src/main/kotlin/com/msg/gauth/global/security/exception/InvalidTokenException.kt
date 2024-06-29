@@ -3,4 +3,6 @@ package com.msg.gauth.global.security.exception
 import com.msg.gauth.global.exception.ErrorCode
 import com.msg.gauth.global.exception.exceptions.BasicException
 
-class InvalidTokenException: BasicException(ErrorCode.INVALID_TOKEN)
+class InvalidTokenException : BasicException(
+    ErrorCode.INVALID_TOKEN
+)
