@@ -9,16 +9,22 @@ import org.springframework.stereotype.Component
 
 @Aspect
 @Component
-class InjectorLogger{
+class InjectorLogger {
     @Around("@annotation(com.msg.gauth.global.annotation.logger.log4k)")
-    fun inject(joinPoint: ProceedingJoinPoint): Any?{
+    fun inject(joinPoint: ProceedingJoinPoint): Any? {
         val target = joinPoint.target
+
         val fields = target.javaClass.declaredFields
-        fields.filter { it.type == Logger::class.java }
-            .forEach {
-                it.isAccessible = true
-                it.set(target, LoggerFactory.getLogger(target::class.simpleName))
-            }
+
+        fields.filter {
+            it.type == Logger::class.java
+        }
+
+        fields.forEach {
+            it.isAccessible = true
+            it.set(target, LoggerFactory.getLogger(target::class.simpleName))
+        }
+
         return joinPoint.proceed()
     }
 }
