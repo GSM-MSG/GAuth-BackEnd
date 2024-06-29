@@ -23,8 +23,11 @@ class CustomAccessDeniedHandler(
         accessDeniedException: AccessDeniedException
     ) {
         log.error("=====ACCESS DENIED=====")
+
         val errorCode = ErrorCode.FORBIDDEN
+
         val responseString = objectMapper.writeValueAsString(ErrorResponse(errorCode))
+
         response.characterEncoding = "UTF-8"
         response.status = errorCode.code
         response.contentType = MediaType.APPLICATION_JSON_VALUE
