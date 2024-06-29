@@ -25,6 +25,7 @@ data class MyProfileResDto(
         profileUrl = user.profileUrl,
         clientList = clientList
     )
+
     data class SingleClientResDto(
         val id: Long,
         val clientId: String,
