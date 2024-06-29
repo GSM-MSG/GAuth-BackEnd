@@ -69,5 +69,4 @@ class GenerateOauthCodeService(
             code = code
         )
     }
-
 }
