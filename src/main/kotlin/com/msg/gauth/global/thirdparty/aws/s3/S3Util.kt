@@ -12,6 +12,7 @@ import java.util.*
 class S3Util(
     private val amazonS3: AmazonS3,
 ) {
+
     @Value("\${cloud.aws.s3.bucket}")
     private val bucket: String? = null
 
