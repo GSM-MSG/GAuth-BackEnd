@@ -14,7 +14,7 @@ class InitPasswordService(
     private val userRepository: UserRepository,
     private val emailAuthRepository: EmailAuthRepository,
     private val passwordEncoder: PasswordEncoder,
-){
+) {
 
     fun execute(initPasswordRequestDto: InitPasswordRequestDto) {
         val emailAuth = emailAuthRepository.findByIdOrNull(initPasswordRequestDto.email)
