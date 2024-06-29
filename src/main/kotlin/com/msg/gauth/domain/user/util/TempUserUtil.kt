@@ -35,6 +35,7 @@ class TempUserUtil(
                 oauthWrongPasswordCount = user.oauthWrongPasswordCount
             )
         )
+
         if (updatedUser.wrongPasswordCount >= 5) {
             tempSignInBanRepository.save(TempSignInBan(user.email))
             userRepository.save(

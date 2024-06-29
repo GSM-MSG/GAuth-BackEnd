@@ -6,6 +6,7 @@ import com.msg.gauth.domain.user.exception.UserNotFoundException
 import com.msg.gauth.domain.auth.presentation.dto.request.InitPasswordRequestDto
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @TransactionalService
@@ -13,10 +14,11 @@ class InitPasswordService(
     private val userRepository: UserRepository,
     private val emailAuthRepository: EmailAuthRepository,
     private val passwordEncoder: PasswordEncoder,
-){
-    fun execute(initPasswordRequestDto: InitPasswordRequestDto){
-        val emailAuth = emailAuthRepository.findById(initPasswordRequestDto.email)
-            .orElseThrow { throw EmailNotVerifiedException() }
+) {
+
+    fun execute(initPasswordRequestDto: InitPasswordRequestDto) {
+        val emailAuth = emailAuthRepository.findByIdOrNull(initPasswordRequestDto.email)
+            ?: throw EmailNotVerifiedException()
 
         if(!emailAuth.authentication)
             throw EmailNotVerifiedException()

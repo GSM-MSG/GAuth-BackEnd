@@ -8,6 +8,7 @@ import com.msg.gauth.global.exception.exceptions.DuplicateEmailException
 class SignUpEmailVerificationService(
     private val userRepository: UserRepository
 ) {
+
     fun execute(email: String) {
         if (userRepository.existsByEmail(email))
             throw DuplicateEmailException()

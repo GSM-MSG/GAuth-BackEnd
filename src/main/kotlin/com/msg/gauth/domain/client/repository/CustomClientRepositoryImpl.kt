@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository
 class CustomClientRepositoryImpl(
     private val jpaQueryFactory: JPAQueryFactory
 ): CustomClientRepository {
+
     override fun deleteAllByIdsAndCreatedBy(ids: List<Long>, createdBy: User) {
         jpaQueryFactory.delete(client)
             .where(client.id.`in`(ids), client.createdBy.eq(createdBy))

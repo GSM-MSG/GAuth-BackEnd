@@ -29,19 +29,19 @@ class ClientController(
 ) {
 
     @PostMapping
-    fun registerClient(@RequestBody clientRegisterReqDto: ClientRegisterReqDto): ResponseEntity<ClientRegisterResDto>{
+    fun registerClient(@RequestBody clientRegisterReqDto: ClientRegisterReqDto): ResponseEntity<ClientRegisterResDto> {
         val clientRegisterResDto = registerClientService.execute(clientRegisterReqDto)
         return ResponseEntity.ok(clientRegisterResDto)
     }
 
     @GetMapping
-    fun getAllClients(): ResponseEntity<List<SingleClientResDto>>{
+    fun getAllClients(): ResponseEntity<List<SingleClientResDto>> {
         val result = getAllClientsService.execute()
         return ResponseEntity.ok(result)
     }
 
     @GetMapping("/{id}")
-    fun getMyDetailClient(@PathVariable id: Long): ResponseEntity<ClientDetailResDto>{
+    fun getMyDetailClient(@PathVariable id: Long): ResponseEntity<ClientDetailResDto> {
         val clientOneResDto = getMyDetailClientService.execute(id)
         return ResponseEntity.ok(clientOneResDto)
     }
@@ -56,13 +56,17 @@ class ClientController(
     }
 
     @DeleteMapping("/{id}")
-    fun deleteClient(@PathVariable id: Long): ResponseEntity<Void>{
+    fun deleteClient(@PathVariable id: Long): ResponseEntity<Void> {
         deleteClientService.execute(id)
         return ResponseEntity.noContent().build()
     }
 
     @GetMapping("/search")
-    fun getClientsByServiceName(@RequestParam(defaultValue = "0") page: Int, @RequestParam(defaultValue = "10") size: Int, @RequestParam serviceName: String): ResponseEntity<Page<ClientResDto>> {
+    fun getClientsByServiceName(
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "10") size: Int,
+        @RequestParam serviceName: String
+    ): ResponseEntity<Page<ClientResDto>> {
         val result = getClientsByServiceNameService.execute(page, size, serviceName)
         return ResponseEntity.ok(result)
     }

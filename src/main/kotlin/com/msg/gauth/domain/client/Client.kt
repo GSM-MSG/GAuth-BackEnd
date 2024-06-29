@@ -34,4 +34,4 @@ class Client(
     @Column(columnDefinition = "TEXT")
     val serviceImgUrl: String = ""
 
-): BaseIdEntity(id)
+) : BaseIdEntity(id)

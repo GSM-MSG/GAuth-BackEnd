@@ -15,6 +15,7 @@ import org.springframework.data.redis.serializer.RedisSerializer
 class RedisConfig(
     private val redisProperties: RedisProperties
 ) {
+
     @Bean
     @ConditionalOnMissingBean(RedisConnectionFactory::class)
     fun redisConnectionFactory(): RedisConnectionFactory =

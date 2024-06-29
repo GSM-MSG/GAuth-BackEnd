@@ -8,7 +8,8 @@ import com.msg.gauth.global.annotation.service.ReadOnlyService
 @ReadOnlyService
 class GetServiceNameService(
     private val clientRepository: ClientRepository,
-){
+) {
+
     fun execute(clientId: String): ServiceNameResponseDto {
         val client = (clientRepository.findByClientId(clientId)
             ?: throw ClientNotFindException())

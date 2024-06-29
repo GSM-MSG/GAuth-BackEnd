@@ -9,7 +9,8 @@ import com.msg.gauth.global.annotation.service.ReadOnlyService
 class GetPendingUsersService(
     private val userRepository: UserRepository
 ) {
-    fun execute(): List<SinglePendingListResDto>
-    = userRepository.findAllByState(UserState.PENDING)
-        .map { SinglePendingListResDto(it) }
+
+    fun execute(): List<SinglePendingListResDto> =
+        userRepository.findAllByState(UserState.PENDING)
+            .map { SinglePendingListResDto(it) }
 }

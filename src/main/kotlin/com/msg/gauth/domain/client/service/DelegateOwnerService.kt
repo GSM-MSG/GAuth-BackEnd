@@ -19,8 +19,8 @@ class DelegateOwnerService(
     private val userUtil: UserUtil,
     private val userRepository: UserRepository
 ) {
-    fun execute(clientId: Long, delegateUserId: Long) {
 
+    fun execute(clientId: Long, delegateUserId: Long) {
         val user = userUtil.fetchCurrentUser()
 
         if (delegateUserId == user.id)
@@ -52,5 +52,4 @@ class DelegateOwnerService(
 
         clientRepository.save(updateClient)
     }
-
 }

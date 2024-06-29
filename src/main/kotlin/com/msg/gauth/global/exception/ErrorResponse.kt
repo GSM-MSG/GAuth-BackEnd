@@ -1,6 +1,8 @@
 package com.msg.gauth.global.exception
 
-class ErrorResponse(errorCode: ErrorCode) {
+class ErrorResponse(
+    errorCode: ErrorCode
+) {
     val msg: String
     val code: Int
 

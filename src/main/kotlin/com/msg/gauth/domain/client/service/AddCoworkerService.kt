@@ -23,6 +23,7 @@ class AddCoworkerService(
     private val coworkerRepository: CoworkerRepository,
     private val userUtil: UserUtil,
 ) {
+
     fun execute(id: Long, addCoworkerReqDto: AddCoworkerReqDto) {
         val user = userUtil.fetchCurrentUser()
 
@@ -46,6 +47,7 @@ class AddCoworkerService(
             user = user,
             client = client
         )
+
         coworkerRepository.save(coworker)
     }
 }

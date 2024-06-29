@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse
 class ExceptionFilter(
     private val objectMapper: ObjectMapper
 ): OncePerRequestFilter() {
-    private val log = LoggerFactory.getLogger(this::class.simpleName)
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -34,7 +33,9 @@ class ExceptionFilter(
 
     private fun sendError(res: HttpServletResponse, errorCode: ErrorCode) {
         val errorResponse = ErrorResponse(errorCode)
+
         val responseString = objectMapper.writeValueAsString(errorResponse)
+
         res.characterEncoding = "UTF-8"
         res.status = errorCode.code
         res.contentType = MediaType.APPLICATION_JSON_VALUE

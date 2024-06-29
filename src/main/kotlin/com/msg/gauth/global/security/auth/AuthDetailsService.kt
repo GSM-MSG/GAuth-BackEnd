@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional
 class AuthDetailsService(
     private val userRepository: UserRepository
 ): UserDetailsService {
+
     override fun loadUserByUsername(username: String): UserDetails {
         val user = userRepository.findByEmail(username) ?: throw UserNotFoundException()
+
         return AuthDetails(user)
     }
 

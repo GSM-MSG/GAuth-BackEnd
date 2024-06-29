@@ -19,7 +19,8 @@ class TooManyOAuthRequestValidUtil(
     private val secondSignInCountRepository: SecondOAuthSignInCountRepository,
     private val userRepository: UserRepository
 ) {
-    fun validRequest(email: String){
+
+    fun validRequest(email: String) {
         val secondSignInCount = (secondSignInCountRepository.findByIdOrNull(email)
             ?: secondSignInCountRepository.save(SecondOAuthSignInCount(email)))
 
@@ -51,7 +52,7 @@ class TooManyOAuthRequestValidUtil(
         minuteSignInCountRepository.save(minuteSignInCount)
     }
 
-    fun userOAuthBan(user: User){
+    fun userOAuthBan(user: User) {
         userRepository.save(
             User(
                 id = user.id,

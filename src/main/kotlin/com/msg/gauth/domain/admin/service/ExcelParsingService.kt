@@ -18,7 +18,8 @@ import org.springframework.web.multipart.MultipartFile
 @TransactionalService
 class ExcelParsingService(
     private val userRepository: UserRepository,
-){
+) {
+
     fun execute(file: MultipartFile){
         val tika = Tika()
         val detect = tika.detect(file.bytes)
@@ -69,6 +70,7 @@ class ExcelParsingService(
                 )
             }
     }
+
     data class UpdateDto(
         val name: String,
         val grade: Int,

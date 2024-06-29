@@ -12,7 +12,7 @@ class AdminController(
 ) {
 
     @PostMapping("/parsing-member")
-    fun parseMember(@RequestParam("studentInfo") file: MultipartFile): ResponseEntity<Void>{
+    fun parseMember(@RequestParam("studentInfo") file: MultipartFile): ResponseEntity<Void> {
         excelParsingService.execute(file)
         return ResponseEntity.noContent().build()
     }

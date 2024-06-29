@@ -9,11 +9,14 @@ import org.springframework.data.redis.core.RedisHash
 class EmailAuthEntity(
     @Id
     val email: String,
+
     val randomValue: @Length(max = 36) String,
+
     val authentication: Boolean,
-    @ColumnDefault("1")
-    val attemptCount: Int,
+
+    val attemptCount: Int = 1,
 ) {
+
     fun updateAuthentication(authentication: Boolean): EmailAuthEntity {
         return EmailAuthEntity(
             email = this.email,
@@ -23,7 +26,7 @@ class EmailAuthEntity(
         )
     }
 
-    fun resendEmailAuth(uuid: String): EmailAuthEntity{
+    fun resendEmailAuth(uuid: String): EmailAuthEntity {
         return EmailAuthEntity(
             email = this.email,
             authentication = this.authentication,

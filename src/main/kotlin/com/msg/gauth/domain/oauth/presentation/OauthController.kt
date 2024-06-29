@@ -21,6 +21,7 @@ class OauthController(
     private val refreshOauthTokenService: RefreshOauthTokenService,
     private val getServiceNameService: GetServiceNameService
 ) {
+
     @PostMapping("/code")
     fun generateOauthCode(@Valid @RequestBody oauthCodeRequestDto : OauthCodeRequestDto): ResponseEntity<OauthCodeResponseDto> {
         val result = generateOauthCodeService.execute(oauthCodeRequestDto)
@@ -28,7 +29,7 @@ class OauthController(
     }
 
     @PostMapping("/code/access")
-    fun generateOauthCode(): ResponseEntity<OauthCodeResponseDto>{
+    fun generateOauthCode(): ResponseEntity<OauthCodeResponseDto> {
         val result = generateOauthCodeService.execute()
         return ResponseEntity.ok(result)
     }

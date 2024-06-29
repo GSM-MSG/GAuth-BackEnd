@@ -21,25 +21,32 @@ class GlobalExceptionHandler {
     @ExceptionHandler(BasicException::class)
     fun basicExceptionHandler(request: HttpServletRequest, ex: BasicException): ResponseEntity<ErrorResponse> {
         log.error(request.requestURI)
+
         log.error(ex.message)
+
         val errorResponse = ErrorResponse(ex.errorCode)
+
         return ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.valueOf(ex.errorCode.code))
     }
 
     @ExceptionHandler(BindException::class)
     fun bindExceptionHandler(e: BindException): ResponseEntity<*> {
         val errorMap: MutableMap<String, String?> = HashMap()
+
         for (error in e.fieldErrors) {
             errorMap[error.field] = error.defaultMessage
         }
+
         return ResponseEntity<Map<String, String?>>(errorMap, HttpStatus.BAD_REQUEST)
     }
 
     @log4k
     @ExceptionHandler(NoHandlerFoundException::class)
-    fun arithmeticExceptionHandler(request: HttpServletRequest, e: NoHandlerFoundException): ResponseEntity<ErrorResponse>{
+    fun arithmeticExceptionHandler(request: HttpServletRequest, e: NoHandlerFoundException): ResponseEntity<ErrorResponse> {
         log.error(request.requestURI)
+
         val errorResponse = ErrorResponse(ErrorCode.FORBIDDEN)
+
         return ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.valueOf(ErrorCode.FORBIDDEN.code))
     }
 }

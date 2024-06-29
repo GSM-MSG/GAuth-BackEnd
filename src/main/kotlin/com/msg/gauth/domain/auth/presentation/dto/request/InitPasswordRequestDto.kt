@@ -11,7 +11,7 @@ data class InitPasswordRequestDto(
     @field:NotBlank
     @field:Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[!@#\$%^*+=-?<>])(?=.*[0-9]).{8,20}\$")
     val newPassword: String,
-){
+) {
 
     fun toEntity(user: User, encodedPassword: String): User =
         User(

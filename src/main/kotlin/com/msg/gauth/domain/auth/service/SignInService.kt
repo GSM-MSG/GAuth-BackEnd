@@ -25,6 +25,7 @@ class SignInService(
     private val tooManyRequestValidUtil: TooManyRequestValidUtil,
     private val tempUserUtil: TempUserUtil
 ) {
+
     fun execute(dto: SignInRequestDto): SignInResponseDto {
         val user: User = userRepository.findByEmail(dto.email) ?: throw UserNotFoundException()
 
@@ -43,12 +44,13 @@ class SignInService(
         tempUserUtil.resetWrongPasswordCount(user)
 
         val (access, refresh) = jwtTokenProvider.run {
-            generateAccessToken(dto.email) to generateRefreshToken(dto.email)}
+            generateAccessToken(dto.email) to generateRefreshToken(dto.email)
+        }
 
         val expiresAt = jwtTokenProvider.accessExpiredTime
 
         refreshTokenRepository.save(RefreshToken(user.id, refresh))
+
         return SignInResponseDto(access, refresh, expiresAt)
     }
-
 }

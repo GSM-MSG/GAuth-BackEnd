@@ -7,5 +7,5 @@ import org.springframework.data.redis.core.RedisHash
 class OauthCode(
     @Id
     val code: String,
-    val email: String,
+    val email: String
 )

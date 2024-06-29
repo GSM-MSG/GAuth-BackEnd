@@ -16,4 +16,4 @@ class Coworker(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     val client: Client
-): BaseIdEntity(id)
+) : BaseIdEntity(id)

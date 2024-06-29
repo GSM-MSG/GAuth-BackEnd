@@ -8,7 +8,7 @@ enum class ErrorCode(
     PASSWORD_MISMATCH("비밀번호가 일치하지 않습니다.", 400),
     CLIENT_SECRET_MISMATCH("클라이언트 시크릿이 일치하지 않습니다.", 400),
     FILE_EXTENSION_INVALID("파일 확장자가 유효하지 않습니다.", 400),
-    ALREADY_AUTHENTICATED_MAIL("이미 인증된 메일 입니다.", 400),
+    ALREADY_AUTHENTICATED_EMAIL("이미 인증된 메일 입니다.", 400),
     INVALID_DELEGATE_USER("유효하지 않은 위임자입니다.", 400),
     SAME_PASSWORD_AND_NEW_PASSWORD("기본 비밀번호와 새 비밀번호가 일치합니다.", 400),
     ALREADY_EXIST_COWORKER("해당 서비스에 이미 존재하는 공동작업자입니다.", 400),
@@ -21,7 +21,8 @@ enum class ErrorCode(
     EXPIRED_REFRESH_TOKEN("리프레시 토큰이 만료되었습니다", 401),
     INVALID_REFRESH_TOKEN("리프레시 토큰이 변질되었습니다", 401),
     EMAIL_NOT_VERIFIED("인증된 이메일이 아닙니다.", 401),
-    USER_NOT_SAME("유저가 일치하지 않습니다", 401),
+    AUTH_CODE_NOT_VERIFIED("인증 코드가 확인되지 않았습니다", 401),
+    USER_NOT_MATCH("유저가 일치하지 않습니다", 401),
     OAUTH_CODE_EXPIRED("oauth 코드가 만료되었습니다.", 401),
 
     BAD_USER_ROLE_REQUEST("잘못된 유저 역할입니다..", 400),

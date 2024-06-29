@@ -25,6 +25,7 @@ class AuthController(
     private val signUpEmailVerificationService: SignUpEmailVerificationService,
     private val signUpMemberV2Service: SignUpMemberV2Service
 ) {
+
     @PatchMapping
     fun refresh(@RequestHeader("RefreshToken") refreshToken: String): ResponseEntity<RefreshResponseDto> {
         val result = refreshService.execute(refreshToken)
@@ -44,8 +45,8 @@ class AuthController(
     }
 
     @PostMapping("/signup")
-    fun signUpMember(@Valid @RequestBody signUpDto: SignUpDto): ResponseEntity<Void> {
-        signUpService.execute(signUpDto)
+    fun signUpMember(@Valid @RequestBody signUpRequestDto: SignUpRequestDto): ResponseEntity<Void> {
+        signUpService.execute(signUpRequestDto)
         return ResponseEntity(HttpStatus.CREATED)
     }
 
@@ -56,7 +57,11 @@ class AuthController(
     }
 
     @PatchMapping("/image")
-    fun uploadSignupImage(@RequestPart("image") image: MultipartFile, @RequestPart("imageUrl") previousUrl: String?, @RequestPart email: String): ResponseEntity<SignUpImageResDto> {
+    fun uploadSignupImage(
+        @RequestPart("image") image: MultipartFile,
+        @RequestPart("imageUrl") previousUrl: String?,
+        @RequestPart email: String
+    ): ResponseEntity<SignUpImageResDto> {
         val result = signUpImageUploadService.execute(image, previousUrl, email)
         return ResponseEntity.ok(result)
     }
@@ -69,7 +74,7 @@ class AuthController(
     }
 
     @PatchMapping("/password")
-    fun updatePassword(@RequestBody @Valid updatePasswordRequestDto: UpdatePasswordRequestDto): ResponseEntity<Void> {
+    fun updatePassword(@Valid @RequestBody updatePasswordRequestDto: UpdatePasswordRequestDto): ResponseEntity<Void> {
         updatePasswordService.execute(updatePasswordRequestDto)
         return ResponseEntity.noContent().build()
     }

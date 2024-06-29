@@ -24,7 +24,8 @@ class GenerateOauthCodeService(
     private val tooManyOAuthRequestValidUtil: TooManyOAuthRequestValidUtil,
     private val tempUserUtil: TempUserUtil,
     private val userUtil: UserUtil
-){
+) {
+
     fun execute(oauthLoginRequestDto: OauthCodeRequestDto): OauthCodeResponseDto {
         val user = userRepository.findByEmail(oauthLoginRequestDto.email)
             ?: throw UserNotFoundException()
@@ -51,7 +52,7 @@ class GenerateOauthCodeService(
         )
     }
 
-    fun execute(): OauthCodeResponseDto{
+    fun execute(): OauthCodeResponseDto {
         val user = userUtil.fetchCurrentUser()
 
         tempUserUtil.isUserBan(user)
@@ -68,5 +69,4 @@ class GenerateOauthCodeService(
             code = code
         )
     }
-
 }

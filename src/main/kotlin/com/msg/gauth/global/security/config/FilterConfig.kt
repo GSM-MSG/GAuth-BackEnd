@@ -21,6 +21,7 @@ class FilterConfig(
         val jwtTokenFilter = JwtTokenFilter(tokenParser, jwtTokenProvider)
         val exceptionFilter = ExceptionFilter(objectMapper)
         val requestLogFilter = RequestLogFilter()
+
         builder.addFilterBefore(requestLogFilter, UsernamePasswordAuthenticationFilter::class.java)
         builder.addFilterBefore(exceptionFilter, UsernamePasswordAuthenticationFilter::class.java)
         builder.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter::class.java)

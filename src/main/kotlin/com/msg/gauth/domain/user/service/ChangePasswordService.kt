@@ -14,10 +14,12 @@ class ChangePasswordService(
     private val emailAuthRepository: EmailAuthRepository,
     private val userUtil: UserUtil,
     private val userRepository: UserRepository,
-    private val passwordEncoder: PasswordEncoder,
-){
+    private val passwordEncoder: PasswordEncoder
+) {
+
     fun execute(passwordChangeReqDto: PasswordChangeReqDto){
         val currentUser = userUtil.fetchCurrentUser()
+
         val emailAuth = emailAuthRepository.findByIdOrNull(currentUser.email)
             ?: throw EmailNotVerifiedException()
 

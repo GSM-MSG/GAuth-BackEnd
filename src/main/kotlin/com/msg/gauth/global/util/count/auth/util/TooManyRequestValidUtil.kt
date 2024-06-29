@@ -19,7 +19,8 @@ class TooManyRequestValidUtil(
     private val secondSignInCountRepository: SecondSignInCountRepository,
     private val userRepository: UserRepository
 ) {
-    fun validRequest(email: String){
+
+    fun validRequest(email: String) {
         val secondSignInCount = (secondSignInCountRepository.findByIdOrNull(email)
             ?: secondSignInCountRepository.save(SecondSignInCount(email)))
 
@@ -31,6 +32,7 @@ class TooManyRequestValidUtil(
 
             throw SignInSecondCountOverException()
         }
+
         secondSignInCount.addCount()
 
         secondSignInCountRepository.save(secondSignInCount)
@@ -43,6 +45,7 @@ class TooManyRequestValidUtil(
                 ?: throw UserNotFoundException()
 
             userSignInBan(user)
+
             throw SignInMinuteCountOverException()
         }
 
@@ -50,7 +53,7 @@ class TooManyRequestValidUtil(
         minuteSignInCountRepository.save(minuteSignInCount)
     }
 
-    fun userSignInBan(user: User){
+    fun userSignInBan(user: User) {
         userRepository.save(
             User(
                 id = user.id,

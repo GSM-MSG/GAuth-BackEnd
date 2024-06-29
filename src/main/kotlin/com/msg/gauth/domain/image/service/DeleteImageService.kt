@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 class DeleteImageService(
     private val s3Util: S3Util
 ) {
+
     fun execute(url: String) {
         s3Util.deleteImage(url)
     }
