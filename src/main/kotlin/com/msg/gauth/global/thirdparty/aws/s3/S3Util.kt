@@ -33,14 +33,19 @@ class S3Util(
 
     private fun upload(file: MultipartFile): String {
         val profileName = "${bucket}/${UUID.randomUUID()}${file.originalFilename}"
+
         val metadata = ObjectMetadata()
+
         metadata.contentLength = file.inputStream.available().toLong()
+
         amazonS3.putObject(bucket, profileName, file.inputStream, metadata)
+
         return amazonS3.getUrl(bucket, profileName).toString()
     }
 
     fun deleteImage(url: String){
         val key = url.split("/")[3]
+
         amazonS3.deleteObject(bucket, key)
     }
 }
