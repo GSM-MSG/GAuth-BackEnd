@@ -21,11 +21,11 @@ class S3Util(
 
         val splitFile = image.originalFilename.toString().split(".")
 
-        if(splitFile.size < 2)
+        if(splitFile.size != 2)
             throw FileExtensionInvalidException()
-
-        val extension = splitFile[1].lowercase()
-
+            
+        val extension = splitFile.last().lowercase()
+        
         if(list.none { it == extension })
             throw FileExtensionInvalidException()
 
