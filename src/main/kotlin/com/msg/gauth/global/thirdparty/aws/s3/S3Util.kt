@@ -22,6 +22,9 @@ class S3Util(
         val splitFile = image.originalFilename.toString().split(".")
 
         val extension = splitFile.last().lowercase()
+
+        if(splitFile.size != 2)
+            throw FileExtensionInvalidException()
         
         if(list.none { it == extension })
             throw FileExtensionInvalidException()
