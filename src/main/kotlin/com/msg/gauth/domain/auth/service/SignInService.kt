@@ -38,7 +38,7 @@ class SignInService(
             throw PasswordMismatchException()
         }
 
-        if(user.state == UserState.PENDING)
+        if (user.state == UserState.PENDING)
             throw UserIsPendingException()
 
         tempUserUtil.resetWrongPasswordCount(user)

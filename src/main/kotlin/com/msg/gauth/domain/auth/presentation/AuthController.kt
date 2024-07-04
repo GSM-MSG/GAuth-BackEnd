@@ -66,7 +66,6 @@ class AuthController(
         return ResponseEntity.ok(result)
     }
 
-
     @PatchMapping("/password/initialize")
     fun initPassword(@Valid @RequestBody initPasswordRequestDto: InitPasswordRequestDto): ResponseEntity<Void> {
         initPasswordService.execute(initPasswordRequestDto)
@@ -84,5 +83,4 @@ class AuthController(
         signUpEmailVerificationService.execute(email)
         return ResponseEntity.ok().build()
     }
-
 }

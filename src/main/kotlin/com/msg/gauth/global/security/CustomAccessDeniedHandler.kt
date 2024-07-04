@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class CustomAccessDeniedHandler(
     private val objectMapper: ObjectMapper
-): AccessDeniedHandler {
+) : AccessDeniedHandler {
     private val log = LoggerFactory.getLogger(this::class.simpleName)
 
     override fun handle(

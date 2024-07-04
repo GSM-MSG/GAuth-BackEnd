@@ -20,7 +20,7 @@ class InitPasswordService(
         val emailAuth = emailAuthRepository.findByIdOrNull(initPasswordRequestDto.email)
             ?: throw EmailNotVerifiedException()
 
-        if(!emailAuth.authentication)
+        if (!emailAuth.authentication)
             throw EmailNotVerifiedException()
 
         val user = userRepository.findByEmail(initPasswordRequestDto.email)

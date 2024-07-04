@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse
 class JwtTokenFilter(
     private val tokenParser: TokenParser,
     private val jwtTokenProvider: JwtTokenProvider
-): OncePerRequestFilter() {
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,

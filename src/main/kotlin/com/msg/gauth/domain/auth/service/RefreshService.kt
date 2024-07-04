@@ -28,7 +28,8 @@ class RefreshService(
             throw InvalidRefreshTokenException()
 
         val (access, refresh) = jwtTokenProvider.run {
-            generateAccessToken(email) to generateRefreshToken(email)}
+            generateAccessToken(email) to generateRefreshToken(email)
+        }
 
         val newRefreshToken = RefreshToken(
             userId = existingRefreshToken.userId,

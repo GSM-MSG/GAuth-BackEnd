@@ -33,5 +33,4 @@ class EmailController(
         checkMailVerificationService.execute(email)
         return ResponseEntity.ok().build()
     }
-
 }

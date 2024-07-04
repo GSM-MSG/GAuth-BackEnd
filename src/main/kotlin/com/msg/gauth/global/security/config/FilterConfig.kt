@@ -15,7 +15,7 @@ class FilterConfig(
     private val tokenParser: TokenParser,
     private val jwtTokenProvider: JwtTokenProvider,
     private val objectMapper: ObjectMapper
-): SecurityConfigurerAdapter<DefaultSecurityFilterChain?, HttpSecurity>() {
+) : SecurityConfigurerAdapter<DefaultSecurityFilterChain?, HttpSecurity>() {
 
     override fun configure(builder: HttpSecurity) {
         val jwtTokenFilter = JwtTokenFilter(tokenParser, jwtTokenProvider)

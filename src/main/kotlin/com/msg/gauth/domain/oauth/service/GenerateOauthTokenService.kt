@@ -26,11 +26,13 @@ class GenerateOauthTokenService(
     private val oauthCodeRepository: OauthCodeRepository
 ) {
 
-    fun execute(oauthTokenRequestDto: OauthTokenRequestDto): OauthTokenResponseDto{
-        val client = (clientRepository.findByClientIdAndRedirectUri(oauthTokenRequestDto.clientId, oauthTokenRequestDto.redirectUri)
-            ?: throw ClientNotFindException())
+    fun execute(oauthTokenRequestDto: OauthTokenRequestDto): OauthTokenResponseDto {
+        val client = (
+            clientRepository.findByClientIdAndRedirectUri(oauthTokenRequestDto.clientId, oauthTokenRequestDto.redirectUri)
+                ?: throw ClientNotFindException()
+            )
 
-        if(client.clientSecret != oauthTokenRequestDto.clientSecret)
+        if (client.clientSecret != oauthTokenRequestDto.clientSecret)
             throw ClientSecretMismatchException()
 
         val oauthCode = oauthCodeRepository.findByIdOrNull(oauthTokenRequestDto.code)
@@ -40,8 +42,10 @@ class GenerateOauthTokenService(
 
         oauthCodeRepository.delete(oauthCode)
 
-        val user = (userRepository.findByEmail(email)
-            ?: throw UserNotFoundException())
+        val user = (
+            userRepository.findByEmail(email)
+                ?: throw UserNotFoundException()
+            )
 
         return tokenResponseDto(email, client, user)
     }

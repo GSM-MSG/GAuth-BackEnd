@@ -15,10 +15,10 @@ data class MyProfileResDto(
     val clientList: List<SingleClientResDto>
 ) {
 
-    constructor(user: User, clientList: List<SingleClientResDto>): this(
+    constructor(user: User, clientList: List<SingleClientResDto>) : this(
         userId = user.id,
         email = user.email,
-        name =user.name,
+        name = user.name,
         grade = user.grade,
         classNum = user.classNum,
         number = user.num,
@@ -35,7 +35,7 @@ data class MyProfileResDto(
         val serviceImgUrl: String
     ) {
 
-        constructor(client: Client): this(
+        constructor(client: Client) : this(
             id = client.id,
             clientId = client.clientId,
             serviceName = client.serviceName,

@@ -8,9 +8,9 @@ data class PasswordChangeReqDto(
     @field:NotBlank
     @field:Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[!@#\$%^*+=-?<>])(?=.*[0-9]).{8,20}\$")
     val password: String,
-){
+) {
 
-    fun toEntity(user: User, newPassword: String): User{
+    fun toEntity(user: User, newPassword: String): User {
         return User(
             id = user.id,
             email = user.email,

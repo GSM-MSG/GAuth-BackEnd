@@ -18,10 +18,10 @@ class SignUpImageUploadService(
         val emailAuth = emailAuthRepository.findByIdOrNull(email)
             ?: throw AuthCodeExpiredException()
 
-        if(!emailAuth.authentication)
+        if (!emailAuth.authentication)
             throw AuthCodeNotVerificationException()
 
-        if(previousUrl != null)
+        if (previousUrl != null)
             s3Util.deleteImage(previousUrl)
 
         return SignUpImageResDto(s3Util.imageUpload(image))

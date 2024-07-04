@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class CustomClientRepositoryImpl(
     private val jpaQueryFactory: JPAQueryFactory
-): CustomClientRepository {
+) : CustomClientRepository {
 
     override fun deleteAllByIdsAndCreatedBy(ids: List<Long>, createdBy: User) {
         jpaQueryFactory.delete(client)

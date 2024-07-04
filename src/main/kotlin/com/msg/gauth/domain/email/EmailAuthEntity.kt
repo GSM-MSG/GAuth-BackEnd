@@ -1,6 +1,5 @@
 package com.msg.gauth.domain.email
 
-import org.hibernate.annotations.ColumnDefault
 import org.hibernate.validator.constraints.Length
 import org.springframework.data.annotation.Id
 import org.springframework.data.redis.core.RedisHash
@@ -30,7 +29,7 @@ class EmailAuthEntity(
         return EmailAuthEntity(
             email = this.email,
             authentication = this.authentication,
-            attemptCount = this.attemptCount+1,
+            attemptCount = this.attemptCount + 1,
             randomValue = uuid,
         )
     }

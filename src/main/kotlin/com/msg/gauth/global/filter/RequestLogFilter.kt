@@ -33,7 +33,7 @@ class RequestLogFilter : OncePerRequestFilter() {
             log.error("=========================")
             log.error(e.cause.toString())
         }
-        
+
         log.info("=========================")
         log.info("response status = ${response.status}")
         log.info("=========================")

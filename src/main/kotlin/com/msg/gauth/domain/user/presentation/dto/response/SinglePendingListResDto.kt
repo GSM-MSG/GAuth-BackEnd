@@ -8,7 +8,7 @@ data class SinglePendingListResDto(
     val profileUrl: String?
 ) {
 
-    constructor(user: User): this(
+    constructor(user: User) : this(
         id = user.id,
         email = user.email,
         profileUrl = user.profileUrl

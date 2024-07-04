@@ -19,7 +19,7 @@ class RefreshOauthTokenService(
     private val tokenParser: TokenParser
 ) {
 
-    fun execute(requestToken: String): OauthTokenResponseDto{
+    fun execute(requestToken: String): OauthTokenResponseDto {
         val refreshToken = tokenParser.parseToken(requestToken)
             ?: throw InvalidRefreshTokenException()
 

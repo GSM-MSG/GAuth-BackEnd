@@ -1,10 +1,5 @@
 package com.msg.gauth.global.security.jwt
 
-import com.msg.gauth.global.security.auth.AuthDetailsService
-import com.msg.gauth.global.security.exception.ExpiredTokenException
-import com.msg.gauth.global.security.exception.InvalidTokenException
-import io.jsonwebtoken.Claims
-import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.stereotype.Component
@@ -24,13 +19,15 @@ class OauthTokenProvider(
     }
 
     fun generateOauthAccessToken(email: String, clientId: String): String =
-        generateOauthToken(email,
+        generateOauthToken(
+            email,
             OAUTH_ACCESS_TYPE, clientId, jwtProperties.oauthSecret,
             OAUTH_ACCESS_EXP
         )
 
     fun generateOauthRefreshToken(email: String, clientId: String): String =
-        generateOauthToken(email,
+        generateOauthToken(
+            email,
             OAUTH_REFRESH_TYPE, clientId, jwtProperties.oauthSecret,
             OAUTH_REFRESH_EXP
         )
@@ -44,6 +41,4 @@ class OauthTokenProvider(
             .setIssuedAt(Date())
             .setExpiration(Date(System.currentTimeMillis() + exp * 1000))
             .compact()
-
 }
-

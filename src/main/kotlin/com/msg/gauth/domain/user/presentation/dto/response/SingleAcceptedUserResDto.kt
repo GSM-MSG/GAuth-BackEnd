@@ -12,7 +12,7 @@ data class SingleAcceptedUserResDto(
     val profileUrl: String?
 ) {
 
-    constructor(user: User): this(
+    constructor(user: User) : this(
         user.id,
         user.name!!,
         user.email,
