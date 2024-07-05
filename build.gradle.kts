@@ -107,13 +107,9 @@ ktlint {
     verbose.set(true)
     android.set(false)
     outputToConsole.set(true)
-    coloredOutput.set(true)
+    coloredOutput.set(false)
     ignoreFailures.set(false)
     enableExperimentalRules.set(false)
 
     disabledRules.set(setOf("no-wildcard-imports", "import-ordering"))
-}
-
-tasks.named("build") {
-    dependsOn.remove(tasks.named("ktlintCheck"))
 }
