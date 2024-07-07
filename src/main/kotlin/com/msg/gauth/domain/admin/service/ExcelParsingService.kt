@@ -20,12 +20,12 @@ class ExcelParsingService(
     private val userRepository: UserRepository,
 ) {
 
-    fun execute(file: MultipartFile){
+    fun execute(file: MultipartFile) {
         val tika = Tika()
         val detect = tika.detect(file.bytes)
         val extension = FileNameUtils.getExtension(file.originalFilename)
 
-        if(!ExcelUtil.isExcel(detect, extension))
+        if (!ExcelUtil.isExcel(detect, extension))
             throw FileExtensionInvalidException()
 
         val workBook: Workbook =
@@ -34,10 +34,10 @@ class ExcelParsingService(
             else
                 HSSFWorkbook(file.inputStream)
 
-        val workSheet:Sheet = workBook.getSheetAt(0)
+        val workSheet: Sheet = workBook.getSheetAt(0)
         val map = hashMapOf<String, UpdateDto>()
 
-        for(i in 1 until workSheet.physicalNumberOfRows){
+        for (i in 1 until workSheet.physicalNumberOfRows) {
             val row = workSheet.getRow(i)
             val email = row.getCell(4).stringCellValue
 

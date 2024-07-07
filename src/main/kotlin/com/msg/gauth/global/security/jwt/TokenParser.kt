@@ -51,6 +51,4 @@ class TokenParser(
 
     private fun getTokenSubject(token: String, secret: Key): String =
         getTokenBody(token, secret).subject
-
-
 }

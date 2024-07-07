@@ -23,7 +23,7 @@ class SignUpMemberV2Service(
 ) {
 
     fun execute(signUpV2RequestDto: SignUpV2RequestDto) {
-        if(userRepository.existsByEmail(signUpV2RequestDto.email))
+        if (userRepository.existsByEmail(signUpV2RequestDto.email))
             throw DuplicateEmailException()
 
         if (userRepository.existsByGradeAndClassNumAndNum(signUpV2RequestDto.grade, signUpV2RequestDto.classNum, signUpV2RequestDto.num))

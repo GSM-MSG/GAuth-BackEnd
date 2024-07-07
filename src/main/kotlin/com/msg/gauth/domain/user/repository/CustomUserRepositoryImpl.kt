@@ -1,7 +1,6 @@
 package com.msg.gauth.domain.user.repository
 
 import com.msg.gauth.domain.user.QUser.user
-import com.msg.gauth.domain.user.QUserRole
 import com.msg.gauth.domain.user.QUserRole.userRole
 import com.msg.gauth.domain.user.User
 import com.msg.gauth.domain.user.enums.UserRoleType
@@ -37,12 +36,11 @@ class CustomUserRepositoryImpl(
                 keywordLike(keyword)
             )
 
-
-        if(gradeEq == null) {
-        orderSpecifiers.add(OrderSpecifier(Order.ASC, pathBuilder.get(user.grade)))
+        if (gradeEq == null) {
+            orderSpecifiers.add(OrderSpecifier(Order.ASC, pathBuilder.get(user.grade)))
         }
 
-        if(classNumEq == null) {
+        if (classNumEq == null) {
             orderSpecifiers.add(OrderSpecifier(Order.ASC, pathBuilder.get(user.classNum)))
         }
 
@@ -63,13 +61,13 @@ class CustomUserRepositoryImpl(
     }
 
     private fun gradeEq(grade: Int): BooleanExpression? =
-        if(grade != 0) user.grade.eq(grade) else null
+        if (grade != 0) user.grade.eq(grade) else null
 
     private fun classNumEq(classNum: Int): BooleanExpression? =
-        if(classNum != 0) user.classNum.eq(classNum) else null
+        if (classNum != 0) user.classNum.eq(classNum) else null
 
     private fun keywordLike(keyword: String): BooleanExpression? =
-        if(keyword.isNotEmpty()) user.name.like("%${keyword}%") else null
+        if (keyword.isNotEmpty()) user.name.like("%$keyword%") else null
 
     private fun roleEq(userRoleType: UserRoleType): BooleanExpression =
         userRole.userRoleType.eq(userRoleType)

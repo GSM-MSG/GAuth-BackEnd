@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
 
-data class SignUpV2RequestDto (
+data class SignUpV2RequestDto(
     @field:NotBlank
     @field:Pattern(regexp = "^[a-zA-Z0-9.]+@gsm.hs.kr$")
     val email: String,

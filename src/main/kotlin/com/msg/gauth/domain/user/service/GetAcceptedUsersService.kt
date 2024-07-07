@@ -11,7 +11,7 @@ class GetAcceptedUsersService(
     private val userRepository: UserRepository,
 ) {
     fun execute(request: AcceptedUserRequest): List<SingleAcceptedUserResDto> =
-        when(request.role) {
+        when (request.role) {
             UserRoleType.ROLE_STUDENT -> userRepository.search(request.grade, request.classNum, request.keyword)
             else -> userRepository.findAllByUserRoleType(request.role)
         }.map { SingleAcceptedUserResDto(it) }

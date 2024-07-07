@@ -14,7 +14,7 @@ class CheckMailVerificationService(
         val authEntity = emailAuthRepository.findByIdOrNull(email)
             ?: throw AuthCodeNotVerificationException()
 
-        if(!authEntity.authentication)
+        if (!authEntity.authentication)
             throw AuthCodeNotVerificationException()
     }
 }

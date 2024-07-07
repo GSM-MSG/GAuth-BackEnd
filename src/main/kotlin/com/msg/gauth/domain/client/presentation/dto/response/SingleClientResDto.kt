@@ -12,7 +12,7 @@ data class SingleClientResDto(
     val serviceImgUrl: String
 ) {
 
-    constructor(client: Client): this(
+    constructor(client: Client) : this(
         id = client.id,
         clientId = client.clientId,
         serviceName = client.serviceName,

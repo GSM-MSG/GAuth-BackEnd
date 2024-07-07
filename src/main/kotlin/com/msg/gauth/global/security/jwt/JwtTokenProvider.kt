@@ -1,16 +1,7 @@
 package com.msg.gauth.global.security.jwt
 
-import com.msg.gauth.domain.auth.repository.RefreshTokenRepository
-import com.msg.gauth.domain.oauth.repository.OauthRefreshTokenRepository
-import com.msg.gauth.global.security.auth.AuthDetailsService
-import com.msg.gauth.global.security.exception.ExpiredTokenException
-import com.msg.gauth.global.security.exception.InvalidTokenException
-import io.jsonwebtoken.Claims
-import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
 import java.security.Key
 import java.time.ZonedDateTime
@@ -54,5 +45,4 @@ class JwtTokenProvider(
         val token = req.getHeader("Authorization") ?: return null
         return tokenParser.parseToken(token)
     }
-
 }

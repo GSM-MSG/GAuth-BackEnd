@@ -18,7 +18,7 @@ data class ClientUpdateReqDto(
 
     @Enumerated(EnumType.STRING)
     val serviceScope: ServiceScope = ServiceScope.PUBLIC,
-    
+
     val serviceImgUrl: String = ""
 ) {
 

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class CustomAuthenticationEntryPoint(
     private val objectMapper: ObjectMapper
-): AuthenticationEntryPoint {
+) : AuthenticationEntryPoint {
     private val log = LoggerFactory.getLogger(this::class.simpleName)
 
     override fun commence(

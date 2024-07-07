@@ -1,7 +1,6 @@
 package com.msg.gauth.domain.user.service
 
 import com.msg.gauth.domain.user.presentation.dto.response.GetMyRolesResDto
-import com.msg.gauth.domain.user.repository.UserRoleRepository
 import com.msg.gauth.domain.user.util.UserUtil
 import com.msg.gauth.global.annotation.service.ReadOnlyService
 

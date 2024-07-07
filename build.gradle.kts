@@ -4,12 +4,14 @@ plugins {
     id("org.springframework.boot") version PluginVersion.SPRING_BOOT_VERSION
     id("io.spring.dependency-management") version PluginVersion.DEPENDENCY_MANAGER_VERSION
     id("com.ewerk.gradle.plugins.querydsl") version PluginVersion.QUERY_DSL_PLUGIN_VERSION
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
 
     kotlin("jvm") version PluginVersion.JVM_VERSION
     kotlin("plugin.spring") version PluginVersion.SPRING_PLUGIN_VERSION
     kotlin("plugin.jpa") version PluginVersion.JPA_PLUGIN_VERSION
     kotlin("kapt") version PluginVersion.KAPT_VERSION
     idea
+    application
 }
 
 group = "com.msg"
@@ -78,7 +80,6 @@ dependencies {
     implementation(Dependencies.PROMETHEUS_MICROMETER)
 }
 
-
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
@@ -96,4 +97,19 @@ idea {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+application {
+    mainClass.set("com.msg.gauth.GauthBackendApplicationKt")
+}
+
+ktlint {
+    verbose.set(true)
+    android.set(false)
+    outputToConsole.set(true)
+    coloredOutput.set(false)
+    ignoreFailures.set(false)
+    enableExperimentalRules.set(false)
+
+    disabledRules.set(setOf("no-wildcard-imports", "import-ordering"))
 }

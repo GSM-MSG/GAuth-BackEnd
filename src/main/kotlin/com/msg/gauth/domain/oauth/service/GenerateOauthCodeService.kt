@@ -39,7 +39,7 @@ class GenerateOauthCodeService(
             throw PasswordMismatchException()
         }
 
-        if(user.state == UserState.PENDING)
+        if (user.state == UserState.PENDING)
             throw UserStatePendingException()
 
         tempUserUtil.resetOAuthWrongPasswordCount(user)
@@ -58,7 +58,7 @@ class GenerateOauthCodeService(
         tempUserUtil.isUserBan(user)
         tooManyOAuthRequestValidUtil.validRequest(user.email)
 
-        if(user.state == UserState.PENDING)
+        if (user.state == UserState.PENDING)
             throw UserStatePendingException()
 
         val code = UUID.randomUUID().toString().split(".")[0]

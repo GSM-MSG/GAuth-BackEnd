@@ -17,13 +17,13 @@ class ChangePasswordService(
     private val passwordEncoder: PasswordEncoder
 ) {
 
-    fun execute(passwordChangeReqDto: PasswordChangeReqDto){
+    fun execute(passwordChangeReqDto: PasswordChangeReqDto) {
         val currentUser = userUtil.fetchCurrentUser()
 
         val emailAuth = emailAuthRepository.findByIdOrNull(currentUser.email)
             ?: throw EmailNotVerifiedException()
 
-        if(!emailAuth.authentication)
+        if (!emailAuth.authentication)
             throw EmailNotVerifiedException()
 
         val user = passwordChangeReqDto.toEntity(

@@ -21,19 +21,19 @@ class S3Util(
 
         val splitFile = image.originalFilename.toString().split(".")
 
-        if(splitFile.size != 2)
+        if (splitFile.size != 2)
             throw FileExtensionInvalidException()
-            
+
         val extension = splitFile.last().lowercase()
-        
-        if(list.none { it == extension })
+
+        if (list.none { it == extension })
             throw FileExtensionInvalidException()
 
         return upload(image)
     }
 
     private fun upload(file: MultipartFile): String {
-        val profileName = "${bucket}/${UUID.randomUUID()}${file.originalFilename}"
+        val profileName = "$bucket/${UUID.randomUUID()}${file.originalFilename}"
 
         val metadata = ObjectMetadata()
 
@@ -44,7 +44,7 @@ class S3Util(
         return amazonS3.getUrl(bucket, profileName).toString()
     }
 
-    fun deleteImage(url: String){
+    fun deleteImage(url: String) {
         val key = url.split("/")[3]
 
         amazonS3.deleteObject(bucket, key)
