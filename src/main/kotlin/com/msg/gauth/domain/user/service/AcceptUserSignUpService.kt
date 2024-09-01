@@ -7,6 +7,7 @@ import com.msg.gauth.domain.user.presentation.dto.request.AcceptUserReqDto
 import com.msg.gauth.domain.user.repository.UserRepository
 import com.msg.gauth.domain.user.repository.UserRoleRepository
 import com.msg.gauth.global.annotation.service.TransactionalService
+import org.springframework.cache.annotation.CacheEvict
 
 @TransactionalService
 class AcceptUserSignUpService(
@@ -14,6 +15,7 @@ class AcceptUserSignUpService(
     private val userRoleRepository: UserRoleRepository
 ) {
 
+    @CacheEvict(value = ["AcceptedUser"], allEntries = true, cacheManager = "userCacheManager")
     fun execute(id: Long, acceptUserReqDto: AcceptUserReqDto) {
         val user = userRepository.findByIdAndState(id, UserState.PENDING)
             ?: throw UserNotFoundException()

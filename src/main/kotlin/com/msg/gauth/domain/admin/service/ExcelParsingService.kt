@@ -13,13 +13,14 @@ import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.apache.tika.Tika
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.web.multipart.MultipartFile
 
 @TransactionalService
 class ExcelParsingService(
     private val userRepository: UserRepository,
 ) {
-
+    @CacheEvict(value = ["AcceptedUser"], allEntries = true, cacheManager = "userCacheManager")
     fun execute(file: MultipartFile) {
         val tika = Tika()
         val detect = tika.detect(file.bytes)
