@@ -17,6 +17,7 @@ object Dependencies {
     const val SPRING_SECURITY_TEST = "org.springframework.security:spring-security-test"
     const val SPRING_AOP = "org.springframework.boot:spring-boot-starter-aop"
     const val SPRING_ACTUATOR = "org.springframework.boot:spring-boot-starter-actuator"
+    const val SPRING_CACHE = "org.springframework.boot:spring-boot-starter-cache"
 
     // jackson
     const val JACKSON_MODULE_KOTLIN = "com.fasterxml.jackson.module:jackson-module-kotlin"

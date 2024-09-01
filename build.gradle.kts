@@ -43,6 +43,8 @@ dependencies {
     testImplementation(Dependencies.SPRING_SECURITY_TEST)
     implementation(Dependencies.SPRING_AOP)
     implementation(Dependencies.SPRING_ACTUATOR)
+    implementation(Dependencies.SPRING_CACHE)
+
 
     // kotlin
     implementation(Dependencies.JACKSON_MODULE_KOTLIN)
