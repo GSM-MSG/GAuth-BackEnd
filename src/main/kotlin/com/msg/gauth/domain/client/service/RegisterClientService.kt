@@ -14,7 +14,7 @@ class RegisterClientService(
     private val userUtil: UserUtil,
 ) {
 
-    @CacheEvict(value= ["Clients"], allEntries = true, cacheManager = "clientCacheManager")
+    @CacheEvict(value = ["Clients"], allEntries = true, cacheManager = "clientCacheManager")
     fun execute(clientRegisterDto: ClientRegisterReqDto): ClientRegisterResDto {
         val (clientSecret, clientId) = createUUID() to createUUID()
 

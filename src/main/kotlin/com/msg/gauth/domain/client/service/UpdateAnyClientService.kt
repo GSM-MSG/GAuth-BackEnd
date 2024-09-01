@@ -13,7 +13,7 @@ class UpdateAnyClientService(
     private val clientRepository: ClientRepository
 ) {
 
-    @CacheEvict(value= ["Clients"], allEntries = true, cacheManager = "clientCacheManager")
+    @CacheEvict(value = ["Clients"], allEntries = true, cacheManager = "clientCacheManager")
     fun execute(id: Long, clientUpdateReqDto: ClientUpdateReqDto) {
         val client: Client = clientRepository.findByIdOrNull(id)
             ?: throw ClientNotFindException()

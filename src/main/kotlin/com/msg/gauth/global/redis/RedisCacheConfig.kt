@@ -53,5 +53,4 @@ class RedisCacheConfig {
             .cacheDefaults(cacheConfig)
             .build()
     }
-
 }
