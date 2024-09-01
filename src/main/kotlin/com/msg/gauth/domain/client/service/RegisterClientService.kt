@@ -5,6 +5,7 @@ import com.msg.gauth.domain.client.presentation.dto.response.ClientRegisterResDt
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.user.util.UserUtil
 import com.msg.gauth.global.annotation.service.TransactionalService
+import org.springframework.cache.annotation.CacheEvict
 import java.util.UUID
 
 @TransactionalService
@@ -13,6 +14,7 @@ class RegisterClientService(
     private val userUtil: UserUtil,
 ) {
 
+    @CacheEvict(value= ["Clients"], allEntries = true, cacheManager = "clientCacheManager")
     fun execute(clientRegisterDto: ClientRegisterReqDto): ClientRegisterResDto {
         val (clientSecret, clientId) = createUUID() to createUUID()
 
