@@ -34,4 +34,22 @@ class RedisCacheConfig {
             .build()
     }
 
+    @Bean
+    fun userCacheManager(factory: RedisConnectionFactory?): CacheManager {
+        val cacheConfig = RedisCacheConfiguration.defaultCacheConfig()
+            .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(StringRedisSerializer()))
+            .serializeValuesWith(
+                RedisSerializationContext.SerializationPair.fromSerializer(
+                    GenericJackson2JsonRedisSerializer()
+                )
+            )
+            .entryTtl(Duration.ofMinutes(1L))
+
+        return RedisCacheManager
+            .RedisCacheManagerBuilder
+            .fromConnectionFactory(factory!!)
+            .cacheDefaults(cacheConfig)
+            .build()
+    }
+
 }
