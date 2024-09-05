@@ -14,7 +14,7 @@ class DeleteClientService(
     private val userUtil: UserUtil,
 ) {
 
-    @CacheEvict(value = ["Clients"], allEntries = true, cacheManager = "clientCacheManager")
+    @CacheEvict(value = ["Clients"], allEntries = true, cacheManager = "redisCacheManager")
     fun execute(id: Long) {
         val client = clientRepository.findByIdOrNull(id)
             ?: throw ClientNotFindException()

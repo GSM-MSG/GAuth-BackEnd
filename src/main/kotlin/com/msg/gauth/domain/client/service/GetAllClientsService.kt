@@ -11,7 +11,7 @@ class GetAllClientsService(
     private val clientRepository: ClientRepository
 ) {
 
-    @Cacheable(value = ["Clients"], cacheManager = "clientCacheManager")
+    @Cacheable(value = ["Clients"], cacheManager = "redisCacheManager")
     fun execute(): List<SingleClientResDto> =
         clientRepository.findByServiceScope(ServiceScope.PUBLIC)
             .map { SingleClientResDto(it) }

@@ -12,7 +12,7 @@ class GetAcceptedUsersService(
     private val userRepository: UserRepository,
 ) {
 
-    @Cacheable(value = ["AcceptedUser"], cacheManager = "userCacheManager")
+    @Cacheable(value = ["AcceptedUser"], cacheManager = "redisCacheManager")
     fun execute(request: AcceptedUserRequest): List<SingleAcceptedUserResDto> =
         when (request.role) {
             UserRoleType.ROLE_STUDENT -> userRepository.search(request.grade, request.classNum, request.keyword)

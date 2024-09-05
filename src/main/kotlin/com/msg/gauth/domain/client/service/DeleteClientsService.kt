@@ -11,7 +11,7 @@ class DeleteClientsService(
     private val userUtil: UserUtil
 ) {
 
-    @CacheEvict(value = ["Clients"], allEntries = true, cacheManager = "clientCacheManager")
+    @CacheEvict(value = ["Clients"], allEntries = true, cacheManager = "redisCacheManager")
     fun execute(ids: List<Long>) {
         val user = userUtil.fetchCurrentUser()
 
