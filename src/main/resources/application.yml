@@ -20,7 +20,7 @@ spring:
     type: redis
     cache-names:
         - Clients
-        - AcceptedUser
+        - AcceptedUsers
 
   redis:
     host: ${REDIS_HOST}
