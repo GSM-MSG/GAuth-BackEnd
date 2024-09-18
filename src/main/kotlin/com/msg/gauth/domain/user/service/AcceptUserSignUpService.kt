@@ -15,7 +15,7 @@ class AcceptUserSignUpService(
     private val userRoleRepository: UserRoleRepository
 ) {
 
-    @CacheEvict(value = ["AcceptedUser"], allEntries = true, cacheManager = "redisCacheManager")
+    @CacheEvict(value = ["AcceptedUsers"], allEntries = true, cacheManager = "redisCacheManager")
     fun execute(id: Long, acceptUserReqDto: AcceptUserReqDto) {
         val user = userRepository.findByIdAndState(id, UserState.PENDING)
             ?: throw UserNotFoundException()
