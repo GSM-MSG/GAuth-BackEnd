@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile
 class ExcelParsingService(
     private val userRepository: UserRepository,
 ) {
-    @CacheEvict(value = ["AcceptedUsers"], allEntries = true, cacheManager = "userCacheManager")
+    @CacheEvict(value = ["AcceptedUsers"], allEntries = true, cacheManager = "redisCacheManager")
     fun execute(file: MultipartFile) {
         val tika = Tika()
         val detect = tika.detect(file.bytes)
