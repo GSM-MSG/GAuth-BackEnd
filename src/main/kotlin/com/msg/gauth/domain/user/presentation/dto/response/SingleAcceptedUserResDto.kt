@@ -1,15 +1,17 @@
 package com.msg.gauth.domain.user.presentation.dto.response
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.msg.gauth.domain.user.User
 
-data class SingleAcceptedUserResDto(
-    val id: Long,
-    val name: String,
-    val email: String,
-    val grade: Int?,
-    val classNum: Int?,
-    val num: Int?,
-    val profileUrl: String?
+data class SingleAcceptedUserResDto @JsonCreator constructor(
+    @JsonProperty("id") val id: Long,
+    @JsonProperty("name") val name: String,
+    @JsonProperty("email") val email: String,
+    @JsonProperty("grade") val grade: Int?,
+    @JsonProperty("classNum") val classNum: Int?,
+    @JsonProperty("num") val num: Int?,
+    @JsonProperty("profileUrl") val profileUrl: String?
 ) {
 
     constructor(user: User) : this(

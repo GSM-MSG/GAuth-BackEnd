@@ -5,6 +5,7 @@ import com.msg.gauth.domain.client.exception.UserNotMatchException
 import com.msg.gauth.domain.client.repository.ClientRepository
 import com.msg.gauth.domain.user.util.UserUtil
 import com.msg.gauth.global.annotation.service.TransactionalService
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.data.repository.findByIdOrNull
 
 @TransactionalService
@@ -13,6 +14,7 @@ class DeleteClientService(
     private val userUtil: UserUtil,
 ) {
 
+    @CacheEvict(value = ["Clients"], allEntries = true, cacheManager = "redisCacheManager")
     fun execute(id: Long) {
         val client = clientRepository.findByIdOrNull(id)
             ?: throw ClientNotFindException()

@@ -16,6 +16,11 @@ spring:
     password: ${DB_PASSWORD}
     driver-class-name: ${DB_DRIVER_CLASS}
 
+  cache:
+    type: redis
+    cache-names:
+        - Clients
+        - AcceptedUsers
 
   redis:
     host: ${REDIS_HOST}
